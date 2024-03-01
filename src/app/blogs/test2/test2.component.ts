@@ -6,5 +6,11 @@ import { Component } from '@angular/core';
   styleUrl: './test2.component.scss'
 })
 export class Test2Component {
+  isDisabled = true
 
+  constructor() {
+    setTimeout(() => {
+      this.isDisabled = false
+    }, 2000)
+  }
 }

@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
 
 @Component({
-  selector: 'app-test',
+  selector: 'blog-test',
   templateUrl: './test.component.html',
   styleUrl: './test.component.scss'
 })
@@ -10,3 +9,4 @@ import { RouterOutlet } from '@angular/router';
 export class TestComponent {
   title = 'lala';
 }
+
