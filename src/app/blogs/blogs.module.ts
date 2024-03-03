@@ -1,21 +1,23 @@
 import {NgModule} from "@angular/core";
-import {TestComponent} from "./test/test.component";
+import {PostComponent} from "./post/post.component";
 import {FormsModule} from "@angular/forms";
-import {NgClass, NgForOf, NgIf} from "@angular/common";
+import {AsyncPipe, NgClass, NgForOf, NgIf} from "@angular/common";
+import {HttpClientModule} from "@angular/common/http";
 
 //
 
 @NgModule({
-  declarations: [TestComponent],
+  declarations: [PostComponent],
   imports: [
     FormsModule,
     NgIf,
     NgForOf,
-    NgClass
+    NgClass,
+    AsyncPipe,
   ],
   providers: [],
   exports: [
-    TestComponent,
+    PostComponent,
   ]
 })
 

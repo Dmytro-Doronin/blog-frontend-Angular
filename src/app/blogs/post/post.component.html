@@ -1,0 +1,11 @@
+<div class="post" *ngFor="let post of (posts$ | async)">
+  <span>Title </span>
+  <p>{{post.title}}</p>
+  <span>Body </span>
+  <p>{{post.body}}</p>
+  <button (click)="deletePost(post.id)">Удалить пост с id -{{post.id}}</button>
+</div>
+
+
+
+
