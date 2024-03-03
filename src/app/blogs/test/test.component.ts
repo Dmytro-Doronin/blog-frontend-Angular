@@ -8,5 +8,16 @@ import { RouterOutlet } from '@angular/router';
 })
 
 export class TestComponent {
-  title = 'lala';
+  title?: string
+  subtitle?: string
+  loading? = true
+
+  constructor() {
+    setTimeout(() => {
+      this.loading = false
+    }, 2000)
+  }
+  setTitle (value: string) {
+    this.title = value
+  }
 }

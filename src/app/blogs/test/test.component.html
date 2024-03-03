@@ -1,1 +1,7 @@
-<h1 class="title">Hi test 123</h1>
+<h1 *ngIf="loading">Loading...</h1>
+
+<div *ngIf="!loading">
+  <h1 class="title">{{title}}</h1>
+  <app-test2 (headerEvent)="setTitle($event)"></app-test2>
+</div>
+
