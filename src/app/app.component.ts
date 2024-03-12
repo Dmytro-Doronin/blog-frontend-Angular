@@ -1,13 +1,14 @@
 import { Component } from '@angular/core'
 import { RouterOutlet } from '@angular/router'
 import { HttpClientModule } from '@angular/common/http'
-import {AuthModule} from "./auth/auth.module";
-import {BlogModule} from "./blog/blog.module";
+import { AuthModule } from './auth/auth.module'
+import { BlogModule } from './blog/blog.module'
+import { HeaderModule } from './sharedModules/header/header.module'
 
 @Component({
-  selector: 'app-root',
+  selector: 'blog-root',
   standalone: true,
-  imports: [RouterOutlet, HttpClientModule, AuthModule, BlogModule],
+  imports: [RouterOutlet, HttpClientModule, AuthModule, BlogModule, HeaderModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })

@@ -1,9 +1,14 @@
+
 .container {
-  display: flex;
-  //max-width: 1200px;
+  max-width: 1280px;
+  margin: 0 auto;
 }
 
 .posts {
   display: flex;
   flex-wrap: wrap;
+}
+
+.app {
+  margin-top: var(--header-height);
 }
