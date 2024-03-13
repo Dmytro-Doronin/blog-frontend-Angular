@@ -5,14 +5,12 @@
     [(ngModel)]="inputValue"
     [class.hasValue]="inputValue.trim() !== ''"
   />
-  <!--  <span class="materialSymbols">-->
-  <!--    {{ span }}-->
-  <!--  </span>-->
 
   <label for="text">{{ title }}</label>
   <div class="underline"></div>
 
-  <div *ngIf="showIcon" class="eyeContainer">
-    <blog-eye [ngClass]="'eye'"></blog-eye>
+  <div (click)="changeInputType(type)" *ngIf="showIcon" class="eyeContainer">
+    <blog-eye-close *ngIf="type === 'password'" [ngClass]="'eye'"></blog-eye-close>
+    <blog-eye-open *ngIf="type === 'text'" [ngClass]="'eye'" height="20" width="20"></blog-eye-open>
   </div>
 </div>
