@@ -1,0 +1,15 @@
+<div class="adTextBox">
+  <input
+  type='text'
+  id="text"
+  [(ngModel)]="inputValue"
+  [class.hasValue]="inputValue.trim() !== ''"
+  />
+<!--  <span-->
+<!--    class="materialSymbols"-->
+<!--  >-->
+<!--    {{span}}-->
+<!--  </span>-->
+  <label for="text">{{title}}</label>
+  <div class="underline"></div>
+</div>

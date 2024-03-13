@@ -3,7 +3,7 @@ import { RouterOutlet } from '@angular/router'
 import { HttpClientModule } from '@angular/common/http'
 import { AuthModule } from './auth/auth.module'
 import { BlogModule } from './blog/blog.module'
-import { HeaderModule } from './sharedModules/header/header.module'
+import { HeaderModule } from './shared/header/header.module'
 
 @Component({
   selector: 'blog-root',

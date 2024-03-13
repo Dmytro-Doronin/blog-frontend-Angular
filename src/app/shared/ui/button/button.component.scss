@@ -1,0 +1,39 @@
+
+@mixin button {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  letter-spacing: 0;
+  text-align: center;
+  color: var(--color-light-100);
+  border: none;
+  cursor: pointer;
+
+  padding: 8px 36px 8px 36px;
+  border-radius: 2px;
+  gap: 10px;
+
+  transition: 0.3s hover ease-in-out;
+
+  &:hover {
+    box-shadow: 0 1px 0 0 #FFFFFF4D inset;
+  }
+}
+
+
+.primary {
+  @include button;
+  background-color: var(--color-danger-300);
+  box-shadow: 0 4px 18px 0 #F8346B59;
+  transition: 0.3s hover ease-in-out;
+}
+
+.secondary {
+  @include button;
+  color: #000;
+  background-color: transparent;
+}
+
+.fullWidth {
+  width: 100%;
+}

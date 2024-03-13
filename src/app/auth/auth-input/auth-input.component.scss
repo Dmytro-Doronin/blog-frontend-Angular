@@ -1,0 +1,91 @@
+.adTextBox > :is(input:focus, input.hasValue) ~ span {
+  color: rgba(0,0,0, 0.96);
+}
+
+.adTextBox > :is(input:focus, input.hasValue) ~ label {
+  translate: 0 -34px;
+  //scale: 0.875;
+  color: var(--secondary-color);
+}
+
+.adTextBox > :is(input:focus, input.hasValue) ~ .underline {
+  transform: scaleX(1);
+  background-color: var(--secondary-color);
+}
+
+.adTextBox > :is(input:focus, input.hasValue) ~ .materialSymbols {
+  transform: scaleX(1);
+  color: var(--secondary-color);
+}
+
+
+.adTextBox > span {
+  top: 50%;
+  left: 0;
+}
+
+.adTextBox > label {
+  top: 50%;
+  left: 0;
+  white-space: nowrap;
+}
+
+.adTextBox > input {
+  //styleName: regular_text / Neutral Dark-60;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: 0;
+  text-align: left;
+
+
+  outline: none;
+  height: 60px;
+  width: 100%;
+  color: black !important;
+  border: 0;
+  border-bottom: 2px solid rgba(0,0,0, 0.5);
+  background: transparent;
+  color: rgba(255,255,255, 0.96);
+}
+
+.adTextBox > :is(input:focus, input.hasValue) {
+  width: 100%
+}
+
+.adTextBox {
+  position: relative;
+  //margin-bottom: 20px;
+}
+
+.adTextBox > .underline {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 2px;
+  background: #0fa5a2;
+  transform: scaleX(0);
+  transition: 0.35s;
+}
+
+.adTextBox > span,
+.adTextBox > label {
+
+  //styleName: small_text/Neutral Dark+60;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: 0em;
+  text-align: left;
+
+  position: absolute;
+  font-size: 16px;
+  pointer-events: none;
+  //translate: 0 -50%;
+  color: rgba(0,0,0, 0.5);
+  transition: 0.35s;
+}
+
+.materialSymbols {
+  color:rgba(0,0,0, 0.5) ;
+}
