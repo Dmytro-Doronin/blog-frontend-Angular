@@ -1,15 +1,18 @@
 <div class="adTextBox">
   <input
-  type='text'
-  id="text"
-  [(ngModel)]="inputValue"
-  [class.hasValue]="inputValue.trim() !== ''"
+    type="{{ type }}"
+    id="text"
+    [(ngModel)]="inputValue"
+    [class.hasValue]="inputValue.trim() !== ''"
   />
-<!--  <span-->
-<!--    class="materialSymbols"-->
-<!--  >-->
-<!--    {{span}}-->
-<!--  </span>-->
-  <label for="text">{{title}}</label>
+  <!--  <span class="materialSymbols">-->
+  <!--    {{ span }}-->
+  <!--  </span>-->
+
+  <label for="text">{{ title }}</label>
   <div class="underline"></div>
+
+  <div *ngIf="showIcon" class="eyeContainer">
+    <blog-eye [ngClass]="'eye'"></blog-eye>
+  </div>
 </div>

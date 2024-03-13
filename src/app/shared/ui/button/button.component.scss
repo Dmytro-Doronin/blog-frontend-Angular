@@ -1,5 +1,4 @@
-
-@mixin button {
+.button {
   font-size: 14px;
   font-weight: 600;
   line-height: 20px;
@@ -13,23 +12,23 @@
   border-radius: 2px;
   gap: 10px;
 
-  transition: 0.3s hover ease-in-out;
+  transition: all 0.3s ease-in-out;
 
-  &:hover {
-    box-shadow: 0 1px 0 0 #FFFFFF4D inset;
-  }
 }
 
+.button:hover {
+  box-shadow: 0 4px 18px 0 #F8346B59;
+  transition: all 0.3s ease-in-out;
+}
 
 .primary {
-  @include button;
+  @extend .button;
   background-color: var(--color-danger-300);
-  box-shadow: 0 4px 18px 0 #F8346B59;
-  transition: 0.3s hover ease-in-out;
+  box-shadow: 0 1px 0 0 #FFFFFF4D inset;
 }
 
 .secondary {
-  @include button;
+  @extend .button;
   color: #000;
   background-color: transparent;
 }
