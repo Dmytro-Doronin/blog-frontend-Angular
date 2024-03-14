@@ -1,3 +1,4 @@
-<button [ngClass]="{'primary': buttonType === 'Primary', 'secondary': buttonType === 'Secondary', 'fullWidth': fullWidth}" >
+
+<button [class]="className"  [ngClass]="{'primary': buttonType === 'Primary', 'secondary': buttonType === 'Secondary', 'fullWidth': fullWidth}" >
   <ng-content></ng-content>
 </button>

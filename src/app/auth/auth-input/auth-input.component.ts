@@ -12,6 +12,7 @@ import {EyeOpenComponent} from "../eye-open/eye-open.component";
   styleUrl: './auth-input.component.scss',
 })
 export class AuthInputComponent {
+  @Input() id: string = 'text'
   @Input() title: string = ''
   @Input() type: string = 'text'
   @Input() showIcon: boolean = false

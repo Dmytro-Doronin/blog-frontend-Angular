@@ -1,0 +1,15 @@
+<blog-card>
+  <blog-typography [content]="'Sing Up'" variant="h3"></blog-typography>
+  <form action="">
+      <blog-auth-input [id]="'Username'" [title]="'Username'" ></blog-auth-input>
+      <blog-auth-input [id]="'Email'" [title]="'Email'"></blog-auth-input>
+      <blog-auth-input
+        [showIcon]="true"
+        [id]="'Password'"
+        [title]="'Password'"
+        [type]="'password'"
+      ></blog-auth-input>
+    <blog-button [className]="'formButton'" [fullWidth]="true">Sing Up</blog-button>
+  </form>
+  <blog-typography [content]="'Already a member?'" variant="body1"></blog-typography>
+</blog-card>

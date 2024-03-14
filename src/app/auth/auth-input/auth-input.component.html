@@ -1,12 +1,12 @@
 <div class="adTextBox">
   <input
     type="{{ type }}"
-    id="text"
+    id="{{id}}"
     [(ngModel)]="inputValue"
     [class.hasValue]="inputValue.trim() !== ''"
   />
 
-  <label for="text">{{ title }}</label>
+  <label for="{{id}}">{{ title }}</label>
   <div class="underline"></div>
 
   <div (click)="changeInputType(type)" *ngIf="showIcon" class="eyeContainer">

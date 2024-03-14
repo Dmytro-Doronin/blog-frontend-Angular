@@ -1,0 +1,15 @@
+<ng-container class="typoContainer" [ngSwitch]="variant">
+  <p *ngSwitchCase="'large'" class="large">{{ content }}</p>
+  <h1 *ngSwitchCase="'h1'">{{ content }}</h1>
+  <h2 *ngSwitchCase="'h2'">{{ content }}</h2>
+  <h3 *ngSwitchCase="'h3'" class="h3">{{ content }}</h3>
+  <p *ngSwitchCase="'body1'" class="body1">{{ content }}</p>
+  <p *ngSwitchCase="'body2'">{{ content }}</p>
+  <p *ngSwitchCase="'subtitle1'">{{ content }}</p>
+  <p *ngSwitchCase="'subtitle2'">{{ content }}</p>
+  <p *ngSwitchCase="'caption'">{{ content }}</p>
+  <p *ngSwitchCase="'overline'">{{ content }}</p>
+  <a *ngSwitchCase="'link1'">{{ content }}</a>
+  <a *ngSwitchCase="'link2'">{{ content }}</a>
+  <p *ngSwitchCase="'error'">{{ content }}</p>
+</ng-container>

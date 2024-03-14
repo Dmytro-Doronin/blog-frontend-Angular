@@ -1,11 +1,12 @@
 import {Component, Input} from '@angular/core';
-import {NgClass} from "@angular/common";
+import {NgClass, NgSwitch} from "@angular/common";
 
 @Component({
   selector: 'blog-button',
   standalone: true,
   imports: [
-    NgClass
+    NgClass,
+    NgSwitch
   ],
   templateUrl: './button.component.html',
   styleUrl: './button.component.scss'
@@ -13,4 +14,5 @@ import {NgClass} from "@angular/common";
 export class ButtonComponent {
   @Input() buttonType: 'Primary' | 'Secondary' = 'Primary'
   @Input() fullWidth?: boolean = false
+  @Input() className: string = 'button'
 }
