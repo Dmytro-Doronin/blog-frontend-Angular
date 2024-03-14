@@ -6,9 +6,10 @@ import {ButtonComponent} from "../shared/ui/button/button.component";
 import {AuthInputComponent} from "./auth-input/auth-input.component";
 import {CardComponent} from "./card/card.component";
 import {AuthLoginFormComponent} from "./auth-login-form/auth-login-form.component";
+import {LoginImageComponent} from "./auth-images/login-image/login-image.component";
 
 @NgModule({
   declarations: [AuthLoginComponent],
-    imports: [CommonModule, AuthRoutingModule, ButtonComponent, AuthInputComponent, CardComponent, AuthLoginFormComponent],
+  imports: [CommonModule, AuthRoutingModule, ButtonComponent, AuthInputComponent, CardComponent, AuthLoginFormComponent, LoginImageComponent],
 })
 export class AuthModule {}

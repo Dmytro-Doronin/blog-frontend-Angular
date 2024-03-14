@@ -32,12 +32,31 @@
   background-color: transparent;
 }
 
+
+.tertiary {
+  @extend .button;
+  color: var(--color-danger-300);
+  text-decoration: underline;
+  background-color: transparent;
+
+  &:hover {
+    box-shadow: none;
+  }
+
+}
+
 .fullWidth {
   width: 100%;
 }
 
 .formButton {
-  margin-top: 72px;
+  margin-top: 55px;
   margin-bottom: 18px;
+}
+
+.formLink {
+  //display: block;
+  //margin: 0 auto;
+  text-align: center;
 }
 

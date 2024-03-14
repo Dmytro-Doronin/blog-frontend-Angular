@@ -1,15 +1,40 @@
 <blog-card>
   <blog-typography [content]="'Sing Up'" variant="h3"></blog-typography>
-  <form action="">
-      <blog-auth-input [id]="'Username'" [title]="'Username'" ></blog-auth-input>
-      <blog-auth-input [id]="'Email'" [title]="'Email'"></blog-auth-input>
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
       <blog-auth-input
+        [control]="loginForm.controls.username"
+        [id]="'username'"
+        [title]="'Username'"
+      >
+      </blog-auth-input>
+      <blog-auth-input
+        [control]="loginForm.controls.email"
+        [id]="'email'"
+        [title]="'Email'"
+      >
+      </blog-auth-input>
+      <blog-auth-input
+        [control]="loginForm.controls.password"
         [showIcon]="true"
-        [id]="'Password'"
+        [id]="'password'"
         [title]="'Password'"
         [type]="'password'"
-      ></blog-auth-input>
-    <blog-button [className]="'formButton'" [fullWidth]="true">Sing Up</blog-button>
+      >
+      </blog-auth-input>
+    <blog-button
+      [type]="'button'"
+      [content]="'Sing Up'"
+      variant="Primary"
+      [className]="'formButton'"
+      [fullWidth]="true"
+    >
+    </blog-button>
   </form>
   <blog-typography [content]="'Already a member?'" variant="body1"></blog-typography>
+  <blog-button
+    [type]="'link'"
+    [className]="'formLink'"
+    [content]="'Sing In'"
+    variant="Tertiary">
+  </blog-button>
 </blog-card>

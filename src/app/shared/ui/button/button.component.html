@@ -1,4 +1,19 @@
 
-<button [class]="className"  [ngClass]="{'primary': buttonType === 'Primary', 'secondary': buttonType === 'Secondary', 'fullWidth': fullWidth}" >
-  <ng-content></ng-content>
-</button>
+<ng-container [ngSwitch]="type">
+  <button *ngSwitchCase="'button'" [class]="className"
+          [ngClass]="{
+        'primary': variant === 'Primary',
+        'secondary': variant === 'Secondary',
+        'tertiary': variant === 'Tertiary',
+        'fullWidth': fullWidth}"
+  > {{content}}</button>
+
+  <div *ngSwitchCase="'link'" [class]="className">
+    <a [ngClass]="{'tertiary': variant === 'Tertiary',}"  href="{{link}}" >
+      {{content}}
+    </a>
+  </div>
+
+</ng-container>
+
+

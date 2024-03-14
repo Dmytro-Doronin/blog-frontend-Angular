@@ -1,5 +1,12 @@
-import { Component, Input } from '@angular/core'
-import { FormsModule } from '@angular/forms'
+import {Component, forwardRef, Input} from '@angular/core'
+import {
+  ControlValueAccessor,
+  FormControl,
+  FormGroup,
+  FormsModule,
+  NG_VALUE_ACCESSOR,
+  ReactiveFormsModule
+} from '@angular/forms'
 import { EyeCloseComponent } from '../eye-close/eye-close.component'
 import { NgClass, NgIf } from '@angular/common'
 import {EyeOpenComponent} from "../eye-open/eye-open.component";
@@ -7,24 +14,23 @@ import {EyeOpenComponent} from "../eye-open/eye-open.component";
 @Component({
   selector: 'blog-auth-input',
   standalone: true,
-  imports: [FormsModule, EyeCloseComponent, EyeOpenComponent, NgClass, NgIf],
+  imports: [FormsModule, EyeCloseComponent, EyeOpenComponent, NgClass, NgIf, ReactiveFormsModule],
   templateUrl: './auth-input.component.html',
   styleUrl: './auth-input.component.scss',
+  providers: [{
+    provide: NG_VALUE_ACCESSOR,
+    useExisting: forwardRef(() => AuthInputComponent),
+    multi: true,
+  },]
 })
 export class AuthInputComponent {
   @Input() id: string = 'text'
   @Input() title: string = ''
   @Input() type: string = 'text'
   @Input() showIcon: boolean = false
-  inputValue: string = ''
+  @Input() control: FormControl = new FormControl('');
 
-
-  changeInputType (type: string) {
-    if (type === 'text') {
-      this.type = 'password'
-    } else {
-      this.type = 'text'
-    }
+  changeInputType(type: string) {
+    this.type = type === 'text' ? 'password' : 'text';
   }
-
 }

@@ -1,12 +1,11 @@
 <div class="adTextBox">
   <input
     type="{{ type }}"
-    id="{{ id }}"
-    [(ngModel)]="inputValue"
-    [class.hasValue]="inputValue.trim() !== ''"
+    [attr.id]="id"
+    [formControl]="control"
+    [class.hasValue]="control.value.trim() !== ''"
   />
-
-  <label for="{{ id }}">{{ title }}</label>
+  <label [attr.for]="id">{{ title }}</label>
   <div class="underline"></div>
 
   <div (click)="changeInputType(type)" *ngIf="showIcon" class="eyeContainer">
@@ -14,3 +13,4 @@
     <blog-eye-open *ngIf="type === 'text'" [ngClass]="'eye'" height="20" width="20"></blog-eye-open>
   </div>
 </div>
+

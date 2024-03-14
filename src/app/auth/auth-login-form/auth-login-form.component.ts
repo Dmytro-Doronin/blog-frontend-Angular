@@ -4,6 +4,7 @@ import {TypographyComponent} from "../../shared/ui/typography/typography.compone
 import {AuthInputComponent} from "../auth-input/auth-input.component";
 import {ButtonComponent} from "../../shared/ui/button/button.component";
 import {NgClass} from "@angular/common";
+import {FormControl, FormGroup, ReactiveFormsModule} from "@angular/forms";
 
 @Component({
   selector: 'blog-auth-login-form',
@@ -13,11 +14,20 @@ import {NgClass} from "@angular/common";
     TypographyComponent,
     AuthInputComponent,
     ButtonComponent,
-    NgClass
+    NgClass,
+    ReactiveFormsModule
   ],
   templateUrl: './auth-login-form.component.html',
   styleUrl: './auth-login-form.component.scss'
 })
 export class AuthLoginFormComponent {
+  loginForm = new FormGroup({
+    username: new FormControl<string>(''),
+    email: new FormControl<string>(''),
+    password: new FormControl<string>('')
+  })
 
+  onSubmit() {
+    console.warn(this.loginForm.value);
+  }
 }
