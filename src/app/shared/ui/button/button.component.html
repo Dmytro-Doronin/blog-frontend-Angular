@@ -14,7 +14,7 @@
   </button>
 
   <div *ngSwitchCase="'link'" [class]="className">
-    <a [ngClass]="{ tertiary: variant === 'Tertiary' }" href="{{ link }}">
+    <a [ngClass]="{ tertiary: variant === 'Tertiary', primary: variant === 'Primary', }" href="{{ link }}">
       {{ content }}
     </a>
   </div>

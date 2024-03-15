@@ -30,10 +30,6 @@ export class AuthLoginFormComponent {
     password: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(20)]],
   })
 
-  // loginForm = new FormGroup({
-  //   usernameOrEmail: new FormControl<string>('', []),
-  //   password: new FormControl<string>(''),
-  // })
 
   get usernameOrEmail() {
     return this.loginForm.get('usernameOrEmail')
