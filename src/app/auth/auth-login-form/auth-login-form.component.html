@@ -1,28 +1,49 @@
 <blog-card>
-  <blog-typography [content]="'Sing Up'" variant="h3"></blog-typography>
+  <blog-typography [content]="'Sing In'" variant="h3"></blog-typography>
   <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-      <blog-auth-input
-        [control]="loginForm.controls.username"
-        [id]="'username'"
-        [title]="'Username'"
-      >
-      </blog-auth-input>
-      <blog-auth-input
-        [control]="loginForm.controls.email"
-        [id]="'email'"
-        [title]="'Email'"
-      >
-      </blog-auth-input>
-      <blog-auth-input
-        [control]="loginForm.controls.password"
-        [showIcon]="true"
-        [id]="'password'"
-        [title]="'Password'"
-        [type]="'password'"
-      >
-      </blog-auth-input>
+    <blog-auth-input
+      [control]="loginForm.controls.usernameOrEmail"
+      [id]="'usernameOrEmail'"
+      [title]="'Username or email'"
+    >
+    </blog-auth-input>
+
+    <div
+      *ngIf="
+        usernameOrEmail &&
+        !usernameOrEmail!.valid &&
+        (usernameOrEmail?.dirty || usernameOrEmail?.touched)
+      "
+      class="error"
+    >
+      <div *ngIf="usernameOrEmail.errors?.['required']">Username or email is required</div>
+      <div *ngIf="usernameOrEmail.errors?.['minlength']">
+        The username or email address must not be less than 3 characters.
+      </div>
+    </div>
+
+    <blog-auth-input
+      [control]="loginForm.controls.password"
+      [showIcon]="true"
+      [id]="'password'"
+      [title]="'Password'"
+      [type]="'password'"
+    >
+    </blog-auth-input>
+
+    <div
+      *ngIf="password && !password!.valid && (password?.dirty || password?.touched)"
+      class="error"
+    >
+      <div *ngIf="password.errors?.['required']">Password is required</div>
+      <div *ngIf="password.errors?.['minlength']">
+        The Password must not be less than 3 characters.
+      </div>
+    </div>
+
     <blog-button
-      [type]="'button'"
+      [tag]="'button'"
+      [type]="'submit'"
       [content]="'Sing Up'"
       variant="Primary"
       [className]="'formButton'"
@@ -30,11 +51,7 @@
     >
     </blog-button>
   </form>
-  <blog-typography [content]="'Already a member?'" variant="body1"></blog-typography>
-  <blog-button
-    [type]="'link'"
-    [className]="'formLink'"
-    [content]="'Sing In'"
-    variant="Tertiary">
+  <blog-typography [content]="'Don`t have a account?'" variant="body1"></blog-typography>
+  <blog-button [tag]="'link'" [className]="'formLink'" [content]="'Sing Up'" variant="Tertiary">
   </blog-button>
 </blog-card>

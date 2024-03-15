@@ -1,5 +1,5 @@
-import { Component, Input  } from '@angular/core';
-import {NgSwitch, NgSwitchCase} from "@angular/common";
+import { Component, Input } from '@angular/core'
+import { NgSwitch, NgSwitchCase } from '@angular/common'
 
 type VariantType =
   | 'large'
@@ -14,19 +14,16 @@ type VariantType =
   | 'overline'
   | 'link1'
   | 'link2'
-  | 'error';
+  | 'error'
 
 @Component({
   selector: 'blog-typography',
   standalone: true,
-  imports: [
-    NgSwitch,
-    NgSwitchCase
-  ],
+  imports: [NgSwitch, NgSwitchCase],
   templateUrl: './typography.component.html',
-  styleUrl: './typography.component.scss'
+  styleUrl: './typography.component.scss',
 })
 export class TypographyComponent {
-  @Input() variant: VariantType = 'body1';
-  @Input() content: string = '';
+  @Input() variant: VariantType = 'body1'
+  @Input() content: string = ''
 }

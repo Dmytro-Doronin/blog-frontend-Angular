@@ -4,12 +4,19 @@ import { HttpClientModule } from '@angular/common/http'
 import { AuthModule } from './auth/auth.module'
 import { BlogModule } from './blog/blog.module'
 import { HeaderModule } from './shared/header/header.module'
-import {ReactiveFormsModule} from "@angular/forms";
+import { ReactiveFormsModule } from '@angular/forms'
 
 @Component({
   selector: 'blog-root',
   standalone: true,
-  imports: [RouterOutlet, HttpClientModule, AuthModule, BlogModule, HeaderModule, ReactiveFormsModule],
+  imports: [
+    RouterOutlet,
+    HttpClientModule,
+    AuthModule,
+    BlogModule,
+    HeaderModule,
+    ReactiveFormsModule,
+  ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })

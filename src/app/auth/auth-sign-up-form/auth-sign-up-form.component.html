@@ -1,0 +1,56 @@
+<blog-card>
+  <blog-typography [content]="'Sing Up'" variant="h3"></blog-typography>
+  <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
+    <blog-auth-input [control]="signUpForm.controls.login" [id]="'login'" [title]="'Login'">
+    </blog-auth-input>
+
+    <div *ngIf="login && !login!.valid && (login?.dirty || login?.touched)" class="error">
+      <div *ngIf="login.errors?.['required']">Login is required</div>
+      <div *ngIf="login.errors?.['minlength']">
+        The Login address must not be less than 3 characters.
+      </div>
+    </div>
+
+    <blog-auth-input [control]="signUpForm.controls.email" [id]="'email'" [title]="'Email'">
+    </blog-auth-input>
+
+    <div *ngIf="email && !email!.valid && (email?.dirty || email?.touched)" class="error">
+      <div *ngIf="email.errors?.['required']">Email is required</div>
+      <div *ngIf="email.errors?.['minlength']">
+        The username or email address must not be less than 3 characters.
+      </div>
+    </div>
+
+    <blog-auth-input
+      [control]="signUpForm.controls.password"
+      [showIcon]="true"
+      [id]="'password'"
+      [title]="'Password'"
+      [type]="'password'"
+    >
+    </blog-auth-input>
+
+    <div
+      *ngIf="password && !password!.valid && (password?.dirty || password?.touched)"
+      class="error"
+    >
+      <div *ngIf="password.errors?.['required']">Password is required</div>
+      <div *ngIf="password.errors?.['minlength']">
+        The Password must not be less than 3 characters.
+      </div>
+    </div>
+
+    <blog-button
+      [tag]="'button'"
+      [type]="'submit'"
+      [content]="'Sing Up'"
+      variant="Primary"
+      [className]="'formButton'"
+      [fullWidth]="true"
+    >
+    </blog-button>
+  </form>
+  <blog-typography [content]="'Already a member?'" variant="body1"></blog-typography>
+  <blog-button [tag]="'link'" [className]="'formLink'" [content]="'Sing In'" variant="Tertiary">
+  </blog-button>
+</blog-card>

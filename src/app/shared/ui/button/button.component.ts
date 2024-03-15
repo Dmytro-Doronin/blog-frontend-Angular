@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core'
-import {NgClass, NgSwitch, NgSwitchCase} from '@angular/common'
+import { NgClass, NgSwitch, NgSwitchCase } from '@angular/common'
 
 @Component({
   selector: 'blog-button',
@@ -10,7 +10,8 @@ import {NgClass, NgSwitch, NgSwitchCase} from '@angular/common'
 })
 export class ButtonComponent {
   @Input() variant: 'Primary' | 'Secondary' | 'Tertiary' = 'Primary'
-  @Input() type: 'button' | 'link' = 'button'
+  @Input() tag: 'button' | 'link' = 'button'
+  @Input() type: string = 'submit'
   @Input() content: string = ''
   @Input() link: string = '#'
   @Input() fullWidth?: boolean = false
