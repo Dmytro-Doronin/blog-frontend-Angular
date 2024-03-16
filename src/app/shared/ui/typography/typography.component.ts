@@ -26,4 +26,5 @@ type VariantType =
 export class TypographyComponent {
   @Input() variant: VariantType = 'body1'
   @Input() content: string = ''
+  @Input() className: string = ''
 }

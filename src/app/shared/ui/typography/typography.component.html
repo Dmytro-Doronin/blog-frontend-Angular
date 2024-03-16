@@ -3,8 +3,8 @@
   <h1 *ngSwitchCase="'h1'">{{ content }}</h1>
   <h2 *ngSwitchCase="'h2'">{{ content }}</h2>
   <h3 *ngSwitchCase="'h3'" class="h3">{{ content }}</h3>
-  <p *ngSwitchCase="'body1'" class="body1">{{ content }}</p>
-  <p *ngSwitchCase="'body2'">{{ content }}</p>
+  <p *ngSwitchCase="'body1'" [class]="className" class="body1">{{ content }}</p>
+  <p *ngSwitchCase="'body2'" [class]="className" class="body2">{{ content }}</p>
   <p *ngSwitchCase="'subtitle1'">{{ content }}</p>
   <p *ngSwitchCase="'subtitle2'">{{ content }}</p>
   <p *ngSwitchCase="'caption'">{{ content }}</p>
