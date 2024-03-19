@@ -1,4 +1,12 @@
 
 <div class="modalOverlay">
-
+  <div class="modal">
+    <div class="modalHeader">
+      <blog-typography [content]="title" variant="h3"></blog-typography>
+      <div class="closButton" (click)="onClose()">X</div>
+    </div>
+    <div class="modalBody">
+      <ng-content></ng-content>
+    </div>
+  </div>
 </div>
