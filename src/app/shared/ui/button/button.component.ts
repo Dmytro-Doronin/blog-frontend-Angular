@@ -16,4 +16,5 @@ export class ButtonComponent {
   @Input() link: string = '#'
   @Input() fullWidth?: boolean = false
   @Input() className: string = 'button'
+  @Input() classNameContainer: string = ''
 }

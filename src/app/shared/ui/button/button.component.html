@@ -1,17 +1,19 @@
 <ng-container [ngSwitch]="tag">
-  <button
-    *ngSwitchCase="'button'"
-    [class]="className"
-    [type]="type"
-    [ngClass]="{
+  <div [class]="classNameContainer" *ngSwitchCase="'button'">
+    <button
+      [type]="type"
+      [class]="className"
+      [ngClass]="{
       primary: variant === 'Primary',
       secondary: variant === 'Secondary',
       tertiary: variant === 'Tertiary',
       fullWidth: fullWidth
     }"
-  >
-    {{ content }}
-  </button>
+    >
+      {{ content }}
+    </button>
+  </div>
+
 
   <div *ngSwitchCase="'link'" [class]="className">
     <a [ngClass]="{ tertiary: variant === 'Tertiary', primary: variant === 'Primary', }" href="{{ link }}">
