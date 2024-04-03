@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router'
-import {ErrorPageComponent} from "./shared/components/404/404.component";
+import { ErrorPageComponent } from './shared/components/404/404.component'
 
 export const routes: Routes = [
   { path: '', redirectTo: 'blogs', pathMatch: 'full' },

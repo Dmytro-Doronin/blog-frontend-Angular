@@ -1,12 +1,16 @@
 <div class="signUpPage">
-  <blog-modal>
+  <blog-modal *ngIf="isModalOpen" (closeModal)="closeModal()">
     <blog-typography
       [content]="'We have sent a link to confirm your email to epam@epam.com'"
       [variant]="'body2'"
       [className]="'mb textLeft'"
     >
     </blog-typography>
-    <blog-button [classNameContainer]="'right'" [className]="'button right'" [content]="'OK'"></blog-button>
+    <blog-button
+      [classNameContainer]="'right'"
+      [className]="'button right'"
+      [content]="'OK'"
+    ></blog-button>
   </blog-modal>
   <blog-auth-sign-up-form></blog-auth-sign-up-form>
   <blog-login-image></blog-login-image>
