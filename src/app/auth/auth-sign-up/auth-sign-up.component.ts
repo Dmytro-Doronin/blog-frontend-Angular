@@ -5,7 +5,7 @@ import { ModalComponent } from '../../shared/components/modal/modal.component'
 import { TypographyComponent } from '../../shared/ui/typography/typography.component'
 import { ButtonComponent } from '../../shared/ui/button/button.component'
 import { NgIf } from '@angular/common'
-import {AuthService} from "../../core/services/auth.service";
+import { AuthService } from '../../core/services/auth.service'
 
 @Component({
   selector: 'blog-auth-sign-up',
@@ -34,10 +34,9 @@ export class AuthSignUpComponent {
     this.isModalOpen = false
   }
 
-  authRegistration (login: string, password: string, email: string) {
+  authRegistration(login: string, password: string, email: string) {
     this.authService.registration(login, password, email).subscribe(res => {
-      alert(res)
+      alert('User was added' + res)
     })
   }
-
 }

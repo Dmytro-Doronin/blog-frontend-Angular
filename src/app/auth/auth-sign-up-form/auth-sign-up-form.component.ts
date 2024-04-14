@@ -1,4 +1,4 @@
-import { Component } from '@angular/core'
+import { Component, Input } from '@angular/core'
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms'
 import { AuthInputComponent } from '../auth-input/auth-input.component'
 import { ButtonComponent } from '../../shared/ui/button/button.component'
@@ -23,6 +23,8 @@ import { TypographyComponent } from '../../shared/ui/typography/typography.compo
 export class AuthSignUpFormComponent {
   constructor(private formBuilder: FormBuilder) {}
 
+  @Input() callback!: (login: string, password: string, email: string) => void
+
   signUpForm = this.formBuilder.group({
     login: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(10)]],
     email: ['', [Validators.required, Validators.email]],
@@ -44,7 +46,14 @@ export class AuthSignUpFormComponent {
   onSubmit() {
     console.log(this.signUpForm.valid)
     if (this.signUpForm.valid) {
-      console.log(this.signUpForm.value)
+      if (this.callback) {
+        this.callback(
+          this.signUpForm.value.login!,
+          this.signUpForm.value.password!,
+          this.signUpForm.value.email!
+        )
+      }
+      // console.log(this.signUpForm.value)
     }
   }
 }
