@@ -18,6 +18,7 @@ import { AuthService } from '../../core/services/auth.service'
     ButtonComponent,
     NgIf,
   ],
+  providers: [AuthService],
   templateUrl: './auth-sign-up.component.html',
   styleUrl: './auth-sign-up.component.scss',
 })
@@ -35,7 +36,7 @@ export class AuthSignUpComponent {
   }
 
   authRegistration(login: string, password: string, email: string) {
-    this.authService.registration(login, password, email).subscribe(res => {
+    this.authService.userRegistration(login, password, email).subscribe(res => {
       alert('User was added' + res)
     })
   }

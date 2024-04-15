@@ -7,6 +7,7 @@ import {AuthInputComponent} from "./auth-input/auth-input.component";
 import {CardComponent} from "./card/card.component";
 import {AuthLoginFormComponent} from "./auth-login-form/auth-login-form.component";
 import {LoginImageComponent} from "./auth-images/login-image/login-image.component";
+import {AuthService} from "../core/services/auth.service";
 
 @NgModule({
   declarations: [AuthLoginComponent],

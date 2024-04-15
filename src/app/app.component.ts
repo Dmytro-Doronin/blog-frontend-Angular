@@ -6,6 +6,7 @@ import { BlogModule } from './blog/blog.module'
 import { HeaderModule } from './shared/header/header.module'
 import { ReactiveFormsModule } from '@angular/forms'
 import { CoreModule } from './core/core.module'
+import {AuthService} from "./core/services/auth.service";
 
 @Component({
   selector: 'blog-root',
@@ -17,7 +18,7 @@ import { CoreModule } from './core/core.module'
     BlogModule,
     HeaderModule,
     ReactiveFormsModule,
-    CoreModule,
+    // CoreModule,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
