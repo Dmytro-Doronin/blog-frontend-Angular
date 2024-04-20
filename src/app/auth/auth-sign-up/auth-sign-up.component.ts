@@ -6,6 +6,7 @@ import { TypographyComponent } from '../../shared/ui/typography/typography.compo
 import { ButtonComponent } from '../../shared/ui/button/button.component'
 import { NgIf } from '@angular/common'
 import { AuthService } from '../../core/services/auth.service'
+import { HttpClient } from '@angular/common/http'
 
 @Component({
   selector: 'blog-auth-sign-up',
@@ -18,14 +19,16 @@ import { AuthService } from '../../core/services/auth.service'
     ButtonComponent,
     NgIf,
   ],
-  providers: [AuthService],
   templateUrl: './auth-sign-up.component.html',
   styleUrl: './auth-sign-up.component.scss',
 })
 export class AuthSignUpComponent {
   isModalOpen = false
 
-  constructor(private authService: AuthService) {}
+  constructor(
+    // private authService: AuthService,
+    private http: HttpClient
+  ) {}
 
   openModal(): void {
     this.isModalOpen = true
@@ -35,9 +38,9 @@ export class AuthSignUpComponent {
     this.isModalOpen = false
   }
 
-  authRegistration(login: string, password: string, email: string) {
-    this.authService.userRegistration(login, password, email).subscribe(res => {
-      alert('User was added' + res)
-    })
-  }
+  // authRegistration(login: string, password: string, email: string) {
+  //   this.authService.userRegistration(login, password, email).subscribe(res => {
+  //     alert('User was added' + res)
+  //   })
+  // }
 }
