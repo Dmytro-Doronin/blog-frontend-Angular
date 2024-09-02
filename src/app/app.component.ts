@@ -5,7 +5,6 @@ import { AuthModule } from './auth/auth.module'
 import { BlogModule } from './blog/blog.module'
 import { HeaderModule } from './shared/header/header.module'
 import { ReactiveFormsModule } from '@angular/forms'
-import { StoreModule } from '@ngrx/store';
 
 @Component({
   selector: 'blog-root',
