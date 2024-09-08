@@ -5,7 +5,7 @@ import { AuthModule } from './auth/auth.module'
 import { BlogModule } from './blog/blog.module'
 import { HeaderModule } from './shared/header/header.module'
 import { ReactiveFormsModule } from '@angular/forms'
-import {ErrorComponent} from "./shared/components/error/error.component";
+import { ParentErrorComponent } from './shared/components/parent-error/parent-error.component'
 
 @Component({
   selector: 'blog-root',
@@ -17,7 +17,7 @@ import {ErrorComponent} from "./shared/components/error/error.component";
     BlogModule,
     HeaderModule,
     ReactiveFormsModule,
-    ErrorComponent
+    ParentErrorComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',

@@ -1,13 +1,12 @@
 import { createReducer, on } from '@ngrx/store'
 import { addError, deleteError } from '../actions/app.actions'
-import { state } from '@angular/animations'
 
 export interface AppState {
-  error: string
+  error: string | null
 }
 
 export const initialState: AppState = {
-  error: '',
+  error: null,
 }
 
 export const appReducer = createReducer(
