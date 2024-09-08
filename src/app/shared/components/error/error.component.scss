@@ -1,0 +1,11 @@
+.error {
+  position: absolute;
+  bottom: 10%;
+  right: 10%;
+
+  max-width: 500px;
+  border-radius: 5px;
+  text-align: center;
+  padding: 5px 10px;
+  border: 1px solid var(--color-danger-500);
+}
