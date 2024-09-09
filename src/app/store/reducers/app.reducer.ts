@@ -1,8 +1,9 @@
 import { createReducer, on } from '@ngrx/store'
 import { addError, deleteError } from '../actions/app.actions'
+import { Notify } from '../../types/notification.models'
 
 export interface AppState {
-  error: string | null
+  error: Notify | null
 }
 
 export const initialState: AppState = {
@@ -11,9 +12,9 @@ export const initialState: AppState = {
 
 export const appReducer = createReducer(
   initialState,
-  on(addError, (state, { error }) => ({
+  on(addError, (state, error) => ({
     ...state,
-    error,
+    error: { severity: error.severity, message: error.message },
   })),
-  on(deleteError, state => ({ ...state, error: '' }))
+  on(deleteError, state => ({ ...state, error: null }))
 )
