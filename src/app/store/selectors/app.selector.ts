@@ -3,4 +3,4 @@ import { AppState } from '../reducers/app.reducer'
 
 export const selectAppState = createFeatureSelector<AppState>('app')
 
-export const selectError = createSelector(selectAppState, (state: AppState) => state.error)
+export const selectError = createSelector(selectAppState, (state: AppState) => state?.error)

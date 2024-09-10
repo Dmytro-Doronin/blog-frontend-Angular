@@ -12,9 +12,9 @@ export const initialState: AppState = {
 
 export const appReducer = createReducer(
   initialState,
-  on(addError, (state, error) => ({
+  on(addError, (state, { severity, message }) => ({
     ...state,
-    error: { severity: error.severity, message: error.message },
+    error: { severity, message },
   })),
   on(deleteError, state => ({ ...state, error: null }))
 )
