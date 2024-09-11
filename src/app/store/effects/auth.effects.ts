@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core'
 import { Actions, createEffect, ofType } from '@ngrx/effects'
-import { catchError, map, mergeMap } from 'rxjs/operators'
+import { catchError, delay, map, mergeMap } from 'rxjs/operators'
 import { of } from 'rxjs'
 
 import { AuthService } from '../../core/services/auth.service'
-import { addError, registerUser } from '../actions/app.actions'
+import { addError, deleteError, registerUser } from '../actions/app.actions'
+import { ApiError } from '../../types/error.model'
 
 @Injectable()
 export class AuthEffects {
@@ -19,12 +20,20 @@ export class AuthEffects {
       mergeMap(action =>
         this.authService.userRegistration(action.login, action.password, action.email).pipe(
           map(() => ({ type: '[Error] Add Error' })),
-          catchError(error => {
-            console.error('Error in user registration:', error)
-            return of(addError({ severity: 'error', message: 'Registration failed' }))
+          catchError((error: { error: ApiError }) => {
+            const message = error.error.errorsMessages[0].message
+            return of(addError({ severity: 'error', message: message }))
           })
         )
       )
+    )
+  )
+
+  clearError$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(addError),
+      delay(5000),
+      map(() => deleteError())
     )
   )
 }

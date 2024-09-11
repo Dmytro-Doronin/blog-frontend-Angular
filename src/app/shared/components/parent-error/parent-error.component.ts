@@ -14,7 +14,7 @@ import { addError } from '../../../store/actions/app.actions'
   styleUrl: './parent-error.component.scss',
 })
 export class ParentErrorComponent implements OnInit {
-  showError$: Observable<Notify | null> = this.store.select(selectError)
+  showError$?: Observable<Notify | null>
   error?: string = ''
   constructor(private store: Store) {}
 
@@ -23,13 +23,11 @@ export class ParentErrorComponent implements OnInit {
   }
 
   showErrorComponent() {
-    // this.showError$ = this.store.select(selectError)
-    console.log()
-    this.store.dispatch(addError({ severity: 'error', message: 'gavno' }))
-    this.showError$.subscribe(error => {
-      this.error = error?.message
-      console.log(error?.message)
-    })
+    this.showError$ = this.store.select(selectError)
+    // this.showError$.subscribe(error => {
+    //   this.error = error?.message
+    //   console.log(error?.message)
+    // })
     setTimeout(() => {}, 5000)
   }
 }

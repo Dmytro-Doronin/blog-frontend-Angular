@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core'
+import { Notify } from '../../../types/notification.models'
 
 @Component({
   selector: 'blog-error',
@@ -8,5 +9,5 @@ import { Component, Input } from '@angular/core'
   styleUrl: './error.component.scss',
 })
 export class ErrorComponent {
-  @Input() message?: string | null
+  @Input() message?: Notify | null
 }
