@@ -5,7 +5,6 @@ import { Observable } from 'rxjs'
 import { Store } from '@ngrx/store'
 import { selectError } from '../../../store/selectors/app.selector'
 import { Notify } from '../../../types/notification.models'
-import { addError } from '../../../store/actions/app.actions'
 @Component({
   selector: 'blog-parent-alert',
   standalone: true,

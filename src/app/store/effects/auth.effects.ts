@@ -4,7 +4,7 @@ import { catchError, delay, map, mergeMap } from 'rxjs/operators'
 import { of } from 'rxjs'
 
 import { AuthService } from '../../core/services/auth.service'
-import { addError, deleteError, registerUser } from '../actions/app.actions'
+import { addAlert, deleteAlert, registerUser } from '../actions/app.actions'
 import { ApiError } from '../../types/error.model'
 
 @Injectable()
@@ -19,21 +19,21 @@ export class AuthEffects {
       ofType(registerUser), // Action Type
       mergeMap(action =>
         this.authService.userRegistration(action.login, action.password, action.email).pipe(
-          map(() => ({ type: '[Error] Add Error' })),
+          map(() => addAlert({ severity: 'success', message: 'Registration successful!' })),
           catchError((error: { error: ApiError }) => {
             const message = error.error.errorsMessages[0].message
-            return of(addError({ severity: 'error', message: message }))
+            return of(addAlert({ severity: 'error', message: message }))
           })
         )
       )
     )
   )
 
-  clearError$ = createEffect(() =>
+  clearAlert$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(addError),
+      ofType(addAlert),
       delay(5000),
-      map(() => deleteError())
+      map(() => deleteAlert())
     )
   )
 }
