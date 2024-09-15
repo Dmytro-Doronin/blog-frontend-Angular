@@ -40,6 +40,11 @@
       </div>
     </div>
 
+    <div *ngIf="registrationLoader$ | async" class="loader">
+      <blog-loader></blog-loader>
+    </div>
+
+
     <blog-button
       [tag]="'button'"
       [type]="'submit'"

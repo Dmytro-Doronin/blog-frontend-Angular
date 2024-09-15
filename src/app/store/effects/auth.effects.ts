@@ -4,8 +4,8 @@ import { catchError, delay, map, mergeMap } from 'rxjs/operators'
 import { of } from 'rxjs'
 
 import { AuthService } from '../../core/services/auth.service'
-import { addAlert, deleteAlert, registerUser } from '../actions/app.actions'
 import { ApiError } from '../../types/error.model'
+import {addAuthAlert, deleteAuthAlert, registerUser, setRegistrationLoading} from "../actions/auth.actions";
 
 @Injectable()
 export class AuthEffects {
@@ -14,26 +14,51 @@ export class AuthEffects {
     private authService: AuthService
   ) {}
 
+  // userRegistration$ = createEffect(() =>
+  //   this.actions$.pipe(
+  //     ofType(registerUser), // Action Type
+  //     mergeMap(action =>
+  //       this.authService.userRegistration(action.login, action.password, action.email).pipe(
+  //         map(() => addAuthAlert({ severity: 'success', message: 'Registration successful!' })),
+  //         catchError((error: { error: ApiError }) => {
+  //           const message = error.error.errorsMessages[0].message
+  //           return of(addAuthAlert({ severity: 'error', message: message }))
+  //         })
+  //       )
+  //     )
+  //   )
+  // )
+
   userRegistration$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(registerUser), // Action Type
+      ofType(registerUser),
       mergeMap(action =>
-        this.authService.userRegistration(action.login, action.password, action.email).pipe(
-          map(() => addAlert({ severity: 'success', message: 'Registration successful!' })),
-          catchError((error: { error: ApiError }) => {
-            const message = error.error.errorsMessages[0].message
-            return of(addAlert({ severity: 'error', message: message }))
-          })
+        of(setRegistrationLoading({  registrationLoading: true })).pipe(
+          mergeMap(() =>
+            this.authService.userRegistration(action.login, action.password, action.email).pipe(
+              mergeMap(() => {
+                return of(
+                  setRegistrationLoading({  registrationLoading: false }),
+                  addAuthAlert({ severity: 'success', message: 'Registration successful!' })
+                )
+              }),
+              catchError((error: any) => {
+                const message = error.error.errorsMessages[0].message;
+                return of(setRegistrationLoading({  registrationLoading: false }),
+                  addAuthAlert({ severity: 'error', message: message }));
+              })
+            )
+          )
         )
       )
     )
-  )
+  );
 
   clearAlert$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(addAlert),
+      ofType(addAuthAlert),
       delay(5000),
-      map(() => deleteAlert())
+      map(() => deleteAuthAlert())
     )
   )
 }

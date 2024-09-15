@@ -3,8 +3,8 @@ import { AlertComponent } from '../alert/alert.component'
 import { AsyncPipe, NgIf } from '@angular/common'
 import { Observable } from 'rxjs'
 import { Store } from '@ngrx/store'
-import { selectAlert } from '../../../store/selectors/app.selector'
 import { Notify } from '../../../types/notification.models'
+import {selectAuthAlert} from "../../../store/selectors/auth.selector";
 @Component({
   selector: 'blog-parent-alert',
   standalone: true,
@@ -22,11 +22,10 @@ export class ParentAlertComponent implements OnInit {
   }
 
   showErrorComponent() {
-    this.showAlert$ = this.store.select(selectAlert)
+    this.showAlert$ = this.store.select(selectAuthAlert)
     // this.showError$.subscribe(alert => {
     //   this.alert = alert?.message
     //   console.log(alert?.message)
     // })
-    setTimeout(() => {}, 5000)
   }
 }

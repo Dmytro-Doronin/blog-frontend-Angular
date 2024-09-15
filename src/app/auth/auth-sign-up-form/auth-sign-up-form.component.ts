@@ -3,13 +3,15 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms'
 import { AuthInputComponent } from '../auth-input/auth-input.component'
 import { ButtonComponent } from '../../shared/ui/button/button.component'
 import { CardComponent } from '../card/card.component'
-import { NgIf } from '@angular/common'
+import {AsyncPipe, NgIf} from '@angular/common'
 import { TypographyComponent } from '../../shared/ui/typography/typography.component'
 import { AuthService } from '../../core/services/auth.service'
 import { Store } from '@ngrx/store'
-import { registerUser } from '../../store/actions/app.actions'
 import { selectAlert } from '../../store/selectors/app.selector'
-import { filter } from 'rxjs'
+import {filter, Observable} from 'rxjs'
+import {registerUser} from "../../store/actions/auth.actions";
+import {selectAuthAlert, selectRegistrationLoading} from "../../store/selectors/auth.selector";
+import {LoaderComponent} from "../../shared/components/loader/loader.component";
 
 @Component({
   selector: 'blog-auth-sign-up-form',
@@ -21,11 +23,14 @@ import { filter } from 'rxjs'
     NgIf,
     ReactiveFormsModule,
     TypographyComponent,
+    LoaderComponent,
+    AsyncPipe,
   ],
   templateUrl: './auth-sign-up-form.component.html',
   styleUrl: './auth-sign-up-form.component.scss',
 })
 export class AuthSignUpFormComponent implements OnInit {
+  registrationLoader$?: Observable<boolean>
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
@@ -39,10 +44,18 @@ export class AuthSignUpFormComponent implements OnInit {
   })
 
   ngOnInit() {
+    this.loader()
     this.store
-      .select(selectAlert)
+      .select(selectAuthAlert)
       .pipe(filter(authState => authState?.severity === 'success'))
       .subscribe(() => this.signUpForm.reset())
+  }
+
+  loader() {
+    this.registrationLoader$ = this.store.select(selectRegistrationLoading)
+    this.registrationLoader$.subscribe((loader) => {
+      console.log(loader)
+    })
   }
 
   get login() {
