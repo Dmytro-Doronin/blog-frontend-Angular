@@ -3,7 +3,7 @@
     type="{{ type }}"
     [attr.id]="id"
     [formControl]="control"
-    [class.hasValue]="control.value.trim() !== ''"
+    [class.hasValue]="control.value?.trim() !== ''"
   />
   <label [attr.for]="id">{{ title }}</label>
   <div class="underline"></div>

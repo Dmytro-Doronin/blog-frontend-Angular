@@ -3,18 +3,18 @@ import { addAlert, deleteAlert } from '../actions/app.actions'
 import { Notify } from '../../types/notification.models'
 
 export interface AppState {
-  error: Notify | null
+  alert: Notify | null
 }
 
 export const initialState: AppState = {
-  error: null,
+  alert: null,
 }
 
 export const appReducer = createReducer(
   initialState,
   on(addAlert, (state, { severity, message }) => ({
     ...state,
-    error: { severity, message },
+    alert: { severity, message },
   })),
-  on(deleteAlert, state => ({ ...state, error: null }))
+  on(deleteAlert, state => ({ ...state, alert: null }))
 )

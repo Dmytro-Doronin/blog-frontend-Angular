@@ -3,7 +3,7 @@ import { AlertComponent } from '../alert/alert.component'
 import { AsyncPipe, NgIf } from '@angular/common'
 import { Observable } from 'rxjs'
 import { Store } from '@ngrx/store'
-import { selectError } from '../../../store/selectors/app.selector'
+import { selectAlert } from '../../../store/selectors/app.selector'
 import { Notify } from '../../../types/notification.models'
 @Component({
   selector: 'blog-parent-alert',
@@ -22,7 +22,7 @@ export class ParentAlertComponent implements OnInit {
   }
 
   showErrorComponent() {
-    this.showAlert$ = this.store.select(selectError)
+    this.showAlert$ = this.store.select(selectAlert)
     // this.showError$.subscribe(alert => {
     //   this.alert = alert?.message
     //   console.log(alert?.message)

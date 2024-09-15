@@ -1,4 +1,4 @@
-import { Component } from '@angular/core'
+import { Component, OnInit } from '@angular/core'
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms'
 import { AuthInputComponent } from '../auth-input/auth-input.component'
 import { ButtonComponent } from '../../shared/ui/button/button.component'
@@ -8,6 +8,8 @@ import { TypographyComponent } from '../../shared/ui/typography/typography.compo
 import { AuthService } from '../../core/services/auth.service'
 import { Store } from '@ngrx/store'
 import { registerUser } from '../../store/actions/app.actions'
+import { selectAlert } from '../../store/selectors/app.selector'
+import { filter } from 'rxjs'
 
 @Component({
   selector: 'blog-auth-sign-up-form',
@@ -23,7 +25,7 @@ import { registerUser } from '../../store/actions/app.actions'
   templateUrl: './auth-sign-up-form.component.html',
   styleUrl: './auth-sign-up-form.component.scss',
 })
-export class AuthSignUpFormComponent {
+export class AuthSignUpFormComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
@@ -33,8 +35,15 @@ export class AuthSignUpFormComponent {
   signUpForm = this.formBuilder.group({
     login: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(10)]],
     email: ['', [Validators.required, Validators.email]],
-    password: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(20)]],
+    password: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(20)]],
   })
+
+  ngOnInit() {
+    this.store
+      .select(selectAlert)
+      .pipe(filter(authState => authState?.severity === 'success'))
+      .subscribe(() => this.signUpForm.reset())
+  }
 
   get login() {
     return this.signUpForm.get('login')
