@@ -3,15 +3,15 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms'
 import { AuthInputComponent } from '../auth-input/auth-input.component'
 import { ButtonComponent } from '../../shared/ui/button/button.component'
 import { CardComponent } from '../card/card.component'
-import {AsyncPipe, NgIf} from '@angular/common'
+import { AsyncPipe, NgIf } from '@angular/common'
 import { TypographyComponent } from '../../shared/ui/typography/typography.component'
 import { AuthService } from '../../core/services/auth.service'
 import { Store } from '@ngrx/store'
 import { selectAlert } from '../../store/selectors/app.selector'
-import {filter, Observable} from 'rxjs'
-import {registerUser} from "../../store/actions/auth.actions";
-import {selectAuthAlert, selectRegistrationLoading} from "../../store/selectors/auth.selector";
-import {LoaderComponent} from "../../shared/components/loader/loader.component";
+import { filter, Observable } from 'rxjs'
+import { registerUser, setRegistrationLoading } from '../../store/actions/auth.actions'
+import { selectAuthAlert, selectRegistrationLoading } from '../../store/selectors/auth.selector'
+import { LoaderComponent } from '../../shared/components/loader/loader.component'
 
 @Component({
   selector: 'blog-auth-sign-up-form',
@@ -53,7 +53,9 @@ export class AuthSignUpFormComponent implements OnInit {
 
   loader() {
     this.registrationLoader$ = this.store.select(selectRegistrationLoading)
-    this.registrationLoader$.subscribe((loader) => {
+    // this.store.dispatch(setRegistrationLoading({ registrationLoading: true }))
+
+    this.registrationLoader$.subscribe(loader => {
       console.log(loader)
     })
   }

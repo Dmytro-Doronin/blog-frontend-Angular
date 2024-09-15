@@ -3,8 +3,9 @@ import { AlertComponent } from '../alert/alert.component'
 import { AsyncPipe, NgIf } from '@angular/common'
 import { Observable } from 'rxjs'
 import { Store } from '@ngrx/store'
+
 import { Notify } from '../../../types/notification.models'
-import {selectAuthAlert} from "../../../store/selectors/auth.selector";
+import { selectAuthAlert } from '../../../store/selectors/auth.selector'
 @Component({
   selector: 'blog-parent-alert',
   standalone: true,
