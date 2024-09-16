@@ -4,19 +4,18 @@
       [type]="type"
       [class]="className"
       [ngClass]="{
-      primary: variant === 'Primary',
-      secondary: variant === 'Secondary',
-      tertiary: variant === 'Tertiary',
-      fullWidth: fullWidth
-    }"
+        primary: variant === 'Primary',
+        secondary: variant === 'Secondary',
+        tertiary: variant === 'Tertiary',
+        fullWidth: fullWidth
+      }"
     >
       {{ content }}
     </button>
   </div>
 
-
   <div *ngSwitchCase="'link'" [class]="className">
-    <a [ngClass]="{ tertiary: variant === 'Tertiary', primary: variant === 'Primary', }" href="{{ link }}">
+    <a [ngClass]="{ tertiary: variant === 'Tertiary', primary: variant === 'Primary' }">
       {{ content }}
     </a>
   </div>

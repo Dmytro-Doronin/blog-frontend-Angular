@@ -16,4 +16,17 @@ export class AuthService {
       email,
     })
   }
+
+  userLogin(loginOrEmail: string, password: string) {
+    return this.http.post('https://blog-backend-nest.vercel.app/auth/registration', {
+      loginOrEmail,
+      password,
+    })
+  }
+
+  passwordRecovery(email: string) {
+    return this.http.post('https://blog-backend-nest.vercel.app/auth/registration', {
+      email,
+    })
+  }
 }

@@ -1,0 +1,25 @@
+<blog-card>
+  <blog-typography [content]="'Recover your password'" variant="h3"></blog-typography>
+
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <blog-auth-input [control]="loginForm.controls.email" [id]="'email'" [title]="'Email'">
+    </blog-auth-input>
+
+    <div *ngIf="email && !email!.valid && (email?.dirty || email?.touched)" class="error">
+      <div *ngIf="email.errors?.['required']">Email is required</div>
+      <div *ngIf="email.errors?.['minlength']">
+        The username or email address must not be less than 3 characters.
+      </div>
+    </div>
+
+    <blog-button
+      [tag]="'button'"
+      [type]="'submit'"
+      [content]="'Sing Up'"
+      variant="Primary"
+      [className]="'formButton'"
+      [fullWidth]="true"
+    >
+    </blog-button>
+  </form>
+</blog-card>

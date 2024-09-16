@@ -6,12 +6,16 @@ export interface AuthState {
   alert: Notify | null
   registrationLoading: boolean
   loginLoading: boolean
+  accessToken: string | null
+  isAuthenticated: boolean
 }
 
 export const initialState: AuthState = {
   registrationLoading: false,
   loginLoading: false,
   alert: null,
+  accessToken: null,
+  isAuthenticated: false,
 }
 
 export const authReducer = createReducer(

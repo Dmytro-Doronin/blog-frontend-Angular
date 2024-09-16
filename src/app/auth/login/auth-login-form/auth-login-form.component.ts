@@ -1,12 +1,13 @@
 import { Component } from '@angular/core'
-import { CardComponent } from '../card/card.component'
-import { TypographyComponent } from '../../shared/ui/typography/typography.component'
-import { AuthInputComponent } from '../auth-input/auth-input.component'
-import { ButtonComponent } from '../../shared/ui/button/button.component'
+import { CardComponent } from '../../card/card.component'
+import { TypographyComponent } from '../../../shared/ui/typography/typography.component'
+import { AuthInputComponent } from '../../auth-input/auth-input.component'
+import { ButtonComponent } from '../../../shared/ui/button/button.component'
 import { NgClass, NgIf } from '@angular/common'
 import { ReactiveFormsModule } from '@angular/forms'
 import { FormBuilder } from '@angular/forms'
 import { Validators } from '@angular/forms'
+import { RouterLink } from '@angular/router'
 @Component({
   selector: 'blog-auth-login-form',
   standalone: true,
@@ -18,6 +19,7 @@ import { Validators } from '@angular/forms'
     NgClass,
     ReactiveFormsModule,
     NgIf,
+    RouterLink,
   ],
   templateUrl: './auth-login-form.component.html',
   styleUrl: './auth-login-form.component.scss',
@@ -29,7 +31,6 @@ export class AuthLoginFormComponent {
     usernameOrEmail: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(15)]],
     password: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(20)]],
   })
-
 
   get usernameOrEmail() {
     return this.loginForm.get('usernameOrEmail')

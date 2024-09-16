@@ -55,6 +55,12 @@
     </blog-button>
   </form>
   <blog-typography [content]="'Already a member?'" variant="body1"></blog-typography>
-  <blog-button [tag]="'link'" [className]="'formLink'" [content]="'Sing In'" variant="Tertiary">
+  <blog-button
+    [tag]="'link'"
+    routerLink="/auth/login"
+    [className]="'formLink'"
+    [content]="'Sing In'"
+    variant="Tertiary"
+  >
   </blog-button>
 </blog-card>

@@ -52,6 +52,12 @@
     </blog-button>
   </form>
   <blog-typography [content]="'Don`t have a account?'" variant="body1"></blog-typography>
-  <blog-button [tag]="'link'" [className]="'formLink'" [content]="'Sing Up'" variant="Tertiary">
+  <blog-button
+    [tag]="'link'"
+    [className]="'formLink'"
+    [routerLink]="['/auth/sign-up']"
+    [content]="'Sing Up'"
+    variant="Tertiary"
+  >
   </blog-button>
 </blog-card>

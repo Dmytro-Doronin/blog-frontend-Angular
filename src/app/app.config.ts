@@ -6,7 +6,7 @@ import { routes } from './app.routes'
 import { provideState, provideStore } from '@ngrx/store'
 import { AuthEffects } from './store/effects/auth.effects'
 import { appReducer } from './store/reducers/app.reducer'
-import {authReducer} from "./store/reducers/auth.reducer";
+import { authReducer } from './store/reducers/auth.reducer'
 
 export const appConfig: ApplicationConfig = {
   providers: [
