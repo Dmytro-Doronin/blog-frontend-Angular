@@ -24,8 +24,8 @@ export class AuthService {
     })
   }
 
-  passwordRecovery(email: string) {
-    return this.http.post('https://blog-backend-nest.vercel.app/auth/registration', {
+  sendPasswordRecovery(email: string) {
+    return this.http.post('https://blog-backend-nest.vercel.app/auth/password-recovery', {
       email,
     })
   }

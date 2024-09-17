@@ -7,6 +7,7 @@ import { AuthService } from '../../core/services/auth.service'
 import {
   addAuthAlert,
   deleteAuthAlert,
+  passwordRecovery,
   registerUser,
   setRegistrationLoading,
 } from '../actions/auth.actions'
@@ -48,5 +49,21 @@ export class AuthEffects {
       delay(5000),
       map(() => deleteAuthAlert())
     )
+  )
+
+  passwordRecovery = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(passwordRecovery),
+        mergeMap(action =>
+          this.authService
+            .sendPasswordRecovery(action.email)
+            .pipe
+            // map(() => passwordRecovery())
+            // catchError(error => of(sendPasswordResetFailure({ error })))
+            ()
+        )
+      ),
+    { dispatch: false }
   )
 }

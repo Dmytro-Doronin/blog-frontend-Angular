@@ -5,6 +5,8 @@ import { AuthInputComponent } from '../../auth-input/auth-input.component'
 import { ButtonComponent } from '../../../shared/ui/button/button.component'
 import { NgIf } from '@angular/common'
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms'
+import { Store } from '@ngrx/store'
+import { passwordRecovery } from '../../../store/actions/auth.actions'
 
 @Component({
   selector: 'blog-recovery-form',
@@ -21,20 +23,24 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms'
   styleUrl: './recovery-form.component.scss',
 })
 export class RecoveryFormComponent {
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(
+    private formBuilder: FormBuilder,
+    private store: Store
+  ) {}
 
-  loginForm = this.formBuilder.group({
+  recoveryForm = this.formBuilder.group({
     email: ['', [Validators.required, Validators.email]],
   })
 
   get email() {
-    return this.loginForm.get('email')
+    return this.recoveryForm.get('email')
   }
 
   onSubmit() {
-    console.log(this.loginForm.valid)
-    if (this.loginForm.valid) {
-      console.log(this.loginForm.value)
+    console.log(this.recoveryForm.valid)
+    if (this.recoveryForm.valid) {
+      const email = this.recoveryForm.value.email!
+      this.store.dispatch(passwordRecovery({ email }))
     }
   }
 }

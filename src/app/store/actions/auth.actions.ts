@@ -10,3 +10,7 @@ export const setRegistrationLoading = createAction(
   '[Registration loader] Set registration loader',
   props<{ registrationLoading: boolean }>()
 )
+export const passwordRecovery = createAction(
+  '[Password] Password recovery',
+  props<{ email: string }>()
+)

@@ -1,8 +1,8 @@
 <blog-card>
   <blog-typography [content]="'Recover your password'" variant="h3"></blog-typography>
 
-  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-    <blog-auth-input [control]="loginForm.controls.email" [id]="'email'" [title]="'Email'">
+  <form [formGroup]="recoveryForm" (ngSubmit)="onSubmit()">
+    <blog-auth-input [control]="recoveryForm.controls.email" [id]="'email'" [title]="'Email'">
     </blog-auth-input>
 
     <div *ngIf="email && !email!.valid && (email?.dirty || email?.touched)" class="error">

@@ -75,11 +75,14 @@ export class AuthSignUpFormComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.signUpForm.valid)
+    console.log(this.signUpForm)
+    console.log(this.email)
+
     if (this.signUpForm.valid) {
       const login = this.signUpForm.value.login!
       const password = this.signUpForm.value.password!
       const email = this.signUpForm.value.email!
+      console.log(login)
       this.store.dispatch(registerUser({ login, password, email }))
       // this.authService
       //   .userRegistration(
