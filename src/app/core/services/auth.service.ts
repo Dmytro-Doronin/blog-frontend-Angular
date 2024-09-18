@@ -29,4 +29,11 @@ export class AuthService {
       email,
     })
   }
+
+  newPassword(newPassword: string, recoveryCode: string) {
+    return this.http.post('https://blog-backend-nest.vercel.app/auth/new-password', {
+      newPassword,
+      recoveryCode,
+    })
+  }
 }
