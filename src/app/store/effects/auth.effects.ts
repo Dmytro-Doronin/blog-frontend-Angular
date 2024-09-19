@@ -11,7 +11,10 @@ import {
   passwordRecovery,
   registerUser,
   setRegistrationLoading,
+  setPasswordRecoveryLoading,
+  setNewPasswordLoading,
 } from '../actions/auth.actions'
+import { selectRecoveryLoading } from '../selectors/auth.selector'
 
 @Injectable()
 export class AuthEffects {
@@ -68,35 +71,73 @@ export class AuthEffects {
   //   { dispatch: false }
   // )
 
-  passwordRecovery = createEffect(
-    () =>
-      this.actions$.pipe(
-        ofType(passwordRecovery),
-        mergeMap(action =>
-          this.authService
-            .sendPasswordRecovery(action.email)
-            .pipe
-            // map(() => passwordRecovery())
-            // catchError(error => of(sendPasswordResetFailure({ error })))
-            ()
+  passwordRecovery = createEffect(() =>
+    this.actions$.pipe(
+      ofType(passwordRecovery),
+      concatMap(action =>
+        concat(
+          of(setPasswordRecoveryLoading({ passwordRecoveryLoading: true })),
+          this.authService.sendPasswordRecovery(action.email).pipe(
+            mergeMap(() => [
+              setPasswordRecoveryLoading({ passwordRecoveryLoading: false }),
+              addAuthAlert({
+                severity: 'success',
+                message: 'An email has been sent to you with instructions.!',
+              }),
+            ]),
+            catchError(error => {
+              const message = error.error.errorsMessages[0].message
+              return of(
+                setPasswordRecoveryLoading({ passwordRecoveryLoading: false }),
+                addAuthAlert({ severity: 'error', message: message })
+              )
+            })
+          )
         )
-      ),
-    { dispatch: false }
+      )
+    )
   )
 
-  newPassword = createEffect(
-    () =>
-      this.actions$.pipe(
-        ofType(newPasswordAction),
-        mergeMap(action =>
-          this.authService
-            .newPassword(action.newPassword, action.recoveryCode)
-            .pipe
-            // map(() => passwordRecovery())
-            // catchError(error => of(sendPasswordResetFailure({ error })))
-            ()
+  // newPassword = createEffect(
+  //   () =>
+  //     this.actions$.pipe(
+  //       ofType(newPasswordAction),
+  //       mergeMap(action =>
+  //         this.authService
+  //           .newPassword(action.newPassword, action.recoveryCode)
+  //           .pipe
+  //           // map(() => passwordRecovery())
+  //           // catchError(error => of(sendPasswordResetFailure({ error })))
+  //           ()
+  //       )
+  //     ),
+  //   { dispatch: false }
+  // )
+
+  newPassword = createEffect(() =>
+    this.actions$.pipe(
+      ofType(newPasswordAction),
+      concatMap(action =>
+        concat(
+          of(setNewPasswordLoading({ newPasswordLoading: true })),
+          this.authService.newPassword(action.newPassword, action.recoveryCode).pipe(
+            mergeMap(() => [
+              setNewPasswordLoading({ newPasswordLoading: false }),
+              addAuthAlert({
+                severity: 'success',
+                message: 'Password has been changed!',
+              }),
+            ]),
+            catchError(error => {
+              const message = error.error.errorsMessages[0].message
+              return of(
+                setNewPasswordLoading({ newPasswordLoading: false }),
+                addAuthAlert({ severity: 'error', message: message })
+              )
+            })
+          )
         )
-      ),
-    { dispatch: false }
+      )
+    )
   )
 }

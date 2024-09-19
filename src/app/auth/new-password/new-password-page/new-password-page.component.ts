@@ -18,7 +18,6 @@ export class NewPasswordPageComponent implements OnInit {
   ngOnInit(): void {
     this.route.queryParamMap.subscribe(params => {
       this.recoveryCode = params.get('recoveryCode')
-      console.log('Recovery code:', this.recoveryCode)
     })
   }
 }

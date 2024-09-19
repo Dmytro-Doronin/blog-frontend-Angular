@@ -60,4 +60,14 @@
     variant="Tertiary"
   >
   </blog-button>
+
+  <blog-typography [content]="'or'" variant="body1"></blog-typography>
+  <blog-button
+    [tag]="'link'"
+    [className]="'formLink'"
+    [routerLink]="['/auth/password-recovery']"
+    [content]="'Recover password'"
+    variant="Tertiary"
+  >
+  </blog-button>
 </blog-card>
