@@ -1,10 +1,16 @@
 import { createAction, props } from '@ngrx/store'
-import { AuthRegistration } from '../../types/auth.models'
+import {AuthLogin, AuthRegistration} from '../../types/auth.models'
 import { Notify } from '../../types/notification.models'
 
+export const loginUser = createAction('[Auth] Login User', props<AuthLogin>())
 export const registerUser = createAction('[Auth] Register User', props<AuthRegistration>())
 export const addAuthAlert = createAction('[Alert] Add Alert', props<Notify>())
 export const deleteAuthAlert = createAction('[Alert] Delete Alert')
+export const setAccessToken = createAction(
+  '[Access token] Set access token',
+  props<{ accessToken: string | null }>()
+)
+
 
 export const setPasswordRecoveryLoading = createAction(
   '[Recovery loader] Set recovery loader',
@@ -14,6 +20,11 @@ export const setPasswordRecoveryLoading = createAction(
 export const setNewPasswordLoading = createAction(
   '[New password loader] Set new password loader',
   props<{ newPasswordLoading: boolean }>()
+)
+
+export const setLoginLoading = createAction(
+  '[Login loader] Set login loader',
+  props<{ loginLoading: boolean }>()
 )
 
 export const setRegistrationLoading = createAction(

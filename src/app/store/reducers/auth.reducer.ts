@@ -2,7 +2,7 @@ import { createReducer, on } from '@ngrx/store'
 import { Notify } from '../../types/notification.models'
 import {
   addAuthAlert,
-  deleteAuthAlert,
+  deleteAuthAlert, setAccessToken, setLoginLoading,
   setNewPasswordLoading,
   setPasswordRecoveryLoading,
   setRegistrationLoading,
@@ -39,6 +39,10 @@ export const authReducer = createReducer(
     ...state,
     registrationLoading: registrationLoading,
   })),
+  on(setLoginLoading, (state, { loginLoading }) => ({
+    ...state,
+    loginLoading: loginLoading,
+  })),
   on(setNewPasswordLoading, (state, { newPasswordLoading }) => ({
     ...state,
     newPasswordLoading: newPasswordLoading,
@@ -47,5 +51,10 @@ export const authReducer = createReducer(
   on(setPasswordRecoveryLoading, (state, { passwordRecoveryLoading }) => ({
     ...state,
     passwordRecoveryLoading: passwordRecoveryLoading,
+  })),
+
+  on(setAccessToken, (state, { accessToken }) => ({
+    ...state,
+    accessToken: accessToken,
   }))
 )

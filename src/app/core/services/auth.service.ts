@@ -9,18 +9,18 @@ import { HttpClient } from '@angular/common/http'
 export class AuthService {
   constructor(private http: HttpClient) {}
 
+
+  userLogin(loginOrEmail: string, password: string) {
+    return this.http.post('https://blog-backend-nest.vercel.app/auth/login', {
+      loginOrEmail,
+      password,
+    })
+  }
   userRegistration(login: string, password: string, email: string) {
     return this.http.post('https://blog-backend-nest.vercel.app/auth/registration', {
       login,
       password,
       email,
-    })
-  }
-
-  userLogin(loginOrEmail: string, password: string) {
-    return this.http.post('https://blog-backend-nest.vercel.app/auth/registration', {
-      loginOrEmail,
-      password,
     })
   }
 

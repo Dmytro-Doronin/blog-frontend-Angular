@@ -12,7 +12,7 @@ import {
   registerUser,
   setRegistrationLoading,
   setPasswordRecoveryLoading,
-  setNewPasswordLoading,
+  setNewPasswordLoading, loginUser, setLoginLoading,
 } from '../actions/auth.actions'
 import { selectRecoveryLoading } from '../selectors/auth.selector'
 
@@ -22,6 +22,30 @@ export class AuthEffects {
     private actions$: Actions,
     private authService: AuthService
   ) {}
+
+  userLogin$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(loginUser),
+      concatMap(action =>
+        concat(
+          of(setLoginLoading({ loginLoading: true })),
+          this.authService.userLogin(action.loginOrEmail, action.password).pipe(
+            mergeMap(() => [
+              setLoginLoading({ loginLoading: false }),
+              addAuthAlert({ severity: 'success', message: 'Login successful!' }),
+            ]),
+            catchError(error => {
+              const message = error.error.errorsMessages[0].message
+              return of(
+                setLoginLoading({ loginLoading: false }),
+                addAuthAlert({ severity: 'error', message: message })
+              )
+            })
+          )
+        )
+      )
+    )
+  )
 
   userRegistration$ = createEffect(() =>
     this.actions$.pipe(
