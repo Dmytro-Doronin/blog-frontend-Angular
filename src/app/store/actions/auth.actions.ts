@@ -6,6 +6,7 @@ export const loginUser = createAction('[Auth] Login User', props<AuthLogin>())
 export const registerUser = createAction('[Auth] Register User', props<AuthRegistration>())
 export const addAuthAlert = createAction('[Alert] Add Alert', props<Notify>())
 export const deleteAuthAlert = createAction('[Alert] Delete Alert')
+
 export const setAccessToken = createAction(
   '[Access token] Set access token',
   props<{ accessToken: string | null }>()
@@ -39,4 +40,8 @@ export const passwordRecovery = createAction(
 export const newPasswordAction = createAction(
   '[Password] New password',
   props<{ newPassword: string; recoveryCode: string }>()
+)
+export const setIsAuthenticated = createAction(
+  '[isAuthenticated] Set isAuthenticated',
+  props<{ isAuthenticated: boolean }>()
 )

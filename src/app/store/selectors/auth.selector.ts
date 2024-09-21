@@ -12,7 +12,7 @@ export const selectRegistrationLoading = createSelector(
 )
 export const selectAccessToken = createSelector(
   selectAuthState,
-  (state: AuthState) => state.registrationLoading
+  (state: AuthState) => state.accessToken
 )
 
 export const selectLoginLoading = createSelector(
@@ -28,4 +28,9 @@ export const selectRecoveryLoading = createSelector(
 export const selectNewPasswordLoading = createSelector(
   selectAuthState,
   (state: AuthState) => state.newPasswordLoading
+)
+
+export const selectIsAuthenticated = createSelector(
+  selectAuthState,
+  (state: AuthState) => state.isAuthenticated
 )

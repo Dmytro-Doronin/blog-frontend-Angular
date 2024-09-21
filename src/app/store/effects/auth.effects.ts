@@ -14,14 +14,16 @@ import {
   setPasswordRecoveryLoading,
   setNewPasswordLoading,
   loginUser,
-  setLoginLoading,
+  setLoginLoading, setAccessToken, setIsAuthenticated,
 } from '../actions/auth.actions'
+import {Router} from "@angular/router";
 
 @Injectable()
 export class AuthEffects {
   constructor(
     private actions$: Actions,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) {}
 
   userLogin$ = createEffect(() =>
@@ -31,9 +33,11 @@ export class AuthEffects {
         concat(
           of(setLoginLoading({ loginLoading: true })),
           this.authService.userLogin(action.loginOrEmail, action.password).pipe(
-            mergeMap(() => [
-              setLoginLoading({ loginLoading: false }),
+            mergeMap((response: any) => [
               addAuthAlert({ severity: 'success', message: 'Login successful!' }),
+              setAccessToken({accessToken: response.accessToken}),
+              setIsAuthenticated({isAuthenticated: true}),
+              setLoginLoading({ loginLoading: false }),
             ]),
             catchError(error => {
               const message = error.error.errorsMessages[0].message
@@ -46,6 +50,17 @@ export class AuthEffects {
         )
       )
     )
+  )
+
+  loginRedirect$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(setAccessToken),
+        map(() => {
+          this.router.navigate(['/blogs']);
+        })
+      ),
+    { dispatch: false }
   )
 
   userRegistration$ = createEffect(() =>

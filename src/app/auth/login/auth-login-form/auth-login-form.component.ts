@@ -10,7 +10,7 @@ import {LoaderComponent} from "../../../shared/components/loader/loader.componen
 import {Store} from "@ngrx/store";
 import {loginUser} from "../../../store/actions/auth.actions";
 import {Observable} from "rxjs";
-import {selectLoginLoading} from "../../../store/selectors/auth.selector";
+import {selectAccessToken, selectLoginLoading} from "../../../store/selectors/auth.selector";
 @Component({
   selector: 'blog-auth-login-form',
   standalone: true,
@@ -31,6 +31,7 @@ import {selectLoginLoading} from "../../../store/selectors/auth.selector";
 })
 export class AuthLoginFormComponent implements OnInit{
   loginLoading$?: Observable<boolean>
+  accessToken$?: Observable<any>
   constructor(private formBuilder: FormBuilder, private store: Store) {}
 
   loginForm = this.formBuilder.group({
@@ -39,6 +40,11 @@ export class AuthLoginFormComponent implements OnInit{
   })
 
   ngOnInit(): void {
+    this.loader()
+    this.accessToken$ = this.store.select(selectAccessToken)
+    this.accessToken$.subscribe((token) => {
+      console.log(token)
+    })
   }
   loader() {
     this.loginLoading$ = this.store.select(selectLoginLoading)
@@ -59,6 +65,11 @@ export class AuthLoginFormComponent implements OnInit{
         const password = this.loginForm.value.password!
         this.store.dispatch(loginUser({loginOrEmail, password}))
     }
+
+    this.accessToken$ = this.store.select(selectAccessToken)
+    this.accessToken$.subscribe((token) => {
+      console.log(token)
+    })
   }
 
 
