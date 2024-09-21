@@ -12,9 +12,10 @@ import {
   registerUser,
   setRegistrationLoading,
   setPasswordRecoveryLoading,
-  setNewPasswordLoading, loginUser, setLoginLoading,
+  setNewPasswordLoading,
+  loginUser,
+  setLoginLoading,
 } from '../actions/auth.actions'
-import { selectRecoveryLoading } from '../selectors/auth.selector'
 
 @Injectable()
 export class AuthEffects {
