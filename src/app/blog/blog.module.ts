@@ -4,8 +4,8 @@ import { BlogsComponent } from './blogs/blogs.component'
 import { BlogRoutingModule } from './blog-routing.module'
 
 @NgModule({
-  declarations: [BlogsComponent],
-  exports: [BlogsComponent],
-  imports: [CommonModule, BlogRoutingModule],
+  providers: [],
+  declarations: [],
+  imports: [CommonModule, BlogRoutingModule, BlogsComponent],
 })
 export class BlogModule {}

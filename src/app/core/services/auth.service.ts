@@ -9,7 +9,6 @@ import { HttpClient } from '@angular/common/http'
 export class AuthService {
   constructor(private http: HttpClient) {}
 
-
   userLogin(loginOrEmail: string, password: string) {
     return this.http.post('https://blog-backend-nest.vercel.app/auth/login', {
       loginOrEmail,
@@ -35,5 +34,9 @@ export class AuthService {
       newPassword,
       recoveryCode,
     })
+  }
+
+  sendRefreshToken() {
+    return this.http.post('https://blog-backend-nest.vercel.app/auth/refresh-token', {})
   }
 }

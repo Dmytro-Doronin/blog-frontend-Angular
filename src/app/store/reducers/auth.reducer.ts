@@ -2,7 +2,10 @@ import { createReducer, on } from '@ngrx/store'
 import { Notify } from '../../types/notification.models'
 import {
   addAuthAlert,
-  deleteAuthAlert, setAccessToken, setIsAuthenticated, setLoginLoading,
+  deleteAuthAlert,
+  setAccessToken,
+  setIsAuthenticated,
+  setLoginLoading,
   setNewPasswordLoading,
   setPasswordRecoveryLoading,
   setRegistrationLoading,
@@ -58,7 +61,7 @@ export const authReducer = createReducer(
     accessToken: accessToken,
   })),
   on(setIsAuthenticated, (state, { isAuthenticated }) => ({
-      ...state,
-      isAuthenticated: isAuthenticated,
+    ...state,
+    isAuthenticated: isAuthenticated,
   }))
 )

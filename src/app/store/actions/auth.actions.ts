@@ -11,6 +11,7 @@ export const setAccessToken = createAction(
   '[Access token] Set access token',
   props<{ accessToken: string | null }>()
 )
+export const refreshToken = createAction('[Refresh token] Get new token')
 
 export const setPasswordRecoveryLoading = createAction(
   '[Recovery loader] Set recovery loader',

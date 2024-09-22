@@ -5,7 +5,6 @@ import { ModalComponent } from '../../../shared/components/modal/modal.component
 import { TypographyComponent } from '../../../shared/ui/typography/typography.component'
 import { ButtonComponent } from '../../../shared/ui/button/button.component'
 import { NgIf } from '@angular/common'
-import { AuthService } from '../../../core/services/auth.service'
 import { HttpClient } from '@angular/common/http'
 
 @Component({

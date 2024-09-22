@@ -13,8 +13,8 @@ import { ParentAlertComponent } from './shared/components/parent-alert/parent-al
   imports: [
     RouterOutlet,
     HttpClientModule,
-    AuthModule,
     BlogModule,
+    AuthModule,
     HeaderModule,
     ReactiveFormsModule,
     ParentAlertComponent,

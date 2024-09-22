@@ -75,7 +75,6 @@ export class AuthSignUpFormComponent implements OnInit {
   }
 
   onSubmit() {
-
     if (this.signUpForm.valid) {
       const login = this.signUpForm.value.login!
       const password = this.signUpForm.value.password!

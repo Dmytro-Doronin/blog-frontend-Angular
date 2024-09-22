@@ -3,7 +3,6 @@ import { Actions, createEffect, ofType } from '@ngrx/effects'
 import { catchError, concatMap, delay, finalize, map, mergeMap, switchMap } from 'rxjs/operators'
 import { concat, of } from 'rxjs'
 
-import { AuthService } from '../../core/services/auth.service'
 import {
   addAuthAlert,
   deleteAuthAlert,
@@ -14,9 +13,13 @@ import {
   setPasswordRecoveryLoading,
   setNewPasswordLoading,
   loginUser,
-  setLoginLoading, setAccessToken, setIsAuthenticated,
+  setLoginLoading,
+  setAccessToken,
+  setIsAuthenticated,
+  refreshToken,
 } from '../actions/auth.actions'
-import {Router} from "@angular/router";
+import { Router } from '@angular/router'
+import { AuthService } from '../../core/services/auth.service'
 
 @Injectable()
 export class AuthEffects {
@@ -33,12 +36,24 @@ export class AuthEffects {
         concat(
           of(setLoginLoading({ loginLoading: true })),
           this.authService.userLogin(action.loginOrEmail, action.password).pipe(
-            mergeMap((response: any) => [
-              addAuthAlert({ severity: 'success', message: 'Login successful!' }),
-              setAccessToken({accessToken: response.accessToken}),
-              setIsAuthenticated({isAuthenticated: true}),
-              setLoginLoading({ loginLoading: false }),
-            ]),
+            mergeMap((response: any) => {
+              // Сохраняем accessToken в localStorage
+              localStorage.setItem('accessToken', response.accessToken)
+
+              return [
+                // Успешный вход в систему: показываем сообщение об успехе
+                addAuthAlert({ severity: 'success', message: 'Login successful!' }),
+
+                // Сохраняем токен в store
+                setAccessToken({ accessToken: response.accessToken }),
+
+                // Устанавливаем флаг, что пользователь авторизован
+                setIsAuthenticated({ isAuthenticated: true }),
+
+                // Выключаем индикатор загрузки
+                setLoginLoading({ loginLoading: false }),
+              ]
+            }),
             catchError(error => {
               const message = error.error.errorsMessages[0].message
               return of(
@@ -52,12 +67,32 @@ export class AuthEffects {
     )
   )
 
+  refreshToken$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(refreshToken),
+      concatMap(action =>
+        concat(
+          this.authService.sendRefreshToken().pipe(
+            mergeMap((response: any) => [
+              setAccessToken({ accessToken: response.accessToken }),
+              // setIsAuthenticated({ isAuthenticated: true }),
+            ]),
+            catchError(error => {
+              const message = error.error.errorsMessages[0].message
+              return of(addAuthAlert({ severity: 'error', message: message }))
+            })
+          )
+        )
+      )
+    )
+  )
+
   loginRedirect$ = createEffect(
     () =>
       this.actions$.pipe(
         ofType(setAccessToken),
         map(() => {
-          this.router.navigate(['/blogs']);
+          this.router.navigate(['/blogs'])
         })
       ),
     { dispatch: false }
@@ -154,7 +189,7 @@ export class AuthEffects {
   //   { dispatch: false }
   // )
 
-  newPassword = createEffect(() =>
+  newPassword$ = createEffect(() =>
     this.actions$.pipe(
       ofType(newPasswordAction),
       concatMap(action =>
