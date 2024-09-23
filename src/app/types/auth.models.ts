@@ -1,10 +1,16 @@
 export type AuthLogin = {
-  loginOrEmail: string,
+  loginOrEmail: string
   password: string
 }
 
-export type AuthRegistration = {
+export interface AuthRegistration {
   login: string
   password: string
   email: string
+}
+
+export interface AuthMe {
+  email: string
+  login: string
+  userId: string
 }

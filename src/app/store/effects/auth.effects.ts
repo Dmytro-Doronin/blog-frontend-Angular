@@ -17,6 +17,8 @@ import {
   setAccessToken,
   setIsAuthenticated,
   refreshToken,
+  authMe,
+  setProfile,
 } from '../actions/auth.actions'
 import { Router } from '@angular/router'
 import { AuthService } from '../../core/services/auth.service'
@@ -37,21 +39,17 @@ export class AuthEffects {
           of(setLoginLoading({ loginLoading: true })),
           this.authService.userLogin(action.loginOrEmail, action.password).pipe(
             mergeMap((response: any) => {
-              // Сохраняем accessToken в localStorage
               localStorage.setItem('accessToken', response.accessToken)
 
               return [
-                // Успешный вход в систему: показываем сообщение об успехе
                 addAuthAlert({ severity: 'success', message: 'Login successful!' }),
 
-                // Сохраняем токен в store
                 setAccessToken({ accessToken: response.accessToken }),
 
-                // Устанавливаем флаг, что пользователь авторизован
                 setIsAuthenticated({ isAuthenticated: true }),
 
-                // Выключаем индикатор загрузки
                 setLoginLoading({ loginLoading: false }),
+                authMe(),
               ]
             }),
             catchError(error => {
@@ -62,6 +60,21 @@ export class AuthEffects {
               )
             })
           )
+        )
+      )
+    )
+  )
+
+  me$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(authMe),
+      switchMap(() =>
+        this.authService.me().pipe(
+          map(user => setProfile({ email: user.email, login: user.login, userId: user.userId })),
+          catchError(error => {
+            const message = error.error.errorsMessages[0].message
+            return of(addAuthAlert({ severity: 'error', message: message }))
+          })
         )
       )
     )
@@ -92,7 +105,7 @@ export class AuthEffects {
       this.actions$.pipe(
         ofType(setAccessToken),
         map(() => {
-          this.router.navigate(['/blogs'])
+          this.router.navigate(['/main/blogs'])
         })
       ),
     { dispatch: false }

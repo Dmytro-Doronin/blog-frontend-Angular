@@ -2,12 +2,14 @@ import { createReducer, on } from '@ngrx/store'
 import { Notify } from '../../types/notification.models'
 import {
   addAuthAlert,
+  authMe,
   deleteAuthAlert,
   setAccessToken,
   setIsAuthenticated,
   setLoginLoading,
   setNewPasswordLoading,
   setPasswordRecoveryLoading,
+  setProfile,
   setRegistrationLoading,
 } from '../actions/auth.actions'
 
@@ -17,6 +19,11 @@ export interface AuthState {
   loginLoading: boolean
   accessToken: string | null
   isAuthenticated: boolean
+  user: {
+    email: string
+    login: string
+    userId: string
+  }
   passwordRecoveryLoading: boolean
   newPasswordLoading: boolean
 }
@@ -29,10 +36,19 @@ export const initialState: AuthState = {
   alert: null,
   accessToken: null,
   isAuthenticated: false,
+  user: {
+    email: '',
+    login: '',
+    userId: '',
+  },
 }
 
 export const authReducer = createReducer(
   initialState,
+  on(setProfile, (state, { email, login, userId }) => ({
+    ...state,
+    user: { email, login, userId },
+  })),
   on(addAuthAlert, (state, { severity, message }) => ({
     ...state,
     alert: { severity, message },

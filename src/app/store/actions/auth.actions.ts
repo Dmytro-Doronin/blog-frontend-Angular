@@ -1,11 +1,14 @@
 import { createAction, props } from '@ngrx/store'
-import { AuthLogin, AuthRegistration } from '../../types/auth.models'
+import { AuthLogin, AuthMe, AuthRegistration } from '../../types/auth.models'
 import { Notify } from '../../types/notification.models'
 
 export const loginUser = createAction('[Auth] Login User', props<AuthLogin>())
 export const registerUser = createAction('[Auth] Register User', props<AuthRegistration>())
 export const addAuthAlert = createAction('[Alert] Add Alert', props<Notify>())
 export const deleteAuthAlert = createAction('[Alert] Delete Alert')
+
+export const authMe = createAction('[Me] auth Me')
+export const setProfile = createAction('[Auth profile] set profile', props<AuthMe>())
 
 export const setAccessToken = createAction(
   '[Access token] Set access token',
