@@ -12,10 +12,14 @@ export class AuthService {
   constructor(private http: HttpClient) {}
 
   userLogin(loginOrEmail: string, password: string) {
-    return this.http.post('http://localhost:3000/auth/login', {
-      loginOrEmail,
-      password,
-    })
+    return this.http.post(
+      'http://localhost:3000/auth/login',
+      {
+        loginOrEmail,
+        password,
+      },
+      { withCredentials: true }
+    )
   }
   userRegistration(login: string, password: string, email: string) {
     return this.http.post('http://localhost:3000/auth/registration', {
