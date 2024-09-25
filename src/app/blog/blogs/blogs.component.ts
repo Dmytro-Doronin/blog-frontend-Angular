@@ -3,6 +3,7 @@ import { BlogService } from '../../core/services/blog.service'
 import { Observable } from 'rxjs'
 import { Store } from '@ngrx/store'
 import { selectAccessToken } from '../../store/selectors/auth.selector'
+import { AuthService } from '../../core/services/auth.service'
 
 @Component({
   standalone: true,
@@ -15,6 +16,7 @@ export class BlogsComponent implements OnInit {
   token$?: Observable<any>
   constructor(
     private blogService: BlogService,
+    private authService: AuthService,
     private store: Store
   ) {}
 
@@ -28,6 +30,12 @@ export class BlogsComponent implements OnInit {
       console.log(token)
     })
     this.blogService.getBlogs().subscribe(ans => {
+      console.log(ans)
+    })
+  }
+
+  loadToken() {
+    this.authService.sendRefreshToken().subscribe(ans => {
       console.log(ans)
     })
   }

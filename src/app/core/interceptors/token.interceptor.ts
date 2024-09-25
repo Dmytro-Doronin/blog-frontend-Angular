@@ -74,6 +74,7 @@ export class TokenInterceptor implements HttpInterceptor {
     const secureEndpoints = [
       'https://blog-backend-nest.vercel.app/auth/me',
       'http://localhost:3000/auth/me',
+      'http://localhost:3000/blogs',
     ]
 
     // Проверяем, является ли текущий запрос защищённым
@@ -89,7 +90,7 @@ export class TokenInterceptor implements HttpInterceptor {
       // Если accessToken есть, добавляем его в заголовки запроса
       const clonedReq = accessToken
         ? req.clone({
-            setHeaders: { Authorization: `Bearer ${accessToken + 'asd'}` },
+            setHeaders: { Authorization: `Bearer ${accessToken}` },
           })
         : req
 

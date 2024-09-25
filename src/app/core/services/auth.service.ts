@@ -12,13 +12,13 @@ export class AuthService {
   constructor(private http: HttpClient) {}
 
   userLogin(loginOrEmail: string, password: string) {
-    return this.http.post('https://blog-backend-nest.vercel.app/auth/login', {
+    return this.http.post('http://localhost:3000/auth/login', {
       loginOrEmail,
       password,
     })
   }
   userRegistration(login: string, password: string, email: string) {
-    return this.http.post('https://blog-backend-nest.vercel.app/auth/registration', {
+    return this.http.post('http://localhost:3000/auth/registration', {
       login,
       password,
       email,
@@ -39,14 +39,10 @@ export class AuthService {
   }
 
   sendRefreshToken() {
-    return this.http.post(
-      'https://blog-backend-nest.vercel.app/auth/refresh-token',
-      {},
-      { withCredentials: true }
-    )
+    return this.http.post('http://localhost:3000/auth/refresh-token', {}, { withCredentials: true })
   }
 
   me() {
-    return this.http.get<AuthMe>('https://blog-backend-nest.vercel.app/auth/me')
+    return this.http.get<AuthMe>('http://localhost:3000/auth/me')
   }
 }

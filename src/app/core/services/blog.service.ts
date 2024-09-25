@@ -8,6 +8,6 @@ export class BlogService {
   constructor(private http: HttpClient) {}
 
   getBlogs() {
-    return this.http.get('https://blog-backend-nest.vercel.app/blogs')
+    return this.http.get('http://localhost:3000/blogs')
   }
 }
