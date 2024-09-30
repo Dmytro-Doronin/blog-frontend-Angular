@@ -13,7 +13,7 @@ export class AuthService {
 
   userLogin(loginOrEmail: string, password: string) {
     return this.http.post(
-      'http://localhost:3000/auth/login',
+      'https://blog-backend-nest.vercel.app/auth/login',
       {
         loginOrEmail,
         password,
@@ -22,7 +22,7 @@ export class AuthService {
     )
   }
   userRegistration(login: string, password: string, email: string) {
-    return this.http.post('http://localhost:3000/auth/registration', {
+    return this.http.post('https://blog-backend-nest.vercel.app/auth/registration', {
       login,
       password,
       email,
@@ -43,10 +43,14 @@ export class AuthService {
   }
 
   sendRefreshToken() {
-    return this.http.post('http://localhost:3000/auth/refresh-token', {}, { withCredentials: true })
+    return this.http.post('https://blog-backend-nest.vercel.app/auth/refresh-token', {}, { withCredentials: true })
   }
 
   me() {
-    return this.http.get<AuthMe>('http://localhost:3000/auth/me')
+    return this.http.get<AuthMe>('https://blog-backend-nest.vercel.app/auth/me')
+  }
+
+  logOut() {
+    return this.http.post('https://blog-backend-nest.vercel.app/auth/logout', {}, { withCredentials: true })
   }
 }

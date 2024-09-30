@@ -18,10 +18,11 @@ import {
   setIsAuthenticated,
   refreshToken,
   authMe,
-  setProfile,
+  setProfile, logOut,
 } from '../actions/auth.actions'
 import { Router } from '@angular/router'
 import { AuthService } from '../../core/services/auth.service'
+import {setAppLoading} from "../actions/app.actions";
 
 @Injectable()
 export class AuthEffects {
@@ -65,16 +66,29 @@ export class AuthEffects {
     )
   )
 
+
   me$ = createEffect(() =>
     this.actions$.pipe(
       ofType(authMe),
-      switchMap(() =>
-        this.authService.me().pipe(
-          map(user => setProfile({ email: user.email, login: user.login, userId: user.userId })),
-          catchError(error => {
-            const message = error.error.errorsMessages[0].message
-            return of(addAuthAlert({ severity: 'error', message: message }))
-          })
+      concatMap(action =>
+        concat(
+          of(setAppLoading({ loading: true })),
+          this.authService.me().pipe(
+            mergeMap(user => {
+              return [
+                setIsAuthenticated({ isAuthenticated: true }),
+                setProfile({ email: user.email, login: user.login, userId: user.userId }),
+                setAppLoading({ loading: false })
+              ]
+            }),
+            catchError(error => {
+              const message = error.error.errorsMessages[0].message
+              return of(
+                addAuthAlert({ severity: 'error', message: message }),
+                setAppLoading({ loading: false })
+              )
+            })
+          )
         )
       )
     )
@@ -221,6 +235,55 @@ export class AuthEffects {
               return of(
                 setNewPasswordLoading({ newPasswordLoading: false }),
                 addAuthAlert({ severity: 'error', message: message })
+              )
+            })
+          )
+        )
+      )
+    )
+  )
+
+  // logOut$ = createEffect(() =>
+  //   this.actions$.pipe(
+  //     ofType(logOut),
+  //     switchMap(() =>
+  //       this.authService.logOut().pipe(
+  //         // map(user => setProfile({ email: user.email, login: user.login, userId: user.userId })),
+  //         mergeMap(user => {
+  //           localStorage.removeItem('accessToken')
+  //           return [
+  //             setIsAuthenticated({ isAuthenticated: false }),
+  //             setProfile({ email: '', login: '', userId: '' }),
+  //           ]
+  //         }),
+  //         catchError(error => {
+  //           const message = error.error.errorsMessages[0].message
+  //           return of(addAuthAlert({ severity: 'error', message: message }))
+  //         })
+  //       )
+  //     )
+  //   )
+  // )
+  logOut$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(logOut),
+      concatMap(action =>
+        concat(
+          of(setAppLoading({ loading: true })),
+          this.authService.logOut().pipe(
+            mergeMap(user => {
+              localStorage.removeItem('accessToken')
+              return [
+                setIsAuthenticated({ isAuthenticated: false }),
+                setProfile({ email: '', login: '', userId: '' }),
+                setAppLoading({ loading: false })
+              ]
+            }),
+            catchError(error => {
+              const message = error.error.errorsMessages[0].message
+              return of(
+                addAuthAlert({ severity: 'error', message: message }),
+                setAppLoading({ loading: false })
               )
             })
           )

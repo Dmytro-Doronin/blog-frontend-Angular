@@ -33,3 +33,8 @@ export const selectIsAuthenticated = createSelector(
   selectAuthState,
   (state: AuthState) => state.isAuthenticated
 )
+
+export const selectUserLogin = createSelector(
+  selectAuthState,
+  (state: AuthState) => state.user.login
+)

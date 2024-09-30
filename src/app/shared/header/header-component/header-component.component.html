@@ -2,6 +2,30 @@
   <div class="container">
     <div class="header-inner">
       <p class="logo" routerLink="/main/blogs">Blogger platform</p>
+      <div class="header-items">
+
+        <p *ngIf="isAuthenticated$ | async " class="header-user-name">{{userLogin$ | async}}</p>
+
+        <div (click)="logOut()" *ngIf="isAuthenticated$ | async; else elseBlock" class="header-items-button">
+          <div class="header-icon">
+            <blog-icon-sign-out></blog-icon-sign-out>
+          </div>
+          <div class="header-action">Login out</div>
+        </div>
+
+        <ng-template #elseBlock>
+          <div routerLink="/auth/login" class="header-items-button">
+            <div class="header-icon">
+              <blog-icon-sign-out></blog-icon-sign-out>
+            </div>
+            <div class="header-action">Log in</div>
+          </div>
+        </ng-template>
+
+
+
+      </div>
+
     </div>
   </div>
 </header>

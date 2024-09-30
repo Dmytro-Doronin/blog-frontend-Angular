@@ -8,6 +8,10 @@ import { ReactiveFormsModule } from '@angular/forms'
 import { ParentAlertComponent } from './shared/components/parent-alert/parent-alert.component'
 import { Store } from '@ngrx/store'
 import { authMe } from './store/actions/auth.actions'
+import {AppLoaderComponent} from "./shared/components/app-loader/app-loader.component";
+import {Observable} from "rxjs";
+import {selectAppLoading} from "./store/selectors/app.selector";
+import {AsyncPipe, NgIf} from "@angular/common";
 
 @Component({
   selector: 'blog-root',
@@ -20,20 +24,24 @@ import { authMe } from './store/actions/auth.actions'
     HeaderModule,
     ReactiveFormsModule,
     ParentAlertComponent,
+    AppLoaderComponent,
+    NgIf,
+    AsyncPipe
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
 export class AppComponent implements OnInit {
   title = 'blog'
-
+  appLoading$?: Observable<boolean>
   constructor(private store: Store) {}
 
   ngOnInit(): void {
     const accessToken = localStorage.getItem('accessToken')
-    console.log('token in app', accessToken)
     if (accessToken) {
       this.store.dispatch(authMe())
     }
+
+    this.appLoading$ = this.store.select(selectAppLoading)
   }
 }

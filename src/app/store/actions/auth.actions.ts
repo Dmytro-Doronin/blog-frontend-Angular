@@ -9,6 +9,7 @@ export const deleteAuthAlert = createAction('[Alert] Delete Alert')
 
 export const authMe = createAction('[Me] auth Me')
 export const setProfile = createAction('[Auth profile] set profile', props<AuthMe>())
+export const logOut = createAction('[Log out] Log out')
 
 export const setAccessToken = createAction(
   '[Access token] Set access token',

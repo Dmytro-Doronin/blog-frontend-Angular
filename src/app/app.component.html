@@ -1,5 +1,6 @@
 <div class="app">
   <blog-header-component></blog-header-component>
+  <blog-app-loader *ngIf="appLoading$ | async"></blog-app-loader>
   <div class="container">
     <router-outlet></router-outlet>
   </div>
