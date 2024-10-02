@@ -29,6 +29,12 @@ export class AuthService {
     })
   }
 
+  passwordConfirmation(code: string) {
+    return this.http.post('http://localhost:3000/auth/registration-confirmation', {
+      code,
+    })
+  }
+
   sendPasswordRecovery(email: string) {
     return this.http.post('https://blog-backend-nest.vercel.app/auth/password-recovery', {
       email,
@@ -43,7 +49,11 @@ export class AuthService {
   }
 
   sendRefreshToken() {
-    return this.http.post('https://blog-backend-nest.vercel.app/auth/refresh-token', {}, { withCredentials: true })
+    return this.http.post(
+      'https://blog-backend-nest.vercel.app/auth/refresh-token',
+      {},
+      { withCredentials: true }
+    )
   }
 
   me() {
@@ -51,6 +61,10 @@ export class AuthService {
   }
 
   logOut() {
-    return this.http.post('https://blog-backend-nest.vercel.app/auth/logout', {}, { withCredentials: true })
+    return this.http.post(
+      'https://blog-backend-nest.vercel.app/auth/logout',
+      {},
+      { withCredentials: true }
+    )
   }
 }

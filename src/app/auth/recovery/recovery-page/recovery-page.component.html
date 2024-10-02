@@ -1,3 +1,7 @@
 <blog-auth-page>
-  <blog-recovery-form></blog-recovery-form>
+  <blog-recovery-form
+    [loading]="recoverPasswordLoading$ | async"
+    [authSeverity]="authSeverity$ | async"
+    (formSubmitted)="onFormSubmit($event)"
+  ></blog-recovery-form>
 </blog-auth-page>

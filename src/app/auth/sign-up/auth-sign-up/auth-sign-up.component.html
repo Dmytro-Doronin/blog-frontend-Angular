@@ -12,6 +12,10 @@
       [content]="'OK'"
     ></blog-button>
   </blog-modal>
-  <blog-auth-sign-up-form></blog-auth-sign-up-form>
+  <blog-auth-sign-up-form
+    (formSubmitted)="onFormSubmit($event)"
+    [authSeverity]="authSeverity$ | async"
+    [loading]="signUpLoading$ | async"
+  ></blog-auth-sign-up-form>
   <blog-login-image></blog-login-image>
 </div>

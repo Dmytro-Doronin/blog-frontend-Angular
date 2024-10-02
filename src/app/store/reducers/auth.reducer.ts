@@ -5,6 +5,7 @@ import {
   authMe,
   deleteAuthAlert,
   setAccessToken,
+  setConfirmationEmailStatus,
   setIsAuthenticated,
   setLoginLoading,
   setNewPasswordLoading,
@@ -12,6 +13,7 @@ import {
   setProfile,
   setRegistrationLoading,
 } from '../actions/auth.actions'
+import { ConfirmationEmailTypes } from '../../types/auth.models'
 
 export interface AuthState {
   alert: Notify | null
@@ -19,6 +21,7 @@ export interface AuthState {
   loginLoading: boolean
   accessToken: string | null
   isAuthenticated: boolean
+  confirmationStatus: ConfirmationEmailTypes
   user: {
     email: string
     login: string
@@ -34,6 +37,7 @@ export const initialState: AuthState = {
   newPasswordLoading: false,
   loginLoading: false,
   alert: null,
+  confirmationStatus: null,
   accessToken: null,
   isAuthenticated: false,
   user: {
@@ -52,6 +56,10 @@ export const authReducer = createReducer(
   on(addAuthAlert, (state, { severity, message }) => ({
     ...state,
     alert: { severity, message },
+  })),
+  on(setConfirmationEmailStatus, (state, { confirmationStatus }) => ({
+    ...state,
+    confirmationStatus: confirmationStatus,
   })),
   on(deleteAuthAlert, state => ({ ...state, alert: null })),
   on(setRegistrationLoading, (state, { registrationLoading }) => ({

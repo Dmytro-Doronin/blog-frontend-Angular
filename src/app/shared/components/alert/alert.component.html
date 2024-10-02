@@ -1,9 +1,9 @@
-
-<div class="alert" [ngClass]="{
-    'success': message?.severity === 'success',
-    'error': message?.severity === 'error'
-  }">
-    <p>{{ message?.message }}</p>
-  </div>
-
-
+<div
+  class="alert"
+  [ngClass]="{
+    success: message?.severity === 'success',
+    error: message?.severity === 'error'
+  }"
+>
+  <p>{{ message?.message }}</p>
+</div>

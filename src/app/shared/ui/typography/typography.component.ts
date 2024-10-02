@@ -1,5 +1,4 @@
 import { Component, Input } from '@angular/core'
-import { NgSwitch, NgSwitchCase } from '@angular/common'
 
 type VariantType =
   | 'large'
@@ -18,8 +17,6 @@ type VariantType =
 
 @Component({
   selector: 'blog-typography',
-  standalone: true,
-  imports: [NgSwitch, NgSwitchCase],
   templateUrl: './typography.component.html',
   styleUrl: './typography.component.scss',
 })

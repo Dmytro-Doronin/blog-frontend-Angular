@@ -1,12 +1,8 @@
-import { Component } from '@angular/core';
+import { Component } from '@angular/core'
 
 @Component({
   selector: 'blog-app-loader',
-  standalone: true,
-  imports: [],
   templateUrl: './app-loader.component.html',
-  styleUrl: './app-loader.component.scss'
+  styleUrl: './app-loader.component.scss',
 })
-export class AppLoaderComponent {
-
-}
+export class AppLoaderComponent {}

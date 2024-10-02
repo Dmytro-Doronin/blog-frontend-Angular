@@ -3,8 +3,6 @@ import { TypographyComponent } from '../../ui/typography/typography.component'
 
 @Component({
   selector: 'blog-modal',
-  standalone: true,
-  imports: [TypographyComponent],
   templateUrl: './modal.component.html',
   styleUrl: './modal.component.scss',
 })

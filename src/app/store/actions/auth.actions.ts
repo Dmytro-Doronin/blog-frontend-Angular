@@ -1,5 +1,10 @@
 import { createAction, props } from '@ngrx/store'
-import { AuthLogin, AuthMe, AuthRegistration } from '../../types/auth.models'
+import {
+  AuthLogin,
+  AuthMe,
+  AuthRegistration,
+  ConfirmationEmailTypes,
+} from '../../types/auth.models'
 import { Notify } from '../../types/notification.models'
 
 export const loginUser = createAction('[Auth] Login User', props<AuthLogin>())
@@ -10,6 +15,11 @@ export const deleteAuthAlert = createAction('[Alert] Delete Alert')
 export const authMe = createAction('[Me] auth Me')
 export const setProfile = createAction('[Auth profile] set profile', props<AuthMe>())
 export const logOut = createAction('[Log out] Log out')
+
+export const confirmEmail = createAction(
+  '[Confirm] confirm email',
+  props<{ confirmationCode: string }>()
+)
 
 export const setAccessToken = createAction(
   '[Access token] Set access token',
@@ -25,6 +35,11 @@ export const setPasswordRecoveryLoading = createAction(
 export const setNewPasswordLoading = createAction(
   '[New password loader] Set new password loader',
   props<{ newPasswordLoading: boolean }>()
+)
+
+export const setConfirmationEmailStatus = createAction(
+  '[Confirmation status] Set new confirmation status',
+  props<{ confirmationStatus: ConfirmationEmailTypes }>()
 )
 
 export const setLoginLoading = createAction(

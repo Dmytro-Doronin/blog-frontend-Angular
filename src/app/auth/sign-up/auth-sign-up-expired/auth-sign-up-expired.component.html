@@ -1,21 +1,21 @@
-<div class="expired">
-  <div class="expiredInner">
-    <blog-typography
-      [variant]="'h3'"
-      [content]="'Email verification link expired'"
-    >
-    </blog-typography>
-    <blog-typography
-      [variant]="'body2'"
-      [content]="'Looks like the verification link has expired. Not to worry, we can send the link again'"
-      [className]="'mw mb'"
-    >
-    </blog-typography>
+<div class="expiredInner">
+  <blog-typography [variant]="'h3'" [content]="'Email verification link expired'">
+  </blog-typography>
+  <blog-typography
+    [variant]="'body2'"
+    [content]="
+      'Looks like the verification link has expired. Not to worry, we can send the link again'
+    "
+    [className]="'mw mb'"
+  >
+  </blog-typography>
 
-    <blog-button [className]="'link mb'" [variant]="'Primary'" [tag]="'link'" [content]="'Resend verification link'"></blog-button>
+  <blog-button
+    [className]="'link mb'"
+    [variant]="'Primary'"
+    [tag]="'link'"
+    [content]="'Resend verification link'"
+  ></blog-button>
 
-    <blog-link-expired></blog-link-expired>
-
-  </div>
-
+  <blog-link-expired></blog-link-expired>
 </div>

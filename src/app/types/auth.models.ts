@@ -3,6 +3,8 @@ export type AuthLogin = {
   password: string
 }
 
+export type ConfirmationEmailTypes = 'error' | 'success' | 'pending' | null
+
 export interface AuthRegistration {
   login: string
   password: string

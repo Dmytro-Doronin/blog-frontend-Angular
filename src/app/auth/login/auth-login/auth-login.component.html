@@ -1,4 +1,7 @@
 <div class="loginPage">
-  <blog-auth-login-form></blog-auth-login-form>
+  <blog-auth-login-form
+    [loginLoading]="loginLoading$ | async"
+    (formSubmitted)="onFormSubmit($event)"
+  ></blog-auth-login-form>
   <blog-login-image></blog-login-image>
 </div>

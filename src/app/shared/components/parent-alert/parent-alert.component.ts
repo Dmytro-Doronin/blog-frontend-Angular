@@ -8,8 +8,6 @@ import { Notify } from '../../../types/notification.models'
 import { selectAuthAlert } from '../../../store/selectors/auth.selector'
 @Component({
   selector: 'blog-parent-alert',
-  standalone: true,
-  imports: [AlertComponent, NgIf, AsyncPipe],
   templateUrl: './parent-alert.component.html',
   styleUrl: './parent-alert.component.scss',
 })

@@ -3,11 +3,20 @@ import { AuthState } from '../reducers/auth.reducer'
 
 export const selectAuthState = createFeatureSelector<AuthState>('auth')
 
-export const selectAuthAlert = createSelector(selectAuthState, (state: AuthState) => state?.alert)
+export const selectAuthAlert = createSelector(selectAuthState, (state: AuthState) => state.alert)
+export const selectAuthAlertSeverity = createSelector(
+  selectAuthState,
+  (state: AuthState) => state.alert?.severity
+)
 
 export const selectRegistrationLoading = createSelector(
   selectAuthState,
   (state: AuthState) => state.registrationLoading
+)
+
+export const selectConfirmationStatus = createSelector(
+  selectAuthState,
+  (state: AuthState) => state.confirmationStatus
 )
 export const selectAccessToken = createSelector(
   selectAuthState,

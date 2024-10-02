@@ -6,8 +6,6 @@ import { EyeOpenComponent } from '../eye-open/eye-open.component'
 
 @Component({
   selector: 'blog-auth-input',
-  standalone: true,
-  imports: [FormsModule, EyeCloseComponent, EyeOpenComponent, NgClass, NgIf, ReactiveFormsModule],
   templateUrl: './auth-input.component.html',
   styleUrl: './auth-input.component.scss',
   providers: [

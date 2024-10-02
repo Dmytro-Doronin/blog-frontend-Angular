@@ -6,8 +6,6 @@ import { LinkExpiredComponent } from '../../auth-images/link-expired/link-expire
 
 @Component({
   selector: 'blog-auth-sign-up-expired',
-  standalone: true,
-  imports: [ButtonComponent, EmailConfirmedComponent, TypographyComponent, LinkExpiredComponent],
   templateUrl: './auth-sign-up-expired.component.html',
   styleUrl: './auth-sign-up-expired.component.scss',
 })

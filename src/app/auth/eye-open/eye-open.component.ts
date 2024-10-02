@@ -2,8 +2,6 @@ import { Component, Input } from '@angular/core'
 
 @Component({
   selector: 'blog-eye-open',
-  standalone: true,
-  imports: [],
   templateUrl: './eye-open.component.html',
   styleUrl: './eye-open.component.scss',
 })

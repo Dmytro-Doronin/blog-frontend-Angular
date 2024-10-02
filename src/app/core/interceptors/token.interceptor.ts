@@ -1,12 +1,10 @@
 import { Injectable } from '@angular/core'
 import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent } from '@angular/common/http'
 import { Store } from '@ngrx/store'
-import { Observable, take, throwError } from 'rxjs'
+import { Observable, throwError } from 'rxjs'
 import { catchError, switchMap } from 'rxjs/operators'
-import { addAuthAlert, refreshToken, setAccessToken } from '../../store/actions/auth.actions'
-import { selectAccessToken } from '../../store/selectors/auth.selector'
+import { addAuthAlert, setAccessToken } from '../../store/actions/auth.actions'
 import { AuthService } from '../services/auth.service'
-
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
@@ -62,7 +60,6 @@ export class TokenInterceptor implements HttpInterceptor {
         })
       )
     } else {
-      console.log(req)
       return next.handle(req)
     }
   }

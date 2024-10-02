@@ -1,15 +1,16 @@
-<div class="confirm">
-  <div class="confirmInner">
-    <blog-typography
-      [variant]="'h3'"
-      [className]="'mb'"
-      [content]="'Congratulations!\n'+
-    'Your email has been confirmed'"
-    >
-    </blog-typography>
-    <blog-button [className]="'link mb'" [variant]="'Primary'" [tag]="'link'" [content]="'Sing in'"></blog-button>
+<div class="confirmInner">
+  <blog-typography
+    [variant]="'h3'"
+    [className]="'mb'"
+    [content]="'Congratulations!\n' + 'Your email has been confirmed'"
+  >
+  </blog-typography>
+  <blog-button
+    [className]="'link mb'"
+    [variant]="'Primary'"
+    [tag]="'link'"
+    [content]="'Sing in'"
+  ></blog-button>
 
-    <blog-email-confirmed></blog-email-confirmed>
-  </div>
-
+  <blog-email-confirmed></blog-email-confirmed>
 </div>

@@ -18,11 +18,14 @@ import {
   setIsAuthenticated,
   refreshToken,
   authMe,
-  setProfile, logOut,
+  setProfile,
+  logOut,
+  confirmEmail,
+  setConfirmationEmailStatus,
 } from '../actions/auth.actions'
 import { Router } from '@angular/router'
 import { AuthService } from '../../core/services/auth.service'
-import {setAppLoading} from "../actions/app.actions";
+import { setAppLoading } from '../actions/app.actions'
 
 @Injectable()
 export class AuthEffects {
@@ -66,7 +69,6 @@ export class AuthEffects {
     )
   )
 
-
   me$ = createEffect(() =>
     this.actions$.pipe(
       ofType(authMe),
@@ -78,7 +80,7 @@ export class AuthEffects {
               return [
                 setIsAuthenticated({ isAuthenticated: true }),
                 setProfile({ email: user.email, login: user.login, userId: user.userId }),
-                setAppLoading({ loading: false })
+                setAppLoading({ loading: false }),
               ]
             }),
             catchError(error => {
@@ -157,23 +159,7 @@ export class AuthEffects {
     )
   )
 
-  // passwordRecovery = createEffect(
-  //   () =>
-  //     this.actions$.pipe(
-  //       ofType(passwordRecovery),
-  //       mergeMap(action =>
-  //         this.authService
-  //           .sendPasswordRecovery(action.email)
-  //           .pipe
-  //           // map(() => passwordRecovery())
-  //           // catchError(error => of(sendPasswordResetFailure({ error })))
-  //           ()
-  //       )
-  //     ),
-  //   { dispatch: false }
-  // )
-
-  passwordRecovery = createEffect(() =>
+  passwordRecovery$ = createEffect(() =>
     this.actions$.pipe(
       ofType(passwordRecovery),
       concatMap(action =>
@@ -184,7 +170,7 @@ export class AuthEffects {
               setPasswordRecoveryLoading({ passwordRecoveryLoading: false }),
               addAuthAlert({
                 severity: 'success',
-                message: 'An email has been sent to you with instructions.!',
+                message: 'An email has been sent to you with instructions!',
               }),
             ]),
             catchError(error => {
@@ -200,21 +186,32 @@ export class AuthEffects {
     )
   )
 
-  // newPassword = createEffect(
-  //   () =>
-  //     this.actions$.pipe(
-  //       ofType(newPasswordAction),
-  //       mergeMap(action =>
-  //         this.authService
-  //           .newPassword(action.newPassword, action.recoveryCode)
-  //           .pipe
-  //           // map(() => passwordRecovery())
-  //           // catchError(error => of(sendPasswordResetFailure({ error })))
-  //           ()
-  //       )
-  //     ),
-  //   { dispatch: false }
-  // )
+  emailConfirmation$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(confirmEmail),
+      concatMap(action =>
+        concat(
+          of(setConfirmationEmailStatus({ confirmationStatus: 'pending' })),
+          this.authService.passwordConfirmation(action.confirmationCode).pipe(
+            mergeMap(() => [
+              setConfirmationEmailStatus({ confirmationStatus: 'success' }),
+              // addAuthAlert({
+              //   severity: 'success',
+              //   message: 'An email has been sent to you with instructions!',
+              // }),
+            ]),
+            catchError(error => {
+              // const message = error.error.errorsMessages[0].message
+              return of(
+                setConfirmationEmailStatus({ confirmationStatus: 'error' })
+                // addAuthAlert({ severity: 'error', message: message })
+              )
+            })
+          )
+        )
+      )
+    )
+  )
 
   newPassword$ = createEffect(() =>
     this.actions$.pipe(
@@ -223,13 +220,16 @@ export class AuthEffects {
         concat(
           of(setNewPasswordLoading({ newPasswordLoading: true })),
           this.authService.newPassword(action.newPassword, action.recoveryCode).pipe(
-            mergeMap(() => [
-              setNewPasswordLoading({ newPasswordLoading: false }),
-              addAuthAlert({
-                severity: 'success',
-                message: 'Password has been changed!',
-              }),
-            ]),
+            mergeMap(() => {
+              this.router.navigate(['/auth/login'])
+              return [
+                setNewPasswordLoading({ newPasswordLoading: false }),
+                addAuthAlert({
+                  severity: 'success',
+                  message: 'Password has been changed!',
+                }),
+              ]
+            }),
             catchError(error => {
               const message = error.error.errorsMessages[0].message
               return of(
@@ -243,27 +243,6 @@ export class AuthEffects {
     )
   )
 
-  // logOut$ = createEffect(() =>
-  //   this.actions$.pipe(
-  //     ofType(logOut),
-  //     switchMap(() =>
-  //       this.authService.logOut().pipe(
-  //         // map(user => setProfile({ email: user.email, login: user.login, userId: user.userId })),
-  //         mergeMap(user => {
-  //           localStorage.removeItem('accessToken')
-  //           return [
-  //             setIsAuthenticated({ isAuthenticated: false }),
-  //             setProfile({ email: '', login: '', userId: '' }),
-  //           ]
-  //         }),
-  //         catchError(error => {
-  //           const message = error.error.errorsMessages[0].message
-  //           return of(addAuthAlert({ severity: 'error', message: message }))
-  //         })
-  //       )
-  //     )
-  //   )
-  // )
   logOut$ = createEffect(() =>
     this.actions$.pipe(
       ofType(logOut),
@@ -276,7 +255,7 @@ export class AuthEffects {
               return [
                 setIsAuthenticated({ isAuthenticated: false }),
                 setProfile({ email: '', login: '', userId: '' }),
-                setAppLoading({ loading: false })
+                setAppLoading({ loading: false }),
               ]
             }),
             catchError(error => {

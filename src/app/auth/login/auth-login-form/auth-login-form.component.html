@@ -1,5 +1,6 @@
 <blog-card>
   <blog-typography [content]="'Sing In'" variant="h3"></blog-typography>
+  <!--  (ngSubmit)="onSubmit()-->
   <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
     <blog-auth-input
       [control]="loginForm.controls.usernameOrEmail"
@@ -41,7 +42,7 @@
       </div>
     </div>
 
-    <div *ngIf="loginLoading$ | async" class="loader">
+    <div *ngIf="loginLoading" class="loader">
       <blog-loader></blog-loader>
     </div>
 

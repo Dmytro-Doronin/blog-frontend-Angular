@@ -1,0 +1,9 @@
+<blog-auth-page>
+  <blog-loader *ngIf="(getStatusSubscription$ | async) === 'pending'"></blog-loader>
+  <blog-auth-sign-up-confirm
+    *ngIf="(getStatusSubscription$ | async) === 'success'"
+  ></blog-auth-sign-up-confirm>
+  <blog-auth-sign-up-expired
+    *ngIf="(getStatusSubscription$ | async) === 'error'"
+  ></blog-auth-sign-up-expired>
+</blog-auth-page>
