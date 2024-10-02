@@ -22,8 +22,8 @@ import { HttpClient } from '@angular/common/http'
   styleUrl: './auth-sign-up.component.scss',
 })
 export class AuthSignUpComponent {
-  isModalOpen = false
-
+  isModalOpen = true
+  email: string = ''
   constructor(
     // private authService: AuthService,
     private http: HttpClient

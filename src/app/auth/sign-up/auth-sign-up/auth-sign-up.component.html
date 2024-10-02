@@ -1,5 +1,5 @@
 <div class="signUpPage">
-  <blog-modal *ngIf="isModalOpen" (closeModal)="closeModal()">
+  <blog-modal *ngIf="isModalOpen" [title]="'Email sent'" (closeModal)="closeModal()">
     <blog-typography
       [content]="'We have sent a link to confirm your email to'"
       [variant]="'body2'"

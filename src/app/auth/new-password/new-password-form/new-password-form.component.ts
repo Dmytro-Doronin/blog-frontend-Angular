@@ -1,7 +1,7 @@
 import { Component, Input, input, OnInit } from '@angular/core'
 import { AuthInputComponent } from '../../auth-input/auth-input.component'
 import { ButtonComponent } from '../../../shared/ui/button/button.component'
-import { CardComponent } from '../../card/card.component'
+import { CardComponent } from '../../../shared/components/card/card.component'
 import { AsyncPipe, NgIf } from '@angular/common'
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms'
 import { TypographyComponent } from '../../../shared/ui/typography/typography.component'

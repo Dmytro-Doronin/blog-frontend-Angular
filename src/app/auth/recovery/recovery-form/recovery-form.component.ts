@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core'
-import { CardComponent } from '../../card/card.component'
+import { CardComponent } from '../../../shared/components/card/card.component'
 import { TypographyComponent } from '../../../shared/ui/typography/typography.component'
 import { AuthInputComponent } from '../../auth-input/auth-input.component'
 import { ButtonComponent } from '../../../shared/ui/button/button.component'

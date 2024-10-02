@@ -10,7 +10,7 @@ import { TypographyComponent } from '../../ui/typography/typography.component'
 })
 export class ModalComponent {
   @Output() closeModal = new EventEmitter<void>()
-  @Input() title: string = 'HGHG'
+  @Input() title: string = ''
 
   onClose() {
     this.closeModal.emit()

@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, EventEmitter, OnInit, Output } from '@angular/core'
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms'
 import { AuthInputComponent } from '../../auth-input/auth-input.component'
 import { ButtonComponent } from '../../../shared/ui/button/button.component'
-import { CardComponent } from '../../card/card.component'
+import { CardComponent } from '../../../shared/components/card/card.component'
 import { AsyncPipe, NgIf } from '@angular/common'
 import { TypographyComponent } from '../../../shared/ui/typography/typography.component'
 import { AuthService } from '../../../core/services/auth.service'
@@ -33,6 +33,7 @@ import { RouterLink } from '@angular/router'
 })
 export class AuthSignUpFormComponent implements OnInit {
   registrationLoader$?: Observable<boolean>
+  @Output() emailEmitter = new EventEmitter<string>()
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
@@ -81,6 +82,7 @@ export class AuthSignUpFormComponent implements OnInit {
       const email = this.signUpForm.value.email!
       console.log(login)
       this.store.dispatch(registerUser({ login, password, email }))
+      this.emailEmitter.emit(email)
       // this.authService
       //   .userRegistration(
       //     this.signUpForm.value.login!,
