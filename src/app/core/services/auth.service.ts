@@ -41,6 +41,15 @@ export class AuthService {
     })
   }
 
+  emailResending(email: string) {
+    return this.http.post(
+      'https://blog-backend-nest.vercel.app/auth/registration-email-resending',
+      {
+        email,
+      }
+    )
+  }
+
   newPassword(newPassword: string, recoveryCode: string) {
     return this.http.post('https://blog-backend-nest.vercel.app/auth/new-password', {
       newPassword,

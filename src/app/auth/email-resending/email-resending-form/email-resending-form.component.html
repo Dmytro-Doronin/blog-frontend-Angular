@@ -1,0 +1,41 @@
+<blog-card>
+  <blog-typography [content]="'Send email'" variant="h3"></blog-typography>
+
+  <form [formGroup]="emailResendingForm" (ngSubmit)="onSubmit()">
+    <blog-auth-input
+      [control]="emailResendingForm.controls.email"
+      [id]="'email'"
+      [title]="'Email'"
+      [type]="'text'"
+    >
+    </blog-auth-input>
+
+    <div
+      *ngIf="
+        emailResendingForm &&
+        !emailResendingForm!.valid &&
+        (emailResendingForm?.dirty || emailResendingForm?.touched)
+      "
+      class="error"
+    >
+      <div *ngIf="emailResendingForm.errors?.['required']">New password is required</div>
+      <div *ngIf="emailResendingForm.errors?.['minlength']">
+        The email must not be less than 3 characters.
+      </div>
+    </div>
+
+    <div *ngIf="loading" class="loader">
+      <blog-loader></blog-loader>
+    </div>
+
+    <blog-button
+      [tag]="'button'"
+      [type]="'submit'"
+      [content]="'Send email'"
+      variant="Primary"
+      [className]="'formButton'"
+      [fullWidth]="true"
+    >
+    </blog-button>
+  </form>
+</blog-card>

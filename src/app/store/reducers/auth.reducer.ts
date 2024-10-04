@@ -6,11 +6,13 @@ import {
   deleteAuthAlert,
   setAccessToken,
   setConfirmationEmailStatus,
+  setEmailResendingLoading,
   setIsAuthenticated,
   setLoginLoading,
   setNewPasswordLoading,
   setPasswordRecoveryLoading,
   setProfile,
+  setRegistrationEmail,
   setRegistrationLoading,
 } from '../actions/auth.actions'
 import { ConfirmationEmailTypes } from '../../types/auth.models'
@@ -18,9 +20,11 @@ import { ConfirmationEmailTypes } from '../../types/auth.models'
 export interface AuthState {
   alert: Notify | null
   registrationLoading: boolean
+  registrationEmail: string
   loginLoading: boolean
   accessToken: string | null
   isAuthenticated: boolean
+  emailResendingLoading: boolean
   confirmationStatus: ConfirmationEmailTypes
   user: {
     email: string
@@ -33,9 +37,11 @@ export interface AuthState {
 
 export const initialState: AuthState = {
   registrationLoading: false,
+  registrationEmail: '',
   passwordRecoveryLoading: false,
   newPasswordLoading: false,
   loginLoading: false,
+  emailResendingLoading: false,
   alert: null,
   confirmationStatus: null,
   accessToken: null,
@@ -66,6 +72,10 @@ export const authReducer = createReducer(
     ...state,
     registrationLoading: registrationLoading,
   })),
+  on(setRegistrationEmail, (state, { registrationEmail }) => ({
+    ...state,
+    registrationEmail: registrationEmail,
+  })),
   on(setLoginLoading, (state, { loginLoading }) => ({
     ...state,
     loginLoading: loginLoading,
@@ -78,6 +88,10 @@ export const authReducer = createReducer(
   on(setPasswordRecoveryLoading, (state, { passwordRecoveryLoading }) => ({
     ...state,
     passwordRecoveryLoading: passwordRecoveryLoading,
+  })),
+  on(setEmailResendingLoading, (state, { emailResendingLoading }) => ({
+    ...state,
+    emailResendingLoading: emailResendingLoading,
   })),
 
   on(setAccessToken, (state, { accessToken }) => ({

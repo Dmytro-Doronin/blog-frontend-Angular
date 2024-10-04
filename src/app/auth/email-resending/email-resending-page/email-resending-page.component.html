@@ -1,0 +1,7 @@
+<blog-auth-page>
+  <blog-email-resending-form
+    [loading]="resendingEmailLoading$ | async"
+    [authSeverity]="authSeverity$ | async"
+    (formSubmitted)="onFormSubmit($event)"
+  ></blog-email-resending-form>
+</blog-auth-page>

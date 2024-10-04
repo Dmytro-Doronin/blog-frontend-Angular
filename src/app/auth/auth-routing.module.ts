@@ -7,6 +7,7 @@ import { AuthSignUpExpiredComponent } from './sign-up/auth-sign-up-expired/auth-
 import { RecoveryPageComponent } from './recovery/recovery-page/recovery-page.component'
 import { NewPasswordPageComponent } from './new-password/new-password-page/new-password-page.component'
 import { EmailConfirmPageComponent } from './email-confirm-page/email-confirm-page.component'
+import { EmailResendingPageComponent } from './email-resending/email-resending-page/email-resending-page.component'
 
 const authRoutes: Routes = [
   { path: 'login', component: AuthLoginComponent },
@@ -16,6 +17,7 @@ const authRoutes: Routes = [
   // { path: 'email-link-expired', component: AuthSignUpExpiredComponent },
   { path: 'password-recovery', component: RecoveryPageComponent },
   { path: 'new-password', component: NewPasswordPageComponent },
+  { path: 'registration-email-resending', component: EmailResendingPageComponent },
 ]
 
 @NgModule({

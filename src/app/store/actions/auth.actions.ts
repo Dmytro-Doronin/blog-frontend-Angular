@@ -47,6 +47,16 @@ export const setLoginLoading = createAction(
   props<{ loginLoading: boolean }>()
 )
 
+export const setRegistrationEmail = createAction(
+  '[Registration email] Set registration email',
+  props<{ registrationEmail: string }>()
+)
+
+export const setEmailResendingLoading = createAction(
+  '[Resending loader] Set email-resending loader',
+  props<{ emailResendingLoading: boolean }>()
+)
+
 export const setRegistrationLoading = createAction(
   '[Registration loader] Set registration loader',
   props<{ registrationLoading: boolean }>()
@@ -54,6 +64,11 @@ export const setRegistrationLoading = createAction(
 
 export const passwordRecovery = createAction(
   '[Password] Password recovery',
+  props<{ email: string }>()
+)
+
+export const emailResending = createAction(
+  '[Email resending] Email resending',
   props<{ email: string }>()
 )
 

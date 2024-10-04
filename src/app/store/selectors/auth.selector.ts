@@ -18,6 +18,12 @@ export const selectConfirmationStatus = createSelector(
   selectAuthState,
   (state: AuthState) => state.confirmationStatus
 )
+
+export const selectRegistrationEmail = createSelector(
+  selectAuthState,
+  (state: AuthState) => state.registrationEmail
+)
+
 export const selectAccessToken = createSelector(
   selectAuthState,
   (state: AuthState) => state.accessToken
@@ -41,6 +47,11 @@ export const selectNewPasswordLoading = createSelector(
 export const selectIsAuthenticated = createSelector(
   selectAuthState,
   (state: AuthState) => state.isAuthenticated
+)
+
+export const selectResendingEmailLoading = createSelector(
+  selectAuthState,
+  (state: AuthState) => state.emailResendingLoading
 )
 
 export const selectUserLogin = createSelector(

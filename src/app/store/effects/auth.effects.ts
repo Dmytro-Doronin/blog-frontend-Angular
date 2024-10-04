@@ -22,6 +22,9 @@ import {
   logOut,
   confirmEmail,
   setConfirmationEmailStatus,
+  emailResending,
+  setEmailResendingLoading,
+  setRegistrationEmail,
 } from '../actions/auth.actions'
 import { Router } from '@angular/router'
 import { AuthService } from '../../core/services/auth.service'
@@ -137,6 +140,7 @@ export class AuthEffects {
             mergeMap(() => [
               setRegistrationLoading({ registrationLoading: false }),
               addAuthAlert({ severity: 'success', message: 'Registration successful!' }),
+              setRegistrationEmail({ registrationEmail: action.email }),
             ]),
             catchError(error => {
               const message = error.error.errorsMessages[0].message
@@ -186,6 +190,32 @@ export class AuthEffects {
     )
   )
 
+  emailResending$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(emailResending),
+      concatMap(action =>
+        concat(
+          of(setEmailResendingLoading({ emailResendingLoading: true })),
+          this.authService.emailResending(action.email).pipe(
+            mergeMap(() => [
+              setEmailResendingLoading({ emailResendingLoading: false }),
+              addAuthAlert({
+                severity: 'success',
+                message: 'An email has been sent to you with instructions!',
+              }),
+            ]),
+            catchError(error => {
+              const message = error.error.errorsMessages[0].message
+              return of(
+                setEmailResendingLoading({ emailResendingLoading: false }),
+                addAuthAlert({ severity: 'error', message: message })
+              )
+            })
+          )
+        )
+      )
+    )
+  )
   emailConfirmation$ = createEffect(() =>
     this.actions$.pipe(
       ofType(confirmEmail),

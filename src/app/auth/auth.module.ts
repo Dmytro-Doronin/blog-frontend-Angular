@@ -21,6 +21,8 @@ import { AuthSignUpExpiredComponent } from './sign-up/auth-sign-up-expired/auth-
 import { AuthSignUpFormComponent } from './sign-up/auth-sign-up-form/auth-sign-up-form.component'
 import { ReactiveFormsModule } from '@angular/forms'
 import { EmailConfirmPageComponent } from './email-confirm-page/email-confirm-page.component'
+import { EmailResendingFormComponent } from './email-resending/email-resending-form/email-resending-form.component'
+import { EmailResendingPageComponent } from './email-resending/email-resending-page/email-resending-page.component'
 
 @NgModule({
   declarations: [
@@ -43,6 +45,8 @@ import { EmailConfirmPageComponent } from './email-confirm-page/email-confirm-pa
     AuthSignUpExpiredComponent,
     AuthSignUpFormComponent,
     EmailConfirmPageComponent,
+    EmailResendingFormComponent,
+    EmailResendingPageComponent,
   ],
   imports: [CommonModule, AuthRoutingModule, SharedModule, ReactiveFormsModule],
 })

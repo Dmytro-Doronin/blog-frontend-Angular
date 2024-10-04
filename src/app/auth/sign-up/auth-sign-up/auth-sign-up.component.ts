@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, OnDestroy, OnInit } from '@angular/core'
 import {
   selectAuthAlertSeverity,
+  selectRegistrationEmail,
   selectRegistrationLoading,
 } from '../../../store/selectors/auth.selector'
 import { Store } from '@ngrx/store'
-import { Observable } from 'rxjs'
+import { Observable, Subscription } from 'rxjs'
 import { registerUser } from '../../../store/actions/auth.actions'
 import { SeverityType } from '../../../types/notification.models'
 
@@ -13,21 +14,23 @@ import { SeverityType } from '../../../types/notification.models'
   templateUrl: './auth-sign-up.component.html',
   styleUrl: './auth-sign-up.component.scss',
 })
-export class AuthSignUpComponent implements OnInit {
+export class AuthSignUpComponent implements OnInit, OnDestroy {
   authSeverity$?: Observable<SeverityType | undefined>
   signUpLoading$?: Observable<boolean>
-  isModalOpen = true
+  emailRegistration$?: Observable<string>
+  isModalOpen = false
   email: string = ''
+  content: string = `We have sent a link to confirm your email to ${this.email}`
+  private emailSubscription: Subscription = new Subscription()
   constructor(private store: Store) {}
   ngOnInit(): void {
     this.loader()
+    this.emailRegistration$ = this.store.select(selectRegistrationEmail)
+    this.emailRegistration$.subscribe(item => ((this.isModalOpen = !!item), (this.email = item)))
   }
   loader() {
     this.signUpLoading$ = this.store.select(selectRegistrationLoading)
     this.authSeverity$ = this.store.select(selectAuthAlertSeverity)
-  }
-  openModal(): void {
-    this.isModalOpen = true
   }
 
   closeModal(): void {
@@ -38,9 +41,8 @@ export class AuthSignUpComponent implements OnInit {
       registerUser({ login: data.login, password: data.password, email: data.email })
     )
   }
-  // authRegistration(login: string, password: string, email: string) {
-  //   this.authService.userRegistration(login, password, email).subscribe(res => {
-  //     alert('User was added' + res)
-  //   })
-  // }
+
+  ngOnDestroy() {
+    this.emailSubscription.unsubscribe()
+  }
 }
