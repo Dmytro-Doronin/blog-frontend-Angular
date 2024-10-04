@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core'
+import {Component, OnChanges, OnDestroy, OnInit, SimpleChanges} from '@angular/core'
 import {
   selectAuthAlertSeverity,
   selectRegistrationEmail,
@@ -19,14 +19,18 @@ export class AuthSignUpComponent implements OnInit, OnDestroy {
   signUpLoading$?: Observable<boolean>
   emailRegistration$?: Observable<string>
   isModalOpen = false
-  email: string = ''
-  content: string = `We have sent a link to confirm your email to ${this.email}`
+  content: string = ``
   private emailSubscription: Subscription = new Subscription()
   constructor(private store: Store) {}
   ngOnInit(): void {
     this.loader()
     this.emailRegistration$ = this.store.select(selectRegistrationEmail)
-    this.emailRegistration$.subscribe(item => ((this.isModalOpen = !!item), (this.email = item)))
+    this.emailSubscription = this.emailRegistration$.subscribe(item => {
+      this.content = this.content = `We have sent a link to confirm your email to ${item}`
+      this.isModalOpen = !!item
+    })
+    // this.emailSubscription =  this.emailRegistration$.subscribe(item => ((this.isModalOpen = !!item)))
+
   }
   loader() {
     this.signUpLoading$ = this.store.select(selectRegistrationLoading)
@@ -45,4 +49,5 @@ export class AuthSignUpComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.emailSubscription.unsubscribe()
   }
+
 }

@@ -11,6 +11,7 @@ import { ModalComponent } from './components/modal/modal.component'
 import { ParentAlertComponent } from './components/parent-alert/parent-alert.component'
 import { HeaderComponentComponent } from './header/header-component/header-component.component'
 import { IconSignOutComponent } from './header/icon-sign-out/icon-sign-out.component'
+import {RouterLink} from "@angular/router";
 
 @NgModule({
   declarations: [
@@ -26,7 +27,7 @@ import { IconSignOutComponent } from './header/icon-sign-out/icon-sign-out.compo
     ButtonComponent,
     TypographyComponent,
   ],
-  imports: [CommonModule],
+    imports: [CommonModule, RouterLink],
   exports: [
     ErrorPageComponent,
     AlertComponent,
