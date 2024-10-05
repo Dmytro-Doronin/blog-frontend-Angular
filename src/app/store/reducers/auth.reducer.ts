@@ -2,46 +2,33 @@ import { createReducer, on } from '@ngrx/store'
 import { Notify } from '../../types/notification.models'
 import {
   addAuthAlert,
-  authMe,
   deleteAuthAlert,
   setAccessToken,
   setConfirmationEmailStatus,
-  setEmailResendingLoading,
   setIsAuthenticated,
-  setLoginLoading,
-  setNewPasswordLoading,
-  setPasswordRecoveryLoading,
+  setIsAuthLoading,
   setProfile,
   setRegistrationEmail,
-  setRegistrationLoading,
 } from '../actions/auth.actions'
 import { ConfirmationEmailTypes } from '../../types/auth.models'
 
 export interface AuthState {
   alert: Notify | null
-  registrationLoading: boolean
+  isAuthLoading: boolean
   registrationEmail: string
-  loginLoading: boolean
   accessToken: string | null
   isAuthenticated: boolean
-  emailResendingLoading: boolean
   confirmationStatus: ConfirmationEmailTypes
   user: {
     email: string
     login: string
     userId: string
   }
-  passwordRecoveryLoading: boolean
-  newPasswordLoading: boolean
 }
 
 export const initialState: AuthState = {
-  registrationLoading: false,
+  isAuthLoading: false,
   registrationEmail: '',
-  passwordRecoveryLoading: false,
-  newPasswordLoading: false,
-  loginLoading: false,
-  emailResendingLoading: false,
   alert: null,
   confirmationStatus: null,
   accessToken: null,
@@ -55,6 +42,10 @@ export const initialState: AuthState = {
 
 export const authReducer = createReducer(
   initialState,
+  on(setIsAuthLoading, (state, { isAuthLoading }) => ({
+    ...state,
+    isAuthLoading: isAuthLoading,
+  })),
   on(setProfile, (state, { email, login, userId }) => ({
     ...state,
     user: { email, login, userId },
@@ -68,32 +59,10 @@ export const authReducer = createReducer(
     confirmationStatus: confirmationStatus,
   })),
   on(deleteAuthAlert, state => ({ ...state, alert: null })),
-  on(setRegistrationLoading, (state, { registrationLoading }) => ({
-    ...state,
-    registrationLoading: registrationLoading,
-  })),
   on(setRegistrationEmail, (state, { registrationEmail }) => ({
     ...state,
     registrationEmail: registrationEmail,
   })),
-  on(setLoginLoading, (state, { loginLoading }) => ({
-    ...state,
-    loginLoading: loginLoading,
-  })),
-  on(setNewPasswordLoading, (state, { newPasswordLoading }) => ({
-    ...state,
-    newPasswordLoading: newPasswordLoading,
-  })),
-
-  on(setPasswordRecoveryLoading, (state, { passwordRecoveryLoading }) => ({
-    ...state,
-    passwordRecoveryLoading: passwordRecoveryLoading,
-  })),
-  on(setEmailResendingLoading, (state, { emailResendingLoading }) => ({
-    ...state,
-    emailResendingLoading: emailResendingLoading,
-  })),
-
   on(setAccessToken, (state, { accessToken }) => ({
     ...state,
     accessToken: accessToken,

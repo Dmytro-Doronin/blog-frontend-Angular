@@ -4,7 +4,7 @@ import { newPasswordAction } from '../../../store/actions/auth.actions'
 import { Store } from '@ngrx/store'
 import {
   selectAuthAlertSeverity,
-  selectNewPasswordLoading,
+  selectIsAuthLoading,
 } from '../../../store/selectors/auth.selector'
 import { Observable, Subscription } from 'rxjs'
 import { SeverityType } from '../../../types/notification.models'
@@ -34,7 +34,7 @@ export class NewPasswordPageComponent implements OnInit, OnDestroy {
   }
 
   loader() {
-    this.newPasswordLoading$ = this.store.select(selectNewPasswordLoading)
+    this.newPasswordLoading$ = this.store.select(selectIsAuthLoading)
     this.authSeverity$ = this.store.select(selectAuthAlertSeverity)
   }
 

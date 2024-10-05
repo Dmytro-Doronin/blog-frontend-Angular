@@ -7,7 +7,7 @@ import { Observable } from 'rxjs'
 import { SeverityType } from '../../../types/notification.models'
 import {
   selectAuthAlertSeverity,
-  selectRecoveryLoading,
+  selectIsAuthLoading,
 } from '../../../store/selectors/auth.selector'
 
 @Component({
@@ -25,7 +25,7 @@ export class RecoveryPageComponent implements OnInit {
   }
 
   loader() {
-    this.recoverPasswordLoading$ = this.store.select(selectRecoveryLoading)
+    this.recoverPasswordLoading$ = this.store.select(selectIsAuthLoading)
     this.authSeverity$ = this.store.select(selectAuthAlertSeverity)
   }
 

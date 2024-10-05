@@ -1,8 +1,8 @@
-import {Component, OnChanges, OnDestroy, OnInit, SimpleChanges} from '@angular/core'
+import { Component, OnDestroy, OnInit } from '@angular/core'
 import {
   selectAuthAlertSeverity,
+  selectIsAuthLoading,
   selectRegistrationEmail,
-  selectRegistrationLoading,
 } from '../../../store/selectors/auth.selector'
 import { Store } from '@ngrx/store'
 import { Observable, Subscription } from 'rxjs'
@@ -30,10 +30,9 @@ export class AuthSignUpComponent implements OnInit, OnDestroy {
       this.isModalOpen = !!item
     })
     // this.emailSubscription =  this.emailRegistration$.subscribe(item => ((this.isModalOpen = !!item)))
-
   }
   loader() {
-    this.signUpLoading$ = this.store.select(selectRegistrationLoading)
+    this.signUpLoading$ = this.store.select(selectIsAuthLoading)
     this.authSeverity$ = this.store.select(selectAuthAlertSeverity)
   }
 
@@ -49,5 +48,4 @@ export class AuthSignUpComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.emailSubscription.unsubscribe()
   }
-
 }

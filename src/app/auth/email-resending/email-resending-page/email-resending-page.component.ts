@@ -1,12 +1,12 @@
-import { Component, OnDestroy, OnInit } from '@angular/core'
+import { Component, OnInit } from '@angular/core'
 import { Observable } from 'rxjs'
 import { SeverityType } from '../../../types/notification.models'
 import { Store } from '@ngrx/store'
 import {
   selectAuthAlertSeverity,
-  selectResendingEmailLoading,
+  selectIsAuthLoading,
 } from '../../../store/selectors/auth.selector'
-import { emailResending, newPasswordAction } from '../../../store/actions/auth.actions'
+import { emailResending } from '../../../store/actions/auth.actions'
 
 @Component({
   selector: 'blog-email-resending-page',
@@ -24,7 +24,7 @@ export class EmailResendingPageComponent implements OnInit {
   }
 
   loader() {
-    this.resendingEmailLoading$ = this.store.select(selectResendingEmailLoading)
+    this.resendingEmailLoading$ = this.store.select(selectIsAuthLoading)
     this.authSeverity$ = this.store.select(selectAuthAlertSeverity)
   }
 

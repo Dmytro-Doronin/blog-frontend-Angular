@@ -9,9 +9,9 @@ export const selectAuthAlertSeverity = createSelector(
   (state: AuthState) => state.alert?.severity
 )
 
-export const selectRegistrationLoading = createSelector(
+export const selectIsAuthLoading = createSelector(
   selectAuthState,
-  (state: AuthState) => state.registrationLoading
+  (state: AuthState) => state.isAuthLoading
 )
 
 export const selectConfirmationStatus = createSelector(
@@ -29,29 +29,9 @@ export const selectAccessToken = createSelector(
   (state: AuthState) => state.accessToken
 )
 
-export const selectLoginLoading = createSelector(
-  selectAuthState,
-  (state: AuthState) => state.loginLoading
-)
-
-export const selectRecoveryLoading = createSelector(
-  selectAuthState,
-  (state: AuthState) => state.passwordRecoveryLoading
-)
-
-export const selectNewPasswordLoading = createSelector(
-  selectAuthState,
-  (state: AuthState) => state.newPasswordLoading
-)
-
 export const selectIsAuthenticated = createSelector(
   selectAuthState,
   (state: AuthState) => state.isAuthenticated
-)
-
-export const selectResendingEmailLoading = createSelector(
-  selectAuthState,
-  (state: AuthState) => state.emailResendingLoading
 )
 
 export const selectUserLogin = createSelector(

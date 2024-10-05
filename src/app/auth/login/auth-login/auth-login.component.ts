@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core'
 
 import { Store } from '@ngrx/store'
 import { loginUser } from '../../../store/actions/auth.actions'
-import { selectLoginLoading } from '../../../store/selectors/auth.selector'
 import { Observable } from 'rxjs'
+import { selectIsAuthLoading } from '../../../store/selectors/auth.selector'
 
 @Component({
   selector: 'blog-auth-login',
@@ -19,7 +19,7 @@ export class AuthLoginComponent implements OnInit {
     this.loader()
   }
   loader() {
-    this.loginLoading$ = this.store.select(selectLoginLoading)
+    this.loginLoading$ = this.store.select(selectIsAuthLoading)
   }
 
   onFormSubmit(data: { usernameOrEmail: string; password: string }) {

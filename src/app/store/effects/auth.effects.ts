@@ -9,11 +9,7 @@ import {
   newPasswordAction,
   passwordRecovery,
   registerUser,
-  setRegistrationLoading,
-  setPasswordRecoveryLoading,
-  setNewPasswordLoading,
   loginUser,
-  setLoginLoading,
   setAccessToken,
   setIsAuthenticated,
   refreshToken,
@@ -23,8 +19,8 @@ import {
   confirmEmail,
   setConfirmationEmailStatus,
   emailResending,
-  setEmailResendingLoading,
   setRegistrationEmail,
+  setIsAuthLoading,
 } from '../actions/auth.actions'
 import { Router } from '@angular/router'
 import { AuthService } from '../../core/services/auth.service'
@@ -43,7 +39,7 @@ export class AuthEffects {
       ofType(loginUser),
       concatMap(action =>
         concat(
-          of(setLoginLoading({ loginLoading: true })),
+          of(setIsAuthLoading({ isAuthLoading: true })),
           this.authService.userLogin(action.loginOrEmail, action.password).pipe(
             mergeMap((response: any) => {
               localStorage.setItem('accessToken', response.accessToken)
@@ -55,14 +51,14 @@ export class AuthEffects {
 
                 setIsAuthenticated({ isAuthenticated: true }),
 
-                setLoginLoading({ loginLoading: false }),
+                setIsAuthLoading({ isAuthLoading: false }),
                 authMe(),
               ]
             }),
             catchError(error => {
               const message = error.error.errorsMessages[0].message
               return of(
-                setLoginLoading({ loginLoading: false }),
+                setIsAuthLoading({ isAuthLoading: false }),
                 addAuthAlert({ severity: 'error', message: message })
               )
             })
@@ -135,17 +131,17 @@ export class AuthEffects {
       ofType(registerUser),
       concatMap(action =>
         concat(
-          of(setRegistrationLoading({ registrationLoading: true })),
+          of(setIsAuthLoading({ isAuthLoading: true })),
           this.authService.userRegistration(action.login, action.password, action.email).pipe(
             mergeMap(() => [
-              setRegistrationLoading({ registrationLoading: false }),
+              setIsAuthLoading({ isAuthLoading: false }),
               addAuthAlert({ severity: 'success', message: 'Registration successful!' }),
               setRegistrationEmail({ registrationEmail: action.email }),
             ]),
             catchError(error => {
               const message = error.error.errorsMessages[0].message
               return of(
-                setRegistrationLoading({ registrationLoading: false }),
+                setIsAuthLoading({ isAuthLoading: false }),
                 addAuthAlert({ severity: 'error', message: message })
               )
             })
@@ -168,10 +164,10 @@ export class AuthEffects {
       ofType(passwordRecovery),
       concatMap(action =>
         concat(
-          of(setPasswordRecoveryLoading({ passwordRecoveryLoading: true })),
+          of(setIsAuthLoading({ isAuthLoading: true })),
           this.authService.sendPasswordRecovery(action.email).pipe(
             mergeMap(() => [
-              setPasswordRecoveryLoading({ passwordRecoveryLoading: false }),
+              setIsAuthLoading({ isAuthLoading: false }),
               addAuthAlert({
                 severity: 'success',
                 message: 'An email has been sent to you with instructions!',
@@ -180,7 +176,7 @@ export class AuthEffects {
             catchError(error => {
               const message = error.error.errorsMessages[0].message
               return of(
-                setPasswordRecoveryLoading({ passwordRecoveryLoading: false }),
+                setIsAuthLoading({ isAuthLoading: false }),
                 addAuthAlert({ severity: 'error', message: message })
               )
             })
@@ -195,10 +191,10 @@ export class AuthEffects {
       ofType(emailResending),
       concatMap(action =>
         concat(
-          of(setEmailResendingLoading({ emailResendingLoading: true })),
+          of(setIsAuthLoading({ isAuthLoading: true })),
           this.authService.emailResending(action.email).pipe(
             mergeMap(() => [
-              setEmailResendingLoading({ emailResendingLoading: false }),
+              setIsAuthLoading({ isAuthLoading: false }),
               addAuthAlert({
                 severity: 'success',
                 message: 'An email has been sent to you with instructions!',
@@ -207,7 +203,7 @@ export class AuthEffects {
             catchError(error => {
               const message = error.error.errorsMessages[0].message
               return of(
-                setEmailResendingLoading({ emailResendingLoading: false }),
+                setIsAuthLoading({ isAuthLoading: false }),
                 addAuthAlert({ severity: 'error', message: message })
               )
             })
@@ -248,12 +244,12 @@ export class AuthEffects {
       ofType(newPasswordAction),
       concatMap(action =>
         concat(
-          of(setNewPasswordLoading({ newPasswordLoading: true })),
+          of(setIsAuthLoading({ isAuthLoading: true })),
           this.authService.newPassword(action.newPassword, action.recoveryCode).pipe(
             mergeMap(() => {
               this.router.navigate(['/auth/login'])
               return [
-                setNewPasswordLoading({ newPasswordLoading: false }),
+                setIsAuthLoading({ isAuthLoading: false }),
                 addAuthAlert({
                   severity: 'success',
                   message: 'Password has been changed!',
@@ -263,7 +259,7 @@ export class AuthEffects {
             catchError(error => {
               const message = error.error.errorsMessages[0].message
               return of(
-                setNewPasswordLoading({ newPasswordLoading: false }),
+                setIsAuthLoading({ isAuthLoading: false }),
                 addAuthAlert({ severity: 'error', message: message })
               )
             })

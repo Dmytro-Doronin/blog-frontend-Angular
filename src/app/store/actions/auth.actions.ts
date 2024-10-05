@@ -27,14 +27,9 @@ export const setAccessToken = createAction(
 )
 export const refreshToken = createAction('[Refresh token] Get new token')
 
-export const setPasswordRecoveryLoading = createAction(
-  '[Recovery loader] Set recovery loader',
-  props<{ passwordRecoveryLoading: boolean }>()
-)
-
-export const setNewPasswordLoading = createAction(
-  '[New password loader] Set new password loader',
-  props<{ newPasswordLoading: boolean }>()
+export const setIsAuthLoading = createAction(
+  '[Auth loading] Set isAuthLoading',
+  props<{ isAuthLoading: boolean }>()
 )
 
 export const setConfirmationEmailStatus = createAction(
@@ -42,24 +37,9 @@ export const setConfirmationEmailStatus = createAction(
   props<{ confirmationStatus: ConfirmationEmailTypes }>()
 )
 
-export const setLoginLoading = createAction(
-  '[Login loader] Set login loader',
-  props<{ loginLoading: boolean }>()
-)
-
 export const setRegistrationEmail = createAction(
   '[Registration email] Set registration email',
   props<{ registrationEmail: string }>()
-)
-
-export const setEmailResendingLoading = createAction(
-  '[Resending loader] Set email-resending loader',
-  props<{ emailResendingLoading: boolean }>()
-)
-
-export const setRegistrationLoading = createAction(
-  '[Registration loader] Set registration loader',
-  props<{ registrationLoading: boolean }>()
 )
 
 export const passwordRecovery = createAction(
