@@ -12,6 +12,7 @@ import { ParentAlertComponent } from './components/parent-alert/parent-alert.com
 import { HeaderComponentComponent } from './header/header-component/header-component.component'
 import { IconSignOutComponent } from './header/icon-sign-out/icon-sign-out.component'
 import { RouterLink } from '@angular/router'
+import {AsideComponent} from "./components/aside/aside.component";
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { RouterLink } from '@angular/router'
     IconSignOutComponent,
     ButtonComponent,
     TypographyComponent,
+    AsideComponent
   ],
   imports: [CommonModule, RouterLink],
   exports: [
@@ -40,6 +42,7 @@ import { RouterLink } from '@angular/router'
     TypographyComponent,
     CommonModule,
     HeaderComponentComponent,
+    AsideComponent,
   ],
 })
 export class SharedModule {}

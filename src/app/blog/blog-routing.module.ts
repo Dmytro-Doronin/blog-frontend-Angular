@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core'
 import { RouterModule, Routes } from '@angular/router'
 import { BlogsComponent } from './blogs/blogs.component'
 
-const blogRoutes: Routes = [{ path: '', component: BlogsComponent }]
+const blogRoutes: Routes = [{ path: 'main/blogs', component: BlogsComponent }]
 
 @NgModule({
   imports: [RouterModule.forChild(blogRoutes)],

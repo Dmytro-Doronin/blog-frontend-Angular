@@ -16,7 +16,8 @@ import { BlogModule } from './blog/blog.module'
 import { AuthModule } from './auth/auth.module'
 import { ReactiveFormsModule } from '@angular/forms'
 import { CommonModule } from '@angular/common'
-import { SharedModule } from './shared/shared.module' // файл маршрутизации
+import { SharedModule } from './shared/shared.module'
+import {MainModule} from "./main/main.module";
 
 @NgModule({
   declarations: [AppComponent],
@@ -31,7 +32,8 @@ import { SharedModule } from './shared/shared.module' // файл маршрут
     HttpClientModule,
     AppRouterModule,
     CommonModule,
-    RouterModule.forRoot(routes), // Настройка маршрутизации
+    MainModule,
+    RouterModule.forRoot(routes),
     StoreModule.forRoot({
       app: appReducer,
       auth: authReducer,
