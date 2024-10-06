@@ -17,14 +17,13 @@ import { AuthModule } from './auth/auth.module'
 import { ReactiveFormsModule } from '@angular/forms'
 import { CommonModule } from '@angular/common'
 import { SharedModule } from './shared/shared.module'
-import {MainModule} from "./main/main.module";
+import { MainModule } from './main/main.module'
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
     RouterOutlet,
     HttpClientModule,
-    BlogModule,
     AuthModule,
     ReactiveFormsModule,
     SharedModule,

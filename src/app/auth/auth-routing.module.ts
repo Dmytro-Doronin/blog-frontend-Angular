@@ -11,8 +11,6 @@ const authRoutes: Routes = [
   { path: 'login', component: AuthLoginComponent },
   { path: 'sign-up', component: AuthSignUpComponent },
   { path: 'email-confirmation', component: EmailConfirmPageComponent },
-  // { path: 'email-confirmed', component: AuthSignUpConfirmComponent },
-  // { path: 'email-link-expired', component: AuthSignUpExpiredComponent },
   { path: 'password-recovery', component: RecoveryPageComponent },
   { path: 'new-password', component: NewPasswordPageComponent },
   { path: 'registration-email-resending', component: EmailResendingPageComponent },

@@ -1,17 +1,20 @@
-import {RouterModule, Routes} from "@angular/router";
-import {ErrorPageComponent} from "../shared/components/404/404.component";
-import {NgModule} from "@angular/core";
+import { RouterModule, Routes } from '@angular/router'
+import { NgModule } from '@angular/core'
+import { MainComponent } from './main/main.component'
 
 export const routes: Routes = [
-  // { path: '', redirectTo: 'main/blogs', pathMatch: 'full' },
-  // { path: '', loadChildren: () => import('../blog/blog.module').then(m => m.BlogModule) },
-  { path: 'blogs', loadChildren: () => import('../blog/blog.module').then(m => m.BlogModule) },
-  // { path: '**', component: ErrorPageComponent },
+  {
+    path: '',
+    component: MainComponent,
+    children: [
+      { path: '', redirectTo: 'blogs', pathMatch: 'full' },
+      { path: 'blogs', loadChildren: () => import('../blog/blog.module').then(m => m.BlogModule) },
+    ],
+  },
 ]
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-
 export class MainRouterModule {}
