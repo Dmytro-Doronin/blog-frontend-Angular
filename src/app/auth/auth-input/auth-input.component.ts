@@ -1,8 +1,5 @@
 import { Component, forwardRef, Input } from '@angular/core'
-import { FormControl, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms'
-import { EyeCloseComponent } from '../eye-close/eye-close.component'
-import { NgClass, NgIf } from '@angular/common'
-import { EyeOpenComponent } from '../eye-open/eye-open.component'
+import { FormControl, NG_VALUE_ACCESSOR } from '@angular/forms'
 
 @Component({
   selector: 'blog-auth-input',
