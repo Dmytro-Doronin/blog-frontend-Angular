@@ -120,7 +120,7 @@ export class AuthEffects {
       this.actions$.pipe(
         ofType(setAccessToken),
         map(() => {
-          this.router.navigate(['/main/blogs'])
+          this.router.navigate(['/main/blogs-page'])
         })
       ),
     { dispatch: false }

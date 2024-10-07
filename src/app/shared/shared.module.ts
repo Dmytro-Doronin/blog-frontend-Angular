@@ -11,8 +11,10 @@ import { ModalComponent } from './components/modal/modal.component'
 import { ParentAlertComponent } from './components/parent-alert/parent-alert.component'
 import { HeaderComponentComponent } from './header/header-component/header-component.component'
 import { IconSignOutComponent } from './header/icon-sign-out/icon-sign-out.component'
-import { RouterLink } from '@angular/router'
+import {RouterLink, RouterLinkActive} from '@angular/router'
 import {AsideComponent} from "./components/aside/aside.component";
+import {BurgerComponent} from "./components/icons/burger/burger.component";
+import {PostLinkIconComponent} from "./components/icons/post-link-icon/post-link-icon.component";
 
 @NgModule({
   declarations: [
@@ -27,9 +29,11 @@ import {AsideComponent} from "./components/aside/aside.component";
     IconSignOutComponent,
     ButtonComponent,
     TypographyComponent,
-    AsideComponent
+    AsideComponent,
+    BurgerComponent,
+    PostLinkIconComponent
   ],
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, RouterLinkActive],
   exports: [
     ErrorPageComponent,
     AlertComponent,
@@ -43,6 +47,8 @@ import {AsideComponent} from "./components/aside/aside.component";
     CommonModule,
     HeaderComponentComponent,
     AsideComponent,
+    BurgerComponent,
+    PostLinkIconComponent
   ],
 })
 export class SharedModule {}

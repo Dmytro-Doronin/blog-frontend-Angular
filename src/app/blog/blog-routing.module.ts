@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core'
 import { RouterModule, Routes } from '@angular/router'
-import { BlogsComponent } from './blogs/blogs.component'
+import { BlogsPageComponent } from './pages/blogs-page/blogs-page.component'
 
-export const blogRoutes: Routes = [{ path: '', component: BlogsComponent }]
+export const blogRoutes: Routes = [{ path: '', component: BlogsPageComponent }]
 @NgModule({
   imports: [RouterModule.forChild(blogRoutes)],
   exports: [RouterModule],
