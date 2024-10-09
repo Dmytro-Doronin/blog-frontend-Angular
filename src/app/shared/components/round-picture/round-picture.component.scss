@@ -1,0 +1,12 @@
+.round-picture {
+  width: 156px;
+  height: 156px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-light-100);
+  border: 1px solid var(--color-light-700);
+
+  border-radius: 50%;
+  object-fit: cover;
+}

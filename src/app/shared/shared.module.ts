@@ -22,6 +22,8 @@ import { NgSelectModule } from '@ng-select/ng-select'
 import { FormsModule } from '@angular/forms'
 import { ArrowDownComponent } from './components/arrow-down/arrow-down.component'
 import { ArrowUpComponent } from './components/arrow-up/arrow-up.component'
+import { RoundPictureComponent } from './components/round-picture/round-picture.component'
+import { EmptyPictureComponent } from './components/icons/empthy-picture/empty-picture.component'
 
 @NgModule({
   declarations: [
@@ -44,6 +46,8 @@ import { ArrowUpComponent } from './components/arrow-up/arrow-up.component'
     SelectComponentComponent,
     ArrowDownComponent,
     ArrowUpComponent,
+    RoundPictureComponent,
+    EmptyPictureComponent,
   ],
   imports: [CommonModule, RouterLink, RouterLinkActive, NgSelectModule, FormsModule],
   exports: [
@@ -68,6 +72,8 @@ import { ArrowUpComponent } from './components/arrow-up/arrow-up.component'
     FormsModule,
     ArrowDownComponent,
     ArrowUpComponent,
+    RoundPictureComponent,
+    EmptyPictureComponent,
   ],
 })
 export class SharedModule {}
