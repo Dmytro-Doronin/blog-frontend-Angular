@@ -9,12 +9,13 @@ import { AppComponent } from './app.component'
 import { appReducer } from './store/reducers/app.reducer'
 import { authReducer } from './store/reducers/auth.reducer'
 import { AuthEffects } from './store/effects/auth.effects'
+import { NgSelectModule } from '@ng-select/ng-select'
 
 import { AppRouterModule, routes } from './app-router.module'
 import { TokenInterceptor } from './core/interceptors/token.interceptor'
 import { BlogModule } from './blog/blog.module'
 import { AuthModule } from './auth/auth.module'
-import { ReactiveFormsModule } from '@angular/forms'
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { CommonModule } from '@angular/common'
 import { SharedModule } from './shared/shared.module'
 import { MainModule } from './main/main.module'
@@ -32,6 +33,8 @@ import { MainModule } from './main/main.module'
     AppRouterModule,
     CommonModule,
     MainModule,
+    NgSelectModule,
+    FormsModule,
     RouterModule.forRoot(routes),
     StoreModule.forRoot({
       app: appReducer,

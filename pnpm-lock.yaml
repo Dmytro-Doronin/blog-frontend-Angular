@@ -29,6 +29,9 @@ dependencies:
   '@angular/router':
     specifier: ^17.2.0
     version: 17.2.0(@angular/common@17.2.0)(@angular/core@17.2.0)(@angular/platform-browser@17.2.0)(rxjs@7.8.0)
+  '@ng-select/ng-select':
+    specifier: ^13.9.0
+    version: 13.9.0(@angular/common@17.2.0)(@angular/core@17.2.0)(@angular/forms@17.2.0)
   '@ngrx/effects':
     specifier: ^18.0.2
     version: 18.0.2(@angular/core@17.2.0)(@ngrx/store@18.0.2)(rxjs@7.8.0)
@@ -2369,6 +2372,20 @@ packages:
     dependencies:
       call-bind: 1.0.7
     dev: true
+
+  /@ng-select/ng-select@13.9.0(@angular/common@17.2.0)(@angular/core@17.2.0)(@angular/forms@17.2.0):
+    resolution: {integrity: sha512-FqoNEvWZSfUWjirpUjsfESpgzZ3sEqSKcIbUirBmviKnYMbyUZbtEChjox+ha2vtHLpdA+/mDoYT5fL8Z/0qJA==}
+    engines: {node: '>= 18', npm: '>= 8'}
+    peerDependencies:
+      '@angular/common': ^18.0.0
+      '@angular/core': ^18.0.0
+      '@angular/forms': ^18.0.0
+    dependencies:
+      '@angular/common': 17.2.0(@angular/core@17.2.0)(rxjs@7.8.0)
+      '@angular/core': 17.2.0(rxjs@7.8.0)(zone.js@0.14.3)
+      '@angular/forms': 17.2.0(@angular/common@17.2.0)(@angular/core@17.2.0)(@angular/platform-browser@17.2.0)(rxjs@7.8.0)
+      tslib: 2.6.2
+    dev: false
 
   /@ngrx/effects@18.0.2(@angular/core@17.2.0)(@ngrx/store@18.0.2)(rxjs@7.8.0):
     resolution: {integrity: sha512-YojXcOD9Lsq4kl2HCjENccyUM/mOlgBdtddsg9j/ojzSUgu3ZuBVKLN3atrL2TJYkbMX1MN0RzafSkL3TPGFIA==}

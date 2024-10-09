@@ -1,0 +1,26 @@
+<ng-select
+  [items]="options"
+  bindLabel="name"
+  bindValue="id"
+  [(ngModel)]="selectedOptions"
+  [hideSelected]="true"
+  [clearable]="false"
+  [searchable]="false"
+  (open)="onOpen()"
+  (close)="onClose()"
+  (change)="onChange($event)"
+>
+  <ng-template ng-label-tmp let-item="item">
+    <div>
+      {{ item.name }}
+      <span class="arrow">
+        <ng-container *ngIf="isOpen; else downArrow">
+          <blog-arrow-up></blog-arrow-up>
+        </ng-container>
+        <ng-template #downArrow>
+          <blog-arrow-down></blog-arrow-down>
+        </ng-template>
+      </span>
+    </div>
+  </ng-template>
+</ng-select>

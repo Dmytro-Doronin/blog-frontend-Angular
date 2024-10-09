@@ -1,0 +1,56 @@
+.ng-select {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 256px;
+  height: 36px;
+
+  margin-left: 12px;
+
+  font-family: Inter;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 24px;
+  text-align: left;
+}
+.selected-label {
+  margin-left: 100px;
+}
+
+
+.ng-select .ng-select-container {
+  padding: 6px 0 12px 6px;
+  background-color: transparent;
+  cursor: pointer !important;
+}
+
+.ng-select .ng-option {
+  padding: 10px;
+  cursor: pointer;
+}
+
+
+.ng-select .ng-option.selected {
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+}
+
+
+.ng-select .ng-dropdown-panel {
+  background-color: transparent;
+  border: 1px solid #ccc;
+  cursor: pointer;
+}
+
+
+.ng-select .ng-option:hover {
+  background-color: #e9ecef;
+  cursor: pointer;
+}
+
+.arrow {
+  margin-left: 140px;
+  font-size: 12px;
+  vertical-align: middle;
+  color: #666;
+}

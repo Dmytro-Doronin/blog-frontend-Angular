@@ -11,10 +11,17 @@ import { ModalComponent } from './components/modal/modal.component'
 import { ParentAlertComponent } from './components/parent-alert/parent-alert.component'
 import { HeaderComponentComponent } from './header/header-component/header-component.component'
 import { IconSignOutComponent } from './header/icon-sign-out/icon-sign-out.component'
-import {RouterLink, RouterLinkActive} from '@angular/router'
-import {AsideComponent} from "./components/aside/aside.component";
-import {BurgerComponent} from "./components/icons/burger/burger.component";
-import {PostLinkIconComponent} from "./components/icons/post-link-icon/post-link-icon.component";
+import { RouterLink, RouterLinkActive } from '@angular/router'
+import { AsideComponent } from './components/aside/aside.component'
+import { BurgerComponent } from './components/icons/burger/burger.component'
+import { PostLinkIconComponent } from './components/icons/post-link-icon/post-link-icon.component'
+import { InputComponent } from './ui/input/input.component'
+import { SearchIconComponent } from './components/icons/search-icon/search-icon.component'
+import { SelectComponentComponent } from './ui/select-component/select-component.component'
+import { NgSelectModule } from '@ng-select/ng-select'
+import { FormsModule } from '@angular/forms'
+import { ArrowDownComponent } from './components/arrow-down/arrow-down.component'
+import { ArrowUpComponent } from './components/arrow-up/arrow-up.component'
 
 @NgModule({
   declarations: [
@@ -31,9 +38,14 @@ import {PostLinkIconComponent} from "./components/icons/post-link-icon/post-link
     TypographyComponent,
     AsideComponent,
     BurgerComponent,
-    PostLinkIconComponent
+    PostLinkIconComponent,
+    InputComponent,
+    SearchIconComponent,
+    SelectComponentComponent,
+    ArrowDownComponent,
+    ArrowUpComponent,
   ],
-  imports: [CommonModule, RouterLink, RouterLinkActive],
+  imports: [CommonModule, RouterLink, RouterLinkActive, NgSelectModule, FormsModule],
   exports: [
     ErrorPageComponent,
     AlertComponent,
@@ -48,7 +60,14 @@ import {PostLinkIconComponent} from "./components/icons/post-link-icon/post-link
     HeaderComponentComponent,
     AsideComponent,
     BurgerComponent,
-    PostLinkIconComponent
+    PostLinkIconComponent,
+    InputComponent,
+    SearchIconComponent,
+    SelectComponentComponent,
+    NgSelectModule,
+    FormsModule,
+    ArrowDownComponent,
+    ArrowUpComponent,
   ],
 })
 export class SharedModule {}
