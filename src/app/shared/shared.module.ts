@@ -24,6 +24,7 @@ import { ArrowDownComponent } from './components/arrow-down/arrow-down.component
 import { ArrowUpComponent } from './components/arrow-up/arrow-up.component'
 import { RoundPictureComponent } from './components/round-picture/round-picture.component'
 import { EmptyPictureComponent } from './components/icons/empthy-picture/empty-picture.component'
+import {MainPageComponent} from "./components/main-page/main-page.component";
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import { EmptyPictureComponent } from './components/icons/empthy-picture/empty-p
     ArrowUpComponent,
     RoundPictureComponent,
     EmptyPictureComponent,
+    MainPageComponent
   ],
   imports: [
     CommonModule,
@@ -81,6 +83,7 @@ import { EmptyPictureComponent } from './components/icons/empthy-picture/empty-p
     ArrowUpComponent,
     RoundPictureComponent,
     EmptyPictureComponent,
+    MainPageComponent
   ],
 })
 export class SharedModule {}

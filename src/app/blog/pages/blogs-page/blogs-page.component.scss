@@ -1,5 +1,14 @@
 .blogs-page {
-  padding: 29px 24px 0 24px;
+  //overflow-y: auto;
+  //height: 100%;
+  //padding: 29px 24px 0 24px;
+
+    margin-left: 252px; /* Оставляем место для асайда */
+    //width: calc(100%);
+    height: calc(100vh - 60px); /* Учитываем высоту хедера */
+    overflow-y: auto; /* Скролл только для контента */
+    padding: 20px;
+
 }
 
 .blog-header {
@@ -26,5 +35,9 @@
   border-right: 0;
   border-bottom: 1px solid #DEDBDC;
   margin-bottom: 24px;
+}
+
+.blog-item-container {
+  height: 100%;
 }
 

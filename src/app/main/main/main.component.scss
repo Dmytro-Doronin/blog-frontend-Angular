@@ -1,8 +1,31 @@
 .main {
-  position: relative;
+  //position: relative;
+  ////display: flex;
+  //height: calc(100% - 60px);
+  //background-color: var(--color-main);
+  //padding-left: 252px ;
+  //box-shadow: 0px 1px 1px 1px #1D21261A;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.main-layout {
   //display: flex;
-  height: calc(100vh - 60px);
-  background-color: var(--color-main);
-  padding-left: 252px ;
-  box-shadow: 0px 1px 1px 1px #1D21261A;
+  //height: 100%;
+
+  display: flex;
+  //width: 1200px; /* Ограничение ширины для центрации */
+  height: calc(100vh - 60px); /* Высота экрана минус хедер */
+
+}
+
+.content {
+  //margin-left: 252px; /* Оставляем место для асайда */
+  width: calc(100%);
+  height: calc(100vh - 60px); /* Учитываем высоту хедера */
+  overflow-y: auto; /* Скролл для контента */
+  padding: 20px;
+  //background-color: #f4f4f4;
 }
