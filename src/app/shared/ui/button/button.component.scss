@@ -40,6 +40,7 @@
 
 .secondary {
   @extend .button;
+  border: 1px solid var(--color-dark-900);
   color: #000;
   background-color: transparent;
 }

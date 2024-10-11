@@ -1,4 +1,4 @@
 <div [ngClass]="className" class="input-container">
   <blog-search-icon></blog-search-icon>
-  <input class="input" type="{{ type }}" placeholder="{{ placeholder }}" />
+  <input [formControl]="control" class="input" type="{{ type }}" placeholder="{{ placeholder }}" />
 </div>

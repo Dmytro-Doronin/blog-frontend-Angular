@@ -19,7 +19,7 @@ import { InputComponent } from './ui/input/input.component'
 import { SearchIconComponent } from './components/icons/search-icon/search-icon.component'
 import { SelectComponentComponent } from './ui/select-component/select-component.component'
 import { NgSelectModule } from '@ng-select/ng-select'
-import { FormsModule } from '@angular/forms'
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { ArrowDownComponent } from './components/arrow-down/arrow-down.component'
 import { ArrowUpComponent } from './components/arrow-up/arrow-up.component'
 import { RoundPictureComponent } from './components/round-picture/round-picture.component'
@@ -49,7 +49,14 @@ import { EmptyPictureComponent } from './components/icons/empthy-picture/empty-p
     RoundPictureComponent,
     EmptyPictureComponent,
   ],
-  imports: [CommonModule, RouterLink, RouterLinkActive, NgSelectModule, FormsModule],
+  imports: [
+    CommonModule,
+    RouterLink,
+    RouterLinkActive,
+    NgSelectModule,
+    FormsModule,
+    ReactiveFormsModule,
+  ],
   exports: [
     ErrorPageComponent,
     AlertComponent,

@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core'
+import { FormControl } from '@angular/forms'
 
 @Component({
   selector: 'blog-input',
@@ -9,4 +10,5 @@ export class InputComponent {
   @Input() type: string = 'text'
   @Input() placeholder: string = ''
   @Input() className: string = ''
+  @Input() control: FormControl = new FormControl('')
 }

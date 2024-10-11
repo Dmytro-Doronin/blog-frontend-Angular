@@ -2,6 +2,13 @@
   padding: 29px 24px 0 24px;
 }
 
+.blog-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
 .search-panel {
   width: 100%;
   display: flex;

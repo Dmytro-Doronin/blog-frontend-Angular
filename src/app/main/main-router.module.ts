@@ -1,7 +1,6 @@
 import { RouterModule, Routes } from '@angular/router'
 import { NgModule } from '@angular/core'
 import { MainComponent } from './main/main.component'
-import { PostModule } from '../post/post.module'
 
 export const routes: Routes = [
   {
