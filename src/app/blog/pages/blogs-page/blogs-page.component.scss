@@ -3,10 +3,10 @@
   //height: 100%;
   //padding: 29px 24px 0 24px;
 
-    margin-left: 252px; /* Оставляем место для асайда */
+    margin-left: 252px;
     //width: calc(100%);
-    height: calc(100vh - 60px); /* Учитываем высоту хедера */
-    overflow-y: auto; /* Скролл только для контента */
+    height: 100%;
+    //overflow-y: auto; /* Скролл только для контента */
     padding: 20px;
 
 }
@@ -19,14 +19,14 @@
 }
 
 .search-panel {
-  width: 100%;
   display: flex;
   align-items: center;
   margin-bottom: 24px;
+  width: 100%;
 }
 
 .search-field {
-  height: 500px;
+  //height: 500px;
 }
 
 .line {
@@ -38,6 +38,9 @@
 }
 
 .blog-item-container {
-  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  //min-height: calc(100vh - 200px);
 }
 
