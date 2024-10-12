@@ -1,4 +1,14 @@
-<div [ngClass]="className" class="input-container">
-  <blog-search-icon></blog-search-icon>
-  <input [formControl]="control" class="input" type="{{ type }}" placeholder="{{ placeholder }}" />
-</div>
+<ng-container [ngSwitch]="variant">
+  <div *ngSwitchCase="'input'" [ngClass]="className" class="input-container">
+    <blog-search-icon></blog-search-icon>
+    <input
+      [formControl]="control"
+      class="input"
+      type="{{ type }}"
+      placeholder="{{ placeholder }}"
+    />
+  </div>
+  <div *ngSwitchCase="'textarea'" [ngClass]="className" class="input-container">
+    <textarea [formControl]="control" class="input" placeholder="{{ placeholder }}"></textarea>
+  </div>
+</ng-container>

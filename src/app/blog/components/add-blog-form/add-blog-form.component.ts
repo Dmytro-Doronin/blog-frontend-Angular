@@ -1,12 +1,10 @@
-import {Component, EventEmitter, Output} from '@angular/core';
-import {FormBuilder, Validators} from "@angular/forms";
+import { Component, EventEmitter, Output } from '@angular/core'
+import { FormBuilder, Validators } from '@angular/forms'
 
 @Component({
   selector: 'blog-add-blog-form',
-  standalone: true,
-  imports: [],
   templateUrl: './add-blog-form.component.html',
-  styleUrl: './add-blog-form.component.scss'
+  styleUrl: './add-blog-form.component.scss',
 })
 export class AddBlogFormComponent {
   @Output() formSubmitted = new EventEmitter<{ login: string; password: string; email: string }>()
