@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core'
-import { AlertComponent } from '../alert/alert.component'
-import { AsyncPipe, NgIf } from '@angular/common'
 import { Observable } from 'rxjs'
 import { Store } from '@ngrx/store'
 
@@ -22,9 +20,5 @@ export class ParentAlertComponent implements OnInit {
 
   showErrorComponent() {
     this.showAlert$ = this.store.select(selectAuthAlert)
-    // this.showError$.subscribe(alert => {
-    //   this.alert = alert?.message
-    //   console.log(alert?.message)
-    // })
   }
 }

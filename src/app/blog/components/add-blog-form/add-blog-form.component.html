@@ -1,1 +1,67 @@
-<p>add-blog-form works!</p>
+<blog-typography [content]="'Add blog'" variant="h3"></blog-typography>
+<form [formGroup]="addBlogUpForm" (ngSubmit)="onSubmit()">
+  <!--Name-->
+  <blog-input
+    [control]="addBlogUpForm.controls.name"
+    [id]="'name'"
+    [placeholder]="'Name'"
+  ></blog-input>
+
+  <div *ngIf="name && !name!.valid && (name?.dirty || name?.touched)" class="error">
+    <div *ngIf="name.errors?.['required']">Login is required</div>
+    <div *ngIf="name.errors?.['minlength']">The Name must not be less than 3 or more then 15.</div>
+  </div>
+
+  <!--Description-->
+  <blog-input
+    [control]="addBlogUpForm.controls.description"
+    [id]="'description'"
+    [placeholder]="'Description'"
+    [variant]="'textarea'"
+  >
+  </blog-input>
+
+  <div
+    *ngIf="description && !description!.valid && (description?.dirty || description?.touched)"
+    class="error"
+  >
+    <div *ngIf="description.errors?.['required']">Description is required</div>
+    <div *ngIf="description.errors?.['maxlength']">
+      The description must not be less than 1 characters and more than 500.
+    </div>
+  </div>
+
+  <!--Website-->
+  <blog-input
+    [control]="addBlogUpForm.controls.websiteUrl"
+    [id]="'websiteUrl'"
+    [placeholder]="'Website url'"
+  >
+  </blog-input>
+
+  <div
+    *ngIf="websiteUrl && !websiteUrl!.valid && (websiteUrl?.dirty || websiteUrl?.touched)"
+    class="error"
+  >
+    <div *ngIf="websiteUrl.errors?.['required']">Website url is required</div>
+    <div *ngIf="websiteUrl.errors?.['pattern']">The Website url must be https://example.com.</div>
+  </div>
+
+  <!--    <div *ngIf="loading" class="loader">-->
+  <!--      <blog-loader></blog-loader>-->
+  <!--    </div>-->
+
+  <blog-loader *ngIf="loading; else button1"> </blog-loader>
+
+  <ng-template #button1>
+    <blog-button
+      [tag]="'button'"
+      [type]="'submit'"
+      [content]="'Add blog'"
+      variant="Primary"
+      [className]="'formButton'"
+      [fullWidth]="true"
+    >
+    </blog-button>
+  </ng-template>
+</form>

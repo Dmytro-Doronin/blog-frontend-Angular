@@ -1,5 +1,12 @@
 <ng-container [ngSwitch]="tag">
-  <div [class]="classNameContainer" *ngSwitchCase="'button'">
+  <div *ngSwitchCase="'button'">
+    <!--    <div *ngIf="variant === 'Back'" class="back-container">-->
+    <!--      <div>Strela</div>-->
+    <!--      <button [type]="type" [class]="'back'">-->
+    <!--        {{ content }}-->
+    <!--      </button>-->
+    <!--    </div>-->
+
     <button
       [type]="type"
       [class]="className"
@@ -7,9 +14,11 @@
         primary: variant === 'Primary',
         secondary: variant === 'Secondary',
         tertiary: variant === 'Tertiary',
+        back: variant === 'Back',
         fullWidth: fullWidth
       }"
     >
+      <blog-arrow-back *ngIf="variant === 'Back'"></blog-arrow-back>
       {{ content }}
     </button>
   </div>

@@ -6,11 +6,13 @@ import { SharedModule } from '../shared/shared.module'
 import { BlogItemComponent } from './components/blog-item/blog-item.component'
 import { BlogAddPageComponent } from './pages/blog-add-page/blog-add-page.component'
 import { AddBlogFormComponent } from './components/add-blog-form/add-blog-form.component'
+import { ReactiveFormsModule } from '@angular/forms'
+import { AuthGuard } from '../core/guards/auth-guard.guard'
 
 @NgModule({
-  providers: [],
+  providers: [AuthGuard],
   declarations: [BlogsPageComponent, BlogItemComponent, BlogAddPageComponent, AddBlogFormComponent],
-  imports: [CommonModule, BlogRoutingModule, SharedModule],
+  imports: [CommonModule, BlogRoutingModule, SharedModule, ReactiveFormsModule],
   exports: [BlogItemComponent, AddBlogFormComponent],
 })
 export class BlogModule {}

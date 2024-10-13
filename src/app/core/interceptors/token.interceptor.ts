@@ -17,11 +17,10 @@ export class TokenInterceptor implements HttpInterceptor {
     const secureEndpoints = [
       'https://blog-backend-nest.vercel.app/auth/me',
       'http://localhost:3000/auth/me',
-      'http://localhost:3000/blogs',
     ]
 
     const isSecureEndpoint = secureEndpoints.some(endpoint => req.url.includes(endpoint))
-    if (isSecureEndpoint) {
+    if (this.isPostToBlogOrPost(req) || isSecureEndpoint) {
       const accessToken = localStorage.getItem('accessToken')
       const clonedReq = accessToken
         ? req.clone({
@@ -62,5 +61,9 @@ export class TokenInterceptor implements HttpInterceptor {
     } else {
       return next.handle(req)
     }
+  }
+  private isPostToBlogOrPost(req: HttpRequest<any>): boolean {
+    const postUrls = ['http://localhost:3000/blogs', 'http://localhost:3000/posts']
+    return postUrls.includes(req.url) && req.method === 'POST'
   }
 }

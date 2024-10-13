@@ -1,14 +1,18 @@
 <blog-main-page>
   <div class="blog-header">
     <blog-typography content="Blogs" className="clear" variant="h3"></blog-typography>
-    <blog-button routerLink="/main/blogs-page/add-blog" variant="Primary" content="Add new blog"
-      >Add blog</blog-button
-    >
+    <blog-button
+      *ngIf="isAuthenticated$ | async"
+      routerLink="/main/blogs-page/add-blog"
+      variant="Primary"
+      content="Add new blog"
+      >Add blog
+    </blog-button>
   </div>
 
   <hr class="line" />
   <div class="search-panel">
-    <blog-input placeholder="Search..." style="width: 100%"></blog-input>
+    <blog-input [search]="true" placeholder="Search..." style="width: 100%"></blog-input>
     <blog-select-component></blog-select-component>
   </div>
   <div class="blog-item-container">

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core'
 import { BlogService } from '../../../core/services/blog.service'
 import { Observable } from 'rxjs'
 import { Store } from '@ngrx/store'
-import { selectAccessToken } from '../../../store/selectors/auth.selector'
+import { selectAccessToken, selectIsAuthenticated } from '../../../store/selectors/auth.selector'
 import { AuthService } from '../../../core/services/auth.service'
 
 @Component({
@@ -13,6 +13,7 @@ import { AuthService } from '../../../core/services/auth.service'
 })
 export class BlogsPageComponent implements OnInit {
   token$?: Observable<any>
+  isAuthenticated$?: Observable<boolean>
   constructor(
     private blogService: BlogService,
     private authService: AuthService,
@@ -20,6 +21,7 @@ export class BlogsPageComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.isAuthenticated$ = this.store.select(selectIsAuthenticated)
     console.log('Blog loaded')
   }
 }

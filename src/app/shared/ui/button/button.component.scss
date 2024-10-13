@@ -58,6 +58,27 @@
 
 }
 
+
+
+.back {
+  display: flex;
+  padding-left: 0;
+  color: black;
+  background-color: transparent;
+  margin-bottom: 36px;
+
+  //styleName: small_text/Neutral Dark-60;
+  font-family: Inter;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 24px;
+  text-align: left;
+
+
+  &:hover {
+    box-shadow: none;
+  }
+}
 .fullWidth {
   width: 100%;
 }

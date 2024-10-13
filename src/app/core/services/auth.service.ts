@@ -13,7 +13,7 @@ export class AuthService {
 
   userLogin(loginOrEmail: string, password: string) {
     return this.http.post(
-      'https://blog-backend-nest.vercel.app/auth/login',
+      'http://localhost:3000/auth/login',
       {
         loginOrEmail,
         password,
@@ -22,7 +22,7 @@ export class AuthService {
     )
   }
   userRegistration(login: string, password: string, email: string) {
-    return this.http.post('https://blog-backend-nest.vercel.app/auth/registration', {
+    return this.http.post('http://localhost:3000/auth/registration', {
       login,
       password,
       email,
@@ -36,44 +36,33 @@ export class AuthService {
   }
 
   sendPasswordRecovery(email: string) {
-    return this.http.post('https://blog-backend-nest.vercel.app/auth/password-recovery', {
+    return this.http.post('http://localhost:3000/auth/password-recovery', {
       email,
     })
   }
 
   emailResending(email: string) {
-    return this.http.post(
-      'https://blog-backend-nest.vercel.app/auth/registration-email-resending',
-      {
-        email,
-      }
-    )
+    return this.http.post('http://localhost:3000/auth/registration-email-resending', {
+      email,
+    })
   }
 
   newPassword(newPassword: string, recoveryCode: string) {
-    return this.http.post('https://blog-backend-nest.vercel.app/auth/new-password', {
+    return this.http.post('http://localhost:3000/auth/new-password', {
       newPassword,
       recoveryCode,
     })
   }
 
   sendRefreshToken() {
-    return this.http.post(
-      'https://blog-backend-nest.vercel.app/auth/refresh-token',
-      {},
-      { withCredentials: true }
-    )
+    return this.http.post('http://localhost:3000/auth/refresh-token', {}, { withCredentials: true })
   }
 
   me() {
-    return this.http.get<AuthMe>('https://blog-backend-nest.vercel.app/auth/me')
+    return this.http.get<AuthMe>('http://localhost:3000/auth/me')
   }
 
   logOut() {
-    return this.http.post(
-      'https://blog-backend-nest.vercel.app/auth/logout',
-      {},
-      { withCredentials: true }
-    )
+    return this.http.post('http://localhost:3000/auth/logout', {}, { withCredentials: true })
   }
 }

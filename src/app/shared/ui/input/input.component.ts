@@ -10,6 +10,7 @@ export class InputComponent {
   @Input() type: string = 'text'
   @Input() placeholder: string = ''
   @Input() className: string = ''
+  @Input() search: boolean = false
   @Input() variant: 'input' | 'textarea' = 'input'
   @Input() control: FormControl = new FormControl('')
 }

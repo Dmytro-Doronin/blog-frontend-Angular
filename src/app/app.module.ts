@@ -19,6 +19,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { CommonModule } from '@angular/common'
 import { SharedModule } from './shared/shared.module'
 import { MainModule } from './main/main.module'
+import { blogsReducer } from './store/reducers/blogs.reducer'
+import { BlogsEffects } from './store/effects/blogs.effects'
 
 @NgModule({
   declarations: [AppComponent],
@@ -39,8 +41,9 @@ import { MainModule } from './main/main.module'
     StoreModule.forRoot({
       app: appReducer,
       auth: authReducer,
+      blogs: blogsReducer,
     }),
-    EffectsModule.forRoot([AuthEffects]),
+    EffectsModule.forRoot([AuthEffects, BlogsEffects]),
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true }],
   bootstrap: [AppComponent],

@@ -1,6 +1,13 @@
 <ng-container [ngSwitch]="variant">
-  <div *ngSwitchCase="'input'" [ngClass]="className" class="input-container">
-    <blog-search-icon></blog-search-icon>
+  <div
+    *ngSwitchCase="'input'"
+    [ngClass]="{ 'with-margin': !search, 'input-container-padding': !search }"
+    class="input-container"
+  >
+    <ng-container *ngIf="search">
+      <blog-search-icon></blog-search-icon>
+    </ng-container>
+
     <input
       [formControl]="control"
       class="input"
@@ -8,7 +15,11 @@
       placeholder="{{ placeholder }}"
     />
   </div>
-  <div *ngSwitchCase="'textarea'" [ngClass]="className" class="input-container">
-    <textarea [formControl]="control" class="input" placeholder="{{ placeholder }}"></textarea>
+  <div *ngSwitchCase="'textarea'" class="textareaContainer">
+    <textarea
+      [formControl]="control"
+      class="input textarea"
+      placeholder="{{ placeholder }}"
+    ></textarea>
   </div>
 </ng-container>

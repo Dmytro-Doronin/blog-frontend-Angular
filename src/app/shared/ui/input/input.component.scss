@@ -6,10 +6,18 @@
   height: 36px;
   border-radius: 2px 0 0 0;
   border: 1px solid var(--color-light-700);
+
+  &-padding {
+    padding-left: 5px;
+  }
 }
 
 .input-container:focus-within {
   box-shadow: 0 0 1px 0
+}
+
+.with-margin {
+  margin-bottom: 20px;
 }
 
 .input {
@@ -19,10 +27,23 @@
   outline: none;
   background-color: transparent;
 
+  //styleName: regular_text / Neutral Dark-60;
   font-family: Inter;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 400;
   line-height: 24px;
   text-align: left;
-  color: var(--color-dark-300);
+  color: var(--color-dark-900);
+}
+
+.textareaContainer {
+  margin-bottom: 25px;
+}
+
+.textarea {
+  height: 300px;
+  resize: none;
+  padding: 5px;
+  border-radius: 2px 0 0 0;
+  border: 1px solid var(--color-light-700);
 }

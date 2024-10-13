@@ -1,15 +1,15 @@
 import { createReducer, on } from '@ngrx/store'
-import {addAlert, deleteAlert, setAppLoading} from '../actions/app.actions'
+import { addAlert, deleteAlert, setAppLoading } from '../actions/app.actions'
 import { Notify } from '../../types/notification.models'
 
 export interface AppState {
-  alert: Notify | null,
+  alert: Notify | null
   loading: boolean
 }
 
 export const initialState: AppState = {
   alert: null,
-  loading: false
+  loading: false,
 }
 
 export const appReducer = createReducer(
@@ -19,5 +19,5 @@ export const appReducer = createReducer(
     alert: { severity, message },
   })),
   on(deleteAlert, state => ({ ...state, alert: null })),
-  on(setAppLoading, (state, {loading}) => ({ ...state, loading: loading }))
+  on(setAppLoading, (state, { loading }) => ({ ...state, loading: loading }))
 )

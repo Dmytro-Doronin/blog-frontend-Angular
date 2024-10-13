@@ -24,7 +24,7 @@ import {
 } from '../actions/auth.actions'
 import { Router } from '@angular/router'
 import { AuthService } from '../../core/services/auth.service'
-import { setAppLoading } from '../actions/app.actions'
+import { deleteAlert, setAppLoading } from '../actions/app.actions'
 
 @Injectable()
 export class AuthEffects {
@@ -46,7 +46,6 @@ export class AuthEffects {
 
               return [
                 addAuthAlert({ severity: 'success', message: 'Login successful!' }),
-
                 setAccessToken({ accessToken: response.accessToken }),
 
                 setIsAuthenticated({ isAuthenticated: true }),
