@@ -1,6 +1,6 @@
-import { HttpClient } from '@angular/common/http'
+import { HttpClient, HttpParams } from '@angular/common/http'
 import { Injectable } from '@angular/core'
-import { BlogResponse, IBlog, PostBlogModel } from '../../types/blogs.models'
+import { BlogQueryParams, BlogResponse, IBlog, PostBlogModel } from '../../types/blogs.models'
 //https://localhost.com
 @Injectable({
   providedIn: 'root',
@@ -8,8 +8,26 @@ import { BlogResponse, IBlog, PostBlogModel } from '../../types/blogs.models'
 export class BlogService {
   constructor(private http: HttpClient) {}
 
-  getBlogs() {
-    return this.http.get<BlogResponse>('http://localhost:3000/blogs')
+  getBlogs(params: BlogQueryParams) {
+    let httpParams = new HttpParams()
+
+    if (params.searchNameTerm) {
+      httpParams = httpParams.set('searchNameTerm', params.searchNameTerm)
+    }
+    if (params.sortBy) {
+      httpParams = httpParams.set('sortBy', params.sortBy)
+    }
+    if (params.sortDirection) {
+      httpParams = httpParams.set('sortDirection', params.sortDirection)
+    }
+    if (params.pageNumber !== undefined) {
+      httpParams = httpParams.set('pageNumber', params.pageNumber.toString())
+    }
+    if (params.pageSize !== undefined) {
+      httpParams = httpParams.set('pageSize', params.pageSize.toString())
+    }
+
+    return this.http.get<BlogResponse>('http://localhost:3000/blogs', { params: httpParams })
   }
 
   postBlog({ name, description, websiteUrl }: PostBlogModel) {

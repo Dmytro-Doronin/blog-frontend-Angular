@@ -15,23 +15,23 @@
     <blog-input [search]="true" placeholder="Search..." style="width: 100%"></blog-input>
     <blog-select-component></blog-select-component>
   </div>
-  <div class="blog-item-container">
-    <blog-blog-item></blog-blog-item>
-    <blog-blog-item></blog-blog-item>
-    <!--    <blog-blog-item></blog-blog-item>-->
-    <!--    <blog-blog-item></blog-blog-item>-->
-    <!--    <blog-blog-item></blog-blog-item>-->
-    <!--    <blog-blog-item></blog-blog-item>-->
-    <!--    <blog-blog-item></blog-blog-item>-->
-    <!--    <blog-blog-item></blog-blog-item>-->
-    <!--    <blog-blog-item></blog-blog-item>-->
-    <!--    <blog-blog-item></blog-blog-item>-->
-    <!--    <blog-blog-item></blog-blog-item>-->
-    <!--    <blog-blog-item></blog-blog-item>-->
-    <!--    <blog-blog-item></blog-blog-item>-->
-    <!--    <blog-blog-item></blog-blog-item>-->
-    <!--    <blog-blog-item></blog-blog-item>-->
-    <!--    <blog-blog-item></blog-blog-item>-->
-    <!--    <blog-blog-item></blog-blog-item>-->
+  <div *ngIf="(blogs$ | async)?.length; else noBlogs" class="blog-item-container">
+    <blog-blog-item *ngFor="let blog of blogs$ | async" [blog]="blog"></blog-blog-item>
   </div>
+
+  <div class="center-container">
+    <blog-loader *ngIf="loading$ | async; else loadButton"></blog-loader>
+  </div>
+
+  <ng-template #loadButton>
+    <blog-button
+      (click)="loadMore()"
+      *ngIf="hasMoreBlogs$ | async"
+      [content]="'Load more'"
+    ></blog-button>
+  </ng-template>
+
+  <ng-template #loadButton #noBlogs>
+    <div class="no-blog">No blogs available.</div>
+  </ng-template>
 </blog-main-page>

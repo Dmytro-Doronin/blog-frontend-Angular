@@ -50,8 +50,9 @@
   <!--    <div *ngIf="loading" class="loader">-->
   <!--      <blog-loader></blog-loader>-->
   <!--    </div>-->
-
-  <blog-loader *ngIf="loading; else button1"> </blog-loader>
+  <div class="loader-block" *ngIf="loading; else button1">
+    <blog-loader></blog-loader>
+  </div>
 
   <ng-template #button1>
     <blog-button

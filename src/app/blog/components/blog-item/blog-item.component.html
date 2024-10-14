@@ -5,23 +5,16 @@
 
   <div class="blog-item-content">
     <div class="blog-item-content-header">
-      <blog-typography [content]="'Best blog ever'" [variant]="'h4'"></blog-typography>
+      <blog-typography *ngIf="blog" [content]="blog.name" [variant]="'h4'"></blog-typography>
       <p class="blog-item-content-header-website">
         Website:
         <span class="blog-item-content-header-url"
-          ><a href="https://www.youtube.com">https://www.youtube.com</a></span
+          ><a *ngIf="blog" href="https://www.youtube.com">{{ blog.websiteUrl }}</a></span
         >
       </p>
     </div>
-    <p class="blog-item-content-text">
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-      labore et dolore magna aliqua. Ut enim ad minim veniam, Lorem ipsum dolor sit amet,
-      consectetur adipiscing elit, sed do eiusmod tempor Lorem ipsum dolor sit amet, consectetur
-      adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-      minim veniam, Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-      labore et dolore magna aliqua. Ut enim ad minim veniam, Lorem ipsum dolor sit amet,
-      consectetur adipiscing elit, sed do eiusmod tempor
+    <p *ngIf="blog" class="blog-item-content-text">
+      {{ blog.description }}
     </p>
   </div>
 </div>

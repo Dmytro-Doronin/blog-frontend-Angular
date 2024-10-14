@@ -4,9 +4,16 @@ import { AuthService } from '../../core/services/auth.service'
 import { Router } from '@angular/router'
 import { catchError, concatMap, delay, map, mergeMap } from 'rxjs/operators'
 import { concat, of } from 'rxjs'
-import { addBlogsAction, setBlogsLoadingAction } from '../actions/blogs.actions'
+import {
+  addBlogsAction,
+  addBlogsToStateAction,
+  loadBlogs,
+  setAllBlogsToState,
+  setBlogsLoadingAction,
+} from '../actions/blogs.actions'
 import { BlogService } from '../../core/services/blog.service'
 import { addAuthAlert, deleteAuthAlert } from '../actions/auth.actions'
+import { BlogResponse } from '../../types/blogs.models'
 
 @Injectable()
 export class BlogsEffects {
@@ -44,6 +51,55 @@ export class BlogsEffects {
                 )
               })
             )
+        )
+      )
+    )
+  )
+
+  getAllBlogs$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(loadBlogs),
+      concatMap(action =>
+        concat(
+          of(setBlogsLoadingAction({ loading: true })),
+          this.blogService.getBlogs(action.params).pipe(
+            mergeMap((response: BlogResponse) => {
+              if (action.params.pageNumber === 1) {
+                return [
+                  setAllBlogsToState({
+                    pagesCount: response.pagesCount,
+                    page: response.page,
+                    pageSize: response.pageSize,
+                    totalCount: response.totalCount,
+                    blogs: response.items,
+                    hasMoreBlogs: response.items.length === action.params.pageSize,
+                  }),
+                  // addAuthAlert({ severity: 'success', message: 'Blog has been added!' }),
+                  setBlogsLoadingAction({ loading: false }),
+                ]
+              } else {
+                return [
+                  addBlogsToStateAction({
+                    pagesCount: response.pagesCount,
+                    page: response.page,
+                    pageSize: response.pageSize,
+                    totalCount: response.totalCount,
+                    blogs: response.items,
+                    hasMoreBlogs: response.items.length === action.params.pageSize,
+                  }),
+                  // addAuthAlert({ severity: 'success', message: 'Blog has been added!' }),
+                  setBlogsLoadingAction({ loading: false }),
+                ]
+              }
+            }),
+            catchError(error => {
+              const message = error.error.errorsMessages[0].message
+              return of(
+                setBlogsLoadingAction({ loading: false }),
+                addAuthAlert({ severity: 'error', message: message })
+              )
+            })
+          )
         )
       )
     )

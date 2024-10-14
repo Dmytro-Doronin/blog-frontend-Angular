@@ -1,3 +1,11 @@
+export interface BlogQueryParams {
+  searchNameTerm?: string
+  sortBy?: string
+  sortDirection?: 'asc' | 'desc'
+  pageNumber?: number
+  pageSize?: number
+}
+
 export interface IBlog {
   id: string
   name: string
