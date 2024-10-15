@@ -1,7 +1,7 @@
 <div class="modalOverlay" (click)="onClose()">
   <div class="modal" (click)="$event.stopPropagation()">
     <div class="modalHeader">
-      <blog-typography [content]="title" variant="h3"></blog-typography>
+      <blog-typography [className]="'noMargin'" [content]="title" variant="h3"></blog-typography>
       <div class="closButton" (click)="onClose()">X</div>
     </div>
     <div class="modalBody">

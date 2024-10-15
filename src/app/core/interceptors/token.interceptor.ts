@@ -3,8 +3,9 @@ import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent } from '@angular/c
 import { Store } from '@ngrx/store'
 import { Observable, throwError } from 'rxjs'
 import { catchError, switchMap } from 'rxjs/operators'
-import { addAuthAlert, setAccessToken } from '../../store/actions/auth.actions'
+import { addAuthAlert, logOut, setAccessToken } from '../../store/actions/auth.actions'
 import { AuthService } from '../services/auth.service'
+import { setAutoLogOut } from '../../store/actions/app.actions'
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
@@ -47,7 +48,12 @@ export class TokenInterceptor implements HttpInterceptor {
               }),
               catchError(refreshError => {
                 const message = refreshError?.error?.message || 'Can not update token'
-                this.store.dispatch(addAuthAlert({ severity: 'error', message }))
+                if (message === 'Can not update token') {
+                  this.store.dispatch(setAutoLogOut({ autoLogOut: true }))
+                  localStorage.removeItem('accessToken')
+                } else {
+                  this.store.dispatch(addAuthAlert({ severity: 'error', message }))
+                }
                 return throwError(() => refreshError)
               })
             )

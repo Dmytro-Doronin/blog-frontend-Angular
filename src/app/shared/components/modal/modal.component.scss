@@ -37,9 +37,10 @@
 }
 
 .closButton {
-  font-size: 24px;
+  font-size: 20px;
   position: absolute;
   transform: translateY(-50%);
   top: 50%;
   right: 29px;
+  cursor: pointer;
 }

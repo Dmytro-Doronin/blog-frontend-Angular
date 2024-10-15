@@ -1,6 +1,4 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core'
-import { TypographyComponent } from '../../ui/typography/typography.component'
-
 @Component({
   selector: 'blog-modal',
   templateUrl: './modal.component.html',

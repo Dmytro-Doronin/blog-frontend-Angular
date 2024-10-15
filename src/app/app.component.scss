@@ -12,3 +12,12 @@
 .app {
   margin-top: var(--header-height);
 }
+
+.modal-alert {
+  text-align: center;
+  margin-bottom: 15px;
+
+  &-button {
+    text-align: center;
+  }
+ }

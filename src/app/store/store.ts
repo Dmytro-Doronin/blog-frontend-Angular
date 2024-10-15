@@ -5,12 +5,12 @@ import { appReducer } from './reducers/app.reducer'
 import { authReducer } from './reducers/auth.reducer'
 import { blogsReducer } from './reducers/blogs.reducer'
 
-const reducers = {
+export const reducers = {
   app: appReducer,
   auth: authReducer,
   blogs: blogsReducer,
 }
 
-bootstrapApplication(AppComponent, {
-  providers: [provideStore(reducers)],
-}).catch(err => console.error(err))
+// bootstrapApplication(AppComponent, {
+//   providers: [provideStore(reducers)],
+// }).catch(err => console.error(err))
