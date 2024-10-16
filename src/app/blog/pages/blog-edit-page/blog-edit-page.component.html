@@ -1,0 +1,14 @@
+<blog-main-page>
+  <blog-button
+    routerLink="/main/blogs-page"
+    [variant]="'Back'"
+    [content]="'Back to blogs'"
+  ></blog-button>
+  <div class="form-container">
+    <blog-edit-blog-form
+      [authSeverity]="authSeverity$ | async"
+      (formSubmitted)="onFormSubmit($event)"
+      [loading]="loading$ | async"
+    ></blog-edit-blog-form>
+  </div>
+</blog-main-page>

@@ -7,6 +7,21 @@ export const loadBlogs = createAction(
   '[Get all blogs] het blogs',
   props<{ params: BlogQueryParams }>()
 )
+export const updateBlog = createAction(
+  '[Blog] Update Blog',
+  props<{
+    blogId: string
+    name: string
+    description: string
+    websiteUrl: string
+  }>()
+)
+
+export const successUpdateBlog = createAction('[Blog] Update Blog', props<{ blogId: string }>())
+export const successUpdateDetailsBlog = createAction(
+  '[Blog] Update Blog details',
+  props<{ blog: IBlog }>()
+)
 
 export const setAllBlogsToState = createAction(
   '[Set all blogs to state] set blogs',

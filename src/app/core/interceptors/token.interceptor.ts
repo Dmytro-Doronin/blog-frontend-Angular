@@ -21,7 +21,9 @@ export class TokenInterceptor implements HttpInterceptor {
     ]
 
     const isSecureEndpoint = secureEndpoints.some(endpoint => req.url.includes(endpoint))
-    if (this.isPostToBlogOrPost(req) || isSecureEndpoint) {
+    console.log('kek1')
+    if (this.isPostToBlogOrPost(req) || this.isPostToBlogOrPostPut(req) || isSecureEndpoint) {
+      console.log('kek2')
       const accessToken = localStorage.getItem('accessToken')
       const clonedReq = accessToken
         ? req.clone({
@@ -71,5 +73,16 @@ export class TokenInterceptor implements HttpInterceptor {
   private isPostToBlogOrPost(req: HttpRequest<any>): boolean {
     const postUrls = ['http://localhost:3000/blogs', 'http://localhost:3000/posts']
     return postUrls.includes(req.url) && req.method === 'POST'
+  }
+
+  private isPostToBlogOrPostPut(req: HttpRequest<any>): boolean {
+    const blogUrlPattern = /^http:\/\/localhost:3000\/blogs\/[a-zA-Z0-9-]+$/
+    const postUrls = ['http://localhost:3000/posts']
+
+    // Проверка, что запрос либо PUT к /blogs/{id}, либо POST к другим URL
+    const isPutToBlog = blogUrlPattern.test(req.url) && req.method === 'PUT'
+    const isPostToOtherUrls = postUrls.includes(req.url) && req.method === 'POST'
+
+    return isPutToBlog || isPostToOtherUrls
   }
 }

@@ -15,6 +15,7 @@ import {
   selectBlogsLoading,
   selectHasMoreBlogs,
 } from '../../../store/selectors/blogs.selector'
+import { Router } from '@angular/router'
 
 @Component({
   selector: 'blog-blogs-page',
@@ -34,7 +35,8 @@ export class BlogsPageComponent implements OnInit {
   constructor(
     private blogService: BlogService,
     private authService: AuthService,
-    private store: Store
+    private store: Store,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -70,5 +72,9 @@ export class BlogsPageComponent implements OnInit {
   loadMore() {
     this.pageNumber += 1
     this.loadBlogs()
+  }
+
+  editBlog(blogId: string) {
+    this.router.navigate(['/main/blogs-page/edit-blog', blogId])
   }
 }

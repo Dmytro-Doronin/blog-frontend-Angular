@@ -4,6 +4,8 @@ import {
   addBlogsToStateAction,
   setAllBlogsToState,
   setBlogsLoadingAction,
+  successUpdateBlog,
+  successUpdateDetailsBlog,
 } from '../actions/blogs.actions'
 import { IBlog } from '../../types/blogs.models'
 
@@ -42,6 +44,11 @@ export const blogsReducer = createReducer(
       hasMoreBlogs: hasMoreBlogs,
     })
   ),
+
+  on(successUpdateDetailsBlog, (state, { blog }) => ({
+    ...state,
+    blogs: state.blogs.map(b => (b.id === blog.id ? blog : b)),
+  })),
   on(
     addBlogsToStateAction,
     (state, { blogs, pagesCount, page, pageSize, totalCount, hasMoreBlogs }) => ({

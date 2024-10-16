@@ -1,6 +1,12 @@
 import { HttpClient, HttpParams } from '@angular/common/http'
 import { Injectable } from '@angular/core'
-import { BlogQueryParams, BlogResponse, IBlog, PostBlogModel } from '../../types/blogs.models'
+import {
+  BlogQueryParams,
+  BlogResponse,
+  EditBlogModel,
+  IBlog,
+  PostBlogModel,
+} from '../../types/blogs.models'
 //https://localhost.com
 @Injectable({
   providedIn: 'root',
@@ -40,5 +46,21 @@ export class BlogService {
       },
       { withCredentials: true }
     )
+  }
+
+  editBlog({ name, description, websiteUrl, blogId }: EditBlogModel) {
+    return this.http.put(
+      `http://localhost:3000/blogs/${blogId}`,
+      {
+        name,
+        description,
+        websiteUrl,
+      },
+      { withCredentials: true }
+    )
+  }
+
+  getBlogById(blogId: string) {
+    return this.http.get<IBlog>(`http://localhost:3000/blogs/${blogId}`)
   }
 }

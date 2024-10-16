@@ -1,5 +1,8 @@
 <div class="blog-item">
-  <blog-blog-control-menu *ngIf="currentUserId === blog.userId"></blog-blog-control-menu>
+  <blog-blog-control-menu
+    *ngIf="currentUserId === blog.userId"
+    [blogId]="blog.id"
+  ></blog-blog-control-menu>
   <div class="blog-item-picture">
     <blog-round-picture></blog-round-picture>
   </div>

@@ -9,6 +9,8 @@ import { AddBlogFormComponent } from './components/add-blog-form/add-blog-form.c
 import { ReactiveFormsModule } from '@angular/forms'
 import { AuthGuard } from '../core/guards/auth-guard.guard'
 import { BlogControlMenuComponent } from './components/blog-control-menu/blog-control-menu.component'
+import { BlogEditPageComponent } from './pages/blog-edit-page/blog-edit-page.component'
+import { EditBlogFormComponent } from './components/edit-blog-form/edit-blog-form.component'
 
 @NgModule({
   providers: [AuthGuard],
@@ -18,8 +20,16 @@ import { BlogControlMenuComponent } from './components/blog-control-menu/blog-co
     BlogAddPageComponent,
     AddBlogFormComponent,
     BlogControlMenuComponent,
+    BlogEditPageComponent,
+    EditBlogFormComponent,
   ],
   imports: [CommonModule, BlogRoutingModule, SharedModule, ReactiveFormsModule],
-  exports: [BlogItemComponent, AddBlogFormComponent, BlogControlMenuComponent],
+  exports: [
+    BlogItemComponent,
+    AddBlogFormComponent,
+    BlogControlMenuComponent,
+    BlogEditPageComponent,
+    EditBlogFormComponent,
+  ],
 })
 export class BlogModule {}

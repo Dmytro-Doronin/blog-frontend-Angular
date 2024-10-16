@@ -29,3 +29,10 @@ export interface PostBlogModel {
   description: string
   websiteUrl: string
 }
+
+export interface EditBlogModel {
+  name: string
+  description: string
+  websiteUrl: string
+  blogId: string
+}
