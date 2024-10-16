@@ -26,6 +26,12 @@ import { RoundPictureComponent } from './components/round-picture/round-picture.
 import { EmptyPictureComponent } from './components/icons/empthy-picture/empty-picture.component'
 import { MainPageComponent } from './components/main-page/main-page.component'
 import { ArrowBackComponent } from './components/icons/arrow-back/arrow-back.component'
+import { PointsIconComponent } from './components/icons/points-icon/points-icon.component'
+import { ItemControlMenuComponent } from './components/item-control-menu/item-control-menu.component'
+import { TrashIconComponent } from './components/icons/trash-icon/trash-icon.component'
+import { ControlMenuComponent } from './components/control-menu/control-menu.component'
+import { TriangleIconComponent } from './components/icons/triangle-icon/triangle-icon.component'
+import { EditIconComponent } from './components/icons/edit-icon/edit-icon.component'
 
 @NgModule({
   declarations: [
@@ -52,6 +58,12 @@ import { ArrowBackComponent } from './components/icons/arrow-back/arrow-back.com
     EmptyPictureComponent,
     MainPageComponent,
     ArrowBackComponent,
+    PointsIconComponent,
+    ItemControlMenuComponent,
+    TrashIconComponent,
+    ControlMenuComponent,
+    TriangleIconComponent,
+    EditIconComponent,
   ],
   imports: [
     CommonModule,
@@ -87,6 +99,12 @@ import { ArrowBackComponent } from './components/icons/arrow-back/arrow-back.com
     EmptyPictureComponent,
     MainPageComponent,
     ArrowBackComponent,
+    PointsIconComponent,
+    ItemControlMenuComponent,
+    TrashIconComponent,
+    ControlMenuComponent,
+    TriangleIconComponent,
+    EditIconComponent,
   ],
 })
 export class SharedModule {}

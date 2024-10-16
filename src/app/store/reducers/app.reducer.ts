@@ -11,7 +11,7 @@ export interface AppState {
 export const initialState: AppState = {
   alert: null,
   loading: false,
-  autoLogOut: true,
+  autoLogOut: false,
 }
 
 export const appReducer = createReducer(

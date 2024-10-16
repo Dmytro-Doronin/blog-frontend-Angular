@@ -8,4 +8,6 @@ import { IBlog } from '../../../types/blogs.models'
 })
 export class BlogItemComponent {
   @Input() blog!: IBlog
+  @Input() currentUserId?: string | null
+  @Input() currentUserLogin?: string | null
 }

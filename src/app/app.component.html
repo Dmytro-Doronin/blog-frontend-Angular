@@ -1,5 +1,5 @@
 <div class="app">
-  <blog-modal *ngIf="(isModalOpen$ | async) === true" (closeModal)="onClose()" [title]="'Warning'">
+  <blog-modal *ngIf="isModalOpen$ | async" (closeModal)="onClose()" [title]="'Warning'">
     <div class="modal-alert">Session expired. Please log in again.</div>
     <div class="modal-alert-button">
       <blog-button (click)="onClose()" [content]="'Ok'"></blog-button>
@@ -11,5 +11,4 @@
     <router-outlet></router-outlet>
   </div>
   <blog-parent-alert></blog-parent-alert>
-  <blog-button [content]="'asdasd'" (click)="onClose2()"></blog-button>
 </div>

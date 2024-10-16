@@ -1,4 +1,5 @@
 <div class="blog-item">
+  <blog-blog-control-menu *ngIf="currentUserId === blog.userId"></blog-blog-control-menu>
   <div class="blog-item-picture">
     <blog-round-picture></blog-round-picture>
   </div>
@@ -6,6 +7,7 @@
   <div class="blog-item-content">
     <div class="blog-item-content-header">
       <blog-typography *ngIf="blog" [content]="blog.name" [variant]="'h4'"></blog-typography>
+      <div class="author"><span>Author:</span> {{ currentUserLogin }}</div>
       <p class="blog-item-content-header-website">
         Website:
         <span class="blog-item-content-header-url"

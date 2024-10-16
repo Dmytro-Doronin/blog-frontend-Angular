@@ -1,5 +1,6 @@
 .blog-item {
   display: flex;
+  position: relative;
   //width: 928px;
   width: 100%;
   padding: 11px 0 11px 0;
@@ -50,4 +51,11 @@
   &-content-header {
     margin-bottom: 24px;
   }
+}
+.author {
+  font-family: Inter;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 24px;
+  text-align: left;
 }

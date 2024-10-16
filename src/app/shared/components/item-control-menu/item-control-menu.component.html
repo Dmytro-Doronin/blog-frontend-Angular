@@ -1,0 +1,8 @@
+<div class="item-control-menu">
+  <div class="blog-points-icon-container" (click)="onControlMenu()">
+    <blog-points-icon></blog-points-icon>
+  </div>
+  <blog-control-menu [isOpen]="isOpen">
+    <ng-content></ng-content>
+  </blog-control-menu>
+</div>

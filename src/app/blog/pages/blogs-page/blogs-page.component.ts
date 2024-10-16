@@ -2,7 +2,12 @@ import { Component, OnInit } from '@angular/core'
 import { BlogService } from '../../../core/services/blog.service'
 import { Observable } from 'rxjs'
 import { Store } from '@ngrx/store'
-import { selectAccessToken, selectIsAuthenticated } from '../../../store/selectors/auth.selector'
+import {
+  selectAccessToken,
+  selectIsAuthenticated,
+  selectUserId,
+  selectUserLogin,
+} from '../../../store/selectors/auth.selector'
 import { AuthService } from '../../../core/services/auth.service'
 import { addBlogsAction, loadBlogs } from '../../../store/actions/blogs.actions'
 import {
@@ -18,10 +23,11 @@ import {
   providers: [BlogService],
 })
 export class BlogsPageComponent implements OnInit {
-  token$?: Observable<any>
   blogs$ = this.store.select(selectBlogs)
   isAuthenticated$?: Observable<boolean>
   loading$?: Observable<boolean>
+  currentUserId$?: Observable<string>
+  currentUserName$?: Observable<string>
   hasMoreBlogs$ = this.store.select(selectHasMoreBlogs)
   pageNumber = 1
   pageSize = 5
@@ -34,6 +40,7 @@ export class BlogsPageComponent implements OnInit {
   ngOnInit(): void {
     this.loading()
     this.loadBlogs()
+    this.getCurrentUser()
     this.isAuthenticated$ = this.store.select(selectIsAuthenticated)
   }
 
@@ -50,6 +57,12 @@ export class BlogsPageComponent implements OnInit {
       })
     )
   }
+
+  getCurrentUser() {
+    this.currentUserId$ = this.store.select(selectUserId)
+    this.currentUserName$ = this.store.select(selectUserLogin)
+  }
+
   loading() {
     this.loading$ = this.store.select(selectBlogsLoading)
   }

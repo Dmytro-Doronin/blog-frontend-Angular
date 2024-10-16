@@ -13,6 +13,7 @@ export interface IBlog {
   websiteUrl: string
   createdAt: string
   isMembership: boolean
+  userId: string
 }
 
 export interface BlogResponse {

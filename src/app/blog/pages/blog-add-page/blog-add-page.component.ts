@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core'
 import { Observable } from 'rxjs'
 import { Store } from '@ngrx/store'
 import { selectBlogsLoading } from '../../../store/selectors/blogs.selector'
-import { registerUser } from '../../../store/actions/auth.actions'
 import { addBlogsAction } from '../../../store/actions/blogs.actions'
 import { SeverityType } from '../../../types/notification.models'
 import { selectAuthAlertSeverity } from '../../../store/selectors/auth.selector'
@@ -28,7 +27,6 @@ export class BlogAddPageComponent implements OnInit {
   }
 
   onFormSubmit(data: { name: string; description: string; websiteUrl: string }) {
-    console.log('rabotaet page submit')
     this.store.dispatch(
       addBlogsAction({
         name: data.name,

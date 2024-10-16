@@ -16,7 +16,12 @@
     <blog-select-component></blog-select-component>
   </div>
   <div *ngIf="(blogs$ | async)?.length; else noBlogs" class="blog-item-container">
-    <blog-blog-item *ngFor="let blog of blogs$ | async" [blog]="blog"></blog-blog-item>
+    <blog-blog-item
+      *ngFor="let blog of blogs$ | async"
+      [currentUserId]="currentUserId$ | async"
+      [currentUserLogin]="currentUserName$ | async"
+      [blog]="blog"
+    ></blog-blog-item>
   </div>
 
   <div class="center-container">

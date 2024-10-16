@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core'
 import { Store } from '@ngrx/store'
 import { authMe } from './store/actions/auth.actions'
 
-import { Observable, Subscription, tap } from 'rxjs'
+import { Observable, Subscription } from 'rxjs'
 import { selectAppLoading, selectAutoLogOut } from './store/selectors/app.selector'
 import { setAutoLogOut } from './store/actions/app.actions'
 
@@ -24,14 +24,9 @@ export class AppComponent implements OnInit {
     if (accessToken) {
       this.store.dispatch(authMe())
     }
-    // this.modalSubs()
-    // this.isModalOpen$ = this.store.select(selectAutoLogOut)
-    this.appLoading$ = this.store
-      .select(selectAppLoading)
-      .pipe(tap(value => console.log('loading:', value)))
-    this.isModalOpen$ = this.store
-      .select(selectAutoLogOut)
-      .pipe(tap(value => console.log('Auto Log Out:', value)))
+    this.appLoading$ = this.store.select(selectAppLoading)
+
+    this.isModalOpen$ = this.store.select(selectAutoLogOut)
   }
 
   // modalSubs() {
@@ -39,11 +34,6 @@ export class AppComponent implements OnInit {
   //     this.isModalOpen = item
   //   })
   // }
-
-  onClose2() {
-    this.store.dispatch(setAutoLogOut({ autoLogOut: true }))
-    // this.isModalOpen = false
-  }
 
   onClose() {
     this.store.dispatch(setAutoLogOut({ autoLogOut: false }))
