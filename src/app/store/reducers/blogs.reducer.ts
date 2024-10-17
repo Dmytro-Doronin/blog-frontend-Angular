@@ -2,9 +2,10 @@ import { createReducer, on } from '@ngrx/store'
 
 import {
   addBlogsToStateAction,
+  callDeleteBlogModalAction,
   setAllBlogsToState,
   setBlogsLoadingAction,
-  successUpdateBlog,
+  successDeleteBlog,
   successUpdateDetailsBlog,
 } from '../actions/blogs.actions'
 import { IBlog } from '../../types/blogs.models'
@@ -17,6 +18,7 @@ export interface BlogsState {
   blogs: IBlog[]
   loading: boolean
   hasMoreBlogs: boolean
+  deleteBlogModal: boolean
 }
 
 export const initialState: BlogsState = {
@@ -27,6 +29,7 @@ export const initialState: BlogsState = {
   blogs: [],
   loading: false,
   hasMoreBlogs: false,
+  deleteBlogModal: false,
 }
 
 export const blogsReducer = createReducer(
@@ -48,6 +51,15 @@ export const blogsReducer = createReducer(
   on(successUpdateDetailsBlog, (state, { blog }) => ({
     ...state,
     blogs: state.blogs.map(b => (b.id === blog.id ? blog : b)),
+  })),
+  on(successDeleteBlog, (state, { blogId }) => ({
+    ...state,
+    blogs: state.blogs.filter(b => b.id !== blogId),
+  })),
+
+  on(callDeleteBlogModalAction, (state, { deleteBlogModal }) => ({
+    ...state,
+    deleteBlogModal: deleteBlogModal,
   })),
   on(
     addBlogsToStateAction,

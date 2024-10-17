@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core'
-import { Observable } from 'rxjs'
+import { Component, OnDestroy, OnInit } from '@angular/core'
+import { Observable, Subscription } from 'rxjs'
 import { SeverityType } from '../../../types/notification.models'
 import { Store } from '@ngrx/store'
 import { selectAuthAlertSeverity } from '../../../store/selectors/auth.selector'
@@ -12,10 +12,11 @@ import { selectItemId } from '../../../store/selectors/app.selector'
   templateUrl: './blog-edit-page.component.html',
   styleUrl: './blog-edit-page.component.scss',
 })
-export class BlogEditPageComponent implements OnInit {
+export class BlogEditPageComponent implements OnInit, OnDestroy {
   authSeverity$?: Observable<SeverityType | undefined>
   loading$?: Observable<boolean>
   currentBlogId: string = ''
+  private currentBlogSubscription: Subscription = new Subscription()
 
   constructor(private store: Store) {}
 
@@ -31,7 +32,7 @@ export class BlogEditPageComponent implements OnInit {
   }
 
   getBlogId() {
-    this.store.select(selectItemId).subscribe(item => {
+    this.currentBlogSubscription = this.store.select(selectItemId).subscribe(item => {
       this.currentBlogId = item ?? ''
     })
   }
@@ -45,5 +46,9 @@ export class BlogEditPageComponent implements OnInit {
         websiteUrl: data.websiteUrl,
       })
     )
+  }
+
+  ngOnDestroy() {
+    this.currentBlogSubscription.unsubscribe()
   }
 }

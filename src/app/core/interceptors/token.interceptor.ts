@@ -21,9 +21,7 @@ export class TokenInterceptor implements HttpInterceptor {
     ]
 
     const isSecureEndpoint = secureEndpoints.some(endpoint => req.url.includes(endpoint))
-    console.log('kek1')
     if (this.isPostToBlogOrPost(req) || this.isPostToBlogOrPostPut(req) || isSecureEndpoint) {
-      console.log('kek2')
       const accessToken = localStorage.getItem('accessToken')
       const clonedReq = accessToken
         ? req.clone({

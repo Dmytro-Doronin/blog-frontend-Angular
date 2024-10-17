@@ -76,10 +76,7 @@ export class EditBlogFormComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   onSubmit() {
-    console.log(this.editBlogUpForm.valid)
-
     if (this.editBlogUpForm.valid) {
-      console.log('form valid')
       this.formSubmitted.emit({
         name: this.editBlogUpForm.value.name!,
         description: this.editBlogUpForm.value.description!,
