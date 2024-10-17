@@ -79,8 +79,9 @@ export class TokenInterceptor implements HttpInterceptor {
 
     // Проверка, что запрос либо PUT к /blogs/{id}, либо POST к другим URL
     const isPutToBlog = blogUrlPattern.test(req.url) && req.method === 'PUT'
+    const isDeleteToBlog = blogUrlPattern.test(req.url) && req.method === 'DELETE'
     const isPostToOtherUrls = postUrls.includes(req.url) && req.method === 'POST'
 
-    return isPutToBlog || isPostToOtherUrls
+    return isPutToBlog || isPostToOtherUrls || isDeleteToBlog
   }
 }

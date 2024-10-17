@@ -4,7 +4,7 @@ import {
   addBlogsToStateAction,
   callDeleteBlogModalAction,
   setAllBlogsToState,
-  setBlogsLoadingAction,
+  setBlogsLoadingAction, setCurrentBlogId,
   successDeleteBlog,
   successUpdateDetailsBlog,
 } from '../actions/blogs.actions'
@@ -19,6 +19,7 @@ export interface BlogsState {
   loading: boolean
   hasMoreBlogs: boolean
   deleteBlogModal: boolean
+  currentBlogId: string
 }
 
 export const initialState: BlogsState = {
@@ -30,6 +31,7 @@ export const initialState: BlogsState = {
   loading: false,
   hasMoreBlogs: false,
   deleteBlogModal: false,
+  currentBlogId: ''
 }
 
 export const blogsReducer = createReducer(
@@ -60,6 +62,11 @@ export const blogsReducer = createReducer(
   on(callDeleteBlogModalAction, (state, { deleteBlogModal }) => ({
     ...state,
     deleteBlogModal: deleteBlogModal,
+  })),
+
+  on(setCurrentBlogId, (state, { blogId }) => ({
+    ...state,
+    currentBlogId: blogId,
   })),
   on(
     addBlogsToStateAction,

@@ -8,6 +8,7 @@ export const selectBlogsLoading = createSelector(
   (state: BlogsState) => state.loading
 )
 export const selectBlogs = createSelector(selectBlogsState, (state: BlogsState) => state.blogs)
+export const selectCurrentBlogId = createSelector(selectBlogsState, (state: BlogsState) => state.currentBlogId)
 export const selectDeleteBlogModal = createSelector(
   selectBlogsState,
   (state: BlogsState) => state.deleteBlogModal

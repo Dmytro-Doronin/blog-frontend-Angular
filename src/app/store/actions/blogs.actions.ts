@@ -14,8 +14,10 @@ export const updateBlog = createAction(
   }>()
 )
 
-export const deleteBlog = createAction('[Blog] Update Blog', props<{ blogId: string }>())
-export const successDeleteBlog = createAction('[Blog] Update Blog', props<{ blogId: string }>())
+export const deleteBlog = createAction('[Blog] delete blog', props<{ blogId: string }>())
+export const setCurrentBlogId = createAction('[Blog] set current blog id', props<{ blogId: string }>())
+
+export const successDeleteBlog = createAction('[Blog] success delete blog', props<{ blogId: string }>())
 export const successUpdateDetailsBlog = createAction(
   '[Blog] Update Blog details',
   props<{ blog: IBlog }>()

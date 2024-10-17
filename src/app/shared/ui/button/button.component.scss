@@ -24,6 +24,11 @@
   margin-bottom: 72px;
 }
 
+.mr20 {
+  margin-right: 20px;
+}
+
+
 .right {
   text-align: end;
 }
@@ -41,6 +46,7 @@
 .secondary {
   @extend .button;
   border: 1px solid var(--color-dark-900);
+  padding: 7px 34px 7px 34px;
   color: #000;
   background-color: transparent;
 }

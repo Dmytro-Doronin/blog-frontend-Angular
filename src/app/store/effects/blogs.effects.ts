@@ -6,10 +6,10 @@ import { catchError, concatMap, delay, finalize, map, mergeMap, switchMap } from
 import { concat, of } from 'rxjs'
 import {
   addBlogsAction,
-  addBlogsToStateAction,
+  addBlogsToStateAction, deleteBlog,
   loadBlogs,
   setAllBlogsToState,
-  setBlogsLoadingAction,
+  setBlogsLoadingAction, successDeleteBlog,
   successUpdateDetailsBlog,
   updateBlog,
 } from '../actions/blogs.actions'
@@ -105,6 +105,36 @@ export class BlogsEffects {
       )
     )
   )
+
+  deleteBlog$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(deleteBlog),
+      concatMap(action =>
+        concat(
+          of(setBlogsLoadingAction({ loading: true })),
+          this.blogService
+            .deleteBlogById(action.blogId)
+            .pipe(
+              mergeMap((response: any) => {
+                return [
+                  successDeleteBlog({ blogId: action.blogId}),
+                  addAuthAlert({ severity: 'success', message: 'Blog has been deleted!' }),
+                  setBlogsLoadingAction({ loading: false }),
+                ]
+              }),
+              catchError(error => {
+                const message = error.error.errorsMessages[0].message
+                return of(
+                  setBlogsLoadingAction({ loading: false }),
+                  addAuthAlert({ severity: 'error', message: message })
+                )
+              })
+            )
+        )
+      )
+    )
+  )
+
   // blogEdit$ = createEffect(() =>
   //   this.actions$.pipe(
   //     ofType(updateBlog),

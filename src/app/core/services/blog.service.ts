@@ -63,4 +63,8 @@ export class BlogService {
   getBlogById(blogId: string) {
     return this.http.get<IBlog>(`http://localhost:3000/blogs/${blogId}`)
   }
+
+  deleteBlogById(blogId: string) {
+    return this.http.delete(`http://localhost:3000/blogs/${blogId}`, { withCredentials: true })
+  }
 }
