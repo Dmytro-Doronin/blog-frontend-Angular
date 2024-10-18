@@ -1,6 +1,6 @@
-import {Component, OnDestroy, OnInit} from '@angular/core'
+import { Component, OnDestroy, OnInit } from '@angular/core'
 import { BlogService } from '../../../core/services/blog.service'
-import {Observable, Subscription} from 'rxjs'
+import { Observable, Subscription } from 'rxjs'
 import { Store } from '@ngrx/store'
 import {
   selectAccessToken,
@@ -9,14 +9,24 @@ import {
   selectUserLogin,
 } from '../../../store/selectors/auth.selector'
 import { AuthService } from '../../../core/services/auth.service'
-import {addBlogsAction, callDeleteBlogModalAction, deleteBlog, loadBlogs} from '../../../store/actions/blogs.actions'
+import {
+  addBlogsAction,
+  callDeleteBlogModalAction,
+  deleteBlog,
+  loadBlogs,
+  setSortByAlphabet,
+  setSortByDate,
+} from '../../../store/actions/blogs.actions'
 import {
   selectBlogs,
-  selectBlogsLoading, selectCurrentBlogId, selectDeleteBlogModal,
+  selectBlogsLoading,
+  selectCurrentBlogId,
+  selectDeleteBlogModal,
   selectHasMoreBlogs,
+  selectSortParams,
 } from '../../../store/selectors/blogs.selector'
 import { Router } from '@angular/router'
-import {IBlog} from "../../../types/blogs.models";
+import { IBlog } from '../../../types/blogs.models'
 
 @Component({
   selector: 'blog-blogs-page',
@@ -35,6 +45,8 @@ export class BlogsPageComponent implements OnInit, OnDestroy {
   blogToDeleteId: string = ''
   pageNumber = 1
   pageSize = 5
+  sortBy: string = 'createdAt'
+  sortDirection: 'asc' | 'desc' = 'desc'
   private currentBlogIdSubscription: Subscription = new Subscription()
   constructor(
     private store: Store,
@@ -49,6 +61,7 @@ export class BlogsPageComponent implements OnInit, OnDestroy {
     this.getHasMoreBlog()
     this.getOpenDeleteModal()
     this.getCurrentBlogId()
+    this.getSortData()
     this.isAuthenticated$ = this.store.select(selectIsAuthenticated)
   }
 
@@ -57,8 +70,8 @@ export class BlogsPageComponent implements OnInit, OnDestroy {
       loadBlogs({
         params: {
           searchNameTerm: '',
-          sortBy: 'createdAt',
-          sortDirection: 'asc',
+          sortBy: this.sortBy,
+          sortDirection: this.sortDirection,
           pageNumber: this.pageNumber,
           pageSize: this.pageSize,
         },
@@ -84,6 +97,14 @@ export class BlogsPageComponent implements OnInit, OnDestroy {
     this.hasMoreBlogs$ = this.store.select(selectHasMoreBlogs)
   }
 
+  getSortData() {
+    this.store.select(selectSortParams).subscribe(sortParams => {
+      this.sortBy = sortParams.sortBy
+      this.sortDirection = sortParams.sortDirection
+      console.log(this.sortBy, this.sortDirection)
+    })
+  }
+
   loading() {
     this.loading$ = this.store.select(selectBlogsLoading)
   }
@@ -98,16 +119,28 @@ export class BlogsPageComponent implements OnInit, OnDestroy {
   }
 
   onCloseModal() {
-    this.store.dispatch(callDeleteBlogModalAction({deleteBlogModal: false}))
+    this.store.dispatch(callDeleteBlogModalAction({ deleteBlogModal: false }))
   }
 
   deleteBlog() {
-    this.store.dispatch(deleteBlog({blogId: this.blogToDeleteId}))
-    this.store.dispatch(callDeleteBlogModalAction({deleteBlogModal: false}))
+    this.store.dispatch(deleteBlog({ blogId: this.blogToDeleteId }))
+    this.store.dispatch(callDeleteBlogModalAction({ deleteBlogModal: false }))
   }
 
   editBlog(blogId: string) {
     this.router.navigate(['/main/blogs-page/edit-blog', blogId])
+  }
+
+  onSortChge(item: { itemId: string }) {
+    if (item.itemId === '1') {
+      this.store.dispatch(setSortByDate({ sortBy: 'createdAt', sortDirection: 'desc' }))
+    } else if (item.itemId === '2') {
+      this.store.dispatch(setSortByDate({ sortBy: 'createdAt', sortDirection: 'asc' }))
+    } else if (item.itemId === 'asc' || item.itemId === 'desc') {
+      this.store.dispatch(setSortByAlphabet({ sortDirection: item.itemId }))
+    }
+    this.pageNumber = 1
+    this.loadBlogs()
   }
 
   ngOnDestroy() {

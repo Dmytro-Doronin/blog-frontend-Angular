@@ -3,9 +3,12 @@
     <p class="blog-modal-text">Are you sure about this?</p>
     <div class="blog-modal-btn-group">
       <blog-button (click)="deleteBlog()" [className]="'mr20'" [content]="'Ok'"></blog-button>
-      <blog-button (click)="onCloseModal()" [variant]="'Secondary'" [content]="'Cancel'"></blog-button>
+      <blog-button
+        (click)="onCloseModal()"
+        [variant]="'Secondary'"
+        [content]="'Cancel'"
+      ></blog-button>
     </div>
-
   </blog-modal>
   <div class="blog-header">
     <blog-typography content="Blogs" className="clear" variant="h3"></blog-typography>
@@ -21,7 +24,7 @@
   <hr class="line" />
   <div class="search-panel">
     <blog-input [search]="true" placeholder="Search..." style="width: 100%"></blog-input>
-    <blog-select-component></blog-select-component>
+    <blog-select-component (selectedItem)="onSortChge($event)"></blog-select-component>
   </div>
   <div *ngIf="(blogs$ | async)?.length; else noBlogs" class="blog-item-container">
     <blog-blog-item

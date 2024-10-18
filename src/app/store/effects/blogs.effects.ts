@@ -6,10 +6,12 @@ import { catchError, concatMap, delay, finalize, map, mergeMap, switchMap } from
 import { concat, of } from 'rxjs'
 import {
   addBlogsAction,
-  addBlogsToStateAction, deleteBlog,
+  addBlogsToStateAction,
+  deleteBlog,
   loadBlogs,
   setAllBlogsToState,
-  setBlogsLoadingAction, successDeleteBlog,
+  setBlogsLoadingAction,
+  successDeleteBlog,
   successUpdateDetailsBlog,
   updateBlog,
 } from '../actions/blogs.actions'
@@ -112,24 +114,22 @@ export class BlogsEffects {
       concatMap(action =>
         concat(
           of(setBlogsLoadingAction({ loading: true })),
-          this.blogService
-            .deleteBlogById(action.blogId)
-            .pipe(
-              mergeMap((response: any) => {
-                return [
-                  successDeleteBlog({ blogId: action.blogId}),
-                  addAuthAlert({ severity: 'success', message: 'Blog has been deleted!' }),
-                  setBlogsLoadingAction({ loading: false }),
-                ]
-              }),
-              catchError(error => {
-                const message = error.error.errorsMessages[0].message
-                return of(
-                  setBlogsLoadingAction({ loading: false }),
-                  addAuthAlert({ severity: 'error', message: message })
-                )
-              })
-            )
+          this.blogService.deleteBlogById(action.blogId).pipe(
+            mergeMap((response: any) => {
+              return [
+                successDeleteBlog({ blogId: action.blogId }),
+                addAuthAlert({ severity: 'success', message: 'Blog has been deleted!' }),
+                setBlogsLoadingAction({ loading: false }),
+              ]
+            }),
+            catchError(error => {
+              const message = error.error.errorsMessages[0].message
+              return of(
+                setBlogsLoadingAction({ loading: false }),
+                addAuthAlert({ severity: 'error', message: message })
+              )
+            })
+          )
         )
       )
     )
@@ -244,6 +244,55 @@ export class BlogsEffects {
   //   )
   // )
 
+  // getAllBlogs$ = createEffect(() =>
+  //   this.actions$.pipe(
+  //     ofType(loadBlogs),
+  //     concatMap(action =>
+  //       concat(
+  //         of(setBlogsLoadingAction({ loading: true })),
+  //         this.blogService.getBlogs(action.params).pipe(
+  //           mergeMap((response: BlogResponse) => {
+  //             if (action.params.pageNumber === 1) {
+  //               return [
+  //                 setAllBlogsToState({
+  //                   pagesCount: response.pagesCount,
+  //                   page: response.page,
+  //                   pageSize: response.pageSize,
+  //                   totalCount: response.totalCount,
+  //                   blogs: response.items,
+  //                   hasMoreBlogs: response.items.length === action.params.pageSize,
+  //                 }),
+  //                 // addAuthAlert({ severity: 'success', message: 'Blog has been added!' }),
+  //                 setBlogsLoadingAction({ loading: false }),
+  //               ]
+  //             } else {
+  //               return [
+  //                 addBlogsToStateAction({
+  //                   pagesCount: response.pagesCount,
+  //                   page: response.page,
+  //                   pageSize: response.pageSize,
+  //                   totalCount: response.totalCount,
+  //                   blogs: response.items,
+  //                   hasMoreBlogs: response.items.length === action.params.pageSize,
+  //                 }),
+  //                 // addAuthAlert({ severity: 'success', message: 'Blog has been added!' }),
+  //                 setBlogsLoadingAction({ loading: false }),
+  //               ]
+  //             }
+  //           }),
+  //           catchError(error => {
+  //             const message = error.error.errorsMessages[0].message
+  //             return of(
+  //               setBlogsLoadingAction({ loading: false }),
+  //               addAuthAlert({ severity: 'error', message: message })
+  //             )
+  //           })
+  //         )
+  //       )
+  //     )
+  //   )
+  // )
+
   getAllBlogs$ = createEffect(() =>
     this.actions$.pipe(
       ofType(loadBlogs),
@@ -259,10 +308,9 @@ export class BlogsEffects {
                     page: response.page,
                     pageSize: response.pageSize,
                     totalCount: response.totalCount,
-                    blogs: response.items,
+                    blogs: response.items, // Перезаписываем блоги
                     hasMoreBlogs: response.items.length === action.params.pageSize,
                   }),
-                  // addAuthAlert({ severity: 'success', message: 'Blog has been added!' }),
                   setBlogsLoadingAction({ loading: false }),
                 ]
               } else {
@@ -272,16 +320,15 @@ export class BlogsEffects {
                     page: response.page,
                     pageSize: response.pageSize,
                     totalCount: response.totalCount,
-                    blogs: response.items,
+                    blogs: response.items, // Добавляем новые блоги
                     hasMoreBlogs: response.items.length === action.params.pageSize,
                   }),
-                  // addAuthAlert({ severity: 'success', message: 'Blog has been added!' }),
                   setBlogsLoadingAction({ loading: false }),
                 ]
               }
             }),
             catchError(error => {
-              const message = error.error.errorsMessages[0].message
+              const message = error?.error?.errorsMessages?.[0]?.message || 'Failed to load blogs'
               return of(
                 setBlogsLoadingAction({ loading: false }),
                 addAuthAlert({ severity: 'error', message: message })

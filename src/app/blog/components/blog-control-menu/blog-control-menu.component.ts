@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core'
 import { Store } from '@ngrx/store'
 import { setItemId } from '../../../store/actions/app.actions'
-import {callDeleteBlogModalAction, setCurrentBlogId} from "../../../store/actions/blogs.actions";
+import { callDeleteBlogModalAction, setCurrentBlogId } from '../../../store/actions/blogs.actions'
 
 @Component({
   selector: 'blog-blog-control-menu',
@@ -18,6 +18,6 @@ export class BlogControlMenuComponent {
 
   onBlogDeleteModalClose() {
     this.store.dispatch(setCurrentBlogId({ blogId: this.blogId }))
-    this.store.dispatch(callDeleteBlogModalAction({deleteBlogModal: true}))
+    this.store.dispatch(callDeleteBlogModalAction({ deleteBlogModal: true }))
   }
 }

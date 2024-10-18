@@ -37,9 +37,11 @@
 
 
 .ng-select .ng-dropdown-panel {
-  background-color: transparent;
+  background-color: var(--color-light-300);
   border: 1px solid #ccc;
   cursor: pointer;
+  //z-index: 1000;
+
 }
 
 

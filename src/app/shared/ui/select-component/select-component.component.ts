@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core'
+import { Component, EventEmitter, OnInit, Output, ViewEncapsulation } from '@angular/core'
 
 @Component({
   selector: 'blog-select-component',
@@ -8,12 +8,13 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core'
 })
 export class SelectComponentComponent implements OnInit {
   selectedOptions: string | null = '1'
+  @Output() selectedItem = new EventEmitter<{ itemId: string }>()
 
   options = [
     { id: '1', name: 'New Blog first' },
     { id: '2', name: 'Old Blog first' },
-    { id: '3', name: 'From A to Z' },
-    { id: '4', name: 'From Z to A' },
+    { id: 'asc', name: 'From A to Z' },
+    { id: 'desc', name: 'From Z to A' },
   ]
 
   isOpen: boolean = false
@@ -30,8 +31,8 @@ export class SelectComponentComponent implements OnInit {
     this.isOpen = false
   }
 
-  onChange(selected: string[]) {
+  onChange(selected: { id: string; name: string }) {
     console.log('Выбранные значения:', selected)
-    // Здесь можно выполнить дополнительные действия в зависимости от выбранных значений
+    this.selectedItem.emit({ itemId: selected.id })
   }
 }

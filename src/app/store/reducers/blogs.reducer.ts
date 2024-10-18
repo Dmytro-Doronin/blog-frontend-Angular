@@ -4,7 +4,10 @@ import {
   addBlogsToStateAction,
   callDeleteBlogModalAction,
   setAllBlogsToState,
-  setBlogsLoadingAction, setCurrentBlogId,
+  setBlogsLoadingAction,
+  setCurrentBlogId,
+  setSortByAlphabet,
+  setSortByDate,
   successDeleteBlog,
   successUpdateDetailsBlog,
 } from '../actions/blogs.actions'
@@ -20,6 +23,8 @@ export interface BlogsState {
   hasMoreBlogs: boolean
   deleteBlogModal: boolean
   currentBlogId: string
+  sortBy: string
+  sortDirection: 'asc' | 'desc'
 }
 
 export const initialState: BlogsState = {
@@ -31,7 +36,9 @@ export const initialState: BlogsState = {
   loading: false,
   hasMoreBlogs: false,
   deleteBlogModal: false,
-  currentBlogId: ''
+  currentBlogId: '',
+  sortBy: 'createdAt',
+  sortDirection: 'desc',
 }
 
 export const blogsReducer = createReducer(
@@ -79,5 +86,15 @@ export const blogsReducer = createReducer(
       totalCount: totalCount,
       hasMoreBlogs: hasMoreBlogs,
     })
-  )
+  ),
+  on(setSortByDate, (state, { sortBy, sortDirection }) => ({
+    ...state,
+    sortBy: sortBy,
+    sortDirection: sortDirection,
+  })),
+  on(setSortByAlphabet, (state, { sortDirection }) => ({
+    ...state,
+    sortBy: 'name',
+    sortDirection: sortDirection,
+  }))
 )

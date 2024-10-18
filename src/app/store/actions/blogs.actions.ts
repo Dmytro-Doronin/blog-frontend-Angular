@@ -15,9 +15,15 @@ export const updateBlog = createAction(
 )
 
 export const deleteBlog = createAction('[Blog] delete blog', props<{ blogId: string }>())
-export const setCurrentBlogId = createAction('[Blog] set current blog id', props<{ blogId: string }>())
+export const setCurrentBlogId = createAction(
+  '[Blog] set current blog id',
+  props<{ blogId: string }>()
+)
 
-export const successDeleteBlog = createAction('[Blog] success delete blog', props<{ blogId: string }>())
+export const successDeleteBlog = createAction(
+  '[Blog] success delete blog',
+  props<{ blogId: string }>()
+)
 export const successUpdateDetailsBlog = createAction(
   '[Blog] Update Blog details',
   props<{ blog: IBlog }>()
@@ -55,4 +61,14 @@ export const setBlogsLoadingAction = createAction(
 export const callDeleteBlogModalAction = createAction(
   '[Blog] delete blog modal',
   props<{ deleteBlogModal: boolean }>()
+)
+
+export const setSortByDate = createAction(
+  '[Blogs] Set Sort By Date',
+  props<{ sortBy: 'createdAt'; sortDirection: 'asc' | 'desc' }>()
+)
+
+export const setSortByAlphabet = createAction(
+  '[Blogs] Set Sort By Alphabet',
+  props<{ sortDirection: 'asc' | 'desc' }>()
 )
