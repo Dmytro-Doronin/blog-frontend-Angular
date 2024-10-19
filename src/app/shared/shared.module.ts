@@ -32,6 +32,9 @@ import { TrashIconComponent } from './components/icons/trash-icon/trash-icon.com
 import { ControlMenuComponent } from './components/control-menu/control-menu.component'
 import { TriangleIconComponent } from './components/icons/triangle-icon/triangle-icon.component'
 import { EditIconComponent } from './components/icons/edit-icon/edit-icon.component'
+import { SearchComponent } from './components/search/search.component'
+import { BlogItemComponent } from './components/blog-item/blog-item.component'
+import { BlogControlMenuComponent } from './components/blog-control-menu/blog-control-menu.component'
 
 @NgModule({
   declarations: [
@@ -64,6 +67,9 @@ import { EditIconComponent } from './components/icons/edit-icon/edit-icon.compon
     ControlMenuComponent,
     TriangleIconComponent,
     EditIconComponent,
+    SearchComponent,
+    BlogItemComponent,
+    BlogControlMenuComponent,
   ],
   imports: [
     CommonModule,
@@ -105,6 +111,9 @@ import { EditIconComponent } from './components/icons/edit-icon/edit-icon.compon
     ControlMenuComponent,
     TriangleIconComponent,
     EditIconComponent,
+    SearchComponent,
+    BlogItemComponent,
+    BlogControlMenuComponent,
   ],
 })
 export class SharedModule {}

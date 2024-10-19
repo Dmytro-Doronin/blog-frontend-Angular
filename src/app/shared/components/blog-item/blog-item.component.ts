@@ -10,4 +10,5 @@ export class BlogItemComponent {
   @Input() blog!: IBlog
   @Input() currentUserId?: string | null
   @Input() currentUserLogin?: string | null
+  @Input() mini?: boolean = false
 }

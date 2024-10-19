@@ -23,7 +23,8 @@
 
   <hr class="line" />
   <div class="search-panel">
-    <blog-input [search]="true" placeholder="Search..." style="width: 100%"></blog-input>
+    <!--    <blog-input [search]="true" placeholder="Search..." style="width: 100%"></blog-input>-->
+    <blog-search></blog-search>
     <blog-select-component (selectedItem)="onSortChge($event)"></blog-select-component>
   </div>
   <div *ngIf="(blogs$ | async)?.length; else noBlogs" class="blog-item-container">

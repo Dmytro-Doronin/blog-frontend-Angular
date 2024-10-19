@@ -1,16 +1,12 @@
 import { Component, OnDestroy, OnInit } from '@angular/core'
-import { BlogService } from '../../../core/services/blog.service'
 import { Observable, Subscription } from 'rxjs'
 import { Store } from '@ngrx/store'
 import {
-  selectAccessToken,
   selectIsAuthenticated,
   selectUserId,
   selectUserLogin,
 } from '../../../store/selectors/auth.selector'
-import { AuthService } from '../../../core/services/auth.service'
 import {
-  addBlogsAction,
   callDeleteBlogModalAction,
   deleteBlog,
   loadBlogs,
@@ -32,7 +28,6 @@ import { IBlog } from '../../../types/blogs.models'
   selector: 'blog-blogs-page',
   templateUrl: './blogs-page.component.html',
   styleUrl: './blogs-page.component.scss',
-  providers: [BlogService],
 })
 export class BlogsPageComponent implements OnInit, OnDestroy {
   blogs$?: Observable<IBlog[]>
@@ -53,7 +48,7 @@ export class BlogsPageComponent implements OnInit, OnDestroy {
     private router: Router
   ) {}
 
-  ngOnInit(): void {
+  ngOnInit() {
     this.loading()
     this.loadBlogs()
     this.getCurrentUser()
@@ -63,6 +58,12 @@ export class BlogsPageComponent implements OnInit, OnDestroy {
     this.getCurrentBlogId()
     this.getSortData()
     this.isAuthenticated$ = this.store.select(selectIsAuthenticated)
+    this.store.select(selectUserId).subscribe(userId => {
+      console.log('User ID from store:', userId)
+    })
+    this.currentUserId$!.subscribe(item => {
+      console.log('currentUserId:', item)
+    })
   }
 
   loadBlogs() {

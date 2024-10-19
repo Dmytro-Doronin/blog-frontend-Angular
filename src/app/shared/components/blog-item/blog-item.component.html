@@ -1,8 +1,11 @@
 <div class="blog-item">
-  <blog-blog-control-menu
-    *ngIf="currentUserId === blog.userId"
-    [blogId]="blog.id"
-  ></blog-blog-control-menu>
+  <ng-container *ngIf="!mini">
+    <blog-blog-control-menu
+      *ngIf="currentUserId && blog?.userId && currentUserId === blog.userId"
+      [blogId]="blog.id"
+    ></blog-blog-control-menu>
+  </ng-container>
+
   <div class="blog-item-picture">
     <blog-round-picture></blog-round-picture>
   </div>

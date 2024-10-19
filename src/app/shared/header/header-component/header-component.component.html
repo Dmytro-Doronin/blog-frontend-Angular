@@ -1,7 +1,7 @@
 <header class="header">
   <div class="container">
     <div class="header-inner">
-      <p class="logo" routerLink="/main/blogs">Blogger platform</p>
+      <p class="logo" routerLink="/main/blogs-page">Blogger platform</p>
       <div class="header-items">
         <blog-loader *ngIf="headerLoading$ | async; else loadingBlock"></blog-loader>
         <ng-template #loadingBlock>
