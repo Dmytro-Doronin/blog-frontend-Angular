@@ -4,7 +4,10 @@ import {
   addBlogsToStateAction,
   callDeleteBlogModalAction,
   setAllBlogsToState,
+  setBlogsForSearchLoadingAction,
   setBlogsLoadingAction,
+  setBlogsSearchAction,
+  setBlogsSearchTermAction,
   setCurrentBlogId,
   setSortByAlphabet,
   setSortByDate,
@@ -19,6 +22,9 @@ export interface BlogsState {
   pageSize: number
   totalCount: number
   blogs: IBlog[]
+  blogsForSearch: IBlog[]
+  blogsForSearchLoading: boolean
+  searchTerm: string
   loading: boolean
   hasMoreBlogs: boolean
   deleteBlogModal: boolean
@@ -33,10 +39,13 @@ export const initialState: BlogsState = {
   pageSize: 0,
   totalCount: 0,
   blogs: [],
+  blogsForSearch: [],
+  blogsForSearchLoading: false,
   loading: false,
   hasMoreBlogs: false,
   deleteBlogModal: false,
   currentBlogId: '',
+  searchTerm: '',
   sortBy: 'createdAt',
   sortDirection: 'desc',
 }
@@ -44,6 +53,24 @@ export const initialState: BlogsState = {
 export const blogsReducer = createReducer(
   initialState,
   on(setBlogsLoadingAction, (state, { loading }) => ({ ...state, loading: loading })),
+  on(setBlogsForSearchLoadingAction, (state, { blogsForSearchLoading }) => ({
+    ...state,
+    blogsForSearchLoading: blogsForSearchLoading,
+  })),
+  on(setBlogsSearchTermAction, (state, { searchTerm }) => ({ ...state, searchTerm: searchTerm })),
+  on(
+    setAllBlogsToState,
+    (state, { blogs, pagesCount, page, pageSize, totalCount, hasMoreBlogs }) => ({
+      ...state,
+      blogs: blogs,
+      pagesCount: pagesCount,
+      page: page,
+      pageSize: pageSize,
+      totalCount: totalCount,
+      hasMoreBlogs: hasMoreBlogs,
+    })
+  ),
+
   on(
     setAllBlogsToState,
     (state, { blogs, pagesCount, page, pageSize, totalCount, hasMoreBlogs }) => ({
@@ -91,6 +118,11 @@ export const blogsReducer = createReducer(
     ...state,
     sortBy: sortBy,
     sortDirection: sortDirection,
+  })),
+
+  on(setBlogsSearchAction, (state, { blogsForSearch }) => ({
+    ...state,
+    blogsForSearch: blogsForSearch,
   })),
   on(setSortByAlphabet, (state, { sortDirection }) => ({
     ...state,

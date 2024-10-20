@@ -4,6 +4,10 @@ import { BlogQueryParams, IBlog, PostBlogModel } from '../../types/blogs.models'
 export const addBlogsAction = createAction('[Add blog] add blog', props<PostBlogModel>())
 
 export const loadBlogs = createAction('[Blog] get all blogs', props<{ params: BlogQueryParams }>())
+export const loadSearchBlogs = createAction(
+  '[Blog] get all blogs for search',
+  props<{ params: BlogQueryParams }>()
+)
 export const updateBlog = createAction(
   '[Blog] Update Blog',
   props<{
@@ -56,6 +60,19 @@ export const addBlogsToStateAction = createAction(
 export const setBlogsLoadingAction = createAction(
   '[Blog] set blog loading',
   props<{ loading: boolean }>()
+)
+export const setBlogsForSearchLoadingAction = createAction(
+  '[Blog] set blog for search loading',
+  props<{ blogsForSearchLoading: boolean }>()
+)
+
+export const setBlogsSearchTermAction = createAction(
+  '[Blog] set blog search term',
+  props<{ searchTerm: string }>()
+)
+export const setBlogsSearchAction = createAction(
+  '[Blog] set blog search action',
+  props<{ blogsForSearch: IBlog[] }>()
 )
 
 export const callDeleteBlogModalAction = createAction(

@@ -10,7 +10,7 @@
   border: 1px solid var(--color-light-700);
   padding: 10px;
   height: 500px;
-  background-color: var(--color-light-300);
+  background-color: var(--color-light-100);
   overflow: hidden;
   overflow-y: auto;
   z-index: 100;
@@ -29,6 +29,13 @@
   background-color: var(--color-danger-300);
   border-radius: 20px;
   border: 1px solid var(--color-danger-300);
+}
+
+.loader-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 //.search-list::-webkit-scrollbar-thumb:hover {

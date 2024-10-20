@@ -2,15 +2,28 @@ import { Injectable } from '@angular/core'
 import { Actions, createEffect, ofType } from '@ngrx/effects'
 import { AuthService } from '../../core/services/auth.service'
 import { Router } from '@angular/router'
-import { catchError, concatMap, delay, finalize, map, mergeMap, switchMap } from 'rxjs/operators'
+import {
+  catchError,
+  concatMap,
+  debounceTime,
+  delay,
+  filter,
+  finalize,
+  map,
+  mergeMap,
+  switchMap,
+} from 'rxjs/operators'
 import { concat, of } from 'rxjs'
 import {
   addBlogsAction,
   addBlogsToStateAction,
   deleteBlog,
   loadBlogs,
+  loadSearchBlogs,
   setAllBlogsToState,
+  setBlogsForSearchLoadingAction,
   setBlogsLoadingAction,
+  setBlogsSearchAction,
   successDeleteBlog,
   successUpdateDetailsBlog,
   updateBlog,
@@ -308,7 +321,7 @@ export class BlogsEffects {
                     page: response.page,
                     pageSize: response.pageSize,
                     totalCount: response.totalCount,
-                    blogs: response.items, // Перезаписываем блоги
+                    blogs: response.items,
                     hasMoreBlogs: response.items.length === action.params.pageSize,
                   }),
                   setBlogsLoadingAction({ loading: false }),
@@ -320,7 +333,7 @@ export class BlogsEffects {
                     page: response.page,
                     pageSize: response.pageSize,
                     totalCount: response.totalCount,
-                    blogs: response.items, // Добавляем новые блоги
+                    blogs: response.items,
                     hasMoreBlogs: response.items.length === action.params.pageSize,
                   }),
                   setBlogsLoadingAction({ loading: false }),
@@ -331,6 +344,36 @@ export class BlogsEffects {
               const message = error?.error?.errorsMessages?.[0]?.message || 'Failed to load blogs'
               return of(
                 setBlogsLoadingAction({ loading: false }),
+                addAuthAlert({ severity: 'error', message: message })
+              )
+            })
+          )
+        )
+      )
+    )
+  )
+
+  getAllBlogsForSearch$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(loadSearchBlogs),
+      debounceTime(500),
+      filter(action => (action.params.searchNameTerm?.trim().length ?? 0) > 0),
+      concatMap(action =>
+        concat(
+          of(setBlogsForSearchLoadingAction({ blogsForSearchLoading: true })),
+          this.blogService.getBlogs(action.params).pipe(
+            mergeMap((response: BlogResponse) => {
+              return [
+                setBlogsSearchAction({
+                  blogsForSearch: response.items,
+                }),
+                setBlogsForSearchLoadingAction({ blogsForSearchLoading: false }),
+              ]
+            }),
+            catchError(error => {
+              const message = error?.error?.errorsMessages?.[0]?.message || 'Failed to load blogs'
+              return of(
+                setBlogsForSearchLoadingAction({ blogsForSearchLoading: false }),
                 addAuthAlert({ severity: 'error', message: message })
               )
             })

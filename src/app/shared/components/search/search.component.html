@@ -1,10 +1,20 @@
 <div class="search-container">
-  <blog-input [search]="true" placeholder="Search..." style="width: 100%"></blog-input>
-  <div class="search-list">
-    <blog-blog-item [mini]="true"></blog-blog-item>
-    <blog-blog-item></blog-blog-item>
-    <blog-blog-item></blog-blog-item>
-    <blog-blog-item></blog-blog-item>
-    <blog-blog-item></blog-blog-item>
+  <blog-input
+    (valueChange)="onSearchChange($event)"
+    (searchFocus)="onSearchFocus()"
+    [search]="true"
+    placeholder="Search..."
+    style="width: 100%"
+  ></blog-input>
+  <div *ngIf="showDropdown" class="search-list">
+    <ng-container *ngIf="loading; else blogList">
+      <div class="loader-container">
+        <blog-loader></blog-loader>
+      </div>
+    </ng-container>
+
+    <ng-template #blogList>
+      <blog-blog-item *ngFor="let blog of blogs" [blog]="blog" [mini]="true"></blog-blog-item>
+    </ng-template>
   </div>
 </div>

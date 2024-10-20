@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core'
+import { Component, EventEmitter, Input, Output } from '@angular/core'
 import { FormControl } from '@angular/forms'
 
 @Component({
@@ -13,4 +13,14 @@ export class InputComponent {
   @Input() search: boolean = false
   @Input() variant: 'input' | 'textarea' = 'input'
   @Input() control: FormControl = new FormControl('')
+  @Output() valueChange: EventEmitter<string> = new EventEmitter()
+  @Output() searchFocus: EventEmitter<void> = new EventEmitter()
+  inputValue: string = ''
+  onInputChange() {
+    this.valueChange.emit(this.inputValue)
+  }
+
+  onSearchFocus() {
+    this.searchFocus.emit()
+  }
 }

@@ -7,6 +7,11 @@ export const selectBlogsLoading = createSelector(
   selectBlogsState,
   (state: BlogsState) => state.loading
 )
+
+export const selectBlogForSearchLoading = createSelector(
+  selectBlogsState,
+  (state: BlogsState) => state.blogsForSearchLoading
+)
 export const selectBlogs = createSelector(selectBlogsState, (state: BlogsState) => state.blogs)
 export const selectCurrentBlogId = createSelector(
   selectBlogsState,
@@ -19,6 +24,10 @@ export const selectDeleteBlogModal = createSelector(
 export const selectHasMoreBlogs = createSelector(
   selectBlogsState,
   (state: BlogsState) => state.hasMoreBlogs
+)
+export const selectSearchBlogs = createSelector(
+  selectBlogsState,
+  (state: BlogsState) => state.blogsForSearch
 )
 export const selectSortParams = createSelector(selectBlogsState, (state: BlogsState) => state)
 

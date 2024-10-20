@@ -8,8 +8,12 @@
       <blog-search-icon></blog-search-icon>
     </ng-container>
 
+    <!--    [formControl]="control"-->
     <input
-      [formControl]="control"
+      [(ngModel)]="inputValue"
+      (input)="onInputChange()"
+      (focus)="onSearchFocus()"
+      (ngModelChange)="onInputChange()"
       class="input"
       type="{{ type }}"
       placeholder="{{ placeholder }}"
