@@ -4,8 +4,9 @@
   //width: 928px;
   width: 100%;
   padding: 11px 0 11px 0;
-  border-bottom: 1px solid var(--color-light-700) ;
-
+  border-bottom: 1px solid var(--color-light-700);
+  transition: border-color 0.3s ease-in-out;
+  cursor: pointer;
   &-content {
     display: flex;
     flex-direction: column;
@@ -26,8 +27,8 @@
       font-weight: 400;
       line-height: 24px;
       text-align: left;
-
     }
+
 
     &-text {
       display: -webkit-box;
@@ -51,6 +52,10 @@
   &-content-header {
     margin-bottom: 24px;
   }
+
+  &:hover {
+    border-bottom: 1px solid var(--color-danger-300) ;
+  }
 }
 .author {
   font-family: Inter;
@@ -58,4 +63,12 @@
   font-weight: 400;
   line-height: 24px;
   text-align: left;
+}
+
+.blog-item-content-header-link {
+  transition: color 0.3s ease-in-out;
+
+}
+.blog-item-content-header-link:hover {
+  color: #0000FF;
 }
