@@ -9,6 +9,7 @@ import { ReactiveFormsModule } from '@angular/forms'
 import { AuthGuard } from '../core/guards/auth-guard.guard'
 import { BlogEditPageComponent } from './pages/blog-edit-page/blog-edit-page.component'
 import { EditBlogFormComponent } from './components/edit-blog-form/edit-blog-form.component'
+import { BlogPageComponent } from './pages/blog-page/blog-page.component'
 
 @NgModule({
   providers: [AuthGuard],
@@ -18,8 +19,15 @@ import { EditBlogFormComponent } from './components/edit-blog-form/edit-blog-for
     AddBlogFormComponent,
     BlogEditPageComponent,
     EditBlogFormComponent,
+    BlogPageComponent,
   ],
   imports: [CommonModule, BlogRoutingModule, SharedModule, ReactiveFormsModule],
-  exports: [AddBlogFormComponent, BlogEditPageComponent, EditBlogFormComponent, BlogsPageComponent],
+  exports: [
+    AddBlogFormComponent,
+    BlogEditPageComponent,
+    EditBlogFormComponent,
+    BlogsPageComponent,
+    BlogPageComponent,
+  ],
 })
 export class BlogModule {}

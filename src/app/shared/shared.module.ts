@@ -22,7 +22,7 @@ import { NgSelectModule } from '@ng-select/ng-select'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { ArrowDownComponent } from './components/arrow-down/arrow-down.component'
 import { ArrowUpComponent } from './components/arrow-up/arrow-up.component'
-import { RoundPictureComponent } from './components/round-picture/round-picture.component'
+import { ContentPictureComponent } from './components/content-picture/content-picture.component'
 import { EmptyPictureComponent } from './components/icons/empthy-picture/empty-picture.component'
 import { MainPageComponent } from './components/main-page/main-page.component'
 import { ArrowBackComponent } from './components/icons/arrow-back/arrow-back.component'
@@ -35,6 +35,7 @@ import { EditIconComponent } from './components/icons/edit-icon/edit-icon.compon
 import { SearchComponent } from './components/search/search.component'
 import { BlogItemComponent } from './components/blog-item/blog-item.component'
 import { BlogControlMenuComponent } from './components/blog-control-menu/blog-control-menu.component'
+import { PostItemComponent } from './components/post-item/post-item.component'
 
 @NgModule({
   declarations: [
@@ -57,7 +58,7 @@ import { BlogControlMenuComponent } from './components/blog-control-menu/blog-co
     SelectComponentComponent,
     ArrowDownComponent,
     ArrowUpComponent,
-    RoundPictureComponent,
+    ContentPictureComponent,
     EmptyPictureComponent,
     MainPageComponent,
     ArrowBackComponent,
@@ -70,6 +71,7 @@ import { BlogControlMenuComponent } from './components/blog-control-menu/blog-co
     SearchComponent,
     BlogItemComponent,
     BlogControlMenuComponent,
+    PostItemComponent,
   ],
   imports: [
     CommonModule,
@@ -101,7 +103,7 @@ import { BlogControlMenuComponent } from './components/blog-control-menu/blog-co
     FormsModule,
     ArrowDownComponent,
     ArrowUpComponent,
-    RoundPictureComponent,
+    ContentPictureComponent,
     EmptyPictureComponent,
     MainPageComponent,
     ArrowBackComponent,
@@ -114,6 +116,7 @@ import { BlogControlMenuComponent } from './components/blog-control-menu/blog-co
     SearchComponent,
     BlogItemComponent,
     BlogControlMenuComponent,
+    PostItemComponent,
   ],
 })
 export class SharedModule {}

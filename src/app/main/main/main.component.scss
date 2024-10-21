@@ -8,23 +8,24 @@
   display: flex;
   position: relative;
   flex-direction: column;
+  //height: calc(100vh - 70px);
   height: 100%;
-  overflow: hidden;
+  //overflow: hidden;
 }
 
 .main-layout {
   display: flex;
-  //height: calc(100vh - 60px); /* Высота экрана минус хедер */
+  //height: calc(100vh - 60px);
   align-items: center;
   justify-content: center;
-  min-height: 100%; /* Высота экрана минус хедер */
+  min-height: 100%;
 
 }
 
 .content {
-  //margin-left: 252px; /* Оставляем место для асайда */
-  min-height: 100%; /* Учитываем высоту хедера */
-  overflow-y: auto;
+  //margin-left: 252px;
+  min-height: 100%;
+  //overflow-y: auto;
   padding: 20px;
   //background-color: #f4f4f4;
 }

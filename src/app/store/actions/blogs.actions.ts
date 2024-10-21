@@ -1,5 +1,6 @@
 import { createAction, props } from '@ngrx/store'
 import { BlogQueryParams, IBlog, PostBlogModel } from '../../types/blogs.models'
+import { IPost, PostQueryParams } from '../../types/posts.models'
 
 export const addBlogsAction = createAction('[Add blog] add blog', props<PostBlogModel>())
 
@@ -61,6 +62,7 @@ export const setBlogsLoadingAction = createAction(
   '[Blog] set blog loading',
   props<{ loading: boolean }>()
 )
+
 export const setBlogsForSearchLoadingAction = createAction(
   '[Blog] set blog for search loading',
   props<{ blogsForSearchLoading: boolean }>()
@@ -88,4 +90,39 @@ export const setSortByDate = createAction(
 export const setSortByAlphabet = createAction(
   '[Blogs] Set Sort By Alphabet',
   props<{ sortDirection: 'asc' | 'desc' }>()
+)
+
+//posts for blog
+export const loadPostsForBlogs = createAction(
+  '[Blog] get all posts for blog',
+  props<{ params: PostQueryParams; id: string }>()
+)
+
+export const setPostsForBlogLoadingAction = createAction(
+  '[Blog] set posts for blog loading',
+  props<{ postsForBlogLoading: boolean }>()
+)
+
+export const setAllPostsForBlogToState = createAction(
+  '[Blog] Set all posts for blog to state',
+  props<{
+    postsForBlogs: IPost[]
+    pagesCount: number
+    page: number
+    pageSize: number
+    totalCount: number
+    hasMorePostsForBlogs: boolean
+  }>()
+)
+
+export const addPostsForBlogsToStateAction = createAction(
+  '[Blogs] set all posts for blog at first load posts for blogs',
+  props<{
+    postsForBlogs: IPost[]
+    pagesCount: number
+    page: number
+    pageSize: number
+    totalCount: number
+    hasMorePostsForBlogs: boolean
+  }>()
 )

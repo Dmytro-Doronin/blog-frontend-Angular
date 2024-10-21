@@ -1,0 +1,11 @@
+<ng-container class="typoContainer" [ngSwitch]="variant">
+  <div *ngSwitchCase="'round'" class="round-picture">
+    <blog-empty-picture></blog-empty-picture>
+  </div>
+  <div *ngSwitchCase="'big-picture'" class="big-picture">
+    <blog-empty-picture></blog-empty-picture>
+  </div>
+  <div *ngSwitchCase="'post-picture'" class="post-picture">
+    <blog-empty-picture></blog-empty-picture>
+  </div>
+</ng-container>

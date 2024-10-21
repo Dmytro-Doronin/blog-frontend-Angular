@@ -9,15 +9,28 @@
     </ng-container>
 
     <!--    [formControl]="control"-->
-    <input
-      [(ngModel)]="inputValue"
-      (input)="onInputChange()"
-      (focus)="onSearchFocus()"
-      (ngModelChange)="onInputChange()"
-      class="input"
-      type="{{ type }}"
-      placeholder="{{ placeholder }}"
-    />
+
+    <ng-container *ngIf="isControl; else simpleInput">
+      <input
+        (input)="onInputChange()"
+        (focus)="onSearchFocus()"
+        [formControl]="control"
+        class="input"
+        type="{{ type }}"
+        placeholder="{{ placeholder }}"
+      />
+    </ng-container>
+
+    <ng-template #simpleInput>
+      <input
+        [(ngModel)]="inputValue"
+        (input)="onInputChange()"
+        (focus)="onSearchFocus()"
+        class="input"
+        type="{{ type }}"
+        placeholder="{{ placeholder }}"
+      />
+    </ng-template>
   </div>
   <div *ngSwitchCase="'textarea'" class="textareaContainer">
     <textarea

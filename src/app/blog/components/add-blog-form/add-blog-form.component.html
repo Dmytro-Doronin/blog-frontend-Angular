@@ -2,6 +2,7 @@
 <form [formGroup]="addBlogUpForm" (ngSubmit)="onSubmit()">
   <!--Name-->
   <blog-input
+    [isControl]="true"
     [control]="addBlogUpForm.controls.name"
     [id]="'name'"
     [placeholder]="'Name'"
@@ -14,6 +15,7 @@
 
   <!--Description-->
   <blog-input
+    [isControl]="true"
     [control]="addBlogUpForm.controls.description"
     [id]="'description'"
     [placeholder]="'Description'"
@@ -33,6 +35,7 @@
 
   <!--Website-->
   <blog-input
+    [isControl]="true"
     [control]="addBlogUpForm.controls.websiteUrl"
     [id]="'websiteUrl'"
     [placeholder]="'Website url'"

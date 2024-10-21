@@ -1,4 +1,4 @@
-<div class="blog-item">
+<div [routerLink]="['/main/blogs-page/blog', blog.id]" class="blog-item">
   <ng-container *ngIf="!mini">
     <blog-blog-control-menu
       *ngIf="currentUserId && blog?.userId && currentUserId === blog.userId"
@@ -7,17 +7,19 @@
   </ng-container>
 
   <div class="blog-item-picture">
-    <blog-round-picture></blog-round-picture>
+    <blog-content-picture></blog-content-picture>
   </div>
 
   <div class="blog-item-content">
     <div class="blog-item-content-header">
       <blog-typography *ngIf="blog" [content]="blog.name" [variant]="'h4'"></blog-typography>
-      <div class="author"><span>Author:</span> {{ currentUserLogin }}</div>
+      <div class="author"><span>Author:</span> {{ blog.userName }}</div>
       <p class="blog-item-content-header-website">
         Website:
         <span class="blog-item-content-header-url"
-          ><a class="blog-item-content-header-link" *ngIf="blog" href="https://www.youtube.com">{{ blog.websiteUrl }}</a></span
+          ><a class="blog-item-content-header-link" *ngIf="blog" href="https://www.youtube.com">{{
+            blog.websiteUrl
+          }}</a></span
         >
       </p>
     </div>

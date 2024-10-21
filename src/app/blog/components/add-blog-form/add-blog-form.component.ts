@@ -44,9 +44,12 @@ export class AddBlogFormComponent implements OnChanges {
 
   onSubmit() {
     console.log(this.addBlogUpForm.valid)
-
+    console.log(this.addBlogUpForm.value.name)
+    console.log(this.addBlogUpForm.value.description)
+    console.log(this.addBlogUpForm.value.websiteUrl)
     if (this.addBlogUpForm.valid) {
       console.log('form valid')
+
       this.formSubmitted.emit({
         name: this.addBlogUpForm.value.name!,
         description: this.addBlogUpForm.value.description!,

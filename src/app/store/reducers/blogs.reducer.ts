@@ -9,12 +9,14 @@ import {
   setBlogsSearchAction,
   setBlogsSearchTermAction,
   setCurrentBlogId,
+  setPostsForBlogLoadingAction,
   setSortByAlphabet,
   setSortByDate,
   successDeleteBlog,
   successUpdateDetailsBlog,
 } from '../actions/blogs.actions'
 import { IBlog } from '../../types/blogs.models'
+import { IPost } from '../../types/posts.models'
 
 export interface BlogsState {
   pagesCount: number
@@ -23,12 +25,15 @@ export interface BlogsState {
   totalCount: number
   blogs: IBlog[]
   blogsForSearch: IBlog[]
+  postsForBlogs: IPost[]
   blogsForSearchLoading: boolean
   searchTerm: string
   loading: boolean
   hasMoreBlogs: boolean
+  hasMorePostsForBlogs: boolean
   deleteBlogModal: boolean
   currentBlogId: string
+  postsForBlogLoading: boolean
   sortBy: string
   sortDirection: 'asc' | 'desc'
 }
@@ -40,12 +45,15 @@ export const initialState: BlogsState = {
   totalCount: 0,
   blogs: [],
   blogsForSearch: [],
+  postsForBlogs: [],
   blogsForSearchLoading: false,
   loading: false,
   hasMoreBlogs: false,
+  hasMorePostsForBlogs: false,
   deleteBlogModal: false,
   currentBlogId: '',
   searchTerm: '',
+  postsForBlogLoading: false,
   sortBy: 'createdAt',
   sortDirection: 'desc',
 }
@@ -53,6 +61,10 @@ export const initialState: BlogsState = {
 export const blogsReducer = createReducer(
   initialState,
   on(setBlogsLoadingAction, (state, { loading }) => ({ ...state, loading: loading })),
+  on(setPostsForBlogLoadingAction, (state, { postsForBlogLoading }) => ({
+    ...state,
+    postsForBlogLoading: postsForBlogLoading,
+  })),
   on(setBlogsForSearchLoadingAction, (state, { blogsForSearchLoading }) => ({
     ...state,
     blogsForSearchLoading: blogsForSearchLoading,

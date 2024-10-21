@@ -1,0 +1,50 @@
+<blog-main-page>
+  <blog-button
+    routerLink="/main/blogs-page"
+    [variant]="'Back'"
+    [content]="'Back to blogs'"
+  ></blog-button>
+
+  <section class="blog-info-block">
+    <div class="blog-content">
+      <div class="blog-header">
+        <div class="blog-header-panel">
+          <blog-typography [variant]="'h2'" [content]="'First blog'"></blog-typography>
+          <blog-button
+            *ngIf="true"
+            routerLink="/main/blogs-page/add-blog"
+            variant="Primary"
+            content="Add new blog"
+            >Add blog
+          </blog-button>
+        </div>
+        <p class="blog-content-info">
+          Website:
+          <span class="blog-website"
+            ><a class="blog-link" *ngIf="true" href="https://www.youtube.com">www.cpm</a></span
+          >
+        </p>
+      </div>
+
+      <div class="blog-picture-container">
+        <blog-content-picture [variant]="'big-picture'"></blog-content-picture>
+      </div>
+      <div class="blog-description">
+        Lorem ipsum dolor sit amet consectetur adipiscing elit, magna felis vestibulum metus aptent
+        velit, tempor posuere natoque habitasse phasellus dignissim. Nec libero purus etiam
+        venenatis velit cras nascetur euismod ornare sodales, ex ut augue sed vestibulum molestie
+        dis quisque laoreet, tempor ullamcorper mus odio nostra est dolor magna justo. Lorem ipsum
+        dolor sit amet consectetur adipiscing elit, magna felis vestibulum metus aptent velit,
+        tempor posuere natoque habitasse phasellus dignissim. Nec libero purus etiam venenatis velit
+        cras nascetur euismod ornare sodales, ex ut augue sed vestibulum molestie dis quisque
+        laoreet, tempor ullamcorper mus odio nostra est dolor magna justo.
+      </div>
+    </div>
+    <div class="posts-list">
+      <blog-post-item></blog-post-item>
+      <blog-post-item></blog-post-item>
+      <blog-post-item></blog-post-item>
+      <blog-post-item></blog-post-item>
+    </div>
+  </section>
+</blog-main-page>

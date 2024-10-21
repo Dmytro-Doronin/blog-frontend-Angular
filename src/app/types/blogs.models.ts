@@ -13,6 +13,7 @@ export interface IBlog {
   websiteUrl: string
   createdAt: string
   isMembership: boolean
+  userName: string
   userId: string
 }
 

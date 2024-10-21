@@ -80,19 +80,17 @@ export class BlogsPageComponent implements OnInit, OnDestroy {
   // }
 
   loadBlogs() {
-
-      this.store.dispatch(
-        loadBlogs({
-          params: {
-            searchNameTerm: '',
-            sortBy: this.sortBy,
-            sortDirection: this.sortDirection,
-            pageNumber: this.pageNumber,
-            pageSize: this.pageSize,
-          },
-        })
-      );
-
+    this.store.dispatch(
+      loadBlogs({
+        params: {
+          searchNameTerm: '',
+          sortBy: this.sortBy,
+          sortDirection: this.sortDirection,
+          pageNumber: this.pageNumber,
+          pageSize: this.pageSize,
+        },
+      })
+    )
   }
 
   loadBlogsForSearch() {
@@ -108,7 +106,6 @@ export class BlogsPageComponent implements OnInit, OnDestroy {
       })
     )
   }
-
 
   onSearchTermChange(value: string) {
     this.blogSearchTerm = value
