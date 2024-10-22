@@ -34,6 +34,11 @@ export const selectHasMoreBlogs = createSelector(
   selectBlogsState,
   (state: BlogsState) => state.hasMoreBlogs
 )
+
+export const selectHasMorePostsForBlog = createSelector(
+  selectBlogsState,
+  (state: BlogsState) => state.posts.hasMorePostsForBlogs
+)
 export const selectSearchBlogs = createSelector(
   selectBlogsState,
   (state: BlogsState) => state.blogsForSearch

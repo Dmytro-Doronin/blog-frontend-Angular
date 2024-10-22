@@ -6,7 +6,7 @@ import { ActivatedRoute } from '@angular/router'
 import { IBlog } from '../../../types/blogs.models'
 import {
   selectBlogsLoading,
-  selectCurrentBlog,
+  selectCurrentBlog, selectHasMorePostsForBlog,
   selectPostsForBlogBlogModal,
   selectPostsForBlogLoading,
 } from '../../../store/selectors/blogs.selector'
@@ -26,6 +26,9 @@ export class BlogPageComponent implements OnInit, OnDestroy {
   currentUserId?: string
   blog?: IBlog
   blogId: string = ''
+  pageNumber = 1
+  pageSize = 5
+  hasMorePostForBlog$?: Observable<boolean>
   private getBlogSubscription: Subscription = new Subscription()
   private getCurrentUserIdSubscription: Subscription = new Subscription()
   constructor(
@@ -36,13 +39,14 @@ export class BlogPageComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.isAuthenticated$ = this.store.select(selectIsAuthenticated)
     this.blogId = this.route.snapshot.paramMap.get('id') ?? ''
-    this.getLoading()
-    this.getLoadingForPost()
     this.addCurrentBlog()
     this.getCurrentUserId()
     this.getBlog()
+    this.getLoading()
+    this.getLoadingForPost()
     this.downloadPostsForBlog()
     this.getPostsForBlog()
+    this.getHasMorePostsForBlog()
     console.log(this.blog)
   }
 
@@ -52,8 +56,8 @@ export class BlogPageComponent implements OnInit, OnDestroy {
         params: {
           sortBy: 'createdAt',
           sortDirection: 'desc',
-          pageNumber: 1,
-          pageSize: 5,
+          pageNumber: this.pageNumber,
+          pageSize: this.pageSize,
         },
         id: this.blogId,
       })
@@ -63,7 +67,9 @@ export class BlogPageComponent implements OnInit, OnDestroy {
   getPostsForBlog() {
     this.posts$ = this.store.select(selectPostsForBlogBlogModal)
   }
-
+  getHasMorePostsForBlog() {
+    this.hasMorePostForBlog$ = this.store.select(selectHasMorePostsForBlog)
+  }
   getLoading() {
     this.loading$ = this.store.select(selectBlogsLoading)
   }
@@ -86,6 +92,11 @@ export class BlogPageComponent implements OnInit, OnDestroy {
     this.getBlogSubscription = this.store.select(selectCurrentBlog).subscribe(blog => {
       this.blog = blog
     })
+  }
+
+  loadMorePosts() {
+    this.pageNumber +=1
+    this.downloadPostsForBlog()
   }
 
   ngOnDestroy() {
