@@ -9,6 +9,7 @@
   flex-direction: column;
   justify-content: right;
   align-items: end;
+  z-index: 1000;
 }
 
 .blog-points-icon-container {
@@ -17,6 +18,7 @@
   margin-bottom: 10px;
   text-align: center;
   cursor: pointer;
+  z-index: 1000;
 }
 
 

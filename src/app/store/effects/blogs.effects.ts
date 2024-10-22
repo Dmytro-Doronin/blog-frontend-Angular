@@ -16,14 +16,17 @@ import {
 import { concat, of } from 'rxjs'
 import {
   addBlogsAction,
-  addBlogsToStateAction, addPostForBlogAction,
+  addBlogsToStateAction,
+  addPostForBlogAction,
   addPostsForBlogsToStateAction,
   deleteBlog,
+  getBlogByIdAction,
   loadBlogs,
   loadPostsForBlogs,
   loadSearchBlogs,
   setAllBlogsToState,
   setAllPostsForBlogToState,
+  setBlogByIdAction,
   setBlogsForSearchLoadingAction,
   setBlogsLoadingAction,
   setBlogsSearchAction,
@@ -73,6 +76,42 @@ export class BlogsEffects {
                 )
               })
             )
+        )
+      )
+    )
+  )
+
+  getBlogById$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(getBlogByIdAction),
+      concatMap(action =>
+        concat(
+          of(setBlogsLoadingAction({ loading: true })),
+          this.blogService.getBlogById(action.blogId).pipe(
+            mergeMap((response: any) => {
+              return [
+                setBlogByIdAction({
+                  id: response.id,
+                  userId: response.userId,
+                  name: response.name,
+                  description: response.description,
+                  websiteUrl: response.websiteUrl,
+                  userName: response.userName,
+                  createdAt: response.createdAt,
+                  isMembership: response.isMembership,
+                }),
+                // addAuthAlert({ severity: 'success', message: 'Blog has been added!' }),
+                setBlogsLoadingAction({ loading: false }),
+              ]
+            }),
+            catchError(error => {
+              const message = error.error.errorsMessages[0].message
+              return of(
+                setBlogsLoadingAction({ loading: false }),
+                addAuthAlert({ severity: 'error', message: message })
+              )
+            })
+          )
         )
       )
     )
@@ -248,7 +287,7 @@ export class BlogsEffects {
                     postsForBlogs: response.items,
                     hasMorePostsForBlogs: response.items.length === action.params.pageSize,
                   }),
-                  setBlogsLoadingAction({ loading: false }),
+                  setPostsForBlogLoadingAction({ postsForBlogLoading: false }),
                 ]
               } else {
                 return [
@@ -288,7 +327,7 @@ export class BlogsEffects {
               title: action.title,
               shortDescription: action.shortDescription,
               content: action.content,
-              blogId: action.blogId
+              blogId: action.blogId,
             })
             .pipe(
               mergeMap((response: any) => {

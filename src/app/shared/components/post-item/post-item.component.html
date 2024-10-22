@@ -17,25 +17,18 @@
       <div class="post-item-content-header-block">
         <blog-typography
           *ngIf="true"
-          [content]="'Name'"
+          [content]="post!.title"
           [variant]="'h4'"
           [className]="' mr16'"
         ></blog-typography>
-        <span class="post-date">01/01/2021</span>
+        <span class="post-date">{{ post?.createdAt | date: 'dd/MM/yyyy' }}</span>
       </div>
 
-      <div class="author"><span>Author:</span> Vadim</div>
-      <p class="post-item-content-short-description">Short description</p>
+      <!--      <div class="author"><span>Author:</span> Vadim</div>-->
+      <p class="post-item-content-short-description">{{ post?.shortDescription }}</p>
     </div>
     <p *ngIf="true" class="post-item-content-text">
-      Lorem ipsum dolor sit amet consectetur adipiscing elit, magna felis vestibulum metus aptent
-      velit, tempor posuere natoque habitasse phasellus dignissim. Nec libero purus etiam venenatis
-      velit cras nascetur euismod ornare sodales, ex ut augue sed vestibulum molestie dis quisque
-      laoreet, tempor ullamcorper mus odio nostra est dolor magna justo. Lorem ipsum dolor sit amet
-      consectetur adipiscing elit, magna felis vestibulum metus aptent velit, tempor posuere natoque
-      habitasse phasellus dignissim. Nec libero purus etiam venenatis velit cras nascetur euismod
-      ornare sodales, ex ut augue sed vestibulum molestie dis quisque laoreet, tempor ullamcorper
-      mus odio nostra est dolor magna justo.
+      {{ post?.content }}
     </p>
     <div class="post-item-likes">
       <span class="likes-count">123</span>

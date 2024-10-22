@@ -65,6 +65,7 @@ export class EditBlogFormComponent implements OnInit, OnChanges, OnDestroy {
 
   getDataFromBlog() {
     this.store.select(selectBlogById(this.currentBlogId)).subscribe(blog => {
+      console.log(blog)
       if (blog) {
         this.editBlogUpForm.patchValue({
           name: blog.name,

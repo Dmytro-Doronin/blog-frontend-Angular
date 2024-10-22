@@ -7,44 +7,47 @@
 
   <section class="blog-info-block">
     <div class="blog-content">
-      <div class="blog-header">
-        <div class="blog-header-panel">
-          <blog-typography [variant]="'h2'" [content]="'First blog'"></blog-typography>
-          <blog-button
-            *ngIf="isAuthenticated$ | async"
-            routerLink="add-post-for-blog"
-            variant="Primary"
-            content="Add new post"
-            >Add blog
-          </blog-button>
+      <div *ngIf="loading$ | async; else contentBlock" class="loader-container">
+        <blog-loader></blog-loader>
+      </div>
+      <ng-template #contentBlock>
+        <div class="blog-header">
+          <div class="blog-header-panel">
+            <blog-typography [variant]="'h2'" [content]="blog!.name"></blog-typography>
+            <blog-button
+              *ngIf="currentUserId && blog?.userId && currentUserId === blog!.userId"
+              routerLink="add-post-for-blog"
+              variant="Primary"
+              content="Add new post"
+              >Add blog
+            </blog-button>
+          </div>
+          <p class="blog-content-info">
+            Website:
+            <span class="blog-website"
+              ><a class="blog-link" *ngIf="true" href="https://www.youtube.com">{{
+                blog?.websiteUrl
+              }}</a></span
+            >
+          </p>
         </div>
-        <p class="blog-content-info">
-          Website:
-          <span class="blog-website"
-            ><a class="blog-link" *ngIf="true" href="https://www.youtube.com">www.cpm</a></span
-          >
-        </p>
-      </div>
+        <div class="blog-picture-container">
+          <blog-content-picture [variant]="'big-picture'"></blog-content-picture>
+        </div>
+        <div class="blog-description">
+          {{ blog?.description }}
+        </div>
+      </ng-template>
+    </div>
+    <div *ngIf="loadingForPosts$ | async" class="post-loader-container">
+      <blog-loader></blog-loader>
+    </div>
+    <div *ngIf="(posts$ | async)?.length; else emptyBlock" class="posts-list">
+      <blog-post-item *ngFor="let post of posts$ | async" [post]="post"></blog-post-item>
+    </div>
 
-      <div class="blog-picture-container">
-        <blog-content-picture [variant]="'big-picture'"></blog-content-picture>
-      </div>
-      <div class="blog-description">
-        Lorem ipsum dolor sit amet consectetur adipiscing elit, magna felis vestibulum metus aptent
-        velit, tempor posuere natoque habitasse phasellus dignissim. Nec libero purus etiam
-        venenatis velit cras nascetur euismod ornare sodales, ex ut augue sed vestibulum molestie
-        dis quisque laoreet, tempor ullamcorper mus odio nostra est dolor magna justo. Lorem ipsum
-        dolor sit amet consectetur adipiscing elit, magna felis vestibulum metus aptent velit,
-        tempor posuere natoque habitasse phasellus dignissim. Nec libero purus etiam venenatis velit
-        cras nascetur euismod ornare sodales, ex ut augue sed vestibulum molestie dis quisque
-        laoreet, tempor ullamcorper mus odio nostra est dolor magna justo.
-      </div>
-    </div>
-    <div class="posts-list">
-      <blog-post-item></blog-post-item>
-      <blog-post-item></blog-post-item>
-      <blog-post-item></blog-post-item>
-      <blog-post-item></blog-post-item>
-    </div>
+    <ng-template #emptyBlock>
+      <div class="no-posts">No posts available.</div>
+    </ng-template>
   </section>
 </blog-main-page>

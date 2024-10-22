@@ -7,7 +7,7 @@ import {
   IBlog,
   PostBlogModel,
 } from '../../types/blogs.models'
-import {PostAddToBlogModel, PostQueryParams, PostResponse} from '../../types/posts.models'
+import { PostAddToBlogModel, PostQueryParams, PostResponse } from '../../types/posts.models'
 //https://localhost.com
 @Injectable({
   providedIn: 'root',
@@ -102,5 +102,4 @@ export class BlogService {
       { withCredentials: true }
     )
   }
-
 }

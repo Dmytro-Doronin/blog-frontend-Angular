@@ -1,7 +1,15 @@
 .blog-content {
+  min-height: 566px;
   margin-bottom: 47px;
 }
+.loader-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 566px
 
+}
 .blog-header {
   margin-bottom: 20px;
 }
@@ -60,4 +68,18 @@
   font-weight: 400;
   line-height: 24px;
   text-align: left;
+}
+
+.post-loader-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.no-posts {
+  text-align: center;
+  margin-top: 150px;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 20px;
 }

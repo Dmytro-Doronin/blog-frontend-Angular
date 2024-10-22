@@ -1,6 +1,6 @@
 import { createAction, props } from '@ngrx/store'
 import { BlogQueryParams, IBlog, PostBlogModel } from '../../types/blogs.models'
-import {IPost, PostAddToBlogModel, PostQueryParams} from '../../types/posts.models'
+import { IPost, PostAddToBlogModel, PostQueryParams } from '../../types/posts.models'
 
 export const addBlogsAction = createAction('[Add blog] add blog', props<PostBlogModel>())
 
@@ -72,6 +72,9 @@ export const setBlogsSearchTermAction = createAction(
   '[Blog] set blog search term',
   props<{ searchTerm: string }>()
 )
+
+export const getBlogByIdAction = createAction('[Blog] get blog by id', props<{ blogId: string }>())
+export const setBlogByIdAction = createAction('[Blog] set blog by id', props<IBlog>())
 export const setBlogsSearchAction = createAction(
   '[Blog] set blog search action',
   props<{ blogsForSearch: IBlog[] }>()
@@ -94,7 +97,10 @@ export const setSortByAlphabet = createAction(
 
 //POST FOR BLOG
 
-export const addPostForBlogAction = createAction('[Add post] add post for blog', props<PostAddToBlogModel>())
+export const addPostForBlogAction = createAction(
+  '[Add post] add post for blog',
+  props<PostAddToBlogModel>()
+)
 
 export const loadPostsForBlogs = createAction(
   '[Blog] get all posts for blog',

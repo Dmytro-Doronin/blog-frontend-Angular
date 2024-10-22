@@ -5,6 +5,7 @@
     [control]="editBlogUpForm.controls.name"
     [id]="'name'"
     [placeholder]="'Name'"
+    [isControl]="true"
   ></blog-input>
 
   <div *ngIf="name && !name!.valid && (name?.dirty || name?.touched)" class="error">
@@ -36,6 +37,7 @@
     [control]="editBlogUpForm.controls.websiteUrl"
     [id]="'websiteUrl'"
     [placeholder]="'Website url'"
+    [isControl]="true"
   >
   </blog-input>
 
