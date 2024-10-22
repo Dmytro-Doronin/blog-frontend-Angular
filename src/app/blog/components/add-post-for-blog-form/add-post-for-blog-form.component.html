@@ -1,0 +1,71 @@
+<blog-typography [content]="'Add post'" variant="h3"></blog-typography>
+<form [formGroup]="addPostForBlogUpForm" (ngSubmit)="onSubmit()">
+  <!--Name-->
+  <blog-input
+    [isControl]="true"
+    [control]="addPostForBlogUpForm.controls.title"
+    [id]="'title'"
+    [placeholder]="'Title'"
+  ></blog-input>
+
+  <div *ngIf="title && !title!.valid && (title?.dirty || title?.touched)" class="error">
+    <div *ngIf="title.errors?.['required']">Title is required</div>
+    <div *ngIf="title.errors?.['minlength']">The Name must not be less than 3 or more then 15.</div>
+  </div>
+
+  <!--Description-->
+  <blog-input
+    [isControl]="true"
+    [control]="addPostForBlogUpForm.controls.shortDescription"
+    [id]="'shortDescription'"
+    [placeholder]="'Short description'"
+  >
+  </blog-input>
+
+  <div
+    *ngIf="shortDescription && !shortDescription!.valid && (shortDescription?.dirty || shortDescription?.touched)"
+    class="error"
+  >
+    <div *ngIf="shortDescription.errors?.['required']">Short description is required</div>
+    <div *ngIf="shortDescription.errors?.['maxlength']">
+      The Short description must not be less than 1 characters and more than 500.
+    </div>
+  </div>
+
+  <!--Website-->
+  <blog-input
+    [isControl]="true"
+    [control]="addPostForBlogUpForm.controls.content"
+    [id]="'content'"
+    [placeholder]="'Content'"
+    [variant]="'textarea'"
+  >
+  </blog-input>
+
+  <div
+    *ngIf="content && !addPostForBlogUpForm!.valid && (addPostForBlogUpForm?.dirty || addPostForBlogUpForm?.touched)"
+    class="error"
+  >
+    <div *ngIf="addPostForBlogUpForm.errors?.['required']">Website url is required</div>
+    <div *ngIf="addPostForBlogUpForm.errors?.['pattern']">The Website url must be https://example.com.</div>
+  </div>
+
+  <!--    <div *ngIf="loading" class="loader">-->
+  <!--      <blog-loader></blog-loader>-->
+  <!--    </div>-->
+  <div class="loader-block" *ngIf="loading; else button1">
+    <blog-loader></blog-loader>
+  </div>
+
+  <ng-template #button1>
+    <blog-button
+      [tag]="'button'"
+      [type]="'submit'"
+      [content]="'Add post'"
+      variant="Primary"
+      [className]="'formButton'"
+      [fullWidth]="true"
+    >
+    </blog-button>
+  </ng-template>
+</form>

@@ -24,3 +24,10 @@ export interface PostResponse {
   totalCount: number
   items: IPost[]
 }
+
+export interface PostAddToBlogModel {
+  title: string
+  shortDescription: string
+  content: string
+  blogId: string
+}

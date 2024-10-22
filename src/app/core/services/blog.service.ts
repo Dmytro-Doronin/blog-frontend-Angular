@@ -7,7 +7,7 @@ import {
   IBlog,
   PostBlogModel,
 } from '../../types/blogs.models'
-import { PostQueryParams, PostResponse } from '../../types/posts.models'
+import {PostAddToBlogModel, PostQueryParams, PostResponse} from '../../types/posts.models'
 //https://localhost.com
 @Injectable({
   providedIn: 'root',
@@ -35,27 +35,6 @@ export class BlogService {
     }
 
     return this.http.get<BlogResponse>('http://localhost:3000/blogs', { params: httpParams })
-  }
-
-  getPostsForBlogs(postParams: PostQueryParams, id: string) {
-    let httpParams = new HttpParams()
-
-    if (postParams.sortBy) {
-      httpParams = httpParams.set('sortBy', postParams.sortBy)
-    }
-    if (postParams.sortDirection) {
-      httpParams = httpParams.set('sortDirection', postParams.sortDirection)
-    }
-    if (postParams.pageNumber !== undefined) {
-      httpParams = httpParams.set('pageNumber', postParams.pageNumber.toString())
-    }
-    if (postParams.pageSize !== undefined) {
-      httpParams = httpParams.set('pageSize', postParams.pageSize.toString())
-    }
-
-    return this.http.get<PostResponse>(`http://localhost:3000/blogs/${id}/posts`, {
-      params: httpParams,
-    })
   }
 
   postBlog({ name, description, websiteUrl }: PostBlogModel) {
@@ -89,4 +68,39 @@ export class BlogService {
   deleteBlogById(blogId: string) {
     return this.http.delete(`http://localhost:3000/blogs/${blogId}`, { withCredentials: true })
   }
+
+  //posts
+  getPostsForBlogs(postParams: PostQueryParams, id: string) {
+    let httpParams = new HttpParams()
+
+    if (postParams.sortBy) {
+      httpParams = httpParams.set('sortBy', postParams.sortBy)
+    }
+    if (postParams.sortDirection) {
+      httpParams = httpParams.set('sortDirection', postParams.sortDirection)
+    }
+    if (postParams.pageNumber !== undefined) {
+      httpParams = httpParams.set('pageNumber', postParams.pageNumber.toString())
+    }
+    if (postParams.pageSize !== undefined) {
+      httpParams = httpParams.set('pageSize', postParams.pageSize.toString())
+    }
+
+    return this.http.get<PostResponse>(`http://localhost:3000/blogs/${id}/posts`, {
+      params: httpParams,
+    })
+  }
+
+  addPostToBlog({ title, shortDescription, content, blogId }: PostAddToBlogModel) {
+    return this.http.post<IBlog>(
+      `http://localhost:3000/blogs/${blogId}/posts`,
+      {
+        title,
+        shortDescription,
+        content,
+      },
+      { withCredentials: true }
+    )
+  }
+
 }

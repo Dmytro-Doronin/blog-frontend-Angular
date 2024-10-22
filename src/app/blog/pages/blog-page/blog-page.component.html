@@ -11,10 +11,10 @@
         <div class="blog-header-panel">
           <blog-typography [variant]="'h2'" [content]="'First blog'"></blog-typography>
           <blog-button
-            *ngIf="true"
-            routerLink="/main/blogs-page/add-blog"
+            *ngIf="isAuthenticated$ | async"
+            routerLink="add-post-for-blog"
             variant="Primary"
-            content="Add new blog"
+            content="Add new post"
             >Add blog
           </blog-button>
         </div>

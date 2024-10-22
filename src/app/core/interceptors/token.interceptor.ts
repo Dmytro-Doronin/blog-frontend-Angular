@@ -70,7 +70,8 @@ export class TokenInterceptor implements HttpInterceptor {
   }
   private isPostToBlogOrPost(req: HttpRequest<any>): boolean {
     const postUrls = ['http://localhost:3000/blogs', 'http://localhost:3000/posts']
-    return postUrls.includes(req.url) && req.method === 'POST'
+    const blogPostUrlPattern = /^http:\/\/localhost:3000\/blogs\/[a-zA-Z0-9-]+\/posts$/
+    return postUrls.includes(req.url) && req.method === 'POST' || blogPostUrlPattern.test(req.url) && req.method === 'POST';
   }
 
   private isPostToBlogOrPostPut(req: HttpRequest<any>): boolean {

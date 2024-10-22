@@ -1,6 +1,6 @@
 import { createAction, props } from '@ngrx/store'
 import { BlogQueryParams, IBlog, PostBlogModel } from '../../types/blogs.models'
-import { IPost, PostQueryParams } from '../../types/posts.models'
+import {IPost, PostAddToBlogModel, PostQueryParams} from '../../types/posts.models'
 
 export const addBlogsAction = createAction('[Add blog] add blog', props<PostBlogModel>())
 
@@ -92,7 +92,10 @@ export const setSortByAlphabet = createAction(
   props<{ sortDirection: 'asc' | 'desc' }>()
 )
 
-//posts for blog
+//POST FOR BLOG
+
+export const addPostForBlogAction = createAction('[Add post] add post for blog', props<PostAddToBlogModel>())
+
 export const loadPostsForBlogs = createAction(
   '[Blog] get all posts for blog',
   props<{ params: PostQueryParams; id: string }>()

@@ -16,7 +16,7 @@ import {
 import { concat, of } from 'rxjs'
 import {
   addBlogsAction,
-  addBlogsToStateAction,
+  addBlogsToStateAction, addPostForBlogAction,
   addPostsForBlogsToStateAction,
   deleteBlog,
   loadBlogs,
@@ -272,6 +272,39 @@ export class BlogsEffects {
               )
             })
           )
+        )
+      )
+    )
+  )
+
+  addPostForBlog$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(addPostForBlogAction),
+      concatMap(action =>
+        concat(
+          of(setBlogsLoadingAction({ loading: true })),
+          this.blogService
+            .addPostToBlog({
+              title: action.title,
+              shortDescription: action.shortDescription,
+              content: action.content,
+              blogId: action.blogId
+            })
+            .pipe(
+              mergeMap((response: any) => {
+                return [
+                  addAuthAlert({ severity: 'success', message: 'Blog has been added!' }),
+                  setBlogsLoadingAction({ loading: false }),
+                ]
+              }),
+              catchError(error => {
+                const message = error.error.errorsMessages[0].message
+                return of(
+                  setBlogsLoadingAction({ loading: false }),
+                  addAuthAlert({ severity: 'error', message: message })
+                )
+              })
+            )
         )
       )
     )
