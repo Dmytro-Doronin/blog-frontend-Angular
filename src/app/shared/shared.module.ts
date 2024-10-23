@@ -36,6 +36,9 @@ import { SearchComponent } from './components/search/search.component'
 import { BlogItemComponent } from './components/blog-item/blog-item.component'
 import { BlogControlMenuComponent } from './components/blog-control-menu/blog-control-menu.component'
 import { PostItemComponent } from './components/post-item/post-item.component'
+import { LikeIconComponent } from './components/icons/like-icon/like-icon.component'
+import { DislikeIconComponent } from './components/icons/dislike-icon/dislike-icon.component'
+import { LikeDislikeComponent } from './components/like-dislike/like-dislike.component'
 
 @NgModule({
   declarations: [
@@ -72,6 +75,9 @@ import { PostItemComponent } from './components/post-item/post-item.component'
     BlogItemComponent,
     BlogControlMenuComponent,
     PostItemComponent,
+    LikeIconComponent,
+    DislikeIconComponent,
+    LikeDislikeComponent,
   ],
   imports: [
     CommonModule,
@@ -117,6 +123,9 @@ import { PostItemComponent } from './components/post-item/post-item.component'
     BlogItemComponent,
     BlogControlMenuComponent,
     PostItemComponent,
+    LikeIconComponent,
+    DislikeIconComponent,
+    LikeDislikeComponent,
   ],
 })
 export class SharedModule {}

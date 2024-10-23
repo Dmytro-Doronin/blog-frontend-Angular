@@ -88,5 +88,13 @@
   letter-spacing: 0.02em;
   text-align: left;
   color: var(--color-dark-500);
-;
+}
+
+.post-item-likes {
+  display: flex;
+  z-index: 1000;
+}
+
+.post-item-likes-item {
+  margin-right: 24px;
 }

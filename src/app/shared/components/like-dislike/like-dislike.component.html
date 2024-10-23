@@ -1,0 +1,18 @@
+<div class="likes-dislikes-container">
+  <div class="likes-dislikes-item">
+    <blog-like-icon
+      (click)="$event.stopPropagation()"
+      [status]="status === 'Like' ? 'like' : 'none'"
+      (like)="onLikeClick()"
+    ></blog-like-icon>
+    <span class="count">{{ likesCount }}</span>
+  </div>
+  <div class="likes-dislikes-item">
+    <blog-dislike-icon
+      (click)="$event.stopPropagation()"
+      [status]="status === 'Dislike' ? 'dislike' : 'none'"
+      (dislike)="onDislikeClick()"
+    ></blog-dislike-icon>
+    <span class="count">{{ dislikesCount }}</span>
+  </div>
+</div>

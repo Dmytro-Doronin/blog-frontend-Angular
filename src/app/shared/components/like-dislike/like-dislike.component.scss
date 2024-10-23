@@ -1,0 +1,23 @@
+.likes-dislikes-container {
+  display: flex;
+  z-index: 1000;
+}
+
+.likes-dislikes-item {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin-right: 20px;
+}
+
+.count {
+  //styleName: tiny_text / Neutral Dark-60;
+  font-family: Inter;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+  letter-spacing: 0.02em;
+  text-align: left;
+  color: var(--color-dark-500);
+;
+}

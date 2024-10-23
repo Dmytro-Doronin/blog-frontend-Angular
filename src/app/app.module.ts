@@ -21,6 +21,7 @@ import { SharedModule } from './shared/shared.module'
 import { MainModule } from './main/main.module'
 import { blogsReducer } from './store/reducers/blogs.reducer'
 import { BlogsEffects } from './store/effects/blogs.effects'
+import { PostsEffects } from './store/effects/posts.effect'
 
 @NgModule({
   declarations: [AppComponent],
@@ -43,7 +44,7 @@ import { BlogsEffects } from './store/effects/blogs.effects'
       auth: authReducer,
       blogs: blogsReducer,
     }),
-    EffectsModule.forRoot([AuthEffects, BlogsEffects]),
+    EffectsModule.forRoot([AuthEffects, BlogsEffects, PostsEffects]),
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true }],
   bootstrap: [AppComponent],

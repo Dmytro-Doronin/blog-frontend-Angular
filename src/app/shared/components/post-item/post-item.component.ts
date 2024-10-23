@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core'
+import { Component, EventEmitter, Input, Output } from '@angular/core'
 import { IPost } from '../../../types/posts.models'
 
 @Component({
@@ -8,4 +8,14 @@ import { IPost } from '../../../types/posts.models'
 })
 export class PostItemComponent {
   @Input() post?: IPost
+  @Output() likePost = new EventEmitter<string>()
+  @Output() dislikePost = new EventEmitter<string>()
+
+  onLikeClick() {
+    this.likePost.emit(this.post!.id)
+  }
+
+  onDislikeClick() {
+    this.dislikePost.emit(this.post!.id)
+  }
 }

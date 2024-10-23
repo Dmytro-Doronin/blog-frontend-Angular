@@ -6,7 +6,8 @@ import { ActivatedRoute } from '@angular/router'
 import { IBlog } from '../../../types/blogs.models'
 import {
   selectBlogsLoading,
-  selectCurrentBlog, selectHasMorePostsForBlog,
+  selectCurrentBlog,
+  selectHasMorePostsForBlog,
   selectPostsForBlogBlogModal,
   selectPostsForBlogLoading,
 } from '../../../store/selectors/blogs.selector'
@@ -95,8 +96,16 @@ export class BlogPageComponent implements OnInit, OnDestroy {
   }
 
   loadMorePosts() {
-    this.pageNumber +=1
+    this.pageNumber += 1
     this.downloadPostsForBlog()
+  }
+
+  onLikePost(postId: string) {
+    console.log(postId)
+  }
+
+  onDislikePost(postId: string) {
+    console.log(postId)
   }
 
   ngOnDestroy() {
