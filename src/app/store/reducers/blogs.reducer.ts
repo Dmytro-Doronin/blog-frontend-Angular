@@ -4,7 +4,7 @@ import {
   addBlogsToStateAction,
   addPostsForBlogsToStateAction,
   callDeleteBlogModalAction,
-  getBlogByIdAction,
+  changeLikeStatusForPostAction,
   setAllBlogsToState,
   setAllPostsForBlogToState,
   setBlogByIdAction,
@@ -13,6 +13,7 @@ import {
   setBlogsSearchAction,
   setBlogsSearchTermAction,
   setCurrentBlogId,
+  setLikeStatusAsNoneForPostsAction,
   setPostsForBlogLoadingAction,
   setSortByAlphabet,
   setSortByDate,
@@ -21,6 +22,7 @@ import {
 } from '../actions/blogs.actions'
 import { IBlog } from '../../types/blogs.models'
 import { IPost } from '../../types/posts.models'
+import { updatePostLikesStatus } from '../../utils/post.utils'
 
 export interface BlogsState {
   pagesCount: number
@@ -158,6 +160,27 @@ export const blogsReducer = createReducer(
   on(successDeleteBlog, (state, { blogId }) => ({
     ...state,
     blogs: state.blogs.filter(b => b.id !== blogId),
+  })),
+  on(changeLikeStatusForPostAction, (state, { postId, status }) => ({
+    ...state,
+    posts: {
+      ...state.posts,
+      postsForBlogs: state.posts.postsForBlogs.map(post => {
+        if (post.id === postId) {
+          return updatePostLikesStatus(post, status)
+        }
+        return post
+      }),
+    },
+  })),
+  on(setLikeStatusAsNoneForPostsAction, (state, { status }) => ({
+    ...state,
+    posts: {
+      ...state.posts,
+      postsForBlogs: state.posts.postsForBlogs.map(post => {
+        return { ...post, extendedLikesInfo: { ...post.extendedLikesInfo, myStatus: status } }
+      }),
+    },
   })),
 
   on(callDeleteBlogModalAction, (state, { deleteBlogModal }) => ({

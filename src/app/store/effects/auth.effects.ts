@@ -25,6 +25,7 @@ import {
 import { Router } from '@angular/router'
 import { AuthService } from '../../core/services/auth.service'
 import { deleteAlert, setAppLoading } from '../actions/app.actions'
+import { setLikeStatusAsNoneForPostsAction } from '../actions/blogs.actions'
 
 @Injectable()
 export class AuthEffects {
@@ -281,6 +282,7 @@ export class AuthEffects {
                 setIsAuthenticated({ isAuthenticated: false }),
                 setProfile({ email: '', login: '', userId: '' }),
                 setAppLoading({ loading: false }),
+                setLikeStatusAsNoneForPostsAction({ status: 'None' }),
               ]
             }),
             catchError(error => {

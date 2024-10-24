@@ -135,3 +135,12 @@ export const addPostsForBlogsToStateAction = createAction(
     hasMorePostsForBlogs: boolean
   }>()
 )
+export const changeLikeStatusForPostAction = createAction(
+  '[Blog] change like status for post in blog',
+  props<{ postId: string; status: 'Like' | 'Dislike' | 'None' }>()
+)
+
+export const setLikeStatusAsNoneForPostsAction = createAction(
+  '[Blog] set like status for posts as none',
+  props<{ status: 'None' }>()
+)

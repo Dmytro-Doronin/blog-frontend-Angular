@@ -13,6 +13,7 @@ import {
 } from '../../../store/selectors/blogs.selector'
 import { getBlogByIdAction, loadPostsForBlogs } from '../../../store/actions/blogs.actions'
 import { IPost } from '../../../types/posts.models'
+import { setLikeOrDislikeAction } from '../../../store/actions/posts.action'
 
 @Component({
   selector: 'blog-blog-page',
@@ -67,6 +68,9 @@ export class BlogPageComponent implements OnInit, OnDestroy {
 
   getPostsForBlog() {
     this.posts$ = this.store.select(selectPostsForBlogBlogModal)
+    this.posts$.subscribe(item => {
+      console.log(item)
+    })
   }
   getHasMorePostsForBlog() {
     this.hasMorePostForBlog$ = this.store.select(selectHasMorePostsForBlog)
@@ -101,11 +105,12 @@ export class BlogPageComponent implements OnInit, OnDestroy {
   }
 
   onLikePost(postId: string) {
+    this.store.dispatch(setLikeOrDislikeAction({ status: 'Like', postId }))
     console.log(postId)
   }
 
   onDislikePost(postId: string) {
-    console.log(postId)
+    this.store.dispatch(setLikeOrDislikeAction({ status: 'Dislike', postId }))
   }
 
   ngOnDestroy() {

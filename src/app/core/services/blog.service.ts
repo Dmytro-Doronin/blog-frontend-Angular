@@ -88,6 +88,7 @@ export class BlogService {
 
     return this.http.get<PostResponse>(`http://localhost:3000/blogs/${id}/posts`, {
       params: httpParams,
+      withCredentials: true,
     })
   }
 

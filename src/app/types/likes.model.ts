@@ -4,8 +4,8 @@ export interface INewestLikes {
   login: string
 }
 export interface IExtendedLikesInfo {
-  likesCount: 0
-  dislikesCount: 0
+  likesCount: number
+  dislikesCount: number
   myStatus: 'Like' | 'Dislike' | 'None'
   newestLikes: INewestLikes[]
 }

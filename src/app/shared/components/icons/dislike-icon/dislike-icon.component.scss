@@ -1,3 +1,18 @@
+.dislike-icon {
+  width: 16px;
+  height: 14px;
+  margin-right: 5px;
+}
+
 .icon {
   margin-right: 5px;
+}
+
+.icon {
+  fill: #797476;
+  transition: fill 0.3s ease;
+}
+
+.dislike-icon:hover .icon {
+  fill: #1A1718;
 }
