@@ -1,4 +1,4 @@
-<div class="likes-dislikes-container">
+<div [ngClass]="{'disabled': !(isAuthenticated$ | async)}"  class="likes-dislikes-container">
   <div class="likes-dislikes-item">
     <blog-like-icon
       (click)="$event.stopPropagation()"

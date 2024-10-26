@@ -85,12 +85,12 @@ export const callDeleteBlogModalAction = createAction(
   props<{ deleteBlogModal: boolean }>()
 )
 
-export const setSortByDate = createAction(
+export const setSortByDateForBlog = createAction(
   '[Blogs] Set Sort By Date',
   props<{ sortBy: 'createdAt'; sortDirection: 'asc' | 'desc' }>()
 )
 
-export const setSortByAlphabet = createAction(
+export const setSortByAlphabetForBlog = createAction(
   '[Blogs] Set Sort By Alphabet',
   props<{ sortDirection: 'asc' | 'desc' }>()
 )

@@ -12,8 +12,8 @@ import {
   loadBlogs,
   loadSearchBlogs,
   setBlogsSearchAction,
-  setSortByAlphabet,
-  setSortByDate,
+  setSortByAlphabetForBlog,
+  setSortByDateForBlog,
 } from '../../../store/actions/blogs.actions'
 import {
   selectBlogForSearchLoading,
@@ -49,6 +49,7 @@ export class BlogsPageComponent implements OnInit, OnDestroy {
   sortDirection: 'asc' | 'desc' = 'desc'
   blogSearchTerm: string = ''
   private currentBlogIdSubscription: Subscription = new Subscription()
+  private sortDataSubscription: Subscription = new Subscription()
   constructor(private store: Store) {}
 
   ngOnInit() {
@@ -64,20 +65,6 @@ export class BlogsPageComponent implements OnInit, OnDestroy {
     this.getBlogsForSearchLoading()
     this.isAuthenticated$ = this.store.select(selectIsAuthenticated)
   }
-
-  // loadBlogs() {
-  //   this.store.dispatch(
-  //     loadBlogs({
-  //       params: {
-  //         searchNameTerm: '',
-  //         sortBy: this.sortBy,
-  //         sortDirection: this.sortDirection,
-  //         pageNumber: this.pageNumber,
-  //         pageSize: this.pageSize,
-  //       },
-  //     })
-  //   )
-  // }
 
   loadBlogs() {
     this.store.dispatch(
@@ -146,7 +133,7 @@ export class BlogsPageComponent implements OnInit, OnDestroy {
   }
 
   getSortData() {
-    this.store.select(selectSortParams).subscribe(sortParams => {
+    this.sortDataSubscription = this.store.select(selectSortParams).subscribe(sortParams => {
       this.sortBy = sortParams.sortBy
       this.sortDirection = sortParams.sortDirection
     })
@@ -176,11 +163,11 @@ export class BlogsPageComponent implements OnInit, OnDestroy {
 
   onSortChge(item: { itemId: string }) {
     if (item.itemId === '1') {
-      this.store.dispatch(setSortByDate({ sortBy: 'createdAt', sortDirection: 'desc' }))
+      this.store.dispatch(setSortByDateForBlog({ sortBy: 'createdAt', sortDirection: 'desc' }))
     } else if (item.itemId === '2') {
-      this.store.dispatch(setSortByDate({ sortBy: 'createdAt', sortDirection: 'asc' }))
+      this.store.dispatch(setSortByDateForBlog({ sortBy: 'createdAt', sortDirection: 'asc' }))
     } else if (item.itemId === 'asc' || item.itemId === 'desc') {
-      this.store.dispatch(setSortByAlphabet({ sortDirection: item.itemId }))
+      this.store.dispatch(setSortByAlphabetForBlog({ sortDirection: item.itemId }))
     }
     this.pageNumber = 1
     this.loadBlogs()
@@ -188,5 +175,6 @@ export class BlogsPageComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.currentBlogIdSubscription.unsubscribe()
+    this.sortDataSubscription.unsubscribe()
   }
 }

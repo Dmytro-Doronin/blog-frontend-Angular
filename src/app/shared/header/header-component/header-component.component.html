@@ -1,6 +1,13 @@
 <header class="header">
   <div class="container">
     <div class="header-inner">
+      <blog-modal *ngIf="isModal" (closeModal)="onClose()" [title]="'login out'">
+        <p class="modal-text">Do you really want to log out of your account: {{userLogin$ | async}}</p>
+        <div class="button-modal-group">
+          <blog-button (click)="onClose()" [variant]="'Primary'" [content]="'No'"></blog-button>
+          <blog-button (click)="logOut()" [variant]="'Secondary'" [content]="'Yes'"></blog-button>
+        </div>
+      </blog-modal>
       <p class="logo" routerLink="/main/blogs-page">Blogger platform</p>
       <div class="header-items">
         <blog-loader *ngIf="headerLoading$ | async; else loadingBlock"></blog-loader>
@@ -9,7 +16,7 @@
         </ng-template>
 
         <div
-          (click)="logOut()"
+          (click)="onOpen()"
           *ngIf="isAuthenticated$ | async; else elseBlock"
           class="header-items-button"
         >
@@ -22,7 +29,7 @@
         <ng-template #elseBlock>
           <div routerLink="/auth/login" class="header-items-button header-ml">
             <div class="header-icon">
-              <blog-icon-sign-out></blog-icon-sign-out>
+              <blog-icon-sign-in></blog-icon-sign-in>
             </div>
             <div class="header-action">Log in</div>
           </div>

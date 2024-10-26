@@ -14,7 +14,7 @@ export class HeaderComponentComponent implements OnInit {
   isAuthenticated$?: Observable<boolean>
   userLogin$?: Observable<string>
   headerLoading$?: Observable<boolean>
-
+  isModal: boolean = false
   constructor(private store: Store) {}
   ngOnInit(): void {
     this.loader()
@@ -28,7 +28,16 @@ export class HeaderComponentComponent implements OnInit {
     this.headerLoading$ = this.store.select(selectAppLoading)
   }
 
+  onClose() {
+    this.isModal = false
+  }
+
+  onOpen() {
+    this.isModal = true
+  }
+
   logOut() {
     this.store.dispatch(logOut())
+    this.onClose()
   }
 }

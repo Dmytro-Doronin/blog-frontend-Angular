@@ -15,8 +15,8 @@ import {
   setCurrentBlogId,
   setLikeStatusAsNoneForPostsAction,
   setPostsForBlogLoadingAction,
-  setSortByAlphabet,
-  setSortByDate,
+  setSortByAlphabetForBlog,
+  setSortByDateForBlog,
   successDeleteBlog,
   successUpdateDetailsBlog,
 } from '../actions/blogs.actions'
@@ -200,7 +200,7 @@ export const blogsReducer = createReducer(
     ...state,
     currentBlogId: blogId,
   })),
-  on(setSortByDate, (state, { sortBy, sortDirection }) => ({
+  on(setSortByDateForBlog, (state, { sortBy, sortDirection }) => ({
     ...state,
     sortBy: sortBy,
     sortDirection: sortDirection,
@@ -210,7 +210,7 @@ export const blogsReducer = createReducer(
     ...state,
     blogsForSearch: blogsForSearch,
   })),
-  on(setSortByAlphabet, (state, { sortDirection }) => ({
+  on(setSortByAlphabetForBlog, (state, { sortDirection }) => ({
     ...state,
     sortBy: 'name',
     sortDirection: sortDirection,
