@@ -17,6 +17,10 @@ export const selectBlogForSearchLoading = createSelector(
   (state: BlogsState) => state.blogsForSearchLoading
 )
 export const selectBlogs = createSelector(selectBlogsState, (state: BlogsState) => state.blogs)
+export const selectBlogsForCurrentUser = createSelector(
+  selectBlogsState,
+  (state: BlogsState) => state.blogsForCurrentUser
+)
 export const selectCurrentBlog = createSelector(selectBlogsState, (state: BlogsState) => state.blog)
 export const selectCurrentBlogId = createSelector(
   selectBlogsState,

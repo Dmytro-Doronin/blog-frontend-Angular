@@ -5,3 +5,30 @@
   border-bottom: 1px solid #DEDBDC;
   margin-bottom: 24px;
 }
+
+.post-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.post-item-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.center-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 23px;
+}
+
+.no-posts {
+  text-align: center;
+  margin-top: 150px;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 20px;
+}

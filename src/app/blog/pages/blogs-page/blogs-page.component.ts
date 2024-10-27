@@ -26,6 +26,7 @@ import {
   selectSortParams,
 } from '../../../store/selectors/blogs.selector'
 import { IBlog } from '../../../types/blogs.models'
+import { blogOptions } from '../../../data/options'
 
 @Component({
   selector: 'blog-blogs-page',
@@ -177,4 +178,6 @@ export class BlogsPageComponent implements OnInit, OnDestroy {
     this.currentBlogIdSubscription.unsubscribe()
     this.sortDataSubscription.unsubscribe()
   }
+
+  protected readonly blogOptions = blogOptions
 }

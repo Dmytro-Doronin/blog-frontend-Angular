@@ -22,6 +22,7 @@ import { MainModule } from './main/main.module'
 import { blogsReducer } from './store/reducers/blogs.reducer'
 import { BlogsEffects } from './store/effects/blogs.effects'
 import { PostsEffects } from './store/effects/posts.effect'
+import { postsReducer } from './store/reducers/posts.reduser'
 
 @NgModule({
   declarations: [AppComponent],
@@ -43,6 +44,7 @@ import { PostsEffects } from './store/effects/posts.effect'
       app: appReducer,
       auth: authReducer,
       blogs: blogsReducer,
+      posts: postsReducer,
     }),
     EffectsModule.forRoot([AuthEffects, BlogsEffects, PostsEffects]),
   ],

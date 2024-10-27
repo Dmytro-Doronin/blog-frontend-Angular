@@ -4,7 +4,8 @@ import {
   addBlogsToStateAction,
   addPostsForBlogsToStateAction,
   callDeleteBlogModalAction,
-  changeLikeStatusForPostAction,
+  changeLikeStatusForPostInBlogAction,
+  setAllBlogsForCurrentUserToState,
   setAllBlogsToState,
   setAllPostsForBlogToState,
   setBlogByIdAction,
@@ -13,7 +14,7 @@ import {
   setBlogsSearchAction,
   setBlogsSearchTermAction,
   setCurrentBlogId,
-  setLikeStatusAsNoneForPostsAction,
+  setLikeStatusAsNoneForPostsInBlogAction,
   setPostsForBlogLoadingAction,
   setSortByAlphabetForBlog,
   setSortByDateForBlog,
@@ -31,6 +32,7 @@ export interface BlogsState {
   totalCount: number
   blogs: IBlog[]
   blogsForSearch: IBlog[]
+  blogsForCurrentUser: IBlog[]
   posts: {
     pagesCount: number
     page: number
@@ -57,6 +59,7 @@ export const initialState: BlogsState = {
   pageSize: 0,
   totalCount: 0,
   blogs: [],
+  blogsForCurrentUser: [],
   blog: {
     id: '',
     name: '',
@@ -112,6 +115,17 @@ export const blogsReducer = createReducer(
     })
   ),
   on(
+    setAllBlogsForCurrentUserToState,
+    (state, { blogsForCurrentUser, pagesCount, page, pageSize, totalCount }) => ({
+      ...state,
+      blogsForCurrentUser: blogsForCurrentUser,
+      pagesCount: pagesCount,
+      page: page,
+      pageSize: pageSize,
+      totalCount: totalCount,
+    })
+  ),
+  on(
     addBlogsToStateAction,
     (state, { blogs, pagesCount, page, pageSize, totalCount, hasMoreBlogs }) => ({
       ...state,
@@ -161,7 +175,7 @@ export const blogsReducer = createReducer(
     ...state,
     blogs: state.blogs.filter(b => b.id !== blogId),
   })),
-  on(changeLikeStatusForPostAction, (state, { postId, status }) => ({
+  on(changeLikeStatusForPostInBlogAction, (state, { postId, status }) => ({
     ...state,
     posts: {
       ...state.posts,
@@ -173,7 +187,7 @@ export const blogsReducer = createReducer(
       }),
     },
   })),
-  on(setLikeStatusAsNoneForPostsAction, (state, { status }) => ({
+  on(setLikeStatusAsNoneForPostsInBlogAction, (state, { status }) => ({
     ...state,
     posts: {
       ...state.posts,

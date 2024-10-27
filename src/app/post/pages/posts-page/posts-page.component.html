@@ -1,5 +1,43 @@
 <blog-main-page>
-  <blog-typography content="Posts" className="clear" variant="h3"></blog-typography>
+  <div class="post-header">
+    <blog-typography content="Posts" className="clear" variant="h3"></blog-typography>
+    <blog-button
+      *ngIf="isAuthenticated$ | async"
+      routerLink="/main/posts-page/add-post"
+      variant="Primary"
+      content="Add new post"
+      >Add post
+    </blog-button>
+  </div>
   <hr class="line" />
-</blog-main-page>
+  <div class="search-panel">
+    <blog-select-component
+      (selectedItem)="onSortChge($event)"
+      [options]="postsOptions"
+    ></blog-select-component>
+  </div>
 
+  <div *ngIf="(posts$ | async)?.length; else noPosts" class="post-item-container">
+    <blog-post-item
+      (likePost)="onLikePost($event)"
+      (dislikePost)="onDislikePost($event)"
+      *ngFor="let post of posts$ | async"
+      [post]="post"
+    ></blog-post-item>
+  </div>
+  <div class="center-container">
+    <blog-loader *ngIf="loading$ | async; else loadButton"></blog-loader>
+  </div>
+
+  <ng-template #loadButton>
+    <blog-button
+      (click)="loadMorePosts()"
+      *ngIf="hasMorePosts$ | async"
+      [content]="'Load more'"
+    ></blog-button>
+  </ng-template>
+
+  <ng-template #loadButton #noPosts>
+    <div class="no-posts">No posts available.</div>
+  </ng-template>
+</blog-main-page>

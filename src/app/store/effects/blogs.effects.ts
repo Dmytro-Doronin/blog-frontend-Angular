@@ -8,7 +8,6 @@ import {
   debounceTime,
   delay,
   filter,
-  finalize,
   map,
   mergeMap,
   switchMap,
@@ -22,8 +21,10 @@ import {
   deleteBlog,
   getBlogByIdAction,
   loadBlogs,
+  loadBlogsForUser,
   loadPostsForBlogs,
   loadSearchBlogs,
+  setAllBlogsForCurrentUserToState,
   setAllBlogsToState,
   setAllPostsForBlogToState,
   setBlogByIdAction,
@@ -208,7 +209,8 @@ export class BlogsEffects {
                     pageSize: response.pageSize,
                     totalCount: response.totalCount,
                     blogs: response.items,
-                    hasMoreBlogs: response.items.length === action.params.pageSize,
+                    hasMoreBlogs:
+                      response.totalCount > action.params.pageSize! * action.params.pageNumber,
                   }),
                   setBlogsLoadingAction({ loading: false }),
                 ]
@@ -220,11 +222,44 @@ export class BlogsEffects {
                     pageSize: response.pageSize,
                     totalCount: response.totalCount,
                     blogs: response.items,
-                    hasMoreBlogs: response.items.length === action.params.pageSize,
+                    hasMoreBlogs:
+                      response.totalCount > action.params.pageSize! * action.params.pageNumber!,
                   }),
                   setBlogsLoadingAction({ loading: false }),
                 ]
               }
+            }),
+            catchError(error => {
+              const message = error?.error?.errorsMessages?.[0]?.message || 'Failed to load blogs'
+              return of(
+                setBlogsLoadingAction({ loading: false }),
+                addAuthAlert({ severity: 'error', message: message })
+              )
+            })
+          )
+        )
+      )
+    )
+  )
+
+  getAllBlogsForCurrentUser$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(loadBlogsForUser),
+      concatMap(action =>
+        concat(
+          of(setBlogsLoadingAction({ loading: true })),
+          this.blogService.getBlogsForUser(action.params).pipe(
+            mergeMap((response: BlogResponse) => {
+              return [
+                setAllBlogsForCurrentUserToState({
+                  pagesCount: response.pagesCount,
+                  page: response.page,
+                  pageSize: response.pageSize,
+                  totalCount: response.totalCount,
+                  blogsForCurrentUser: response.items,
+                }),
+                setBlogsLoadingAction({ loading: false }),
+              ]
             }),
             catchError(error => {
               const message = error?.error?.errorsMessages?.[0]?.message || 'Failed to load blogs'

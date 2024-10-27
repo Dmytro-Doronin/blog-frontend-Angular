@@ -1,9 +1,17 @@
 <blog-typography [content]="'Add post'" variant="h3"></blog-typography>
-<form [formGroup]="addPostForBlogUpForm" (ngSubmit)="onSubmit()">
-  <!--Name-->
+<form [formGroup]="addPostForm" (ngSubmit)="onSubmit()">
+  <!--Title-->
+  <div class="select-container">
+    <span class="text">For blog:</span>
+    <blog-select-component
+      (selectedItem)="onSortChge($event)"
+      [options]="options!"
+    ></blog-select-component>
+  </div>
+
   <blog-input
     [isControl]="true"
-    [control]="addPostForBlogUpForm.controls.title"
+    [control]="addPostForm.controls.title"
     [id]="'title'"
     [placeholder]="'Title'"
   ></blog-input>
@@ -13,10 +21,10 @@
     <div *ngIf="title.errors?.['minlength']">The Name must not be less than 3 or more then 15.</div>
   </div>
 
-  <!--Description-->
+  <!--Short description-->
   <blog-input
     [isControl]="true"
-    [control]="addPostForBlogUpForm.controls.shortDescription"
+    [control]="addPostForm.controls.shortDescription"
     [id]="'shortDescription'"
     [placeholder]="'Short description'"
   >
@@ -36,10 +44,10 @@
     </div>
   </div>
 
-  <!--Website-->
+  <!--content-->
   <blog-input
     [isControl]="true"
-    [control]="addPostForBlogUpForm.controls.content"
+    [control]="addPostForm.controls.content"
     [id]="'content'"
     [placeholder]="'Content'"
     [variant]="'textarea'"
@@ -47,17 +55,11 @@
   </blog-input>
 
   <div
-    *ngIf="
-      content &&
-      !addPostForBlogUpForm!.valid &&
-      (addPostForBlogUpForm?.dirty || addPostForBlogUpForm?.touched)
-    "
+    *ngIf="content && !addPostForm!.valid && (addPostForm?.dirty || addPostForm?.touched)"
     class="error"
   >
-    <div *ngIf="addPostForBlogUpForm.errors?.['required']">Website url is required</div>
-    <div *ngIf="addPostForBlogUpForm.errors?.['pattern']">
-      The Website url must be https://example.com.
-    </div>
+    <div *ngIf="addPostForm.errors?.['required']">Website url is required</div>
+    <div *ngIf="addPostForm.errors?.['pattern']">The Website url must be https://example.com.</div>
   </div>
 
   <!--    <div *ngIf="loading" class="loader">-->

@@ -5,6 +5,10 @@ import { IPost, PostAddToBlogModel, PostQueryParams } from '../../types/posts.mo
 export const addBlogsAction = createAction('[Add blog] add blog', props<PostBlogModel>())
 
 export const loadBlogs = createAction('[Blog] get all blogs', props<{ params: BlogQueryParams }>())
+export const loadBlogsForUser = createAction(
+  '[Blog] get all blogs for current user',
+  props<{ params: BlogQueryParams }>()
+)
 export const loadSearchBlogs = createAction(
   '[Blog] get all blogs for search',
   props<{ params: BlogQueryParams }>()
@@ -32,6 +36,17 @@ export const successDeleteBlog = createAction(
 export const successUpdateDetailsBlog = createAction(
   '[Blog] Update Blog details',
   props<{ blog: IBlog }>()
+)
+
+export const setAllBlogsForCurrentUserToState = createAction(
+  '[Blog] Set all blogs to state for currentUser',
+  props<{
+    blogsForCurrentUser: IBlog[]
+    pagesCount: number
+    page: number
+    pageSize: number
+    totalCount: number
+  }>()
 )
 
 export const setAllBlogsToState = createAction(
@@ -135,12 +150,12 @@ export const addPostsForBlogsToStateAction = createAction(
     hasMorePostsForBlogs: boolean
   }>()
 )
-export const changeLikeStatusForPostAction = createAction(
+export const changeLikeStatusForPostInBlogAction = createAction(
   '[Blog] change like status for post in blog',
   props<{ postId: string; status: 'Like' | 'Dislike' | 'None' }>()
 )
 
-export const setLikeStatusAsNoneForPostsAction = createAction(
+export const setLikeStatusAsNoneForPostsInBlogAction = createAction(
   '[Blog] set like status for posts as none',
   props<{ status: 'None' }>()
 )

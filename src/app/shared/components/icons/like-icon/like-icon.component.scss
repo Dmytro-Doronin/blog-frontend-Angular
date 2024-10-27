@@ -11,10 +11,10 @@
 }
 
 .icon {
-  fill: #797476; /* Исходный цвет */
-  transition: fill 0.3s ease; /* Плавный переход */
+  fill: #797476;
+  transition: fill 0.3s ease;
 }
 
 .like-icon:hover .icon {
-  fill: #F8346B; /* Цвет при наведении */
+  fill: #F8346B;
 }

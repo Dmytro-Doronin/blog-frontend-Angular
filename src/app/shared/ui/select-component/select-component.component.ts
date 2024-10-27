@@ -1,4 +1,13 @@
-import { Component, EventEmitter, OnInit, Output, ViewEncapsulation } from '@angular/core'
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+  ViewEncapsulation,
+} from '@angular/core'
+import { IOptions } from '../../../types/options.models'
 
 @Component({
   selector: 'blog-select-component',
@@ -6,20 +15,17 @@ import { Component, EventEmitter, OnInit, Output, ViewEncapsulation } from '@ang
   styleUrl: './select-component.component.scss',
   encapsulation: ViewEncapsulation.None,
 })
-export class SelectComponentComponent implements OnInit {
-  selectedOptions: string | null = '1'
+export class SelectComponentComponent implements OnInit, OnChanges {
+  @Input() options: IOptions[] = []
+  selectedOptions?: string | null
   @Output() selectedItem = new EventEmitter<{ itemId: string }>()
-
-  options = [
-    { id: '1', name: 'New Blog first' },
-    { id: '2', name: 'Old Blog first' },
-    { id: 'asc', name: 'From A to Z' },
-    { id: 'desc', name: 'From Z to A' },
-  ]
 
   isOpen: boolean = false
 
   ngOnInit() {
+    if (this.options.length > 0) {
+      this.selectedOptions = this.options[0].id
+    }
     console.log(this.selectedOptions)
   }
 
@@ -34,5 +40,13 @@ export class SelectComponentComponent implements OnInit {
   onChange(selected: { id: string; name: string }) {
     console.log('Выбранные значения:', selected)
     this.selectedItem.emit({ itemId: selected.id })
+  }
+
+  ngOnChanges(): void {
+    if (!this.selectedOptions && this.options.length > 0) {
+      this.selectedOptions = this.options[0].id
+      this.selectedItem.emit({ itemId: this.options[0].id })
+    }
+    console.log(this.selectedOptions)
   }
 }

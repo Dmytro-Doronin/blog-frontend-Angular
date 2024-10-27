@@ -3,16 +3,21 @@ import { Actions, createEffect, ofType } from '@ngrx/effects'
 import { AuthService } from '../../core/services/auth.service'
 import { BlogService } from '../../core/services/blog.service'
 import { Router } from '@angular/router'
-import {
-  addBlogsAction,
-  changeLikeStatusForPostAction,
-  setBlogsLoadingAction,
-} from '../actions/blogs.actions'
+import { changeLikeStatusForPostInBlogAction } from '../actions/blogs.actions'
 import { catchError, concatMap, mergeMap } from 'rxjs/operators'
 import { concat, of } from 'rxjs'
 import { addAuthAlert } from '../actions/auth.actions'
-import { setLikeOrDislikeAction } from '../actions/posts.action'
+import {
+  addNewPostAction,
+  addPostsToStateAction,
+  changeLikeStatusForPostAction,
+  loadPosts,
+  setAllPostsToState,
+  setLikeOrDislikeAction,
+  setPostsLoadingAction,
+} from '../actions/posts.action'
 import { PostsService } from '../../core/services/posts.service'
+import { PostResponse } from '../../types/posts.models'
 
 @Injectable()
 export class PostsEffects {
@@ -24,6 +29,86 @@ export class PostsEffects {
     private router: Router
   ) {}
 
+  getAllPosts$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(loadPosts),
+      concatMap(action =>
+        concat(
+          of(setPostsLoadingAction({ loading: true })),
+          this.postService.getPosts(action.params).pipe(
+            mergeMap((response: PostResponse) => {
+              if (action.params.pageNumber === 1) {
+                return [
+                  setAllPostsToState({
+                    pagesCount: response.pagesCount,
+                    page: response.page,
+                    pageSize: response.pageSize,
+                    totalCount: response.totalCount,
+                    posts: response.items,
+                    hasMorePosts: response.items.length === action.params.pageSize,
+                  }),
+                  setPostsLoadingAction({ loading: false }),
+                ]
+              } else {
+                return [
+                  addPostsToStateAction({
+                    pagesCount: response.pagesCount,
+                    page: response.page,
+                    pageSize: response.pageSize,
+                    totalCount: response.totalCount,
+                    posts: response.items,
+                    hasMorePosts: response.items.length === action.params.pageSize,
+                  }),
+                  setPostsLoadingAction({ loading: false }),
+                ]
+              }
+            }),
+            catchError(error => {
+              const message = error?.error?.errorsMessages?.[0]?.message || 'Failed to load posts'
+              return of(
+                setPostsLoadingAction({ loading: false }),
+                addAuthAlert({ severity: 'error', message: message })
+              )
+            })
+          )
+        )
+      )
+    )
+  )
+
+  postAdd$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(addNewPostAction),
+      concatMap(action =>
+        concat(
+          of(setPostsLoadingAction({ loading: true })),
+          this.postService
+            .addNewPost({
+              title: action.tittle,
+              shortDescription: action.shortDescription,
+              content: action.content,
+              blogId: action.blogId,
+            })
+            .pipe(
+              mergeMap((response: any) => {
+                return [
+                  addAuthAlert({ severity: 'success', message: 'Post has been added!' }),
+                  setPostsLoadingAction({ loading: false }),
+                ]
+              }),
+              catchError(error => {
+                const message = error.error.errorsMessages[0].message
+                return of(
+                  setPostsLoadingAction({ loading: false }),
+                  addAuthAlert({ severity: 'error', message: message })
+                )
+              })
+            )
+        )
+      )
+    )
+  )
+
   likesPost$ = createEffect(() =>
     this.actions$.pipe(
       ofType(setLikeOrDislikeAction),
@@ -33,7 +118,14 @@ export class PostsEffects {
           this.postService.setLikeOrDislike(action.status, action.postId).pipe(
             mergeMap((response: any) => {
               return [
-                changeLikeStatusForPostAction({ postId: action.postId, status: action.status }),
+                changeLikeStatusForPostInBlogAction({
+                  postId: action.postId,
+                  status: action.status,
+                }),
+                changeLikeStatusForPostAction({
+                  postId: action.postId,
+                  status: action.status,
+                }),
                 // addAuthAlert({ severity: 'success', message: 'Blog has been added!' }),
                 // setBlogsLoadingAction({ loading: false }),
               ]

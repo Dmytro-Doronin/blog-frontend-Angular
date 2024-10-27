@@ -70,16 +70,18 @@ export class TokenInterceptor implements HttpInterceptor {
   }
   private isPostToBlogOrPost(req: HttpRequest<any>): boolean {
     const postUrls = ['http://localhost:3000/blogs', 'http://localhost:3000/posts']
+    const postUrlsForUser = ['http://localhost:3000/blogs/user-blogs']
     const blogPostUrlPattern = /^http:\/\/localhost:3000\/blogs\/[a-zA-Z0-9-]+\/posts$/
     const postPutUrlPattern = /^http:\/\/localhost:3000\/posts\/[a-zA-Z0-9-]+\/like-status$/
 
     const postOrBlogs = postUrls.includes(req.url) && req.method === 'POST'
+    const postOrBlogsForUser = postUrlsForUser.includes(req.url) && req.method === 'GET'
     const blogsToPosts = blogPostUrlPattern.test(req.url) && req.method === 'POST'
     const blogsToPostsGet = blogPostUrlPattern.test(req.url) && req.method === 'GET'
     const postLikePut = postPutUrlPattern.test(req.url) && req.method === 'PUT'
     // (postUrls.includes(req.url) && req.method === 'POST') ||
     // (blogPostUrlPattern.test(req.url) && req.method === 'POST')
-    return postOrBlogs || blogsToPosts || postLikePut || blogsToPostsGet
+    return postOrBlogs || blogsToPosts || postLikePut || blogsToPostsGet || postOrBlogsForUser
   }
 
   private isPostToBlogOrPostPut(req: HttpRequest<any>): boolean {
@@ -90,7 +92,8 @@ export class TokenInterceptor implements HttpInterceptor {
     const isPutToBlog = blogUrlPattern.test(req.url) && req.method === 'PUT'
     const isDeleteToBlog = blogUrlPattern.test(req.url) && req.method === 'DELETE'
     const isPostToOtherUrls = postUrls.includes(req.url) && req.method === 'POST'
+    const isPostToOtherUrlsGet = postUrls.includes(req.url) && req.method === 'GET'
 
-    return isPutToBlog || isPostToOtherUrls || isDeleteToBlog
+    return isPutToBlog || isPostToOtherUrls || isDeleteToBlog || isPostToOtherUrlsGet
   }
 }

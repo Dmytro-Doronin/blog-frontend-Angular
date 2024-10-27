@@ -5,16 +5,18 @@ import { BlogAddPageComponent } from './pages/blog-add-page/blog-add-page.compon
 import { AuthGuard } from '../core/guards/auth-guard.guard'
 import { BlogEditPageComponent } from './pages/blog-edit-page/blog-edit-page.component'
 import { BlogPageComponent } from './pages/blog-page/blog-page.component'
-import {AddPostForBlogFormComponent} from "./components/add-post-for-blog-form/add-post-for-blog-form.component";
-import {AddPostToBlogPageComponent} from "./pages/add-post-to-blog-page/add-post-to-blog-page.component";
+import { AddPostToBlogPageComponent } from './pages/add-post-to-blog-page/add-post-to-blog-page.component'
 
 export const blogRoutes: Routes = [
   { path: '', component: BlogsPageComponent },
   { path: 'add-blog', component: BlogAddPageComponent, canActivate: [AuthGuard] },
   { path: 'edit-blog', component: BlogEditPageComponent, canActivate: [AuthGuard] },
-  { path: 'blog/:id', component: BlogPageComponent},
-  { path: 'blog/:id/add-post-for-blog', component: AddPostToBlogPageComponent},
-
+  { path: 'blog/:id', component: BlogPageComponent },
+  {
+    path: 'blog/:id/add-post-for-blog',
+    component: AddPostToBlogPageComponent,
+    canActivate: [AuthGuard],
+  },
 ]
 @NgModule({
   imports: [RouterModule.forChild(blogRoutes)],
