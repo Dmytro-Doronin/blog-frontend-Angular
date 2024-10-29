@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core'
-import { SeverityType } from '../../../../types/notification.models'
+import { SeverityType } from '../../../types/notification.models'
 import { FormBuilder, Validators } from '@angular/forms'
-import { IOptions } from '../../../../types/options.models'
+import { IOptions } from '../../../types/options.models'
 
 @Component({
   selector: 'blog-add-post-form',

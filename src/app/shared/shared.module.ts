@@ -40,6 +40,7 @@ import { LikeIconComponent } from './components/icons/like-icon/like-icon.compon
 import { DislikeIconComponent } from './components/icons/dislike-icon/dislike-icon.component'
 import { LikeDislikeComponent } from './components/like-dislike/like-dislike.component'
 import {IconSignInComponent} from "./header/icon-sign-in/icon-sign-in.component";
+import {PostControlMenuComponent} from "./components/post-control-menu/post-control-menu.component";
 
 @NgModule({
   declarations: [
@@ -80,7 +81,8 @@ import {IconSignInComponent} from "./header/icon-sign-in/icon-sign-in.component"
     DislikeIconComponent,
     LikeDislikeComponent,
     IconSignOutComponent,
-    IconSignInComponent
+    IconSignInComponent,
+    PostControlMenuComponent
   ],
   imports: [
     CommonModule,
@@ -129,7 +131,8 @@ import {IconSignInComponent} from "./header/icon-sign-in/icon-sign-in.component"
     LikeIconComponent,
     DislikeIconComponent,
     LikeDislikeComponent,
-    IconSignInComponent
+    IconSignInComponent,
+    PostControlMenuComponent
   ],
 })
 export class SharedModule {}

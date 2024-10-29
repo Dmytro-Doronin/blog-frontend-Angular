@@ -1,6 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core'
 import { postsOptions } from '../../../data/options'
 import {
+  callDeletePostModalAction,
+  deletePost,
   loadPosts,
   setLikeOrDislikeAction,
   setSortByAlphabetForPost,
@@ -10,12 +12,17 @@ import { Store } from '@ngrx/store'
 import { IPost } from '../../../types/posts.models'
 import { Observable, Subscription } from 'rxjs'
 import {
+  selectCurrentPostId,
+  selectDeletePostModal,
   selectHasMorePosts,
   selectPosts,
   selectPostsLoading,
   selectSortParamsForPosts,
 } from '../../../store/selectors/posts.selector'
-import { selectIsAuthenticated } from '../../../store/selectors/auth.selector'
+import {selectIsAuthenticated, selectUserId, selectUserLogin} from '../../../store/selectors/auth.selector'
+import {selectCurrentBlogId, selectDeleteBlogModal} from "../../../store/selectors/blogs.selector";
+import {callDeleteBlogModalAction} from "../../../store/actions/blogs.actions";
+import {log} from "@angular-devkit/build-angular/src/builders/ssr-dev-server";
 
 @Component({
   selector: 'blog-posts-page',
@@ -27,6 +34,9 @@ export class PostsPageComponent implements OnInit, OnDestroy {
   isAuthenticated$?: Observable<boolean>
   hasMorePosts$?: Observable<boolean>
   loading$?: Observable<boolean>
+  currentUserId$?: Observable<string>
+  openDeleteModal$?: Observable<boolean>
+  postToDeleteId: string = ''
   pageNumber = 1
   pageSize = 5
   sortBy: string = 'createdAt'
@@ -34,15 +44,19 @@ export class PostsPageComponent implements OnInit, OnDestroy {
 
   protected readonly postsOptions = postsOptions
   private sortDataSubscription: Subscription = new Subscription()
+  private currentPostIdSubscription: Subscription = new Subscription()
   constructor(private store: Store) {}
 
   ngOnInit() {
+    this.getCurrentUser()
     this.getSortData()
     this.loadPosts()
     this.getPosts()
     this.getLoading()
     this.getHasMorePosts()
     this.getIsAuthenticated()
+    this.getOpenDeleteModal()
+    this.getCurrentPostId()
   }
 
   loadPosts() {
@@ -75,6 +89,11 @@ export class PostsPageComponent implements OnInit, OnDestroy {
     this.posts$ = this.store.select(selectPosts)
   }
 
+  getCurrentUser() {
+    this.currentUserId$ = this.store.select(selectUserId)
+    this.currentUserId$.subscribe(item=> console.log(item))
+  }
+
   getLoading() {
     this.loading$ = this.store.select(selectPostsLoading)
   }
@@ -86,6 +105,25 @@ export class PostsPageComponent implements OnInit, OnDestroy {
 
   onDislikePost(postId: string) {
     this.store.dispatch(setLikeOrDislikeAction({ status: 'Dislike', postId }))
+  }
+
+  getOpenDeleteModal() {
+    this.openDeleteModal$ = this.store.select(selectDeletePostModal)
+  }
+
+  getCurrentPostId() {
+    this.currentPostIdSubscription = this.store.select(selectCurrentPostId).subscribe(postId => {
+      this.postToDeleteId = postId
+    })
+  }
+
+  deletePost() {
+    this.store.dispatch(deletePost({ postId: this.postToDeleteId }))
+    this.store.dispatch(callDeletePostModalAction({ deletePostModal: false }))
+  }
+
+  onCloseModal() {
+    this.store.dispatch(callDeletePostModalAction({ deletePostModal: false }))
   }
 
   getSortData() {
@@ -111,5 +149,6 @@ export class PostsPageComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.sortDataSubscription.unsubscribe()
+    this.currentPostIdSubscription.unsubscribe()
   }
 }

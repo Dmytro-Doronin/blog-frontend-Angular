@@ -7,7 +7,8 @@ import { IPost } from '../../../types/posts.models'
   styleUrl: './post-item.component.scss',
 })
 export class PostItemComponent {
-  @Input() post?: IPost
+  @Input() post!: IPost
+  @Input() currentUserId?: string | null
   @Output() likePost = new EventEmitter<string>()
   @Output() dislikePost = new EventEmitter<string>()
 

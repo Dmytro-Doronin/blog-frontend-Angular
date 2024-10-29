@@ -1,6 +1,9 @@
 import { createAction, props } from '@ngrx/store'
 import { IPost, PostQueryParams } from '../../types/posts.models'
 
+
+export const deletePost = createAction('[Post] delete post', props<{ postId: string }>())
+
 export const loadPosts = createAction('[Posts] get all posts', props<{ params: PostQueryParams }>())
 export const addNewPostAction = createAction(
   '[Posts] add new post 1',
@@ -60,3 +63,20 @@ export const setLikeStatusAsNoneForPostsAction = createAction(
   '[Posts] set like status for posts as none',
   props<{ status: 'None' }>()
 )
+
+export const setCurrentPostId = createAction(
+  '[Post] set current post id',
+  props<{ currentPostId: string }>()
+)
+
+export const callDeletePostModalAction = createAction(
+  '[Post] delete post modal',
+  props<{ deletePostModal: boolean }>()
+)
+
+export const successDeletePost = createAction(
+  '[Post] success delete post',
+  props<{ postId: string }>()
+)
+
+

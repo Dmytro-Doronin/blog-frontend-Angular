@@ -11,6 +11,14 @@ export const selectHasMorePosts = createSelector(
   selectPostsState,
   (state: PostsState) => state.hasMorePosts
 )
+export const selectCurrentPostId = createSelector(
+  selectPostsState,
+  (state: PostsState) => state.currentPostId
+)
+export const selectDeletePostModal = createSelector(
+  selectPostsState,
+  (state: PostsState) => state.deletePostModal
+)
 
 export const selectSortParamsForPosts = createSelector(
   selectPostsState,

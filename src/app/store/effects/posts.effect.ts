@@ -3,18 +3,23 @@ import { Actions, createEffect, ofType } from '@ngrx/effects'
 import { AuthService } from '../../core/services/auth.service'
 import { BlogService } from '../../core/services/blog.service'
 import { Router } from '@angular/router'
-import { changeLikeStatusForPostInBlogAction } from '../actions/blogs.actions'
+import {
+  changeLikeStatusForPostInBlogAction,
+  deleteBlog,
+  setBlogsLoadingAction,
+  successDeleteBlog
+} from '../actions/blogs.actions'
 import { catchError, concatMap, mergeMap } from 'rxjs/operators'
 import { concat, of } from 'rxjs'
 import { addAuthAlert } from '../actions/auth.actions'
 import {
   addNewPostAction,
   addPostsToStateAction,
-  changeLikeStatusForPostAction,
+  changeLikeStatusForPostAction, deletePost,
   loadPosts,
   setAllPostsToState,
   setLikeOrDislikeAction,
-  setPostsLoadingAction,
+  setPostsLoadingAction, successDeletePost,
 } from '../actions/posts.action'
 import { PostsService } from '../../core/services/posts.service'
 import { PostResponse } from '../../types/posts.models'
@@ -104,6 +109,33 @@ export class PostsEffects {
                 )
               })
             )
+        )
+      )
+    )
+  )
+
+  deletePost$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(deletePost),
+      concatMap(action =>
+        concat(
+          of(setPostsLoadingAction({ loading: true })),
+          this.postService.deletePostById(action.postId).pipe(
+            mergeMap((response: any) => {
+              return [
+                successDeletePost({ postId: action.postId }),
+                addAuthAlert({ severity: 'success', message: 'Post has been deleted!' }),
+                setPostsLoadingAction({ loading: false }),
+              ]
+            }),
+            catchError(error => {
+              const message = error.error.errorsMessages[0].message
+              return of(
+                setPostsLoadingAction({ loading: false }),
+                addAuthAlert({ severity: 'error', message: message })
+              )
+            })
+          )
         )
       )
     )

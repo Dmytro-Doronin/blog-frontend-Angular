@@ -53,4 +53,8 @@ export class PostsService {
       { withCredentials: true }
     )
   }
+
+  deletePostById(postId: string) {
+    return this.http.delete(`http://localhost:3000/posts/${postId}`, { withCredentials: true })
+  }
 }

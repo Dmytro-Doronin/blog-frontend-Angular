@@ -1,17 +1,17 @@
 import { createReducer, on } from '@ngrx/store'
 import { IPost } from '../../types/posts.models'
 import {
-  addPostsToStateAction,
-  setAllPostsToState,
+  addPostsToStateAction, callDeletePostModalAction,
+  setAllPostsToState, setCurrentPostId,
   setLikeStatusAsNoneForPostsAction,
   setPostsLoadingAction,
   setSortByAlphabetForPost,
-  setSortByDateForPost,
+  setSortByDateForPost, successDeletePost,
 } from '../actions/posts.action'
 import {
   changeLikeStatusForPostInBlogAction,
   setSortByAlphabetForBlog,
-  setSortByDateForBlog,
+  setSortByDateForBlog, successDeleteBlog,
 } from '../actions/blogs.actions'
 import { updatePostLikesStatus } from '../../utils/post.utils'
 
@@ -25,6 +25,8 @@ export interface PostsState {
   hasMorePosts: boolean
   sortBy: string
   sortDirection: 'asc' | 'desc'
+  deletePostModal: boolean
+  currentPostId: string
 }
 
 export const initialState: PostsState = {
@@ -37,6 +39,8 @@ export const initialState: PostsState = {
   hasMorePosts: false,
   sortBy: 'createdAt',
   sortDirection: 'desc',
+  deletePostModal: false,
+  currentPostId: ''
 }
 
 export const postsReducer = createReducer(
@@ -79,7 +83,18 @@ export const postsReducer = createReducer(
     ...state,
     loading: loading,
   })),
-
+  on(setCurrentPostId, (state, { currentPostId }) => ({
+    ...state,
+    currentPostId: currentPostId,
+  })),
+  on(callDeletePostModalAction, (state, { deletePostModal }) => ({
+    ...state,
+    deletePostModal: deletePostModal,
+  })),
+  on(successDeletePost, (state, { postId }) => ({
+    ...state,
+    posts: state.posts.filter(b => b.id !== postId),
+  })),
   on(changeLikeStatusForPostInBlogAction, (state, { postId, status }) => ({
     ...state,
     posts: state.posts.map(post => {

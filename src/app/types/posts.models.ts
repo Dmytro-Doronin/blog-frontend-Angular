@@ -15,6 +15,8 @@ export interface IPost {
   blogId: string
   blogName: string
   createdAt: string
+  userId:string
+  userName: string
   extendedLikesInfo: IExtendedLikesInfo
 }
 export interface PostResponse {

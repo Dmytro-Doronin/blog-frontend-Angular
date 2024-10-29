@@ -7,7 +7,10 @@
   <!--      [blogId]="'asdasd'"-->
   <!--    ></blog-blog-control-menu>-->
   <!--  </ng-container>-->
-
+  <blog-post-control-menu
+    *ngIf="currentUserId && post?.userId && currentUserId === post.userId"
+    [postId]="post.id">
+  </blog-post-control-menu>
   <div class="post-item-picture">
     <blog-content-picture [variant]="'post-picture'"></blog-content-picture>
   </div>
@@ -21,14 +24,14 @@
           [variant]="'h4'"
           [className]="' mr16'"
         ></blog-typography>
-        <span class="post-date">{{ post?.createdAt | date: 'dd/MM/yyyy' }}</span>
+        <span class="post-date">{{ post.createdAt | date: 'dd/MM/yyyy' }}</span>
       </div>
 
       <!--      <div class="author"><span>Author:</span> Vadim</div>-->
-      <p class="post-item-content-short-description">{{ post?.shortDescription }}</p>
+      <p class="post-item-content-short-description">{{ post.shortDescription }}</p>
     </div>
     <p *ngIf="true" class="post-item-content-text">
-      {{ post?.content }}
+      {{ post.content }}
     </p>
 
     <!--    likes section-->
