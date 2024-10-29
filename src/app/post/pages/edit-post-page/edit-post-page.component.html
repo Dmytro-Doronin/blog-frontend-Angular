@@ -5,6 +5,12 @@
     [content]="'Back to posts'"
   ></blog-button>
   <div class="form-container">
-    asdasd
+    <blog-edit-post-form
+      [currentPostId]="currentPosId"
+      [authSeverity]="authSeverity$ | async"
+      (formSubmitted)="onFormSubmit($event)"
+      [loading]="loading$ | async"
+    >
+    </blog-edit-post-form>
   </div>
 </blog-main-page>

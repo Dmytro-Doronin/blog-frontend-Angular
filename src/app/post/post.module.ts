@@ -7,11 +7,27 @@ import { AddPostPageComponent } from './pages/add-post-page/add-post-page.compon
 import { AddPostFormComponent } from './components/add-post-form/add-post-form.component'
 import { ReactiveFormsModule } from '@angular/forms'
 import { BlogModule } from '../blog/blog.module'
-import {EditPostPageComponent} from "./pages/edit-post-page/edit-post-page.component";
+import { EditPostPageComponent } from './pages/edit-post-page/edit-post-page.component'
+import { EditPostFormComponent } from './components/edit-post-form/edit-post-form.component'
+import { PostPageComponent } from './pages/post-page/post-page.component'
 
 @NgModule({
-  declarations: [PostsPageComponent, AddPostPageComponent, AddPostFormComponent,EditPostPageComponent],
+  declarations: [
+    PostsPageComponent,
+    AddPostPageComponent,
+    AddPostFormComponent,
+    EditPostPageComponent,
+    EditPostFormComponent,
+    PostPageComponent,
+  ],
   imports: [CommonModule, PostsRoutingModule, SharedModule, ReactiveFormsModule, BlogModule],
-  exports: [PostsPageComponent, AddPostPageComponent, AddPostFormComponent,EditPostPageComponent],
+  exports: [
+    PostsPageComponent,
+    AddPostPageComponent,
+    AddPostFormComponent,
+    EditPostPageComponent,
+    EditPostFormComponent,
+    PostPageComponent,
+  ],
 })
 export class PostModule {}

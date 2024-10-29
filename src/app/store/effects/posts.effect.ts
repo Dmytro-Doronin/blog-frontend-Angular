@@ -3,23 +3,22 @@ import { Actions, createEffect, ofType } from '@ngrx/effects'
 import { AuthService } from '../../core/services/auth.service'
 import { BlogService } from '../../core/services/blog.service'
 import { Router } from '@angular/router'
-import {
-  changeLikeStatusForPostInBlogAction,
-  deleteBlog,
-  setBlogsLoadingAction,
-  successDeleteBlog
-} from '../actions/blogs.actions'
-import { catchError, concatMap, mergeMap } from 'rxjs/operators'
+import { changeLikeStatusForPostInBlogAction } from '../actions/blogs.actions'
+import { catchError, concatMap, mergeMap, switchMap } from 'rxjs/operators'
 import { concat, of } from 'rxjs'
 import { addAuthAlert } from '../actions/auth.actions'
 import {
   addNewPostAction,
   addPostsToStateAction,
-  changeLikeStatusForPostAction, deletePost,
+  changeLikeStatusForPostAction,
+  deletePost,
   loadPosts,
   setAllPostsToState,
   setLikeOrDislikeAction,
-  setPostsLoadingAction, successDeletePost,
+  setPostsLoadingAction,
+  successDeletePost,
+  successUpdateDetailsPost,
+  updatePost,
 } from '../actions/posts.action'
 import { PostsService } from '../../core/services/posts.service'
 import { PostResponse } from '../../types/posts.models'
@@ -136,6 +135,55 @@ export class PostsEffects {
               )
             })
           )
+        )
+      )
+    )
+  )
+
+  postEdit$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(updatePost),
+      concatMap(action =>
+        concat(
+          of(setPostsLoadingAction({ loading: true })),
+          this.postService
+            .editPost({
+              title: action.title,
+              shortDescription: action.shortDescription,
+              content: action.content,
+              postId: action.postId,
+              blogId: action.blogId,
+            })
+            .pipe(
+              switchMap(() =>
+                this.postService.getPostById(action.postId).pipe(
+                  mergeMap((updatedPost: any) => {
+                    console.log('get post by id success')
+                    return [
+                      successUpdateDetailsPost({ post: updatedPost }),
+                      addAuthAlert({ severity: 'success', message: 'Post was changed' }),
+                      setPostsLoadingAction({ loading: false }),
+                    ]
+                  }),
+                  catchError(error => {
+                    const message =
+                      error?.error?.errorsMessages?.[0]?.message || 'Failed to load updated blog'
+                    return of(
+                      setPostsLoadingAction({ loading: false }),
+                      addAuthAlert({ severity: 'error', message: message })
+                    )
+                  })
+                )
+              ),
+              catchError(error => {
+                const message =
+                  error?.error?.errorsMessages?.[0]?.message || 'Failed to update post'
+                return of(
+                  setPostsLoadingAction({ loading: false }),
+                  addAuthAlert({ severity: 'error', message: message })
+                )
+              })
+            )
         )
       )
     )

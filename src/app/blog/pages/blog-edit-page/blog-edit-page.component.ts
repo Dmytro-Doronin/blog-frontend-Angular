@@ -3,9 +3,8 @@ import { Observable, Subscription } from 'rxjs'
 import { SeverityType } from '../../../types/notification.models'
 import { Store } from '@ngrx/store'
 import { selectAuthAlertSeverity } from '../../../store/selectors/auth.selector'
-import { selectBlogsLoading } from '../../../store/selectors/blogs.selector'
+import { selectBlogsLoading, selectCurrentBlogId } from '../../../store/selectors/blogs.selector'
 import { addBlogsAction, updateBlog } from '../../../store/actions/blogs.actions'
-import { selectItemId } from '../../../store/selectors/app.selector'
 
 @Component({
   selector: 'blog-blog-edit-page',
@@ -32,7 +31,7 @@ export class BlogEditPageComponent implements OnInit, OnDestroy {
   }
 
   getBlogId() {
-    this.currentBlogSubscription = this.store.select(selectItemId).subscribe(item => {
+    this.currentBlogSubscription = this.store.select(selectCurrentBlogId).subscribe(item => {
       this.currentBlogId = item ?? ''
     })
   }

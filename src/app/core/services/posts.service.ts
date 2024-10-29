@@ -1,7 +1,12 @@
 import { HttpClient, HttpParams } from '@angular/common/http'
 import { Injectable } from '@angular/core'
-import { IPost, PostAddToBlogModel, PostQueryParams, PostResponse } from '../../types/posts.models'
-import { IBlog, PostBlogModel } from '../../types/blogs.models'
+import {
+  EditPostModel,
+  IPost,
+  PostAddToBlogModel,
+  PostQueryParams,
+  PostResponse,
+} from '../../types/posts.models'
 
 @Injectable({
   providedIn: 'root',
@@ -56,5 +61,22 @@ export class PostsService {
 
   deletePostById(postId: string) {
     return this.http.delete(`http://localhost:3000/posts/${postId}`, { withCredentials: true })
+  }
+
+  getPostById(postId: string) {
+    return this.http.get<IPost>(`http://localhost:3000/posts/${postId}`, { withCredentials: true })
+  }
+
+  editPost({ title, shortDescription, content, postId, blogId }: EditPostModel) {
+    return this.http.put(
+      `http://localhost:3000/posts/${postId}`,
+      {
+        title,
+        shortDescription,
+        content,
+        blogId,
+      },
+      { withCredentials: true }
+    )
   }
 }

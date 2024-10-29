@@ -14,6 +14,7 @@ export class BlogControlMenuComponent {
 
   setBlogId() {
     this.store.dispatch(setItemId({ itemId: this.blogId }))
+    this.store.dispatch(setCurrentBlogId({ blogId: this.blogId }))
   }
 
   onBlogDeleteModalClose() {

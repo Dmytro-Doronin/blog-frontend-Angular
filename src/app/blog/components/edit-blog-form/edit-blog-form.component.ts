@@ -14,7 +14,7 @@ import { selectItemId } from '../../../store/selectors/app.selector'
 export class EditBlogFormComponent implements OnInit, OnChanges, OnDestroy {
   @Input() loading?: boolean | null = false
   @Input() authSeverity?: SeverityType | undefined | null
-  currentBlogId: string | null = ''
+  @Input() currentBlogId: string | null = ''
   private blogIdSubscription: Subscription = new Subscription()
 
   @Output() formSubmitted = new EventEmitter<{
@@ -41,7 +41,6 @@ export class EditBlogFormComponent implements OnInit, OnChanges, OnDestroy {
   })
 
   ngOnInit() {
-    this.getBlogId()
     this.getDataFromBlog()
   }
 
@@ -57,15 +56,8 @@ export class EditBlogFormComponent implements OnInit, OnChanges, OnDestroy {
     return this.editBlogUpForm.get('websiteUrl')
   }
 
-  getBlogId() {
-    this.blogIdSubscription = this.store.select(selectItemId).subscribe(blogId => {
-      this.currentBlogId = blogId
-    })
-  }
-
   getDataFromBlog() {
     this.store.select(selectBlogById(this.currentBlogId)).subscribe(blog => {
-      console.log(blog)
       if (blog) {
         this.editBlogUpForm.patchValue({
           name: blog.name,

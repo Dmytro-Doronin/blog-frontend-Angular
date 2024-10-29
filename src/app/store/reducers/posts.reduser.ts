@@ -1,17 +1,23 @@
 import { createReducer, on } from '@ngrx/store'
 import { IPost } from '../../types/posts.models'
 import {
-  addPostsToStateAction, callDeletePostModalAction,
-  setAllPostsToState, setCurrentPostId,
+  addPostsToStateAction,
+  callDeletePostModalAction,
+  setAllPostsToState,
+  setCurrentPostId,
   setLikeStatusAsNoneForPostsAction,
   setPostsLoadingAction,
   setSortByAlphabetForPost,
-  setSortByDateForPost, successDeletePost,
+  setSortByDateForPost,
+  successDeletePost,
+  successUpdateDetailsPost,
 } from '../actions/posts.action'
 import {
   changeLikeStatusForPostInBlogAction,
   setSortByAlphabetForBlog,
-  setSortByDateForBlog, successDeleteBlog,
+  setSortByDateForBlog,
+  successDeleteBlog,
+  successUpdateDetailsBlog,
 } from '../actions/blogs.actions'
 import { updatePostLikesStatus } from '../../utils/post.utils'
 
@@ -40,7 +46,7 @@ export const initialState: PostsState = {
   sortBy: 'createdAt',
   sortDirection: 'desc',
   deletePostModal: false,
-  currentPostId: ''
+  currentPostId: '',
 }
 
 export const postsReducer = createReducer(
@@ -94,6 +100,10 @@ export const postsReducer = createReducer(
   on(successDeletePost, (state, { postId }) => ({
     ...state,
     posts: state.posts.filter(b => b.id !== postId),
+  })),
+  on(successUpdateDetailsPost, (state, { post }) => ({
+    ...state,
+    posts: state.posts.map(b => (b.id === post.id ? post : b)),
   })),
   on(changeLikeStatusForPostInBlogAction, (state, { postId, status }) => ({
     ...state,

@@ -15,7 +15,7 @@ export interface IPost {
   blogId: string
   blogName: string
   createdAt: string
-  userId:string
+  userId: string
   userName: string
   extendedLikesInfo: IExtendedLikesInfo
 }
@@ -31,5 +31,13 @@ export interface PostAddToBlogModel {
   title: string
   shortDescription: string
   content: string
+  blogId: string
+}
+
+export interface EditPostModel {
+  title: string
+  shortDescription: string
+  content: string
+  postId: string
   blogId: string
 }

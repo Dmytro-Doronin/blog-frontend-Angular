@@ -1,6 +1,6 @@
 import { createAction, props } from '@ngrx/store'
 import { IPost, PostQueryParams } from '../../types/posts.models'
-
+import { IBlog } from '../../types/blogs.models'
 
 export const deletePost = createAction('[Post] delete post', props<{ postId: string }>())
 
@@ -79,4 +79,18 @@ export const successDeletePost = createAction(
   props<{ postId: string }>()
 )
 
+export const updatePost = createAction(
+  '[Post] Update Post',
+  props<{
+    title: string
+    shortDescription: string
+    content: string
+    postId: string
+    blogId: string
+  }>()
+)
 
+export const successUpdateDetailsPost = createAction(
+  '[Post] Update post details',
+  props<{ post: IPost }>()
+)

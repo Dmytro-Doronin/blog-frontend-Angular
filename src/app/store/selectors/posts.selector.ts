@@ -1,5 +1,6 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store'
 import { PostsState } from '../reducers/posts.reduser'
+import { selectBlogs } from './blogs.selector'
 
 export const selectPostsState = createFeatureSelector<PostsState>('posts')
 export const selectPosts = createSelector(selectPostsState, (state: PostsState) => state.posts)
@@ -24,3 +25,5 @@ export const selectSortParamsForPosts = createSelector(
   selectPostsState,
   (state: PostsState) => state
 )
+export const selectPostById = (postId: string | null) =>
+  createSelector(selectPosts, posts => posts.find(blog => blog.id === postId))

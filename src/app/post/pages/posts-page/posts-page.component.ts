@@ -19,10 +19,7 @@ import {
   selectPostsLoading,
   selectSortParamsForPosts,
 } from '../../../store/selectors/posts.selector'
-import {selectIsAuthenticated, selectUserId, selectUserLogin} from '../../../store/selectors/auth.selector'
-import {selectCurrentBlogId, selectDeleteBlogModal} from "../../../store/selectors/blogs.selector";
-import {callDeleteBlogModalAction} from "../../../store/actions/blogs.actions";
-import {log} from "@angular-devkit/build-angular/src/builders/ssr-dev-server";
+import { selectIsAuthenticated, selectUserId } from '../../../store/selectors/auth.selector'
 
 @Component({
   selector: 'blog-posts-page',
@@ -91,7 +88,7 @@ export class PostsPageComponent implements OnInit, OnDestroy {
 
   getCurrentUser() {
     this.currentUserId$ = this.store.select(selectUserId)
-    this.currentUserId$.subscribe(item=> console.log(item))
+    this.currentUserId$.subscribe(item => console.log(item))
   }
 
   getLoading() {

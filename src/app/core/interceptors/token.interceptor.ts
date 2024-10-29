@@ -75,18 +75,27 @@ export class TokenInterceptor implements HttpInterceptor {
     const postPutUrlPattern = /^http:\/\/localhost:3000\/posts\/[a-zA-Z0-9-]+\/like-status$/
     const postUrlPattern = /^http:\/\/localhost:3000\/posts\/[a-zA-Z0-9-]+$/
 
-
     const isDeletePost = postUrlPattern.test(req.url) && req.method === 'DELETE'
     const postOrBlogs = postUrls.includes(req.url) && req.method === 'POST'
     const postOrBlogsForUser = postUrlsForUser.includes(req.url) && req.method === 'GET'
+    const getPostById = postUrlPattern.test(req.url) && req.method === 'GET'
     const blogsToPosts = blogPostUrlPattern.test(req.url) && req.method === 'POST'
     const blogsToPostsGet = blogPostUrlPattern.test(req.url) && req.method === 'GET'
     const postLikePut = postPutUrlPattern.test(req.url) && req.method === 'PUT'
+    const postPut = postUrlPattern.test(req.url) && req.method === 'PUT'
     // (postUrls.includes(req.url) && req.method === 'POST') ||
     // (blogPostUrlPattern.test(req.url) && req.method === 'POST')
-    return postOrBlogs || blogsToPosts || postLikePut || blogsToPostsGet || postOrBlogsForUser || isDeletePost
+    return (
+      postOrBlogs ||
+      blogsToPosts ||
+      postLikePut ||
+      blogsToPostsGet ||
+      postOrBlogsForUser ||
+      isDeletePost ||
+      postPut ||
+      getPostById
+    )
   }
-
   private isPostToBlogOrPostPut(req: HttpRequest<any>): boolean {
     const blogUrlPattern = /^http:\/\/localhost:3000\/blogs\/[a-zA-Z0-9-]+$/
     const postUrls = ['http://localhost:3000/posts']

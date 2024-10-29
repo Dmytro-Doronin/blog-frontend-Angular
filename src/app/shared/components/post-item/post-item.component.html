@@ -9,7 +9,9 @@
   <!--  </ng-container>-->
   <blog-post-control-menu
     *ngIf="currentUserId && post?.userId && currentUserId === post.userId"
-    [postId]="post.id">
+    [postId]="post.id"
+    [blogId]="post.blogId"
+  >
   </blog-post-control-menu>
   <div class="post-item-picture">
     <blog-content-picture [variant]="'post-picture'"></blog-content-picture>
