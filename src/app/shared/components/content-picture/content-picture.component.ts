@@ -6,5 +6,5 @@ import { Component, Input } from '@angular/core'
   styleUrl: './content-picture.component.scss',
 })
 export class ContentPictureComponent {
-  @Input() variant: 'round' | 'big-picture' | 'post-picture' = 'round'
+  @Input() variant: 'round' | 'big-picture' | 'post-picture' | 'small-round' = 'round'
 }

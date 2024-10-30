@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core'
-import {Observable} from "rxjs";
-import {Store} from "@ngrx/store";
-import {selectIsAuthenticated} from "../../../store/selectors/auth.selector";
+import { Observable } from 'rxjs'
+import { Store } from '@ngrx/store'
+import { selectIsAuthenticated } from '../../../store/selectors/auth.selector'
 
 @Component({
   selector: 'blog-like-dislike',
@@ -16,8 +16,7 @@ export class LikeDislikeComponent implements OnInit {
   @Output() dislikeEvent = new EventEmitter<string>()
   isAuthenticated$?: Observable<boolean>
 
-  constructor(private store: Store) {
-  }
+  constructor(private store: Store) {}
   ngOnInit() {
     console.log(this.status)
     this.getIsAuth()

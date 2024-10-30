@@ -27,7 +27,7 @@ import {
 } from '../../../store/selectors/blogs.selector'
 import { IBlog } from '../../../types/blogs.models'
 import { blogOptions } from '../../../data/options'
-import {deletePost} from "../../../store/actions/posts.action";
+import { deletePost } from '../../../store/actions/posts.action'
 
 @Component({
   selector: 'blog-blogs-page',
@@ -181,5 +181,5 @@ export class BlogsPageComponent implements OnInit, OnDestroy {
   }
 
   protected readonly blogOptions = blogOptions
-  protected readonly deletePost = deletePost;
+  protected readonly deletePost = deletePost
 }

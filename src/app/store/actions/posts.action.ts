@@ -94,3 +94,6 @@ export const successUpdateDetailsPost = createAction(
   '[Post] Update post details',
   props<{ post: IPost }>()
 )
+
+export const getPostByIdAction = createAction('[Post] get post by id', props<{ postId: string }>())
+export const setPostByIdAction = createAction('[post] set post by id', props<IPost>())

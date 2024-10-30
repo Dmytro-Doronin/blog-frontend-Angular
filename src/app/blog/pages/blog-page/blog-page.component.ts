@@ -49,7 +49,6 @@ export class BlogPageComponent implements OnInit, OnDestroy {
     this.downloadPostsForBlog()
     this.getPostsForBlog()
     this.getHasMorePostsForBlog()
-    console.log(this.blog)
   }
 
   downloadPostsForBlog() {
@@ -68,9 +67,6 @@ export class BlogPageComponent implements OnInit, OnDestroy {
 
   getPostsForBlog() {
     this.posts$ = this.store.select(selectPostsForBlogBlogModal)
-    this.posts$.subscribe(item => {
-      console.log(item)
-    })
   }
   getHasMorePostsForBlog() {
     this.hasMorePostForBlog$ = this.store.select(selectHasMorePostsForBlog)
@@ -106,7 +102,6 @@ export class BlogPageComponent implements OnInit, OnDestroy {
 
   onLikePost(postId: string) {
     this.store.dispatch(setLikeOrDislikeAction({ status: 'Like', postId }))
-    console.log(postId)
   }
 
   onDislikePost(postId: string) {

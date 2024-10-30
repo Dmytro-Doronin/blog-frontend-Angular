@@ -1,1 +1,23 @@
-<p>post-page works!</p>
+<blog-main-page>
+  <blog-button
+    routerLink="/main/posts-page"
+    [variant]="'Back'"
+    [content]="'Back to posts'"
+  ></blog-button>
+
+  <section>
+    <div class="blog-info">
+      <div class="picture-container">
+        <blog-content-picture [variant]="'small-round'"></blog-content-picture>
+      </div>
+      <span class="blog-name">{{ (blog$ | async)?.name }}</span>
+    </div>
+
+    <div class="post-header">
+      <blog-typography [variant]="'h2'" [content]="post ? post.title : ''"></blog-typography>
+      <div class="date-time-block">
+        <span class="date">{{ post?.createdAt | date: "dd/MM/yyyy 'at' HH:mm:ss" }}</span>
+      </div>
+    </div>
+  </section>
+</blog-main-page>

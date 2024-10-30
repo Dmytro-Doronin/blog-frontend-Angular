@@ -6,6 +6,7 @@ import {
   setAllPostsToState,
   setCurrentPostId,
   setLikeStatusAsNoneForPostsAction,
+  setPostByIdAction,
   setPostsLoadingAction,
   setSortByAlphabetForPost,
   setSortByDateForPost,
@@ -27,6 +28,7 @@ export interface PostsState {
   pageSize: number
   totalCount: number
   posts: IPost[]
+  post: IPost | null
   loading: boolean
   hasMorePosts: boolean
   sortBy: string
@@ -41,6 +43,7 @@ export const initialState: PostsState = {
   pageSize: 0,
   totalCount: 0,
   posts: [],
+  post: null,
   loading: false,
   hasMorePosts: false,
   sortBy: 'createdAt',
@@ -120,5 +123,9 @@ export const postsReducer = createReducer(
     posts: state.posts.map(post => {
       return { ...post, extendedLikesInfo: { ...post.extendedLikesInfo, myStatus: status } }
     }),
+  })),
+  on(setPostByIdAction, (state, { ...post }) => ({
+    ...state,
+    post: { ...post, extendedLikesInfo: post.extendedLikesInfo },
   }))
 )

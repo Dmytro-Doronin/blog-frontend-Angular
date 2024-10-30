@@ -1,4 +1,4 @@
-<div class="post-item">
+<div [routerLink]="['/main/posts-page/post', post.id]" class="post-item">
   <!--  [routerLink]="['/main/blogs-page/blog', 'asdasd']"-->
   <!--  <ng-container *ngIf="!mini">-->
   <!--    *ngIf="currentUserId && blog?.userId && currentUserId === blog.userId"-->
@@ -24,7 +24,7 @@
           *ngIf="true"
           [content]="post!.title"
           [variant]="'h4'"
-          [className]="' mr16'"
+          [className]="'mr16'"
         ></blog-typography>
         <span class="post-date">{{ post.createdAt | date: 'dd/MM/yyyy' }}</span>
       </div>
