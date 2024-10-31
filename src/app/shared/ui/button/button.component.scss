@@ -10,10 +10,14 @@
 
   padding: 8px 36px 8px 36px;
   border-radius: 2px;
-  gap: 10px;
+  //gap: 10px;
 
   transition: all 0.3s ease-in-out;
 
+}
+
+.withoutMargin {
+  margin: 0;
 }
 
 .link {
@@ -98,5 +102,15 @@
   //display: block;
   //margin: 0 auto;
   text-align: center;
+}
+
+.disabled {
+  background: #FB85A6;
+  box-shadow: 0px 4px 18px 0px #F8346B59;
+  box-shadow: 0px 1px 0px 0px #FFFFFF4D inset;
+}
+
+.disabled:hover {
+  box-shadow: none;
 }
 

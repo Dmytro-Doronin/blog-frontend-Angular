@@ -12,7 +12,7 @@ export class InputComponent {
   @Input() isControl: boolean = false
   @Input() className: string = ''
   @Input() search: boolean = false
-  @Input() variant: 'input' | 'textarea' = 'input'
+  @Input() variant: 'input' | 'textarea' | 'textarea-comment' = 'input'
   @Input() control: FormControl = new FormControl('')
   @Output() valueChange: EventEmitter<string> = new EventEmitter()
   @Output() searchFocus: EventEmitter<void> = new EventEmitter()

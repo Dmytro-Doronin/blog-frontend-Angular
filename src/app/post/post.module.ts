@@ -10,6 +10,7 @@ import { BlogModule } from '../blog/blog.module'
 import { EditPostPageComponent } from './pages/edit-post-page/edit-post-page.component'
 import { EditPostFormComponent } from './components/edit-post-form/edit-post-form.component'
 import { PostPageComponent } from './pages/post-page/post-page.component'
+import { AddCommentFormComponent } from './components/add-comment-form/add-comment-form.component'
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { PostPageComponent } from './pages/post-page/post-page.component'
     EditPostPageComponent,
     EditPostFormComponent,
     PostPageComponent,
+    AddCommentFormComponent,
   ],
   imports: [CommonModule, PostsRoutingModule, SharedModule, ReactiveFormsModule, BlogModule],
   exports: [
@@ -28,6 +30,7 @@ import { PostPageComponent } from './pages/post-page/post-page.component'
     EditPostPageComponent,
     EditPostFormComponent,
     PostPageComponent,
+    AddCommentFormComponent,
   ],
 })
 export class PostModule {}

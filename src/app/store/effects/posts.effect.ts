@@ -330,6 +330,8 @@ export class PostsEffects {
                 changeLikeStatusForPostAction({
                   postId: action.postId,
                   status: action.status,
+                  authorName: action.authorName,
+                  userId: action.userId,
                 }),
                 // addAuthAlert({ severity: 'success', message: 'Blog has been added!' }),
                 // setBlogsLoadingAction({ loading: false }),

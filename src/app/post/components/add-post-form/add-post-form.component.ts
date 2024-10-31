@@ -40,8 +40,6 @@ export class AddPostFormComponent {
   }
 
   onSubmit() {
-    console.log('ne valid')
-    console.log(this.addPostForm.value.blogId!)
     if (this.addPostForm.valid) {
       console.log('form valid')
 

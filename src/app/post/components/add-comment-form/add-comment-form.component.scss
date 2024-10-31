@@ -1,0 +1,40 @@
+.add-comments-form {
+  margin-bottom: 24px;
+}
+
+.error {
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: 0;
+  text-align: left;
+
+  margin-bottom: 20px;
+  color: var(--color-danger-500);
+}
+
+.comments-form-header {
+  cursor: pointer;
+  margin-bottom: 31px;
+}
+
+.button-group {
+  display: flex;
+  justify-content: right;
+}
+
+.form-content {
+  opacity: 0;
+  transform: scaleY(0);
+  transform-origin: top;
+  overflow-y: visible;
+  transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out;
+  height: auto;
+  visibility: hidden;
+}
+
+.form-content.open {
+  opacity: 1;
+  transform: scaleY(1);
+  visibility: visible;
+}

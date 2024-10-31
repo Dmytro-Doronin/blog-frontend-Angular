@@ -10,11 +10,13 @@
     <button
       [type]="type"
       [class]="className"
+      [disabled]="disabled"
       [ngClass]="{
         primary: variant === 'Primary',
         secondary: variant === 'Secondary',
         tertiary: variant === 'Tertiary',
         back: variant === 'Back',
+        disabled: disabled === true,
         fullWidth: fullWidth
       }"
     >

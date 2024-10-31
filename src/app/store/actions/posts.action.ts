@@ -41,7 +41,12 @@ export const setPostsLoadingAction = createAction(
 
 export const setLikeOrDislikeAction = createAction(
   '[Posts] set like or dislike',
-  props<{ status: 'Like' | 'Dislike' | 'None'; postId: string }>()
+  props<{
+    status: 'Like' | 'Dislike' | 'None'
+    postId: string
+    authorName?: string
+    userId?: string
+  }>()
 )
 
 export const setSortByDateForPost = createAction(
@@ -56,7 +61,12 @@ export const setSortByAlphabetForPost = createAction(
 
 export const changeLikeStatusForPostAction = createAction(
   '[Posts] change like status for post',
-  props<{ postId: string; status: 'Like' | 'Dislike' | 'None' }>()
+  props<{
+    postId: string
+    status: 'Like' | 'Dislike' | 'None'
+    authorName?: string
+    userId?: string
+  }>()
 )
 
 export const setLikeStatusAsNoneForPostsAction = createAction(

@@ -2,8 +2,8 @@
   <ng-container [ngSwitch]="status">
     <svg
       *ngSwitchCase="'none'"
-      width="16"
-      height="14"
+      [attr.width]="size === 'large' ? 22 : 16"
+      [attr.height]="size === 'large' ? 20 : 14"
       viewBox="0 0 16 14"
       xmlns="http://www.w3.org/2000/svg"
       class="icon"
@@ -15,8 +15,8 @@
 
     <svg
       *ngSwitchCase="'like'"
-      width="16"
-      height="14"
+      [attr.width]="size === 'large' ? 22 : 16"
+      [attr.height]="size === 'large' ? 20 : 14"
       viewBox="0 0 16 14"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"

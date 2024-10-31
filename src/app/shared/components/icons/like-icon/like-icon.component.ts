@@ -7,6 +7,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core'
 })
 export class LikeIconComponent {
   @Input() status: 'like' | 'none' | 'dislike' = 'none'
+  @Input() size: 'small' | 'large' = 'small'
   @Output() like = new EventEmitter<void>()
 
   onLikeClick() {

@@ -4,6 +4,7 @@
 }
 .likes-dislikes-container {
   display: flex;
+  align-items: center;
   z-index: 1000;
 }
 
@@ -12,6 +13,7 @@
   align-items: center;
   text-align: center;
   margin-right: 20px;
+  cursor: pointer;
 }
 
 .count {
@@ -23,5 +25,23 @@
   letter-spacing: 0.02em;
   text-align: left;
   color: var(--color-dark-500);
-;
+  margin-left: 10px;
+}
+
+.newest-likes {
+  font-family: Inter;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 16px;
+  letter-spacing: 0.02em;
+  text-align: left;
+  color: var(--color-dark-700);
+}
+
+.name-container {
+  margin-right: 40px;
+}
+
+.name {
+
 }

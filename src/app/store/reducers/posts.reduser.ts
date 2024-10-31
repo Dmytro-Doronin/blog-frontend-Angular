@@ -3,6 +3,7 @@ import { IPost } from '../../types/posts.models'
 import {
   addPostsToStateAction,
   callDeletePostModalAction,
+  changeLikeStatusForPostAction,
   setAllPostsToState,
   setCurrentPostId,
   setLikeStatusAsNoneForPostsAction,
@@ -117,6 +118,15 @@ export const postsReducer = createReducer(
       return post
     }),
   })),
+  on(changeLikeStatusForPostAction, (state, { postId, status, authorName, userId }) => {
+    return {
+      ...state,
+      post:
+        state.post && state.post.id === postId
+          ? updatePostLikesStatus(state.post, status, authorName, userId)
+          : state.post,
+    }
+  }),
 
   on(setLikeStatusAsNoneForPostsAction, (state, { status }) => ({
     ...state,

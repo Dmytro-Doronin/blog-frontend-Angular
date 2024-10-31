@@ -10,6 +10,7 @@ export class ButtonComponent {
   @Input() tag: 'button' | 'link' = 'button'
   @Input() type: string = 'submit'
   @Input() content: string = ''
+  @Input() disabled?: boolean = false
   @Input() fullWidth?: boolean = false
   @Input() className: string = 'button'
   @Input() classNameContainer: string = ''

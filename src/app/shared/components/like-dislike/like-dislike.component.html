@@ -1,14 +1,26 @@
-<div [ngClass]="{'disabled': !(isAuthenticated$ | async)}"  class="likes-dislikes-container">
+<div
+  [ngClass]="{ disabled: (isAuthenticated$ | async) === false }"
+  class="likes-dislikes-container"
+>
   <div class="likes-dislikes-item">
     <blog-like-icon
+      [size]="size"
       (click)="$event.stopPropagation()"
       [status]="status === 'Like' ? 'like' : 'none'"
       (like)="onLikeClick()"
     ></blog-like-icon>
     <span class="count">{{ likesCount }}</span>
   </div>
+
+  <ng-container *ngIf="size === 'large'">
+    <div class="name-container">
+      <span class="newest-likes">{{ newestLikesNames }}</span>
+    </div>
+  </ng-container>
+
   <div class="likes-dislikes-item">
     <blog-dislike-icon
+      [size]="size"
       (click)="$event.stopPropagation()"
       [status]="status === 'Dislike' ? 'dislike' : 'none'"
       (dislike)="onDislikeClick()"

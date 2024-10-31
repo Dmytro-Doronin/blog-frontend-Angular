@@ -39,4 +39,11 @@
       placeholder="{{ placeholder }}"
     ></textarea>
   </div>
+  <div *ngSwitchCase="'textarea-comment'" class="textareaContainer">
+    <textarea
+      [formControl]="control"
+      class="input textarea-comment"
+      placeholder="{{ placeholder }}"
+    ></textarea>
+  </div>
 </ng-container>

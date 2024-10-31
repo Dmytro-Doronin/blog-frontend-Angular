@@ -2,10 +2,14 @@ import { Component, OnChanges, OnDestroy, OnInit } from '@angular/core'
 import { Store } from '@ngrx/store'
 import { ActivatedRoute } from '@angular/router'
 import { Observable, Subscription } from 'rxjs'
-import { getPostByIdAction } from '../../../store/actions/posts.action'
+import { getPostByIdAction, setLikeOrDislikeAction } from '../../../store/actions/posts.action'
 import { selectPost } from '../../../store/selectors/posts.selector'
 import { IPost } from '../../../types/posts.models'
-import { selectIsAuthenticated } from '../../../store/selectors/auth.selector'
+import {
+  selectIsAuthenticated,
+  selectUserId,
+  selectUserLogin,
+} from '../../../store/selectors/auth.selector'
 import { selectBlogsLoading, selectCurrentBlog } from '../../../store/selectors/blogs.selector'
 import { IBlog } from '../../../types/blogs.models'
 
@@ -19,8 +23,12 @@ export class PostPageComponent implements OnInit, OnDestroy {
   loading$?: Observable<boolean>
   postId: string = ''
   post: IPost | null = null
+  currentUser: string = ''
+  currentUserId: string = ''
   blog$?: Observable<IBlog>
   private getPostSubscription: Subscription = new Subscription()
+  private getCurrentUserSubscription: Subscription = new Subscription()
+  private getCurrentUserIdSubscription: Subscription = new Subscription()
 
   constructor(
     private store: Store,
@@ -30,6 +38,8 @@ export class PostPageComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.isAuthenticated$ = this.store.select(selectIsAuthenticated)
     this.postId = this.route.snapshot.paramMap.get('id') ?? ''
+    this.getCurrentUser()
+    this.getCurrentUserId()
     this.addCurrentPost()
     this.getBlogForPost()
     this.getPost()
@@ -41,6 +51,17 @@ export class PostPageComponent implements OnInit, OnDestroy {
 
   getLoading() {
     this.loading$ = this.store.select(selectBlogsLoading)
+  }
+
+  getCurrentUser() {
+    this.getCurrentUserSubscription = this.store.select(selectUserLogin).subscribe(user => {
+      this.currentUser = user
+    })
+  }
+  getCurrentUserId() {
+    this.getCurrentUserIdSubscription = this.store.select(selectUserId).subscribe(userId => {
+      this.currentUserId = userId
+    })
   }
 
   getBlogForPost() {
@@ -56,6 +77,28 @@ export class PostPageComponent implements OnInit, OnDestroy {
       this.post = post
     })
     console.log(this.post)
+  }
+
+  onLikePost() {
+    const postId = this.post?.id
+    const authorName = this.currentUser
+    const userId = this.currentUserId
+
+    if (postId) {
+      this.store.dispatch(setLikeOrDislikeAction({ status: 'Like', postId, authorName, userId }))
+    }
+  }
+  onDislikePost() {
+    const postId = this.post?.id
+    const authorName = this.currentUser
+    const userId = this.currentUserId
+    if (postId) {
+      this.store.dispatch(setLikeOrDislikeAction({ status: 'Dislike', postId, authorName, userId }))
+    }
+  }
+
+  onAddCommentFormSubmit(data: { content: string }) {
+    console.log(data.content)
   }
 
   ngOnDestroy() {

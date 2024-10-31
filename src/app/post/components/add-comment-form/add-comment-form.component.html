@@ -1,0 +1,46 @@
+<form class="add-comments-form" [formGroup]="addCommentForPostForm" (ngSubmit)="onSubmit()">
+  <div (click)="onOpen()" class="comments-form-header">
+    <blog-typography [content]="'Comments'" variant="h4"></blog-typography>
+  </div>
+
+  <div class="form-content" [ngClass]="{ open: isOpenForm }">
+    <blog-input
+      [isControl]="true"
+      [control]="addCommentForPostForm.controls.content"
+      [id]="'content'"
+      [placeholder]="'Comment...'"
+      [variant]="'textarea-comment'"
+    ></blog-input>
+
+    <div *ngIf="content && !content!.valid && (content?.dirty || content?.touched)" class="error">
+      <div *ngIf="content.errors?.['minlength']">
+        The content must not be less than 20 or more then 300.
+      </div>
+    </div>
+
+    <div class="loader-block" *ngIf="loading">
+      <blog-loader></blog-loader>
+    </div>
+
+    <div class="button-group">
+      <blog-button
+        [tag]="'button'"
+        [content]="'Cancel'"
+        variant="Secondary"
+        [className]="'mr20'"
+        [disabled]="false"
+        (click)="onClose()"
+      >
+      </blog-button>
+
+      <blog-button
+        [tag]="'button'"
+        [content]="'Send a comment'"
+        variant="Primary"
+        [disabled]="false"
+        [type]="'submit'"
+      >
+      </blog-button>
+    </div>
+  </div>
+</form>

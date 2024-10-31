@@ -19,5 +19,27 @@
         <span class="date">{{ post?.createdAt | date: "dd/MM/yyyy 'at' HH:mm:ss" }}</span>
       </div>
     </div>
+
+    <div class="like-dislike-container">
+      <blog-like-dislike
+        [size]="'large'"
+        [newestLikesArray]="post ? post.extendedLikesInfo.newestLikes : []"
+        [status]="post ? post.extendedLikesInfo.myStatus : 'None'"
+        [likesCount]="post ? post.extendedLikesInfo.likesCount : 0"
+        [dislikesCount]="post ? post.extendedLikesInfo.dislikesCount : 0"
+        (likeEvent)="onLikePost()"
+        (dislikeEvent)="onDislikePost()"
+      ></blog-like-dislike>
+    </div>
+
+    <div class="blog-picture-container">
+      <blog-content-picture [variant]="'big-picture'"></blog-content-picture>
+    </div>
+
+    <div class="post-description">
+      {{ post?.shortDescription }}
+    </div>
+
+    <blog-add-comment-form (formSubmitted)="onAddCommentFormSubmit($event)"></blog-add-comment-form>
   </section>
 </blog-main-page>

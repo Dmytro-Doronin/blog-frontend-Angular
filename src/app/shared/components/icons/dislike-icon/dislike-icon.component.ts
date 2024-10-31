@@ -7,6 +7,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core'
 })
 export class DislikeIconComponent {
   @Input() status: 'dislike' | 'none' = 'none'
+  @Input() size: 'small' | 'large' = 'small'
   @Output() dislike = new EventEmitter<void>()
 
   onDislikeClick() {
