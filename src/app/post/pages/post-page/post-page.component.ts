@@ -12,6 +12,7 @@ import {
 } from '../../../store/selectors/auth.selector'
 import { selectBlogsLoading, selectCurrentBlog } from '../../../store/selectors/blogs.selector'
 import { IBlog } from '../../../types/blogs.models'
+import { sendCommentsAction } from '../../../store/actions/comments.action'
 
 @Component({
   selector: 'blog-post-page',
@@ -98,7 +99,7 @@ export class PostPageComponent implements OnInit, OnDestroy {
   }
 
   onAddCommentFormSubmit(data: { content: string }) {
-    console.log(data.content)
+    this.store.dispatch(sendCommentsAction({ postId: this.postId, content: data.content }))
   }
 
   ngOnDestroy() {

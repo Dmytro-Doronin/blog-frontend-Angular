@@ -9,6 +9,7 @@ import { FormBuilder, Validators } from '@angular/forms'
 })
 export class AddCommentFormComponent implements OnChanges {
   @Input() loading?: boolean | null = false
+  @Input() isAuthenticated: boolean | null = false
   @Input() authSeverity?: SeverityType | undefined | null
   @Output() formSubmitted = new EventEmitter<{
     content: string
@@ -18,7 +19,7 @@ export class AddCommentFormComponent implements OnChanges {
   constructor(private formBuilder: FormBuilder) {}
 
   addCommentForPostForm = this.formBuilder.group({
-    content: ['', [Validators.required, Validators.maxLength(1000)]],
+    content: ['', [Validators.required, Validators.minLength(20), Validators.maxLength(1000)]],
   })
 
   get content() {
