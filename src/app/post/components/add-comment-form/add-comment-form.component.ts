@@ -1,6 +1,15 @@
-import { Component, EventEmitter, Input, OnChanges, Output } from '@angular/core'
+import {
+  AfterViewInit,
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  Output,
+  ViewChild,
+} from '@angular/core'
 import { SeverityType } from '../../../types/notification.models'
 import { FormBuilder, Validators } from '@angular/forms'
+import { InputComponent } from '../../../shared/ui/input/input.component'
 
 @Component({
   selector: 'blog-add-comment-form',
@@ -15,12 +24,15 @@ export class AddCommentFormComponent implements OnChanges {
     content: string
   }>()
   isOpenForm: boolean = false
-
   constructor(private formBuilder: FormBuilder) {}
 
   addCommentForPostForm = this.formBuilder.group({
     content: ['', [Validators.required, Validators.minLength(20), Validators.maxLength(1000)]],
   })
+
+  onFocus() {
+    this.isOpenForm = true
+  }
 
   get content() {
     return this.addCommentForPostForm.get('content')

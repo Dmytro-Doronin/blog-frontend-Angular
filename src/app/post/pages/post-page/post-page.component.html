@@ -43,6 +43,7 @@
     <blog-add-comment-form
       (formSubmitted)="onAddCommentFormSubmit($event)"
       [isAuthenticated]="isAuthenticated$ | async"
+      [loading]="commentsLoading$ | async"
     ></blog-add-comment-form>
   </section>
 </blog-main-page>

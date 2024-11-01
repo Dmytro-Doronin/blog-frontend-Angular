@@ -41,6 +41,7 @@
   </div>
   <div *ngSwitchCase="'textarea-comment'" class="textareaContainer">
     <textarea
+      (focus)="onSearchFocus()"
       [formControl]="control"
       class="input textarea-comment"
       placeholder="{{ placeholder }}"

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core'
+import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core'
 import { FormControl } from '@angular/forms'
 
 @Component({
@@ -17,6 +17,7 @@ export class InputComponent {
   @Output() valueChange: EventEmitter<string> = new EventEmitter()
   @Output() searchFocus: EventEmitter<void> = new EventEmitter()
   inputValue: string = ''
+
   onInputChange() {
     this.valueChange.emit(this.inputValue)
   }

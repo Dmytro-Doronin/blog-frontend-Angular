@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store'
 import { ActivatedRoute } from '@angular/router'
 import { Observable, Subscription } from 'rxjs'
 import { getPostByIdAction, setLikeOrDislikeAction } from '../../../store/actions/posts.action'
-import { selectPost } from '../../../store/selectors/posts.selector'
+import { selectPost, selectPostsLoading } from '../../../store/selectors/posts.selector'
 import { IPost } from '../../../types/posts.models'
 import {
   selectIsAuthenticated,
@@ -13,6 +13,7 @@ import {
 import { selectBlogsLoading, selectCurrentBlog } from '../../../store/selectors/blogs.selector'
 import { IBlog } from '../../../types/blogs.models'
 import { sendCommentsAction } from '../../../store/actions/comments.action'
+import { selectCommentsLoading } from '../../../store/selectors/comments.selectoe'
 
 @Component({
   selector: 'blog-post-page',
@@ -22,6 +23,7 @@ import { sendCommentsAction } from '../../../store/actions/comments.action'
 export class PostPageComponent implements OnInit, OnDestroy {
   isAuthenticated$?: Observable<boolean>
   loading$?: Observable<boolean>
+  commentsLoading$?: Observable<boolean>
   postId: string = ''
   post: IPost | null = null
   currentUser: string = ''
@@ -45,13 +47,18 @@ export class PostPageComponent implements OnInit, OnDestroy {
     this.getBlogForPost()
     this.getPost()
     this.getLoading()
+    this.getCommentsLoading()
     // this.store.select(selectPost).subscribe(post => {
     //   console.log(post)
     // })
   }
 
+  getCommentsLoading() {
+    this.commentsLoading$ = this.store.select(selectCommentsLoading)
+  }
+
   getLoading() {
-    this.loading$ = this.store.select(selectBlogsLoading)
+    this.loading$ = this.store.select(selectPostsLoading)
   }
 
   getCurrentUser() {

@@ -1,6 +1,7 @@
 <form class="add-comments-form" [formGroup]="addCommentForPostForm" (ngSubmit)="onSubmit()">
-  <div (click)="onOpen()" class="comments-form-header">
+  <div class="comments-form-header">
     <blog-typography [content]="'Comments'" variant="h4"></blog-typography>
+    <!--    "'Comments (' + comments.length + ')'"-->
   </div>
 
   <ng-container *ngIf="isAuthenticated">
@@ -11,6 +12,7 @@
         [id]="'content'"
         [placeholder]="'Comment...'"
         [variant]="'textarea-comment'"
+        (searchFocus)="onFocus()"
       ></blog-input>
 
       <div *ngIf="content && !content!.valid && (content?.dirty || content?.touched)" class="error">
@@ -38,7 +40,7 @@
           [tag]="'button'"
           [content]="'Send a comment'"
           variant="Primary"
-          [disabled]="content?.valid === false"
+          [disabled]="content?.valid === false && !loading"
           [type]="'submit'"
         >
         </blog-button>
