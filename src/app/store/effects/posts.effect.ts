@@ -29,6 +29,9 @@ import {
 } from '../actions/posts.action'
 import { PostsService } from '../../core/services/posts.service'
 import { PostResponse } from '../../types/posts.models'
+import {CommentsService} from "../../core/services/comments.service";
+import {CommentResponse} from "../../types/comments.model";
+import {addCommentsToStateAction, setAllCommentsToState} from "../actions/comments.action";
 
 @Injectable()
 export class PostsEffects {
@@ -37,6 +40,7 @@ export class PostsEffects {
     private authService: AuthService,
     private blogService: BlogService,
     private postService: PostsService,
+    private commentService: CommentsService,
     private router: Router
   ) {}
 
@@ -212,37 +216,136 @@ export class PostsEffects {
                   })
                 ),
                 this.blogService.getBlogById(response.blogId).pipe(
-                  mergeMap((blog: any) => {
-                    console.log('get post by id success')
-                    return [
-                      setBlogByIdAction({ ...blog }),
-                      // addAuthAlert({ severity: 'success', message: 'Post was changed' }),
-                      setPostsLoadingAction({ loading: false }),
-                    ]
-                  }),
+                  mergeMap((blog: any) => [
+                    setBlogByIdAction({ ...blog }),
+                  ]),
                   catchError(error => {
                     const message =
-                      error?.error?.errorsMessages?.[0]?.message || 'Failed to load blog'
+                      error?.error?.errorsMessages?.[0]?.message || 'Failed to load blog';
                     return of(
                       setPostsLoadingAction({ loading: false }),
                       addAuthAlert({ severity: 'error', message: message })
-                    )
+                    );
                   })
-                )
+                ),
+                // Загрузка комментариев
+                this.commentService.getAllComment(response.id, action.commentParams).pipe(
+                  mergeMap((commentResponse: CommentResponse) => {
+                    if (action.commentParams.pageNumber === 1) {
+                      return [
+                        setAllCommentsToState({
+                          pagesCount: commentResponse.pagesCount,
+                          page: commentResponse.page,
+                          pageSize: commentResponse.pageSize,
+                          totalCount: commentResponse.totalCount,
+                          comments: commentResponse.items,
+                          hasMoreComments:
+                            commentResponse.items.length === action.commentParams.pageSize,
+                        }),
+                      ];
+                    } else {
+                      return [
+                        addCommentsToStateAction({
+                          pagesCount: commentResponse.pagesCount,
+                          page: commentResponse.page,
+                          pageSize: commentResponse.pageSize,
+                          totalCount: commentResponse.totalCount,
+                          comments: commentResponse.items,
+                          hasMoreComments:
+                            commentResponse.items.length === action.commentParams.pageSize,
+                        }),
+                      ];
+                    }
+                  }),
+                  catchError(error => {
+                    const message =
+                      error?.error?.errorsMessages?.[0]?.message || 'Failed to load comments';
+                    return of(
+                      setPostsLoadingAction({ loading: false }),
+                      addAuthAlert({ severity: 'error', message: message })
+                    );
+                  })
+                ),
+                of(setPostsLoadingAction({ loading: false }))
               )
             ),
             catchError(error => {
-              const message = error?.error?.errorsMessages?.[0]?.message || 'Failed to get post'
+              const message =
+                error?.error?.errorsMessages?.[0]?.message || 'Failed to get post';
               return of(
                 setPostsLoadingAction({ loading: false }),
                 addAuthAlert({ severity: 'error', message: message })
-              )
+              );
             })
           )
         )
       )
     )
   )
+
+  // getPostById$ = createEffect(() =>
+  //   this.actions$.pipe(
+  //     ofType(getPostByIdAction),
+  //     concatMap(action =>
+  //       concat(
+  //         of(setPostsLoadingAction({ loading: true })),
+  //         this.postService.getPostById(action.postId).pipe(
+  //           switchMap((response: any) =>
+  //             concat(
+  //               of(
+  //                 setPostByIdAction({
+  //                   ...response,
+  //                   extendedLikesInfo: response.extendedLikesInfo,
+  //                 })
+  //               ),
+  //               this.blogService.getBlogById(response.blogId).pipe(
+  //                 mergeMap((blog: any) => {
+  //                   return [
+  //                     setBlogByIdAction({ ...blog }),
+  //                     // addAuthAlert({ severity: 'success', message: 'Post was changed' }),
+  //                     setPostsLoadingAction({ loading: false }),
+  //                   ]
+  //                 }),
+  //                 catchError(error => {
+  //                   const message =
+  //                     error?.error?.errorsMessages?.[0]?.message || 'Failed to load blog'
+  //                   return of(
+  //                     setPostsLoadingAction({ loading: false }),
+  //                     addAuthAlert({ severity: 'error', message: message })
+  //                   )
+  //                 })
+  //               ),
+  //               this.commentService.getAllComment(response.id).pipe(
+  //                 mergeMap((response: CommentResponse) => {
+  //                   return [
+  //                     setBlogByIdAction({ ...blog }),
+  //                     // addAuthAlert({ severity: 'success', message: 'Post was changed' }),
+  //                     setPostsLoadingAction({ loading: false }),
+  //                   ]
+  //                 }),
+  //                 catchError(error => {
+  //                   const message =
+  //                     error?.error?.errorsMessages?.[0]?.message || 'Failed to load blog'
+  //                   return of(
+  //                     setPostsLoadingAction({ loading: false }),
+  //                     addAuthAlert({ severity: 'error', message: message })
+  //                   )
+  //                 })
+  //               )
+  //             )
+  //           ),
+  //           catchError(error => {
+  //             const message = error?.error?.errorsMessages?.[0]?.message || 'Failed to get post'
+  //             return of(
+  //               setPostsLoadingAction({ loading: false }),
+  //               addAuthAlert({ severity: 'error', message: message })
+  //             )
+  //           })
+  //         )
+  //       )
+  //     )
+  //   )
+  // )
   // getPostById$ = createEffect(() =>
   //   this.actions$.pipe(
   //     ofType(getPostByIdAction),

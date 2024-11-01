@@ -19,6 +19,7 @@ import { InputComponent } from '../../../shared/ui/input/input.component'
 export class AddCommentFormComponent implements OnChanges {
   @Input() loading?: boolean | null = false
   @Input() isAuthenticated: boolean | null = false
+  @Input() totalCountComments: number | null = 0
   @Input() authSeverity?: SeverityType | undefined | null
   @Output() formSubmitted = new EventEmitter<{
     content: string

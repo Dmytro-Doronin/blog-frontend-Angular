@@ -44,6 +44,10 @@
       (formSubmitted)="onAddCommentFormSubmit($event)"
       [isAuthenticated]="isAuthenticated$ | async"
       [loading]="commentsLoading$ | async"
+      [totalCountComments]="totalCountComments$ | async"
     ></blog-add-comment-form>
+
+
+    <blog-comment-item></blog-comment-item>
   </section>
 </blog-main-page>

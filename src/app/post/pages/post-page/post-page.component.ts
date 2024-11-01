@@ -13,7 +13,7 @@ import {
 import { selectBlogsLoading, selectCurrentBlog } from '../../../store/selectors/blogs.selector'
 import { IBlog } from '../../../types/blogs.models'
 import { sendCommentsAction } from '../../../store/actions/comments.action'
-import { selectCommentsLoading } from '../../../store/selectors/comments.selectoe'
+import {selectCommentsLoading, selectTotalCountComments} from '../../../store/selectors/comments.selectoe'
 
 @Component({
   selector: 'blog-post-page',
@@ -24,10 +24,13 @@ export class PostPageComponent implements OnInit, OnDestroy {
   isAuthenticated$?: Observable<boolean>
   loading$?: Observable<boolean>
   commentsLoading$?: Observable<boolean>
+  totalCountComments$?: Observable<number>
   postId: string = ''
   post: IPost | null = null
   currentUser: string = ''
   currentUserId: string = ''
+  pageNumber = 1
+  pageSize = 5
   blog$?: Observable<IBlog>
   private getPostSubscription: Subscription = new Subscription()
   private getCurrentUserSubscription: Subscription = new Subscription()
@@ -48,9 +51,14 @@ export class PostPageComponent implements OnInit, OnDestroy {
     this.getPost()
     this.getLoading()
     this.getCommentsLoading()
+    this.getTotalCountComments()
     // this.store.select(selectPost).subscribe(post => {
     //   console.log(post)
     // })
+  }
+
+  getTotalCountComments() {
+    this.totalCountComments$ = this.store.select(selectTotalCountComments)
   }
 
   getCommentsLoading() {
@@ -77,7 +85,12 @@ export class PostPageComponent implements OnInit, OnDestroy {
   }
 
   addCurrentPost() {
-    this.store.dispatch(getPostByIdAction({ postId: this.postId }))
+    this.store.dispatch(getPostByIdAction({ postId: this.postId, commentParams: {
+        sortBy: 'createdAt',
+        sortDirection: 'desc',
+        pageNumber: this.pageNumber,
+        pageSize: this.pageSize,
+      }}))
   }
 
   getPost() {

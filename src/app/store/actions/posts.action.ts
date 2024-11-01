@@ -1,6 +1,7 @@
 import { createAction, props } from '@ngrx/store'
 import { IPost, PostQueryParams } from '../../types/posts.models'
 import { IBlog } from '../../types/blogs.models'
+import {CommentsQueryParams} from "../../types/comments.model";
 
 export const deletePost = createAction('[Post] delete post', props<{ postId: string }>())
 
@@ -105,5 +106,5 @@ export const successUpdateDetailsPost = createAction(
   props<{ post: IPost }>()
 )
 
-export const getPostByIdAction = createAction('[Post] get post by id', props<{ postId: string }>())
+export const getPostByIdAction = createAction('[Post] get post by id', props<{ postId: string; commentParams: CommentsQueryParams }>())
 export const setPostByIdAction = createAction('[post] set post by id', props<IPost>())

@@ -6,3 +6,7 @@ export const selectCommentsLoading = createSelector(
   selectCommentsState,
   (state: CommentsState) => state.loading
 )
+export const selectTotalCountComments = createSelector(
+  selectCommentsState,
+  (state: CommentsState) => state.totalCount
+)
