@@ -7,10 +7,19 @@ import { CommentsService } from '../../core/services/comments.service'
 import {
   addCommentsToStateAction,
   addSingleCommentToStateAction,
+  getCommentsForPostAction,
   sendCommentsAction,
+  setAllCommentsToState,
   setLoadingForCommentsAction,
 } from '../actions/comments.action'
-import { IComment } from '../../types/comments.model'
+import { CommentResponse, IComment } from '../../types/comments.model'
+import {
+  addPostsForBlogsToStateAction,
+  loadPostsForBlogs,
+  setAllPostsForBlogToState,
+  setPostsForBlogLoadingAction,
+} from '../actions/blogs.actions'
+import { PostResponse } from '../../types/posts.models'
 
 @Injectable()
 export class CommentsEffects {
@@ -19,7 +28,7 @@ export class CommentsEffects {
     private commentService: CommentsService
   ) {}
 
-  addPostForBlog$ = createEffect(() =>
+  addСommentForPost$ = createEffect(() =>
     this.actions$.pipe(
       ofType(sendCommentsAction),
       concatMap(action =>
@@ -32,6 +41,7 @@ export class CommentsEffects {
             })
             .pipe(
               mergeMap((response: IComment) => {
+                console.log('Response from server:', response)
                 return [
                   addSingleCommentToStateAction({ comment: response }),
                   addAuthAlert({ severity: 'success', message: 'Comment has been added!' }),
@@ -46,6 +56,51 @@ export class CommentsEffects {
                 )
               })
             )
+        )
+      )
+    )
+  )
+
+  getCommentsForPost$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(getCommentsForPostAction),
+      concatMap(action =>
+        concat(
+          of(setLoadingForCommentsAction({ loading: true })),
+          this.commentService.getAllComment(action.postId, action.commentParams).pipe(
+            mergeMap((commentResponse: CommentResponse) => {
+              if (action.commentParams.pageNumber === 1) {
+                return [
+                  setAllCommentsToState({
+                    pagesCount: commentResponse.pagesCount,
+                    page: commentResponse.page,
+                    pageSize: commentResponse.pageSize,
+                    totalCount: commentResponse.totalCount,
+                    comments: commentResponse.items,
+                    hasMoreComments: commentResponse.items.length === action.commentParams.pageSize,
+                  }),
+                ]
+              } else {
+                return [
+                  addCommentsToStateAction({
+                    pagesCount: commentResponse.pagesCount,
+                    page: commentResponse.page,
+                    pageSize: commentResponse.pageSize,
+                    totalCount: commentResponse.totalCount,
+                    comments: commentResponse.items,
+                    hasMoreComments: commentResponse.items.length === action.commentParams.pageSize,
+                  }),
+                ]
+              }
+            }),
+            catchError(error => {
+              const message = error?.error?.errorsMessages?.[0]?.message || 'Failed to load blogs'
+              return of(
+                setLoadingForCommentsAction({ loading: false }),
+                addAuthAlert({ severity: 'error', message: message })
+              )
+            })
+          )
         )
       )
     )

@@ -1,6 +1,11 @@
 import { Injectable } from '@angular/core'
-import {HttpClient, HttpParams} from '@angular/common/http'
-import {CommentResponse, CommentsQueryParams, IComment, SendCommentsModel} from '../../types/comments.model'
+import { HttpClient, HttpParams } from '@angular/common/http'
+import {
+  CommentResponse,
+  CommentsQueryParams,
+  IComment,
+  SendCommentsModel,
+} from '../../types/comments.model'
 
 @Injectable({
   providedIn: 'root',
@@ -33,9 +38,9 @@ export class CommentsService {
     if (params.pageSize !== undefined) {
       httpCommentsParams = httpCommentsParams.set('pageSize', params.pageSize.toString())
     }
-    return this.http.get<CommentResponse>(
-      `http://localhost:3000/posts/${postId}/comments`,
-      { params: httpCommentsParams, withCredentials: true }
-    )
+    return this.http.get<CommentResponse>(`http://localhost:3000/posts/${postId}/comments`, {
+      params: httpCommentsParams,
+      withCredentials: true,
+    })
   }
 }

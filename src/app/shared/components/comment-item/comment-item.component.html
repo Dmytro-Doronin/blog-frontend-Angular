@@ -1,5 +1,19 @@
 <div class="comment-item">
-  <blog-content-picture [variant]="'small-round-comment'">
-
-  </blog-content-picture>
+  <div class="picture">
+    <blog-content-picture [variant]="'small-round-comment'"> </blog-content-picture>
+  </div>
+  <div class="info">
+    <div class="item-header">
+      <blog-typography
+        [className]="'noMargin'"
+        [variant]="'h4'"
+        [content]="comment!.commentatorInfo.userLogin"
+      ></blog-typography>
+      <span class="date">{{ comment?.createdAt | date: 'dd/MM/yyyy' }}</span>
+    </div>
+    <div class="item-content">
+      {{ comment?.content }}
+    </div>
+    <blog-like-dislike></blog-like-dislike>
+  </div>
 </div>

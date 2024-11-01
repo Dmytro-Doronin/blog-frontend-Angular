@@ -12,8 +12,17 @@ import {
 } from '../../../store/selectors/auth.selector'
 import { selectBlogsLoading, selectCurrentBlog } from '../../../store/selectors/blogs.selector'
 import { IBlog } from '../../../types/blogs.models'
-import { sendCommentsAction } from '../../../store/actions/comments.action'
-import {selectCommentsLoading, selectTotalCountComments} from '../../../store/selectors/comments.selectoe'
+import {
+  getCommentsForPostAction,
+  sendCommentsAction,
+} from '../../../store/actions/comments.action'
+import {
+  selectComments,
+  selectCommentsLoading,
+  selectHasMoComment,
+  selectTotalCountComments,
+} from '../../../store/selectors/comments.selectoe'
+import { IComment } from '../../../types/comments.model'
 
 @Component({
   selector: 'blog-post-page',
@@ -25,13 +34,16 @@ export class PostPageComponent implements OnInit, OnDestroy {
   loading$?: Observable<boolean>
   commentsLoading$?: Observable<boolean>
   totalCountComments$?: Observable<number>
+  comments$?: Observable<IComment[]>
+  blog$?: Observable<IBlog>
+  hasMoreCommentForPost$?: Observable<boolean>
   postId: string = ''
   post: IPost | null = null
   currentUser: string = ''
   currentUserId: string = ''
   pageNumber = 1
   pageSize = 5
-  blog$?: Observable<IBlog>
+
   private getPostSubscription: Subscription = new Subscription()
   private getCurrentUserSubscription: Subscription = new Subscription()
   private getCurrentUserIdSubscription: Subscription = new Subscription()
@@ -52,11 +64,24 @@ export class PostPageComponent implements OnInit, OnDestroy {
     this.getLoading()
     this.getCommentsLoading()
     this.getTotalCountComments()
+    this.getComments()
+    this.getHJaMoreComments()
     // this.store.select(selectPost).subscribe(post => {
     //   console.log(post)
     // })
   }
 
+  loadMoreComments() {
+    this.pageNumber += 1
+    this.getMoreComments()
+  }
+
+  getComments() {
+    this.comments$ = this.store.select(selectComments)
+  }
+  getHJaMoreComments() {
+    this.hasMoreCommentForPost$ = this.store.select(selectHasMoComment)
+  }
   getTotalCountComments() {
     this.totalCountComments$ = this.store.select(selectTotalCountComments)
   }
@@ -84,13 +109,32 @@ export class PostPageComponent implements OnInit, OnDestroy {
     this.blog$ = this.store.select(selectCurrentBlog)
   }
 
+  getMoreComments() {
+    this.store.dispatch(
+      getCommentsForPostAction({
+        postId: this.postId,
+        commentParams: {
+          sortBy: 'createdAt',
+          sortDirection: 'desc',
+          pageNumber: this.pageNumber,
+          pageSize: this.pageSize,
+        },
+      })
+    )
+  }
+
   addCurrentPost() {
-    this.store.dispatch(getPostByIdAction({ postId: this.postId, commentParams: {
-        sortBy: 'createdAt',
-        sortDirection: 'desc',
-        pageNumber: this.pageNumber,
-        pageSize: this.pageSize,
-      }}))
+    this.store.dispatch(
+      getPostByIdAction({
+        postId: this.postId,
+        commentParams: {
+          sortBy: 'createdAt',
+          sortDirection: 'desc',
+          pageNumber: this.pageNumber,
+          pageSize: this.pageSize,
+        },
+      })
+    )
   }
 
   getPost() {

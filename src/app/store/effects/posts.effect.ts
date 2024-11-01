@@ -29,9 +29,9 @@ import {
 } from '../actions/posts.action'
 import { PostsService } from '../../core/services/posts.service'
 import { PostResponse } from '../../types/posts.models'
-import {CommentsService} from "../../core/services/comments.service";
-import {CommentResponse} from "../../types/comments.model";
-import {addCommentsToStateAction, setAllCommentsToState} from "../actions/comments.action";
+import { CommentsService } from '../../core/services/comments.service'
+import { CommentResponse } from '../../types/comments.model'
+import { addCommentsToStateAction, setAllCommentsToState } from '../actions/comments.action'
 
 @Injectable()
 export class PostsEffects {
@@ -216,16 +216,14 @@ export class PostsEffects {
                   })
                 ),
                 this.blogService.getBlogById(response.blogId).pipe(
-                  mergeMap((blog: any) => [
-                    setBlogByIdAction({ ...blog }),
-                  ]),
+                  mergeMap((blog: any) => [setBlogByIdAction({ ...blog })]),
                   catchError(error => {
                     const message =
-                      error?.error?.errorsMessages?.[0]?.message || 'Failed to load blog';
+                      error?.error?.errorsMessages?.[0]?.message || 'Failed to load blog'
                     return of(
                       setPostsLoadingAction({ loading: false }),
                       addAuthAlert({ severity: 'error', message: message })
-                    );
+                    )
                   })
                 ),
                 // Загрузка комментариев
@@ -242,7 +240,7 @@ export class PostsEffects {
                           hasMoreComments:
                             commentResponse.items.length === action.commentParams.pageSize,
                         }),
-                      ];
+                      ]
                     } else {
                       return [
                         addCommentsToStateAction({
@@ -254,28 +252,27 @@ export class PostsEffects {
                           hasMoreComments:
                             commentResponse.items.length === action.commentParams.pageSize,
                         }),
-                      ];
+                      ]
                     }
                   }),
                   catchError(error => {
                     const message =
-                      error?.error?.errorsMessages?.[0]?.message || 'Failed to load comments';
+                      error?.error?.errorsMessages?.[0]?.message || 'Failed to load comments'
                     return of(
                       setPostsLoadingAction({ loading: false }),
                       addAuthAlert({ severity: 'error', message: message })
-                    );
+                    )
                   })
                 ),
                 of(setPostsLoadingAction({ loading: false }))
               )
             ),
             catchError(error => {
-              const message =
-                error?.error?.errorsMessages?.[0]?.message || 'Failed to get post';
+              const message = error?.error?.errorsMessages?.[0]?.message || 'Failed to get post'
               return of(
                 setPostsLoadingAction({ loading: false }),
                 addAuthAlert({ severity: 'error', message: message })
-              );
+              )
             })
           )
         )

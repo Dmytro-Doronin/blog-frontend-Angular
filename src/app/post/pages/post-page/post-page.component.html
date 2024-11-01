@@ -5,7 +5,7 @@
     [content]="'Back to posts'"
   ></blog-button>
 
-  <section>
+  <section class="post-page">
     <div class="blog-info">
       <div class="picture-container">
         <blog-content-picture [variant]="'small-round'"></blog-content-picture>
@@ -47,7 +47,17 @@
       [totalCountComments]="totalCountComments$ | async"
     ></blog-add-comment-form>
 
+    <blog-comment-item
+      *ngFor="let comment of comments$ | async"
+      [comment]="comment"
+    ></blog-comment-item>
 
-    <blog-comment-item></blog-comment-item>
+    <div class="btn-block">
+      <blog-button
+        (click)="loadMoreComments()"
+        *ngIf="hasMoreCommentForPost$ | async"
+        [content]="'Load more'"
+      ></blog-button>
+    </div>
   </section>
 </blog-main-page>

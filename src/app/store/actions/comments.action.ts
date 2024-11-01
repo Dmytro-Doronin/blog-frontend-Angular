@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store'
-import { IComment } from '../../types/comments.model'
+import { CommentsQueryParams, IComment } from '../../types/comments.model'
 
 export const sendCommentsAction = createAction(
   '[Comments] send comment',
@@ -44,4 +44,9 @@ export const addSingleCommentToStateAction = createAction(
   props<{
     comment: IComment
   }>()
+)
+
+export const getCommentsForPostAction = createAction(
+  '[Comment] get comments by id',
+  props<{ postId: string; commentParams: CommentsQueryParams }>()
 )

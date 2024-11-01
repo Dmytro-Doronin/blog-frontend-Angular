@@ -1,3 +1,7 @@
+.post-page {
+  width: 100%;
+}
+
 .blog-info {
   display: flex;
   align-items: center;
@@ -49,4 +53,7 @@
   text-align: justify;
   color: var(--color-dark-700);
   margin-bottom: 47px;
+}
+.btn-block {
+  text-align: center;
 }

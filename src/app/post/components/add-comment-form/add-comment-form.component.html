@@ -1,7 +1,10 @@
 <form class="add-comments-form" [formGroup]="addCommentForPostForm" (ngSubmit)="onSubmit()">
   <div class="comments-form-header">
-    <blog-typography [content]="'Comments (' + totalCountComments + ')'" variant="h4"></blog-typography>
-<!--        "'Comments (' + comments.length + ')'"-->
+    <blog-typography
+      [content]="'Comments (' + totalCountComments + ')'"
+      variant="h4"
+    ></blog-typography>
+    <!--        "'Comments (' + comments.length + ')'"-->
   </div>
 
   <ng-container *ngIf="isAuthenticated">

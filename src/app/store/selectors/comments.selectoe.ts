@@ -10,3 +10,11 @@ export const selectTotalCountComments = createSelector(
   selectCommentsState,
   (state: CommentsState) => state.totalCount
 )
+export const selectComments = createSelector(
+  selectCommentsState,
+  (state: CommentsState) => state.comments
+)
+export const selectHasMoComment = createSelector(
+  selectCommentsState,
+  (state: CommentsState) => state.hasMoreComments
+)
