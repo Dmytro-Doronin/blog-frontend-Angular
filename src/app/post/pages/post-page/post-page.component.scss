@@ -57,3 +57,17 @@
 .btn-block {
   text-align: center;
 }
+
+.comment-loader-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.no-comments {
+  text-align: center;
+  margin-top: 150px;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 20px;
+}

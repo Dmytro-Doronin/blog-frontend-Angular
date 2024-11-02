@@ -45,19 +45,29 @@
       [isAuthenticated]="isAuthenticated$ | async"
       [loading]="commentsLoading$ | async"
       [totalCountComments]="totalCountComments$ | async"
+      [authSeverity]="authSeverity$ | async"
     ></blog-add-comment-form>
-
-    <blog-comment-item
-      *ngFor="let comment of comments$ | async"
-      [comment]="comment"
-    ></blog-comment-item>
-
-    <div class="btn-block">
-      <blog-button
-        (click)="loadMoreComments()"
-        *ngIf="hasMoreCommentForPost$ | async"
-        [content]="'Load more'"
-      ></blog-button>
+    <div *ngIf="(comments$ | async)?.length; else emptyBlock" class="posts-list">
+      <blog-comment-item
+        *ngFor="let comment of comments$ | async"
+        [comment]="comment"
+      ></blog-comment-item>
     </div>
+
+    <div *ngIf="commentsLoading$ | async; else btnBlock" class="comment-loader-container">
+      <blog-loader></blog-loader>
+    </div>
+    <ng-template #btnBlock>
+      <div class="btn-block">
+        <blog-button
+          (click)="loadMoreComments()"
+          *ngIf="hasMoreCommentForPost$ | async"
+          [content]="'Load more'"
+        ></blog-button>
+      </div>
+    </ng-template>
+    <ng-template #emptyBlock>
+      <div class="no-posts">No comments available.</div>
+    </ng-template>
   </section>
 </blog-main-page>

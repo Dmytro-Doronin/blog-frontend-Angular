@@ -46,7 +46,7 @@ export const commentsReducer = createReducer(
     addCommentsToStateAction,
     (state, { comments, pagesCount, page, pageSize, totalCount, hasMoreComments }) => ({
       ...state,
-      posts: [...state.comments, ...comments],
+      comments: [...state.comments, ...comments],
       pagesCount: pagesCount,
       page: page,
       pageSize: pageSize,

@@ -32,6 +32,7 @@ import { PostResponse } from '../../types/posts.models'
 import { CommentsService } from '../../core/services/comments.service'
 import { CommentResponse } from '../../types/comments.model'
 import { addCommentsToStateAction, setAllCommentsToState } from '../actions/comments.action'
+import {IBlog} from "../../types/blogs.models";
 
 @Injectable()
 export class PostsEffects {
@@ -216,48 +217,10 @@ export class PostsEffects {
                   })
                 ),
                 this.blogService.getBlogById(response.blogId).pipe(
-                  mergeMap((blog: any) => [setBlogByIdAction({ ...blog })]),
+                  mergeMap((blog: IBlog) => [setBlogByIdAction({ ...blog })]),
                   catchError(error => {
                     const message =
                       error?.error?.errorsMessages?.[0]?.message || 'Failed to load blog'
-                    return of(
-                      setPostsLoadingAction({ loading: false }),
-                      addAuthAlert({ severity: 'error', message: message })
-                    )
-                  })
-                ),
-                // Загрузка комментариев
-                this.commentService.getAllComment(response.id, action.commentParams).pipe(
-                  mergeMap((commentResponse: CommentResponse) => {
-                    if (action.commentParams.pageNumber === 1) {
-                      return [
-                        setAllCommentsToState({
-                          pagesCount: commentResponse.pagesCount,
-                          page: commentResponse.page,
-                          pageSize: commentResponse.pageSize,
-                          totalCount: commentResponse.totalCount,
-                          comments: commentResponse.items,
-                          hasMoreComments:
-                            commentResponse.items.length === action.commentParams.pageSize,
-                        }),
-                      ]
-                    } else {
-                      return [
-                        addCommentsToStateAction({
-                          pagesCount: commentResponse.pagesCount,
-                          page: commentResponse.page,
-                          pageSize: commentResponse.pageSize,
-                          totalCount: commentResponse.totalCount,
-                          comments: commentResponse.items,
-                          hasMoreComments:
-                            commentResponse.items.length === action.commentParams.pageSize,
-                        }),
-                      ]
-                    }
-                  }),
-                  catchError(error => {
-                    const message =
-                      error?.error?.errorsMessages?.[0]?.message || 'Failed to load comments'
                     return of(
                       setPostsLoadingAction({ loading: false }),
                       addAuthAlert({ severity: 'error', message: message })

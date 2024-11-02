@@ -69,8 +69,8 @@ export class CommentsEffects {
           of(setLoadingForCommentsAction({ loading: true })),
           this.commentService.getAllComment(action.postId, action.commentParams).pipe(
             mergeMap((commentResponse: CommentResponse) => {
-              if (action.commentParams.pageNumber === 1) {
-                return [
+              const actions = action.commentParams.pageNumber === 1
+                ? [
                   setAllCommentsToState({
                     pagesCount: commentResponse.pagesCount,
                     page: commentResponse.page,
@@ -80,8 +80,7 @@ export class CommentsEffects {
                     hasMoreComments: commentResponse.items.length === action.commentParams.pageSize,
                   }),
                 ]
-              } else {
-                return [
+                : [
                   addCommentsToStateAction({
                     pagesCount: commentResponse.pagesCount,
                     page: commentResponse.page,
@@ -90,11 +89,11 @@ export class CommentsEffects {
                     comments: commentResponse.items,
                     hasMoreComments: commentResponse.items.length === action.commentParams.pageSize,
                   }),
-                ]
-              }
+                ];
+              return [...actions, setLoadingForCommentsAction({ loading: false })];
             }),
             catchError(error => {
-              const message = error?.error?.errorsMessages?.[0]?.message || 'Failed to load blogs'
+              const message = error?.error?.errorsMessages?.[0]?.message || 'Failed to load comments'
               return of(
                 setLoadingForCommentsAction({ loading: false }),
                 addAuthAlert({ severity: 'error', message: message })

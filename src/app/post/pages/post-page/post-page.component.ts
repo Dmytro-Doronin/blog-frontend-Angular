@@ -6,6 +6,7 @@ import { getPostByIdAction, setLikeOrDislikeAction } from '../../../store/action
 import { selectPost, selectPostsLoading } from '../../../store/selectors/posts.selector'
 import { IPost } from '../../../types/posts.models'
 import {
+  selectAuthAlertSeverity,
   selectIsAuthenticated,
   selectUserId,
   selectUserLogin,
@@ -23,6 +24,8 @@ import {
   selectTotalCountComments,
 } from '../../../store/selectors/comments.selectoe'
 import { IComment } from '../../../types/comments.model'
+import {log} from "@angular-devkit/build-angular/src/builders/ssr-dev-server";
+import {SeverityType} from "../../../types/notification.models";
 
 @Component({
   selector: 'blog-post-page',
@@ -36,6 +39,7 @@ export class PostPageComponent implements OnInit, OnDestroy {
   totalCountComments$?: Observable<number>
   comments$?: Observable<IComment[]>
   blog$?: Observable<IBlog>
+  authSeverity$?: Observable<SeverityType | undefined>
   hasMoreCommentForPost$?: Observable<boolean>
   postId: string = ''
   post: IPost | null = null
@@ -61,11 +65,13 @@ export class PostPageComponent implements OnInit, OnDestroy {
     this.addCurrentPost()
     this.getBlogForPost()
     this.getPost()
+    this.loadComments()
+    this.getComments()
     this.getLoading()
     this.getCommentsLoading()
     this.getTotalCountComments()
-    this.getComments()
-    this.getHJaMoreComments()
+    this.getHasMoreComments()
+    this.getAuthSeverity()
     // this.store.select(selectPost).subscribe(post => {
     //   console.log(post)
     // })
@@ -73,14 +79,17 @@ export class PostPageComponent implements OnInit, OnDestroy {
 
   loadMoreComments() {
     this.pageNumber += 1
-    this.getMoreComments()
+    this.loadComments()
   }
-
+  getAuthSeverity() {
+    this.authSeverity$ = this.store.select(selectAuthAlertSeverity)
+  }
   getComments() {
     this.comments$ = this.store.select(selectComments)
   }
-  getHJaMoreComments() {
+  getHasMoreComments() {
     this.hasMoreCommentForPost$ = this.store.select(selectHasMoComment)
+    this.hasMoreCommentForPost$.subscribe(item => console.log(item))
   }
   getTotalCountComments() {
     this.totalCountComments$ = this.store.select(selectTotalCountComments)
@@ -88,6 +97,7 @@ export class PostPageComponent implements OnInit, OnDestroy {
 
   getCommentsLoading() {
     this.commentsLoading$ = this.store.select(selectCommentsLoading)
+    this.commentsLoading$.subscribe(item => console.log(item))
   }
 
   getLoading() {
@@ -109,7 +119,7 @@ export class PostPageComponent implements OnInit, OnDestroy {
     this.blog$ = this.store.select(selectCurrentBlog)
   }
 
-  getMoreComments() {
+  loadComments() {
     this.store.dispatch(
       getCommentsForPostAction({
         postId: this.postId,
@@ -127,12 +137,6 @@ export class PostPageComponent implements OnInit, OnDestroy {
     this.store.dispatch(
       getPostByIdAction({
         postId: this.postId,
-        commentParams: {
-          sortBy: 'createdAt',
-          sortDirection: 'desc',
-          pageNumber: this.pageNumber,
-          pageSize: this.pageSize,
-        },
       })
     )
   }
