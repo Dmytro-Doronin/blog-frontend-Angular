@@ -32,7 +32,7 @@ import { PostResponse } from '../../types/posts.models'
 import { CommentsService } from '../../core/services/comments.service'
 import { CommentResponse } from '../../types/comments.model'
 import { addCommentsToStateAction, setAllCommentsToState } from '../actions/comments.action'
-import {IBlog} from "../../types/blogs.models";
+import { IBlog } from '../../types/blogs.models'
 
 @Injectable()
 export class PostsEffects {

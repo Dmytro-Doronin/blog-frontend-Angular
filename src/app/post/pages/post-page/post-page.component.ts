@@ -16,6 +16,7 @@ import { IBlog } from '../../../types/blogs.models'
 import {
   getCommentsForPostAction,
   sendCommentsAction,
+  setLikeOrDislikeForCommentAction,
 } from '../../../store/actions/comments.action'
 import {
   selectComments,
@@ -24,8 +25,8 @@ import {
   selectTotalCountComments,
 } from '../../../store/selectors/comments.selectoe'
 import { IComment } from '../../../types/comments.model'
-import {log} from "@angular-devkit/build-angular/src/builders/ssr-dev-server";
-import {SeverityType} from "../../../types/notification.models";
+import { log } from '@angular-devkit/build-angular/src/builders/ssr-dev-server'
+import { SeverityType } from '../../../types/notification.models'
 
 @Component({
   selector: 'blog-post-page',
@@ -86,6 +87,7 @@ export class PostPageComponent implements OnInit, OnDestroy {
   }
   getComments() {
     this.comments$ = this.store.select(selectComments)
+    this.comments$.subscribe(item => console.log(item))
   }
   getHasMoreComments() {
     this.hasMoreCommentForPost$ = this.store.select(selectHasMoComment)
@@ -117,6 +119,14 @@ export class PostPageComponent implements OnInit, OnDestroy {
 
   getBlogForPost() {
     this.blog$ = this.store.select(selectCurrentBlog)
+  }
+
+  onLikeComment(commentId: string) {
+    this.store.dispatch(setLikeOrDislikeForCommentAction({ status: 'Like', commentId }))
+  }
+
+  onDislikeComment(commentId: string) {
+    this.store.dispatch(setLikeOrDislikeForCommentAction({ status: 'Dislike', commentId }))
   }
 
   loadComments() {

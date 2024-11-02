@@ -43,4 +43,14 @@ export class CommentsService {
       withCredentials: true,
     })
   }
+
+  setLikeOrDislikeForComment(status: 'Like' | 'Dislike' | 'None', commentId: string) {
+    return this.http.put(
+      `http://localhost:3000/comments/${commentId}/like-status`,
+      {
+        likeStatus: status,
+      },
+      { withCredentials: true }
+    )
+  }
 }

@@ -1,7 +1,7 @@
 import { createAction, props } from '@ngrx/store'
 import { IPost, PostQueryParams } from '../../types/posts.models'
 import { IBlog } from '../../types/blogs.models'
-import {CommentsQueryParams} from "../../types/comments.model";
+import { CommentsQueryParams } from '../../types/comments.model'
 
 export const deletePost = createAction('[Post] delete post', props<{ postId: string }>())
 

@@ -4,9 +4,11 @@ import { IComment } from '../../types/comments.model'
 import {
   addCommentsToStateAction,
   addSingleCommentToStateAction,
+  changeLikeStatusForCommentInPostAction,
   setAllCommentsToState,
   setLoadingForCommentsAction,
 } from '../actions/comments.action'
+import { updatePostLikesStatusForComment } from '../../utils/comments.utils'
 
 export interface CommentsState {
   pagesCount: number
@@ -61,5 +63,14 @@ export const commentsReducer = createReducer(
   on(addSingleCommentToStateAction, (state, { comment }) => ({
     ...state,
     comments: [comment, ...state.comments],
+  })),
+  on(changeLikeStatusForCommentInPostAction, (state, { commentId, status }) => ({
+    ...state,
+    comments: state.comments.map(comment => {
+      if (comment.id === commentId) {
+        return updatePostLikesStatusForComment(comment, status)
+      }
+      return comment
+    }),
   }))
 )

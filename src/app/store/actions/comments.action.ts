@@ -50,3 +50,18 @@ export const getCommentsForPostAction = createAction(
   '[Comment] get comments by id',
   props<{ postId: string; commentParams: CommentsQueryParams }>()
 )
+
+export const setLikeOrDislikeForCommentAction = createAction(
+  '[Comment] set like or dislike',
+  props<{
+    status: 'Like' | 'Dislike' | 'None'
+    commentId: string
+    authorName?: string
+    userId?: string
+  }>()
+)
+
+export const changeLikeStatusForCommentInPostAction = createAction(
+  '[Comment] change like status for comment in post',
+  props<{ commentId: string; status: 'Like' | 'Dislike' | 'None' }>()
+)

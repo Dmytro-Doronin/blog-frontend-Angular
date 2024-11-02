@@ -49,6 +49,8 @@
     ></blog-add-comment-form>
     <div *ngIf="(comments$ | async)?.length; else emptyBlock" class="posts-list">
       <blog-comment-item
+        (likePost)="onLikeComment($event)"
+        (dislikePost)="onDislikeComment($event)"
         *ngFor="let comment of comments$ | async"
         [comment]="comment"
       ></blog-comment-item>

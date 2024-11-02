@@ -14,6 +14,12 @@
     <div class="item-content">
       {{ comment?.content }}
     </div>
-    <blog-like-dislike></blog-like-dislike>
+    <blog-like-dislike
+      [likesCount]="comment!.likesInfo.likesCount"
+      [dislikesCount]="comment!.likesInfo.dislikesCount"
+      [status]="comment!.likesInfo.myStatus"
+      (likeEvent)="onLikeClick()"
+      (dislikeEvent)="onDislikeClick()"
+    ></blog-like-dislike>
   </div>
 </div>
