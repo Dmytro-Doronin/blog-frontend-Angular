@@ -53,4 +53,10 @@ export class CommentsService {
       { withCredentials: true }
     )
   }
+
+  deleteCommentById(commentId: string) {
+    return this.http.delete(`http://localhost:3000/comments/${commentId}`, {
+      withCredentials: true,
+    })
+  }
 }

@@ -51,3 +51,5 @@ export const selectSortParams = createSelector(selectBlogsState, (state: BlogsSt
 
 export const selectBlogById = (blogId: string | null) =>
   createSelector(selectBlogs, blogs => blogs.find(blog => blog.id === blogId))
+export const selectPostByIdForCurrentBlog = (postId: string | null) =>
+  createSelector(selectPostsForBlogBlogModal, posts => posts.find(post => post.id === postId))

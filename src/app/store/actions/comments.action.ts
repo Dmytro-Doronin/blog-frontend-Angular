@@ -5,6 +5,15 @@ export const sendCommentsAction = createAction(
   '[Comments] send comment',
   props<{ postId: string; content: string }>()
 )
+export const deleteCommentAction = createAction(
+  '[Comments] delete comment',
+  props<{ commentId: string }>()
+)
+
+export const successDeleteCommentAction = createAction(
+  '[Comments] success delete comment',
+  props<{ commentId: string }>()
+)
 export const setLoadingForCommentsAction = createAction(
   '[Comments] set loading',
   props<{ loading: boolean }>()
@@ -64,4 +73,8 @@ export const setLikeOrDislikeForCommentAction = createAction(
 export const changeLikeStatusForCommentInPostAction = createAction(
   '[Comment] change like status for comment in post',
   props<{ commentId: string; status: 'Like' | 'Dislike' | 'None' }>()
+)
+export const setEditCommentAction = createAction(
+  '[Comment] set edit comment id',
+  props<{ commentId: string }>()
 )

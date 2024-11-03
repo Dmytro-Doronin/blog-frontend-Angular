@@ -1,0 +1,18 @@
+.item-container {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  padding: 16px 10px 12px 12px;
+
+
+}
+.item-container:hover {
+  background-color: var(--color-light-500);
+}
+
+.item-container:not(:last-child) {
+  padding-bottom: 12px;
+}
+.item-icon {
+  margin-right: 12px;
+}

@@ -1,4 +1,13 @@
 <div class="comment-item">
+  <blog-comment-control-menu
+    *ngIf="
+      currentUserId &&
+      comment?.commentatorInfo?.userId &&
+      currentUserId === comment!.commentatorInfo.userId
+    "
+    (itemEditSubmitted)="onEdit($event)"
+    (itemDeleteSubmitted)="onDelete($event)"
+  ></blog-comment-control-menu>
   <div class="picture">
     <blog-content-picture [variant]="'small-round-comment'"> </blog-content-picture>
   </div>
@@ -11,9 +20,17 @@
       ></blog-typography>
       <span class="date">{{ comment?.createdAt | date: 'dd/MM/yyyy' }}</span>
     </div>
-    <div class="item-content">
-      {{ comment?.content }}
-    </div>
+
+    <ng-container *ngIf="comment?.id === editCommentId; else contentBlock">
+      <blog-app-loader></blog-app-loader>
+    </ng-container>
+
+    <ng-template #contentBlock>
+      <div class="item-content">
+        {{ comment?.content }}
+      </div>
+    </ng-template>
+
     <blog-like-dislike
       [likesCount]="comment!.likesInfo.likesCount"
       [dislikesCount]="comment!.likesInfo.dislikesCount"

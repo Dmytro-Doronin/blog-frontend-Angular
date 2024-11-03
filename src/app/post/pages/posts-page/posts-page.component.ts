@@ -4,6 +4,7 @@ import {
   callDeletePostModalAction,
   deletePost,
   loadPosts,
+  setCurrentPostId,
   setLikeOrDislikeAction,
   setSortByAlphabetForPost,
   setSortByDateForPost,
@@ -20,6 +21,7 @@ import {
   selectSortParamsForPosts,
 } from '../../../store/selectors/posts.selector'
 import { selectIsAuthenticated, selectUserId } from '../../../store/selectors/auth.selector'
+import { setCurrentBlogId } from '../../../store/actions/blogs.actions'
 
 @Component({
   selector: 'blog-posts-page',
@@ -76,7 +78,6 @@ export class PostsPageComponent implements OnInit, OnDestroy {
 
   getHasMorePosts() {
     this.hasMorePosts$ = this.store.select(selectHasMorePosts)
-    this.hasMorePosts$.subscribe(item => console.log(item))
   }
   getIsAuthenticated() {
     this.isAuthenticated$ = this.store.select(selectIsAuthenticated)
@@ -88,7 +89,6 @@ export class PostsPageComponent implements OnInit, OnDestroy {
 
   getCurrentUser() {
     this.currentUserId$ = this.store.select(selectUserId)
-    this.currentUserId$.subscribe(item => console.log(item))
   }
 
   getLoading() {
@@ -97,7 +97,6 @@ export class PostsPageComponent implements OnInit, OnDestroy {
 
   onLikePost(postId: string) {
     this.store.dispatch(setLikeOrDislikeAction({ status: 'Like', postId }))
-    console.log(postId)
   }
 
   onDislikePost(postId: string) {
@@ -112,6 +111,16 @@ export class PostsPageComponent implements OnInit, OnDestroy {
     this.currentPostIdSubscription = this.store.select(selectCurrentPostId).subscribe(postId => {
       this.postToDeleteId = postId
     })
+  }
+
+  onDeletePost(data: { itemId: string }) {
+    this.store.dispatch(setCurrentPostId({ currentPostId: data.itemId }))
+    this.store.dispatch(callDeletePostModalAction({ deletePostModal: true }))
+  }
+
+  onEditPost(data: { postId: string; blogId: string }) {
+    this.store.dispatch(setCurrentPostId({ currentPostId: data.postId }))
+    this.store.dispatch(setCurrentBlogId({ blogId: data.blogId }))
   }
 
   deletePost() {

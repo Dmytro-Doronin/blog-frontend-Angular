@@ -39,9 +39,11 @@ import { PostItemComponent } from './components/post-item/post-item.component'
 import { LikeIconComponent } from './components/icons/like-icon/like-icon.component'
 import { DislikeIconComponent } from './components/icons/dislike-icon/dislike-icon.component'
 import { LikeDislikeComponent } from './components/like-dislike/like-dislike.component'
-import {IconSignInComponent} from "./header/icon-sign-in/icon-sign-in.component";
-import {PostControlMenuComponent} from "./components/post-control-menu/post-control-menu.component";
-import {CommentItemComponent} from "./components/comment-item/comment-item.component";
+import { IconSignInComponent } from './header/icon-sign-in/icon-sign-in.component'
+import { PostControlMenuComponent } from './components/post-control-menu/post-control-menu.component'
+import { CommentItemComponent } from './components/comment-item/comment-item.component'
+import { CommentControlMenuComponent } from './components/comment-control-menu/comment-control-menu.component'
+import { EditCommentFormComponent } from './components/comment-item/edit-comment-form/edit-comment-form.component'
 
 @NgModule({
   declarations: [
@@ -84,7 +86,9 @@ import {CommentItemComponent} from "./components/comment-item/comment-item.compo
     IconSignOutComponent,
     IconSignInComponent,
     PostControlMenuComponent,
-    CommentItemComponent
+    CommentItemComponent,
+    CommentControlMenuComponent,
+    EditCommentFormComponent,
   ],
   imports: [
     CommonModule,
@@ -135,7 +139,9 @@ import {CommentItemComponent} from "./components/comment-item/comment-item.compo
     LikeDislikeComponent,
     IconSignInComponent,
     PostControlMenuComponent,
-    CommentItemComponent
+    CommentItemComponent,
+    CommentControlMenuComponent,
+    EditCommentFormComponent,
   ],
 })
 export class SharedModule {}

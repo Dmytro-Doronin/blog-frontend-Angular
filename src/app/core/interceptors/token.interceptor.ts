@@ -75,10 +75,12 @@ export class TokenInterceptor implements HttpInterceptor {
     const postPutUrlPattern = /^http:\/\/localhost:3000\/posts\/[a-zA-Z0-9-]+\/like-status$/
     const commentsLikesPutUrlPattern =
       /^http:\/\/localhost:3000\/comments\/[a-zA-Z0-9-]+\/like-status$/
+    const commentsPattern = /^http:\/\/localhost:3000\/comments\/[a-zA-Z0-9-]+/
     const postCommentsForPostPattern = /^http:\/\/localhost:3000\/posts\/[a-zA-Z0-9-]+\/comments$/
     const postUrlPattern = /^http:\/\/localhost:3000\/posts\/[a-zA-Z0-9-]+$/
 
     const isDeletePost = postUrlPattern.test(req.url) && req.method === 'DELETE'
+    const isDeleteComment = commentsPattern.test(req.url) && req.method === 'DELETE'
     const postOrBlogs = postUrls.includes(req.url) && req.method === 'POST'
     const postOrBlogsForUser = postUrlsForUser.includes(req.url) && req.method === 'GET'
     const getPostById = postUrlPattern.test(req.url) && req.method === 'GET'
@@ -102,7 +104,8 @@ export class TokenInterceptor implements HttpInterceptor {
       getPostById ||
       commentsToPost ||
       commentsLikePut ||
-      commentsToPostGet
+      commentsToPostGet ||
+      isDeleteComment
     )
   }
   private isPostToBlogOrPostPut(req: HttpRequest<any>): boolean {

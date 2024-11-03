@@ -8,11 +8,13 @@ import {
   addCommentsToStateAction,
   addSingleCommentToStateAction,
   changeLikeStatusForCommentInPostAction,
+  deleteCommentAction,
   getCommentsForPostAction,
   sendCommentsAction,
   setAllCommentsToState,
   setLikeOrDislikeForCommentAction,
   setLoadingForCommentsAction,
+  successDeleteCommentAction,
 } from '../actions/comments.action'
 import { CommentResponse, IComment } from '../../types/comments.model'
 import {
@@ -60,6 +62,33 @@ export class CommentsEffects {
                 )
               })
             )
+        )
+      )
+    )
+  )
+
+  deleteСomment$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(deleteCommentAction),
+      concatMap(action =>
+        concat(
+          of(setLoadingForCommentsAction({ loading: true })),
+          this.commentService.deleteCommentById(action.commentId).pipe(
+            mergeMap((response: any) => {
+              return [
+                successDeleteCommentAction({ commentId: action.commentId }),
+                addAuthAlert({ severity: 'success', message: 'Comment has been deleted!' }),
+                setLoadingForCommentsAction({ loading: false }),
+              ]
+            }),
+            catchError(error => {
+              const message = error.error.errorsMessages[0].message
+              return of(
+                setLoadingForCommentsAction({ loading: false }),
+                addAuthAlert({ severity: 'error', message: message })
+              )
+            })
+          )
         )
       )
     )

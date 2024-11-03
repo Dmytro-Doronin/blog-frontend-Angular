@@ -32,6 +32,8 @@
     <blog-post-item
       (likePost)="onLikePost($event)"
       (dislikePost)="onDislikePost($event)"
+      (itemDeleteSubmitted)="onDeletePost($event)"
+      (itemEditSubmitted)="onEditPost($event)"
       [currentUserId]="currentUserId$ | async"
       *ngFor="let post of posts$ | async"
       [post]="post"

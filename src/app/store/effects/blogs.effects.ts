@@ -40,6 +40,11 @@ import { BlogService } from '../../core/services/blog.service'
 import { addAuthAlert, deleteAuthAlert } from '../actions/auth.actions'
 import { BlogResponse } from '../../types/blogs.models'
 import { PostResponse } from '../../types/posts.models'
+import {
+  addPostsToStateAction,
+  setAllPostsToState,
+  setPostsLoadingAction,
+} from '../actions/posts.action'
 
 @Injectable()
 export class BlogsEffects {
@@ -312,29 +317,54 @@ export class BlogsEffects {
           of(setPostsForBlogLoadingAction({ postsForBlogLoading: true })),
           this.blogService.getPostsForBlogs(action.params, action.id).pipe(
             mergeMap((response: PostResponse) => {
+              // if (action.params.pageNumber === 1) {
+              //   return [
+              //     setAllPostsForBlogToState({
+              //       pagesCount: response.pagesCount,
+              //       page: response.page,
+              //       pageSize: response.pageSize,
+              //       totalCount: response.totalCount,
+              //       postsForBlogs: response.items,
+              //       hasMorePostsForBlogs: response.items.length === action.params.pageSize,
+              //     }),
+              //     setPostsForBlogLoadingAction({ postsForBlogLoading: false }),
+              //   ]
+              // } else {
+              //   return [
+              //     addPostsForBlogsToStateAction({
+              //       pagesCount: response.pagesCount,
+              //       page: response.page,
+              //       pageSize: response.pageSize,
+              //       totalCount: response.totalCount,
+              //       postsForBlogs: response.items,
+              //       hasMorePostsForBlogs: response.items.length === action.params.pageSize,
+              //     }),
+              //     setPostsForBlogLoadingAction({ postsForBlogLoading: false }),
+              //   ]
+              // }
               if (action.params.pageNumber === 1) {
                 return [
-                  setAllPostsForBlogToState({
+                  setAllPostsToState({
                     pagesCount: response.pagesCount,
                     page: response.page,
                     pageSize: response.pageSize,
                     totalCount: response.totalCount,
-                    postsForBlogs: response.items,
-                    hasMorePostsForBlogs: response.items.length === action.params.pageSize,
+                    posts: response.items,
+                    hasMorePosts: response.items.length === action.params.pageSize,
                   }),
-                  setPostsForBlogLoadingAction({ postsForBlogLoading: false }),
+                  setPostsLoadingAction({ loading: false }),
                 ]
               } else {
                 return [
-                  addPostsForBlogsToStateAction({
+                  addPostsToStateAction({
                     pagesCount: response.pagesCount,
                     page: response.page,
                     pageSize: response.pageSize,
                     totalCount: response.totalCount,
-                    postsForBlogs: response.items,
-                    hasMorePostsForBlogs: response.items.length === action.params.pageSize,
+                    posts: response.items,
+                    hasMorePosts: response.items.length === action.params.pageSize,
                   }),
-                  setPostsForBlogLoadingAction({ postsForBlogLoading: false }),
+                  setPostsLoadingAction({ loading: false }),
                 ]
               }
             }),

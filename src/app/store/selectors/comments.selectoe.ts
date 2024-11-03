@@ -18,3 +18,7 @@ export const selectHasMoComment = createSelector(
   selectCommentsState,
   (state: CommentsState) => state.hasMoreComments
 )
+export const selectEditCommentIdComment = createSelector(
+  selectCommentsState,
+  (state: CommentsState) => state.editCommentId
+)

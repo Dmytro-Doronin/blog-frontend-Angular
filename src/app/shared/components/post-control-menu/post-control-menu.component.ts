@@ -1,7 +1,5 @@
-import { Component, Input } from '@angular/core'
+import { Component, EventEmitter, Input, Output } from '@angular/core'
 import { Store } from '@ngrx/store'
-import { callDeletePostModalAction, setCurrentPostId } from '../../../store/actions/posts.action'
-import { setCurrentBlogId } from '../../../store/actions/blogs.actions'
 
 @Component({
   selector: 'blog-post-control-menu',
@@ -10,16 +8,28 @@ import { setCurrentBlogId } from '../../../store/actions/blogs.actions'
 })
 export class PostControlMenuComponent {
   constructor(private store: Store) {}
-  @Input() postId: string = ''
-  @Input() blogId: string = ''
+  @Input() itemId: string = ''
+  @Input() editLink: string = ''
+  @Input() shouldHaveRouterLink: boolean = true
 
-  setPostId() {
-    this.store.dispatch(setCurrentPostId({ currentPostId: this.postId }))
-    this.store.dispatch(setCurrentBlogId({ blogId: this.blogId }))
+  // @Input() blogId: string = ''
+  @Output() itemEditSubmitted = new EventEmitter<{ itemId: string }>()
+  @Output() itemDeleteSubmitted = new EventEmitter<{ itemId: string }>()
+
+  editItem() {
+    this.itemEditSubmitted.emit({ itemId: this.itemId })
   }
 
-  onPostDeleteModalClose() {
-    this.store.dispatch(setCurrentPostId({ currentPostId: this.postId }))
-    this.store.dispatch(callDeletePostModalAction({ deletePostModal: true }))
+  onDeleteItem() {
+    this.itemDeleteSubmitted.emit({ itemId: this.itemId })
   }
+  // setPostId() {
+  //   this.store.dispatch(setCurrentPostId({ currentPostId: this.postId }))
+  //   this.store.dispatch(setCurrentBlogId({ blogId: this.blogId }))
+  // }
+
+  // onPostDeleteModalClose() {
+  //   this.store.dispatch(setCurrentPostId({ currentPostId: this.postId }))
+  //   this.store.dispatch(callDeletePostModalAction({ deletePostModal: true }))
+  // }
 }

@@ -4,7 +4,17 @@
     [variant]="'Back'"
     [content]="'Back to blogs'"
   ></blog-button>
-
+  <blog-modal *ngIf="openDeleteModal$ | async" (closeModal)="onCloseModal()" [title]="'Delete'">
+    <p class="blog-modal-text">Are you sure about this?</p>
+    <div class="blog-modal-btn-group">
+      <blog-button (click)="deletePost()" [className]="'mr20'" [content]="'Ok'"></blog-button>
+      <blog-button
+        (click)="onCloseModal()"
+        [variant]="'Secondary'"
+        [content]="'Cancel'"
+      ></blog-button>
+    </div>
+  </blog-modal>
   <section class="blog-info-block">
     <div class="blog-content">
       <div *ngIf="loading$ | async; else contentBlock" class="loader-container">
@@ -42,6 +52,9 @@
 
     <div *ngIf="(posts$ | async)?.length; else emptyBlock" class="posts-list">
       <blog-post-item
+        [currentUserId]="currentUserId"
+        (itemEditSubmitted)="onEditPostInBlog($event)"
+        (itemDeleteSubmitted)="onDeletePostInBlog($event)"
         (likePost)="onLikePost($event)"
         (dislikePost)="onDislikePost($event)"
         *ngFor="let post of posts$ | async"

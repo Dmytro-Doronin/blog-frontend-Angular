@@ -20,7 +20,10 @@
         fullWidth: fullWidth
       }"
     >
-      <blog-arrow-back *ngIf="variant === 'Back'"></blog-arrow-back>
+      <div class="arrow">
+        <blog-arrow-back *ngIf="variant === 'Back'"></blog-arrow-back>
+      </div>
+
       {{ content }}
     </button>
   </div>

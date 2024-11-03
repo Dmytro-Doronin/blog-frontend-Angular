@@ -11,9 +11,26 @@ import {
   selectPostsForBlogBlogModal,
   selectPostsForBlogLoading,
 } from '../../../store/selectors/blogs.selector'
-import { getBlogByIdAction, loadPostsForBlogs } from '../../../store/actions/blogs.actions'
+import {
+  getBlogByIdAction,
+  loadPostsForBlogs,
+  setCurrentBlogId,
+} from '../../../store/actions/blogs.actions'
+import { deletePost } from '../../../store/actions/posts.action'
 import { IPost } from '../../../types/posts.models'
-import { setLikeOrDislikeAction } from '../../../store/actions/posts.action'
+import {
+  callDeletePostModalAction,
+  setCurrentPostId,
+  setLikeOrDislikeAction,
+} from '../../../store/actions/posts.action'
+import {
+  selectCurrentPostId,
+  selectDeletePostModal,
+  selectHasMorePosts,
+  selectPost,
+  selectPosts,
+  selectPostsLoading,
+} from '../../../store/selectors/posts.selector'
 
 @Component({
   selector: 'blog-blog-page',
@@ -25,14 +42,20 @@ export class BlogPageComponent implements OnInit, OnDestroy {
   loading$?: Observable<boolean>
   loadingForPosts$?: Observable<boolean>
   posts$?: Observable<IPost[]>
+  openDeleteModal$?: Observable<boolean>
+
   currentUserId?: string
   blog?: IBlog
   blogId: string = ''
+  postToDeleteId: string = ''
+  // editPostLink = '/main/posts-page/edit-post'
   pageNumber = 1
   pageSize = 5
   hasMorePostForBlog$?: Observable<boolean>
   private getBlogSubscription: Subscription = new Subscription()
   private getCurrentUserIdSubscription: Subscription = new Subscription()
+  private currentPostIdSubscription: Subscription = new Subscription()
+
   constructor(
     private store: Store,
     private route: ActivatedRoute
@@ -49,6 +72,8 @@ export class BlogPageComponent implements OnInit, OnDestroy {
     this.downloadPostsForBlog()
     this.getPostsForBlog()
     this.getHasMorePostsForBlog()
+    this.getCurrentPostId()
+    this.getOpenDeletePostModal()
   }
 
   downloadPostsForBlog() {
@@ -66,17 +91,17 @@ export class BlogPageComponent implements OnInit, OnDestroy {
   }
 
   getPostsForBlog() {
-    this.posts$ = this.store.select(selectPostsForBlogBlogModal)
+    this.posts$ = this.store.select(selectPosts)
   }
   getHasMorePostsForBlog() {
-    this.hasMorePostForBlog$ = this.store.select(selectHasMorePostsForBlog)
+    this.hasMorePostForBlog$ = this.store.select(selectHasMorePosts)
   }
   getLoading() {
     this.loading$ = this.store.select(selectBlogsLoading)
   }
 
   getLoadingForPost() {
-    this.loadingForPosts$ = this.store.select(selectPostsForBlogLoading)
+    this.loadingForPosts$ = this.store.select(selectPostsLoading)
   }
 
   addCurrentBlog() {
@@ -86,6 +111,14 @@ export class BlogPageComponent implements OnInit, OnDestroy {
   getCurrentUserId() {
     this.getCurrentUserIdSubscription = this.store.select(selectUserId).subscribe(userId => {
       this.currentUserId = userId
+    })
+  }
+  getOpenDeletePostModal() {
+    this.openDeleteModal$ = this.store.select(selectDeletePostModal)
+  }
+  getCurrentPostId() {
+    this.currentPostIdSubscription = this.store.select(selectCurrentPostId).subscribe(postId => {
+      this.postToDeleteId = postId
     })
   }
 
@@ -106,6 +139,26 @@ export class BlogPageComponent implements OnInit, OnDestroy {
 
   onDislikePost(postId: string) {
     this.store.dispatch(setLikeOrDislikeAction({ status: 'Dislike', postId }))
+  }
+
+  onDeletePostInBlog(data: { itemId: string }) {
+    this.store.dispatch(setCurrentPostId({ currentPostId: data.itemId }))
+    this.store.dispatch(setCurrentBlogId({ blogId: this.blogId }))
+    this.store.dispatch(callDeletePostModalAction({ deletePostModal: true }))
+  }
+
+  onEditPostInBlog(data: { postId: string; blogId: string }) {
+    this.store.dispatch(setCurrentPostId({ currentPostId: data.postId }))
+    this.store.dispatch(setCurrentBlogId({ blogId: data.blogId }))
+  }
+
+  deletePost() {
+    this.store.dispatch(deletePost({ postId: this.postToDeleteId }))
+    this.store.dispatch(callDeletePostModalAction({ deletePostModal: false }))
+  }
+
+  onCloseModal() {
+    this.store.dispatch(callDeletePostModalAction({ deletePostModal: false }))
   }
 
   ngOnDestroy() {

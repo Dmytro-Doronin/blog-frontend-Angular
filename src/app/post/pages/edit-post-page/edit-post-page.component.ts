@@ -37,7 +37,8 @@ export class EditPostPageComponent implements OnInit, OnDestroy {
 
   getPostId() {
     this.currentPostSubscription = this.store.select(selectCurrentPostId).subscribe(postId => {
-      this.currentPosId = postId ?? ''
+      this.currentPosId = postId
+      console.log(postId)
     })
   }
 
