@@ -57,6 +57,8 @@
         [comment]="comment"
         [editCommentId]="editCommentId$ | async"
         [currentUserId]="currentUserId"
+        [commentLoading]="commentsLoading$ | async"
+        [authSeverity]="authSeverity$ | async"
       ></blog-comment-item>
     </div>
 

@@ -1,0 +1,7 @@
+.button-group {
+  display: flex;
+  justify-content: right;
+  overflow-y: visible;
+  transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out;
+  height: auto;
+}

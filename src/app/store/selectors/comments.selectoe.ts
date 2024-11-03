@@ -1,5 +1,6 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store'
 import { CommentsState } from '../reducers/comments.reducer'
+import { selectPosts } from './posts.selector'
 
 export const selectCommentsState = createFeatureSelector<CommentsState>('comments')
 export const selectCommentsLoading = createSelector(
@@ -22,3 +23,5 @@ export const selectEditCommentIdComment = createSelector(
   selectCommentsState,
   (state: CommentsState) => state.editCommentId
 )
+export const selectCommentById = (commentId: string | null) =>
+  createSelector(selectComments, comments => comments.find(comment => comment.id === commentId))

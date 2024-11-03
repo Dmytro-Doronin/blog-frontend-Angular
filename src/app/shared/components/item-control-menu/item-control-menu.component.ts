@@ -19,8 +19,6 @@ export class ItemControlMenuComponent {
     this.isOpen = !this.isOpen
   }
 
-  setId() {}
-
   @HostListener('document:click', ['$event'])
   onClickOutside(event: Event) {
     const clickedInside = this.elementRef.nativeElement.contains(event.target)

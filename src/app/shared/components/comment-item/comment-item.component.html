@@ -21,22 +21,25 @@
       <span class="date">{{ comment?.createdAt | date: 'dd/MM/yyyy' }}</span>
     </div>
 
-    <ng-container *ngIf="comment?.id === editCommentId; else contentBlock">
-      <blog-app-loader></blog-app-loader>
+    <ng-container *ngIf="isOpenForm; else contentBlock">
+      <blog-edit-comment-form
+        [currentCommentId]="editCommentId"
+        [loading]="commentLoading"
+        (closeFormSubmitted)="onCloseForm()"
+      ></blog-edit-comment-form>
     </ng-container>
 
     <ng-template #contentBlock>
       <div class="item-content">
         {{ comment?.content }}
       </div>
+      <blog-like-dislike
+        [likesCount]="comment!.likesInfo.likesCount"
+        [dislikesCount]="comment!.likesInfo.dislikesCount"
+        [status]="comment!.likesInfo.myStatus"
+        (likeEvent)="onLikeClick()"
+        (dislikeEvent)="onDislikeClick()"
+      ></blog-like-dislike>
     </ng-template>
-
-    <blog-like-dislike
-      [likesCount]="comment!.likesInfo.likesCount"
-      [dislikesCount]="comment!.likesInfo.dislikesCount"
-      [status]="comment!.likesInfo.myStatus"
-      (likeEvent)="onLikeClick()"
-      (dislikeEvent)="onDislikeClick()"
-    ></blog-like-dislike>
   </div>
 </div>

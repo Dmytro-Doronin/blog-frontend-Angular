@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core'
+import { Component, EventEmitter, Input, Output } from '@angular/core'
 
 @Component({
   selector: 'blog-control-menu',
@@ -7,4 +7,9 @@ import { Component, Input } from '@angular/core'
 })
 export class ControlMenuComponent {
   @Input() isOpen: boolean = false
+  @Output() closeMenu = new EventEmitter<void>()
+
+  close() {
+    this.closeMenu.emit()
+  }
 }

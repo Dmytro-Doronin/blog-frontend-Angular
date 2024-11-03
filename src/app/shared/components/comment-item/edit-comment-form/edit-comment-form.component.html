@@ -1,1 +1,48 @@
-<p>edit-comment-form works!</p>
+<form class="add-comments-form" [formGroup]="editCommentForPostForm" (ngSubmit)="onSubmit()">
+  <div class="comments-form-header">
+    <!--        "'Comments (' + comments.length + ')'"-->
+  </div>
+
+  <ng-container>
+    <div class="form-content">
+      <blog-input
+        [isControl]="true"
+        [control]="editCommentForPostForm.controls.content"
+        [id]="'content'"
+        [placeholder]="'Comment...'"
+        [variant]="'textarea-comment'"
+      ></blog-input>
+
+      <div *ngIf="content && !content!.valid && (content?.dirty || content?.touched)" class="error">
+        <div *ngIf="content.errors?.['minlength']">
+          The content must not be less than 20 or more then 300.
+        </div>
+      </div>
+
+      <div class="loader-block" *ngIf="loading">
+        <blog-loader></blog-loader>
+      </div>
+
+      <div class="button-group">
+        <blog-button
+          [tag]="'button'"
+          [content]="'Cancel'"
+          (click)="closeForm()"
+          variant="Secondary"
+          [className]="'mr20'"
+          [disabled]="false"
+        >
+        </blog-button>
+
+        <blog-button
+          [tag]="'button'"
+          [content]="'Edit a comment'"
+          variant="Primary"
+          [disabled]="content?.valid === false && !loading"
+          [type]="'submit'"
+        >
+        </blog-button>
+      </div>
+    </div>
+  </ng-container>
+</form>
