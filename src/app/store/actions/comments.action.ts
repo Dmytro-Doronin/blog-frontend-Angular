@@ -18,6 +18,10 @@ export const setLoadingForCommentsAction = createAction(
   '[Comments] set loading',
   props<{ loading: boolean }>()
 )
+export const setEditLoadingForCommentsAction = createAction(
+  '[Comments] set loading',
+  props<{ editLoading: boolean }>()
+)
 
 export const loadCommentsAction = createAction(
   '[Comments] send comment',
@@ -77,4 +81,12 @@ export const changeLikeStatusForCommentInPostAction = createAction(
 export const setEditCommentAction = createAction(
   '[Comment] set edit comment id',
   props<{ commentId: string }>()
+)
+export const updateCommentAction = createAction(
+  '[Comment] update comment',
+  props<{ commentId: string; content: string }>()
+)
+export const successUpdateCommentAction = createAction(
+  '[Comment] success update comment',
+  props<{ comment: IComment }>()
 )

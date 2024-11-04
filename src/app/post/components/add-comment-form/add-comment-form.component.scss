@@ -29,7 +29,12 @@
   visibility: hidden;
 }
 
-
+.loader-block {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+}
 .button-group.open {
   opacity: 1;
   transform: scaleY(1);

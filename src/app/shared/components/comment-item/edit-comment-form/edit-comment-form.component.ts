@@ -13,6 +13,7 @@ import { selectCommentById } from '../../../../store/selectors/comments.selectoe
 })
 export class EditCommentFormComponent implements OnInit, OnChanges, OnDestroy {
   @Input() loading?: boolean | null = false
+  @Input() editLoading?: boolean | null = false
   @Input() currentCommentId: string | undefined | null = ''
   @Input() isAuthenticated: boolean | null = false
   @Input() authSeverity?: SeverityType | undefined | null

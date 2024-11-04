@@ -25,7 +25,9 @@
       <blog-edit-comment-form
         [currentCommentId]="editCommentId"
         [loading]="commentLoading"
+        [editLoading]="editCommentLoading"
         (closeFormSubmitted)="onCloseForm()"
+        (formSubmitted)="onFormItemSubmit($event)"
       ></blog-edit-comment-form>
     </ng-container>
 

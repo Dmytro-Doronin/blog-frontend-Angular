@@ -7,11 +7,13 @@ import {
   changeLikeStatusForCommentInPostAction,
   setAllCommentsToState,
   setEditCommentAction,
+  setEditLoadingForCommentsAction,
   setLoadingForCommentsAction,
   successDeleteCommentAction,
+  successUpdateCommentAction,
 } from '../actions/comments.action'
 import { updatePostLikesStatusForComment } from '../../utils/comments.utils'
-import { successDeletePost } from '../actions/posts.action'
+import { successDeletePost, successUpdateDetailsPost } from '../actions/posts.action'
 
 export interface CommentsState {
   pagesCount: number
@@ -21,6 +23,7 @@ export interface CommentsState {
   hasMoreComments: boolean
   editCommentId: string
   loading: boolean
+  editLoading: boolean
   comments: IComment[]
 }
 
@@ -31,6 +34,7 @@ export const initialState: CommentsState = {
   totalCount: 0,
   hasMoreComments: false,
   loading: false,
+  editLoading: false,
   editCommentId: '',
   comments: [],
 }
@@ -65,6 +69,10 @@ export const commentsReducer = createReducer(
     ...state,
     loading: loading,
   })),
+  on(setEditLoadingForCommentsAction, (state, { editLoading }) => ({
+    ...state,
+    editLoading: editLoading,
+  })),
   on(addSingleCommentToStateAction, (state, { comment }) => ({
     ...state,
     comments: [comment, ...state.comments],
@@ -85,5 +93,9 @@ export const commentsReducer = createReducer(
   on(setEditCommentAction, (state, { commentId }) => ({
     ...state,
     editCommentId: commentId,
+  })),
+  on(successUpdateCommentAction, (state, { comment }) => ({
+    ...state,
+    comments: state.comments.map(b => (b.id === comment.id ? comment : b)),
   }))
 )

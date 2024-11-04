@@ -1,13 +1,8 @@
-import { Component, OnChanges, OnDestroy, OnInit } from '@angular/core'
+import { Component, OnDestroy, OnInit } from '@angular/core'
 import { Store } from '@ngrx/store'
 import { ActivatedRoute } from '@angular/router'
 import { Observable, Subscription } from 'rxjs'
-import {
-  callDeletePostModalAction,
-  getPostByIdAction,
-  setCurrentPostId,
-  setLikeOrDislikeAction,
-} from '../../../store/actions/posts.action'
+import { getPostByIdAction, setLikeOrDislikeAction } from '../../../store/actions/posts.action'
 import { selectPost, selectPostsLoading } from '../../../store/selectors/posts.selector'
 import { IPost } from '../../../types/posts.models'
 import {
@@ -16,7 +11,7 @@ import {
   selectUserId,
   selectUserLogin,
 } from '../../../store/selectors/auth.selector'
-import { selectBlogsLoading, selectCurrentBlog } from '../../../store/selectors/blogs.selector'
+import { selectCurrentBlog } from '../../../store/selectors/blogs.selector'
 import { IBlog } from '../../../types/blogs.models'
 import {
   deleteCommentAction,
@@ -24,17 +19,18 @@ import {
   sendCommentsAction,
   setEditCommentAction,
   setLikeOrDislikeForCommentAction,
+  updateCommentAction,
 } from '../../../store/actions/comments.action'
 import {
   selectComments,
   selectCommentsLoading,
   selectEditCommentIdComment,
+  selectEditCommentLoading,
   selectHasMoComment,
   selectTotalCountComments,
 } from '../../../store/selectors/comments.selectoe'
 import { IComment } from '../../../types/comments.model'
 import { SeverityType } from '../../../types/notification.models'
-import { setCurrentBlogId } from '../../../store/actions/blogs.actions'
 
 @Component({
   selector: 'blog-post-page',
@@ -45,7 +41,8 @@ export class PostPageComponent implements OnInit, OnDestroy {
   isAuthenticated$?: Observable<boolean>
   loading$?: Observable<boolean>
   commentsLoading$?: Observable<boolean>
-  editCommentId$?: Observable<string | undefined>
+  editCommentsLoading$?: Observable<boolean>
+  editCommentId?: string | undefined
   totalCountComments$?: Observable<number>
   comments$?: Observable<IComment[]>
   blog$?: Observable<IBlog>
@@ -61,6 +58,7 @@ export class PostPageComponent implements OnInit, OnDestroy {
   private getPostSubscription: Subscription = new Subscription()
   private getCurrentUserSubscription: Subscription = new Subscription()
   private getCurrentUserIdSubscription: Subscription = new Subscription()
+  private getEditCommentIdSubscription: Subscription = new Subscription()
 
   constructor(
     private store: Store,
@@ -83,13 +81,18 @@ export class PostPageComponent implements OnInit, OnDestroy {
     this.getHasMoreComments()
     this.getAuthSeverity()
     this.getEditCommentId()
+    this.getEditCommentLoading()
     // this.store.select(selectPost).subscribe(post => {
     //   console.log(post)
     // })
   }
 
   getEditCommentId() {
-    this.editCommentId$ = this.store.select(selectEditCommentIdComment)
+    this.getEditCommentIdSubscription = this.store
+      .select(selectEditCommentIdComment)
+      .subscribe(commentId => {
+        this.editCommentId = commentId
+      })
   }
 
   loadMoreComments() {
@@ -101,11 +104,9 @@ export class PostPageComponent implements OnInit, OnDestroy {
   }
   getComments() {
     this.comments$ = this.store.select(selectComments)
-    this.comments$.subscribe(item => console.log(item))
   }
   getHasMoreComments() {
     this.hasMoreCommentForPost$ = this.store.select(selectHasMoComment)
-    this.hasMoreCommentForPost$.subscribe(item => console.log(item))
   }
   getTotalCountComments() {
     this.totalCountComments$ = this.store.select(selectTotalCountComments)
@@ -113,11 +114,14 @@ export class PostPageComponent implements OnInit, OnDestroy {
 
   getCommentsLoading() {
     this.commentsLoading$ = this.store.select(selectCommentsLoading)
-    this.commentsLoading$.subscribe(item => console.log(item))
   }
 
   getLoading() {
     this.loading$ = this.store.select(selectPostsLoading)
+  }
+
+  getEditCommentLoading() {
+    this.editCommentsLoading$ = this.store.select(selectEditCommentLoading)
   }
 
   getCurrentUser() {
@@ -201,6 +205,17 @@ export class PostPageComponent implements OnInit, OnDestroy {
 
   onEditPostInBlog(data: { commentId: string }) {
     this.store.dispatch(setEditCommentAction({ commentId: data.commentId }))
+  }
+
+  noCloseEditForm() {
+    this.store.dispatch(setEditCommentAction({ commentId: '' }))
+  }
+
+  onFormSubmitted(data: { content: string }) {
+    this.store.dispatch(
+      updateCommentAction({ commentId: this.editCommentId!, content: data.content })
+    )
+    this.noCloseEditForm()
   }
 
   ngOnDestroy() {

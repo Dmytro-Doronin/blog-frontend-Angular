@@ -13,10 +13,13 @@ export class CommentItemComponent implements OnInit, OnChanges {
   @Input() currentUserId?: string
   @Input() commentLoading?: boolean | null
   @Input() editCommentId?: string | null
+  @Input() editCommentLoading?: boolean | null
   @Output() likePost = new EventEmitter<string>()
   @Output() dislikePost = new EventEmitter<string>()
   @Output() itemEditSubmitted = new EventEmitter<{ commentId: string }>()
   @Output() itemDeleteSubmitted = new EventEmitter<{ commentId: string }>()
+  @Output() closeEditForm = new EventEmitter<void>()
+  @Output() formSubmitted = new EventEmitter<{ content: string }>()
   isOpenForm: boolean = false
 
   ngOnInit(): void {
@@ -25,11 +28,12 @@ export class CommentItemComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(): void {
-    // this.isOpenForm = this.comment?.id === this.editCommentId
+    this.isOpenForm = this.comment?.id === this.editCommentId
   }
 
   onCloseForm() {
     this.isOpenForm = false
+    this.closeEditForm.emit()
   }
 
   onEdit(data: { itemId: string }) {
@@ -46,5 +50,9 @@ export class CommentItemComponent implements OnInit, OnChanges {
 
   onDislikeClick() {
     this.dislikePost.emit(this.comment!.id)
+  }
+
+  onFormItemSubmit(data: { content: string }) {
+    this.formSubmitted.emit({ content: data.content })
   }
 }

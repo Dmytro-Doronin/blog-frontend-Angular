@@ -54,8 +54,24 @@ export class CommentsService {
     )
   }
 
+  changeComment(content: string, commentId: string) {
+    return this.http.put(
+      `http://localhost:3000/comments/${commentId}`,
+      {
+        content,
+      },
+      { withCredentials: true }
+    )
+  }
+
   deleteCommentById(commentId: string) {
     return this.http.delete(`http://localhost:3000/comments/${commentId}`, {
+      withCredentials: true,
+    })
+  }
+
+  getCommentById(commentId: string) {
+    return this.http.get<IComment>(`http://localhost:3000/comments/${commentId}`, {
       withCredentials: true,
     })
   }

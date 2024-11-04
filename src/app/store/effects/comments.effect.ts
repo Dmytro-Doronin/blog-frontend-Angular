@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core'
 import { Actions, createEffect, ofType } from '@ngrx/effects'
-import { catchError, concatMap, mergeMap } from 'rxjs/operators'
+import { catchError, concatMap, mergeMap, switchMap } from 'rxjs/operators'
 import { concat, of } from 'rxjs'
 import { addAuthAlert } from '../actions/auth.actions'
 import { CommentsService } from '../../core/services/comments.service'
@@ -12,20 +12,14 @@ import {
   getCommentsForPostAction,
   sendCommentsAction,
   setAllCommentsToState,
+  setEditLoadingForCommentsAction,
   setLikeOrDislikeForCommentAction,
   setLoadingForCommentsAction,
   successDeleteCommentAction,
+  successUpdateCommentAction,
+  updateCommentAction,
 } from '../actions/comments.action'
 import { CommentResponse, IComment } from '../../types/comments.model'
-import {
-  addPostsForBlogsToStateAction,
-  changeLikeStatusForPostInBlogAction,
-  loadPostsForBlogs,
-  setAllPostsForBlogToState,
-  setPostsForBlogLoadingAction,
-} from '../actions/blogs.actions'
-import { PostResponse } from '../../types/posts.models'
-import { changeLikeStatusForPostAction, setLikeOrDislikeAction } from '../actions/posts.action'
 
 @Injectable()
 export class CommentsEffects {
@@ -85,6 +79,46 @@ export class CommentsEffects {
               const message = error.error.errorsMessages[0].message
               return of(
                 setLoadingForCommentsAction({ loading: false }),
+                addAuthAlert({ severity: 'error', message: message })
+              )
+            })
+          )
+        )
+      )
+    )
+  )
+
+  updateСomment$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(updateCommentAction),
+      concatMap(action =>
+        concat(
+          of(setEditLoadingForCommentsAction({ editLoading: true })),
+          this.commentService.changeComment(action.content, action.commentId).pipe(
+            switchMap(() =>
+              this.commentService.getCommentById(action.commentId).pipe(
+                mergeMap((updatedComment: IComment) => {
+                  return [
+                    successUpdateCommentAction({ comment: updatedComment }),
+                    addAuthAlert({ severity: 'success', message: 'Comment was updated' }),
+                    setEditLoadingForCommentsAction({ editLoading: false }),
+                  ]
+                }),
+                catchError(error => {
+                  const message =
+                    error?.error?.errorsMessages?.[0]?.message || 'Failed to load updated blog'
+                  return of(
+                    setEditLoadingForCommentsAction({ editLoading: false }),
+                    addAuthAlert({ severity: 'error', message: message })
+                  )
+                })
+              )
+            ),
+            catchError(error => {
+              const message =
+                error?.error?.errorsMessages?.[0]?.message || 'Failed to update comment'
+              return of(
+                setEditLoadingForCommentsAction({ editLoading: false }),
                 addAuthAlert({ severity: 'error', message: message })
               )
             })

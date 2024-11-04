@@ -81,6 +81,8 @@ export class TokenInterceptor implements HttpInterceptor {
 
     const isDeletePost = postUrlPattern.test(req.url) && req.method === 'DELETE'
     const isDeleteComment = commentsPattern.test(req.url) && req.method === 'DELETE'
+    const isPutComment = commentsPattern.test(req.url) && req.method === 'PUT'
+    const isGetComment = commentsPattern.test(req.url) && req.method === 'GET'
     const postOrBlogs = postUrls.includes(req.url) && req.method === 'POST'
     const postOrBlogsForUser = postUrlsForUser.includes(req.url) && req.method === 'GET'
     const getPostById = postUrlPattern.test(req.url) && req.method === 'GET'
@@ -105,7 +107,9 @@ export class TokenInterceptor implements HttpInterceptor {
       commentsToPost ||
       commentsLikePut ||
       commentsToPostGet ||
-      isDeleteComment
+      isDeleteComment ||
+      isPutComment ||
+      isGetComment
     )
   }
   private isPostToBlogOrPostPut(req: HttpRequest<any>): boolean {

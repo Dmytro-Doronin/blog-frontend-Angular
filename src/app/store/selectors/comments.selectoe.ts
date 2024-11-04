@@ -23,5 +23,10 @@ export const selectEditCommentIdComment = createSelector(
   selectCommentsState,
   (state: CommentsState) => state.editCommentId
 )
+
+export const selectEditCommentLoading = createSelector(
+  selectCommentsState,
+  (state: CommentsState) => state.editLoading
+)
 export const selectCommentById = (commentId: string | null) =>
   createSelector(selectComments, comments => comments.find(comment => comment.id === commentId))

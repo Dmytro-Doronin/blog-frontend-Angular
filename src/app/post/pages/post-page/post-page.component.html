@@ -6,59 +6,71 @@
   ></blog-button>
 
   <section class="post-page">
-    <div class="blog-info">
-      <div class="picture-container">
-        <blog-content-picture [variant]="'small-round'"></blog-content-picture>
+    <ng-container *ngIf="loading$ | async; else mainContent">
+      <div class="loader-block">
+        <blog-loader></blog-loader>
       </div>
-      <span class="blog-name">{{ (blog$ | async)?.name }}</span>
-    </div>
+    </ng-container>
 
-    <div class="post-header">
-      <blog-typography [variant]="'h2'" [content]="post ? post.title : ''"></blog-typography>
-      <div class="date-time-block">
-        <span class="date">{{ post?.createdAt | date: "dd/MM/yyyy 'at' HH:mm:ss" }}</span>
+    <ng-template #mainContent>
+      <div class="blog-info">
+        <div class="picture-container">
+          <blog-content-picture [variant]="'small-round'"></blog-content-picture>
+        </div>
+        <span class="blog-name">{{ (blog$ | async)?.name }}</span>
       </div>
-    </div>
 
-    <div class="like-dislike-container">
-      <blog-like-dislike
-        [size]="'large'"
-        [newestLikesArray]="post ? post.extendedLikesInfo.newestLikes : []"
-        [status]="post ? post.extendedLikesInfo.myStatus : 'None'"
-        [likesCount]="post ? post.extendedLikesInfo.likesCount : 0"
-        [dislikesCount]="post ? post.extendedLikesInfo.dislikesCount : 0"
-        (likeEvent)="onLikePost()"
-        (dislikeEvent)="onDislikePost()"
-      ></blog-like-dislike>
-    </div>
+      <div class="post-header">
+        <blog-typography [variant]="'h2'" [content]="post ? post.title : ''"></blog-typography>
+        <div class="date-time-block">
+          <span class="date">{{ post?.createdAt | date: "dd/MM/yyyy 'at' HH:mm:ss" }}</span>
+        </div>
+      </div>
 
-    <div class="blog-picture-container">
-      <blog-content-picture [variant]="'big-picture'"></blog-content-picture>
-    </div>
+      <div class="like-dislike-container">
+        <blog-like-dislike
+          [size]="'large'"
+          [newestLikesArray]="post ? post.extendedLikesInfo.newestLikes : []"
+          [status]="post ? post.extendedLikesInfo.myStatus : 'None'"
+          [likesCount]="post ? post.extendedLikesInfo.likesCount : 0"
+          [dislikesCount]="post ? post.extendedLikesInfo.dislikesCount : 0"
+          (likeEvent)="onLikePost()"
+          (dislikeEvent)="onDislikePost()"
+        ></blog-like-dislike>
+      </div>
 
-    <div class="post-description">
-      {{ post?.shortDescription }}
-    </div>
+      <div class="blog-picture-container">
+        <blog-content-picture [variant]="'big-picture'"></blog-content-picture>
+      </div>
 
-    <blog-add-comment-form
-      (formSubmitted)="onAddCommentFormSubmit($event)"
-      [isAuthenticated]="isAuthenticated$ | async"
-      [loading]="commentsLoading$ | async"
-      [totalCountComments]="totalCountComments$ | async"
-      [authSeverity]="authSeverity$ | async"
-    ></blog-add-comment-form>
+      <div class="post-description">
+        {{ post?.shortDescription }}
+      </div>
+
+      <blog-add-comment-form
+        (formSubmitted)="onAddCommentFormSubmit($event)"
+        [isAuthenticated]="isAuthenticated$ | async"
+        [loading]="commentsLoading$ | async"
+        [totalCountComments]="totalCountComments$ | async"
+        [authSeverity]="authSeverity$ | async"
+      ></blog-add-comment-form>
+    </ng-template>
+
     <div *ngIf="(comments$ | async)?.length; else emptyBlock" class="posts-list">
       <blog-comment-item
+        *ngFor="let comment of comments$ | async"
         (likePost)="onLikeComment($event)"
         (dislikePost)="onDislikeComment($event)"
         (itemEditSubmitted)="onEditPostInBlog($event)"
         (itemDeleteSubmitted)="onDeletePostInBlog($event)"
-        *ngFor="let comment of comments$ | async"
         [comment]="comment"
-        [editCommentId]="editCommentId$ | async"
+        [editCommentId]="editCommentId"
+        [editCommentLoading]="editCommentsLoading$ | async"
         [currentUserId]="currentUserId"
         [commentLoading]="commentsLoading$ | async"
         [authSeverity]="authSeverity$ | async"
+        (closeEditForm)="noCloseEditForm()"
+        (formSubmitted)="onFormSubmitted($event)"
       ></blog-comment-item>
     </div>
 
