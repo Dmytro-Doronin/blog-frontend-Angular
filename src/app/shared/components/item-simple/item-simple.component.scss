@@ -1,0 +1,13 @@
+.item-simple{
+  position: relative;
+  display: flex;
+  width: 100%;
+  min-height: 120px;
+  box-shadow: 2px 3px 4px 2px #1D21261A;
+  border: 1px solid #1D21261A;
+  border-radius: 2px 0 0 0;
+  background: var(--color-light-300);
+  padding: 18px;
+  margin-bottom: 12px;
+  box-sizing: border-box;
+}

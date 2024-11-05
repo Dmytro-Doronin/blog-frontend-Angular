@@ -21,7 +21,7 @@ export class TokenInterceptor implements HttpInterceptor {
     ]
 
     const isSecureEndpoint = secureEndpoints.some(endpoint => req.url.includes(endpoint))
-    if (this.isPostToBlogOrPost(req) || this.isPostToBlogOrPostPut(req) || isSecureEndpoint) {
+    if (this.isPostToBlogOrPost(req) || this.isPostToBlogOrPostPut(req) || this.isDevices(req) || isSecureEndpoint) {
       const accessToken = localStorage.getItem('accessToken')
       const clonedReq = accessToken
         ? req.clone({
@@ -95,6 +95,9 @@ export class TokenInterceptor implements HttpInterceptor {
     const postPut = postUrlPattern.test(req.url) && req.method === 'PUT'
     // (postUrls.includes(req.url) && req.method === 'POST') ||
     // (blogPostUrlPattern.test(req.url) && req.method === 'POST')
+
+
+
     return (
       postOrBlogs ||
       blogsToPosts ||
@@ -123,5 +126,13 @@ export class TokenInterceptor implements HttpInterceptor {
     const isPostToOtherUrlsGet = postUrls.includes(req.url) && req.method === 'GET'
 
     return isPutToBlog || isPostToOtherUrls || isDeleteToBlog || isPostToOtherUrlsGet
+  }
+
+  private isDevices(req: HttpRequest<any>): boolean {
+    const deviceUrls = ['http://localhost:3000/security/devices']
+
+    const isDeviceGet = deviceUrls.includes(req.url) && req.method === 'GET'
+
+    return isDeviceGet
   }
 }

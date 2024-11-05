@@ -44,6 +44,10 @@ import { PostControlMenuComponent } from './components/post-control-menu/post-co
 import { CommentItemComponent } from './components/comment-item/comment-item.component'
 import { CommentControlMenuComponent } from './components/comment-control-menu/comment-control-menu.component'
 import { EditCommentFormComponent } from './components/comment-item/edit-comment-form/edit-comment-form.component'
+import {LoginMenuComponent} from "./components/login-menu/login-menu.component";
+import {ItemSimpleComponent} from "./components/item-simple/item-simple.component";
+import {ChromeIconComponent} from "./components/icons/chrome-icon/chrome-icon.component";
+import {DeviceItemComponent} from "./components/device-item/device-item.component";
 
 @NgModule({
   declarations: [
@@ -89,6 +93,10 @@ import { EditCommentFormComponent } from './components/comment-item/edit-comment
     CommentItemComponent,
     CommentControlMenuComponent,
     EditCommentFormComponent,
+    LoginMenuComponent,
+    ItemSimpleComponent,
+    ChromeIconComponent,
+    DeviceItemComponent
   ],
   imports: [
     CommonModule,
@@ -142,6 +150,10 @@ import { EditCommentFormComponent } from './components/comment-item/edit-comment
     CommentItemComponent,
     CommentControlMenuComponent,
     EditCommentFormComponent,
+    LoginMenuComponent,
+    ItemSimpleComponent,
+    ChromeIconComponent,
+    DeviceItemComponent
   ],
 })
 export class SharedModule {}

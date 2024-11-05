@@ -1,0 +1,31 @@
+.header-user-name {
+  position: relative;
+  margin-right: 60px;
+  font-family: Inter;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 24px;
+  text-align: right;
+  border-bottom: 1px dashed black;
+  cursor: pointer;
+}
+
+.item-container {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  padding: 16px 10px 12px 12px;
+}
+
+.item-text {
+  display: block;
+  width: 100%;
+  text-align: left;
+}
+.item-container:hover {
+  background-color: var(--color-light-500);
+}
+
+.item-container:not(:last-child) {
+  padding-bottom: 12px;
+}

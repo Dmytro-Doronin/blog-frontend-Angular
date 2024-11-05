@@ -25,6 +25,8 @@ import { PostsEffects } from './store/effects/posts.effect'
 import { postsReducer } from './store/reducers/posts.reduser'
 import { commentsReducer } from './store/reducers/comments.reducer'
 import { CommentsEffects } from './store/effects/comments.effect'
+import {devicesReducer} from "./store/reducers/devices.reducer";
+import {DeviceEffects} from "./store/effects/device.effect";
 
 @NgModule({
   declarations: [AppComponent],
@@ -48,8 +50,9 @@ import { CommentsEffects } from './store/effects/comments.effect'
       blogs: blogsReducer,
       posts: postsReducer,
       comments: commentsReducer,
+      devices: devicesReducer
     }),
-    EffectsModule.forRoot([AuthEffects, BlogsEffects, PostsEffects, CommentsEffects]),
+    EffectsModule.forRoot([AuthEffects, BlogsEffects, PostsEffects, CommentsEffects, DeviceEffects]),
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true }],
   bootstrap: [AppComponent],

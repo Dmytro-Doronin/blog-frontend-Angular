@@ -1,4 +1,13 @@
-import { Component, OnInit } from '@angular/core'
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  HostListener,
+  OnDestroy,
+  OnInit,
+  Renderer2,
+  ViewChild
+} from '@angular/core'
 import { Observable } from 'rxjs'
 import { Store } from '@ngrx/store'
 import { selectIsAuthenticated, selectUserLogin } from '../../../store/selectors/auth.selector'
@@ -15,7 +24,9 @@ export class HeaderComponentComponent implements OnInit {
   userLogin$?: Observable<string>
   headerLoading$?: Observable<boolean>
   isModal: boolean = false
-  constructor(private store: Store) {}
+
+  constructor(private store: Store, private elementRef: ElementRef) {}
+
   ngOnInit(): void {
     this.loader()
     this.isAuthenticated$ = this.store.select(selectIsAuthenticated)
@@ -36,8 +47,10 @@ export class HeaderComponentComponent implements OnInit {
     this.isModal = true
   }
 
+
   logOut() {
     this.store.dispatch(logOut())
     this.onClose()
   }
+
 }

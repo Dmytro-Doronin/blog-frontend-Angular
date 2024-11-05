@@ -1,0 +1,18 @@
+<blog-main-page>
+  <blog-typography [className]="'clear'" [variant]="'h3'" [content]="'Devices'"></blog-typography>
+  <hr class="line" />
+
+  <div class="this-devices">
+    <blog-typography [variant]="'body2'" [content]="'This devices'" [className]="'clear'"></blog-typography>
+    <blog-device-item [isMoreInfo]="false"></blog-device-item>
+  </div>
+  <div class="btn-container">
+    <blog-button [variant]="'Secondary'" [content]="'Terminate all other session'"></blog-button>
+  </div>
+
+  <div class="all-devices">
+    <blog-device-item [isMoreInfo]="true"></blog-device-item>
+    <blog-device-item [isMoreInfo]="true"></blog-device-item>
+    <blog-device-item [isMoreInfo]="true"></blog-device-item>
+  </div>
+</blog-main-page>

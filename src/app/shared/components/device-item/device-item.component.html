@@ -1,0 +1,15 @@
+<blog-item-simple>
+  <div class="item-logo">
+    <blog-chrome-icon></blog-chrome-icon>
+  </div>
+  <div class="item-middle-container">
+    <div class="device-item-name">Chrome</div>
+    <div class="device-item-ip">IP: 22.345.345.12</div>
+    <div *ngIf="!isMoreInfo" class="device-item-status">Online</div>
+    <div *ngIf="isMoreInfo" class="device-item-visit">Last visit: 22.09.2022</div>
+  </div>
+  <div *ngIf="isMoreInfo" class="item-logout">
+    <blog-icon-sign-out></blog-icon-sign-out>
+    <span class="item-logout-text">login out</span>
+  </div>
+</blog-item-simple>

@@ -98,6 +98,7 @@ export class BlogPageComponent implements OnInit, OnDestroy {
   }
   getLoading() {
     this.loading$ = this.store.select(selectBlogsLoading)
+    this.loading$.subscribe()
   }
 
   getLoadingForPost() {

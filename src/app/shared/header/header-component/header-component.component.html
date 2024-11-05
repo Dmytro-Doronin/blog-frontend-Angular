@@ -1,4 +1,4 @@
-<header class="header">
+<header #headerContainer class="header">
   <div class="container">
     <div class="header-inner">
       <blog-modal *ngIf="isModal" (closeModal)="onClose()" [title]="'login out'">
@@ -12,7 +12,7 @@
       <div class="header-items">
         <blog-loader *ngIf="headerLoading$ | async; else loadingBlock"></blog-loader>
         <ng-template #loadingBlock>
-          <p *ngIf="isAuthenticated$ | async" class="header-user-name">{{ userLogin$ | async }}</p>
+          <blog-login-menu [isAuthenticated]="isAuthenticated$ | async" [userLogin]="userLogin$ | async"></blog-login-menu>
         </ng-template>
 
         <div

@@ -5,7 +5,7 @@
   <h4 *ngSwitchCase="'h4'" [class]="className" class="h4">{{ content }}</h4>
   <h3 *ngSwitchCase="'h3'" [ngClass]="['h3', className]">{{ content }}</h3>
   <p *ngSwitchCase="'body1'" [class]="className" class="body1">{{ content }}</p>
-  <p *ngSwitchCase="'body2'" [class]="className" class="body2">{{ content }}</p>
+  <p *ngSwitchCase="'body2'" [ngClass]="['body2',className]">{{ content }}</p>
   <p *ngSwitchCase="'subtitle1'">{{ content }}</p>
   <p *ngSwitchCase="'subtitle2'">{{ content }}</p>
   <p *ngSwitchCase="'caption'">{{ content }}</p>

@@ -9,11 +9,11 @@
   //z-index: 5;
 
     position: fixed;
-    left: calc(50% - 600px); /* Центрируем относительно главного контейнера */
-    top: 60px; /* Учитываем высоту хедера */
-    background-color: #FCFBFB;
+    left: calc(50% - 630px);
+    top: 60px;
+    background-color: var(--color-light-100);
     width: 252px;
-    height: calc(100vh - 60px); /* Высота асайда с учетом хедера */
+    height: calc(100vh - 60px);
     padding: 43px 0 0 0;
     z-index: 5;
   overflow: hidden;

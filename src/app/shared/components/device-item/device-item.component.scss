@@ -1,0 +1,46 @@
+.item-logo {
+  margin-right: 12px;
+}
+
+.device-item-name {
+  font-family: Inter;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 24px;
+  text-align: left;
+  margin-bottom: 13px;
+
+}
+.device-item-ip {
+  font-family: Inter;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 24px;
+  text-align: left;
+
+}
+.device-item-status {
+  font-family: Inter;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 24px;
+  text-align: left;
+  color: #3677F7;
+}
+
+.item-logout {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  text-align: center;
+}
+
+.item-logout-text {
+  //styleName: small_text/Neutral Dark-60;
+  font-family: Inter;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 24px;
+  text-align: left;
+margin-left: 12px;
+}
