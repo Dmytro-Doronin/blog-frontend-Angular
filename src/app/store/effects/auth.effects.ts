@@ -79,7 +79,12 @@ export class AuthEffects {
             mergeMap(user => {
               return [
                 setIsAuthenticated({ isAuthenticated: true }),
-                setProfile({ email: user.email, login: user.login, userId: user.userId, deviceId: user.deviceId }),
+                setProfile({
+                  email: user.email,
+                  login: user.login,
+                  userId: user.userId,
+                  deviceId: user.deviceId,
+                }),
                 setAppLoading({ loading: false }),
               ]
             }),
@@ -278,7 +283,7 @@ export class AuthEffects {
           of(setAppLoading({ loading: true })),
           this.authService.logOut().pipe(
             mergeMap(user => {
-              localStorage.removeItem('accessToken')
+              this.router.navigate(['/main/blogs-page'])
               return [
                 setIsAuthenticated({ isAuthenticated: false }),
                 setProfile({ email: '', login: '', userId: '', deviceId: '' }),

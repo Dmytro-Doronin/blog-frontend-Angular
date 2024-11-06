@@ -3,13 +3,15 @@
     <blog-chrome-icon></blog-chrome-icon>
   </div>
   <div class="item-middle-container">
-    <div class="device-item-name">Chrome</div>
-    <div class="device-item-ip">IP: 22.345.345.12</div>
+    <div class="device-item-name">{{ device?.title }}</div>
+    <div class="device-item-ip">{{ device?.ip }}</div>
     <div *ngIf="!isMoreInfo" class="device-item-status">Online</div>
-    <div *ngIf="isMoreInfo" class="device-item-visit">Last visit: 22.09.2022</div>
+    <div *ngIf="isMoreInfo" class="device-item-visit">
+      Last visit: {{ device?.lastActiveDate | date: 'dd/MM/yyyy' }}
+    </div>
   </div>
   <div *ngIf="isMoreInfo" class="item-logout">
     <blog-icon-sign-out></blog-icon-sign-out>
-    <span class="item-logout-text">login out</span>
+    <span (click)="deleteDeviceByIdFn()" class="item-logout-text">login out</span>
   </div>
 </blog-item-simple>

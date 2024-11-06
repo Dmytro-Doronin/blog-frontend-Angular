@@ -1,8 +1,12 @@
-import {Notify} from "../../types/notification.models";
-import {createReducer, on} from "@ngrx/store";
-import {addAlert, deleteAlert, setAppLoading, setAutoLogOut, setItemId} from "../actions/app.actions";
-import {IDevice} from "../../types/devices.model";
-import {setDevicesLoading, successGetAllDevices} from "../actions/devices.action";
+import { createReducer, on } from '@ngrx/store'
+
+import { IDevice } from '../../types/devices.model'
+import {
+  setDevicesLoading,
+  successDeleteAllDevices,
+  successDeleteDeviceById,
+  successGetAllDevices,
+} from '../actions/devices.action'
 
 export interface DevicesState {
   devices: IDevice[]
@@ -11,7 +15,7 @@ export interface DevicesState {
 
 export const initialState: DevicesState = {
   devices: [],
-  loading: false
+  loading: false,
 }
 
 export const devicesReducer = createReducer(
@@ -24,5 +28,12 @@ export const devicesReducer = createReducer(
     ...state,
     loading: loading,
   })),
-
+  on(successDeleteDeviceById, (state, { deviceId }) => ({
+    ...state,
+    devices: state.devices.filter(b => b.deviceId !== deviceId),
+  })),
+  on(successDeleteAllDevices, state => ({
+    ...state,
+    devices: [],
+  }))
 )

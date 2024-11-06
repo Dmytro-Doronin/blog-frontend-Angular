@@ -21,7 +21,12 @@ export class TokenInterceptor implements HttpInterceptor {
     ]
 
     const isSecureEndpoint = secureEndpoints.some(endpoint => req.url.includes(endpoint))
-    if (this.isPostToBlogOrPost(req) || this.isPostToBlogOrPostPut(req) || this.isDevices(req) || isSecureEndpoint) {
+    if (
+      this.isPostToBlogOrPost(req) ||
+      this.isPostToBlogOrPostPut(req) ||
+      this.isDevices(req) ||
+      isSecureEndpoint
+    ) {
       const accessToken = localStorage.getItem('accessToken')
       const clonedReq = accessToken
         ? req.clone({
@@ -96,8 +101,6 @@ export class TokenInterceptor implements HttpInterceptor {
     // (postUrls.includes(req.url) && req.method === 'POST') ||
     // (blogPostUrlPattern.test(req.url) && req.method === 'POST')
 
-
-
     return (
       postOrBlogs ||
       blogsToPosts ||
@@ -119,7 +122,6 @@ export class TokenInterceptor implements HttpInterceptor {
     const blogUrlPattern = /^http:\/\/localhost:3000\/blogs\/[a-zA-Z0-9-]+$/
     const postUrls = ['http://localhost:3000/posts']
 
-    // Проверка, что запрос либо PUT к /blogs/{id}, либо POST к другим URL
     const isPutToBlog = blogUrlPattern.test(req.url) && req.method === 'PUT'
     const isDeleteToBlog = blogUrlPattern.test(req.url) && req.method === 'DELETE'
     const isPostToOtherUrls = postUrls.includes(req.url) && req.method === 'POST'
@@ -130,9 +132,12 @@ export class TokenInterceptor implements HttpInterceptor {
 
   private isDevices(req: HttpRequest<any>): boolean {
     const deviceUrls = ['http://localhost:3000/security/devices']
+    const devicePattern = /^http:\/\/localhost:3000\/devices\/[a-zA-Z0-9-]+$/
 
+    const deviceDelete = devicePattern.test(req.url) && req.method === 'DELETE'
     const isDeviceGet = deviceUrls.includes(req.url) && req.method === 'GET'
+    const deleteAllDevices = deviceUrls.includes(req.url) && req.method === 'DELETE'
 
-    return isDeviceGet
+    return isDeviceGet || deviceDelete || deleteAllDevices
   }
 }

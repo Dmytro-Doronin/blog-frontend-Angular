@@ -40,3 +40,7 @@ export const selectUserLogin = createSelector(
 )
 
 export const selectUserId = createSelector(selectAuthState, (state: AuthState) => state.user.userId)
+export const selectDeviceId = createSelector(
+  selectAuthState,
+  (state: AuthState) => state.user.deviceId
+)
