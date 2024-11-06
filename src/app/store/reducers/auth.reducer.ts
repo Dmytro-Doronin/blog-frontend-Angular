@@ -23,6 +23,7 @@ export interface AuthState {
     email: string
     login: string
     userId: string
+    deviceId: string
   }
 }
 
@@ -37,6 +38,7 @@ export const initialState: AuthState = {
     email: '',
     login: '',
     userId: '',
+    deviceId: ''
   },
 }
 
@@ -46,9 +48,9 @@ export const authReducer = createReducer(
     ...state,
     isAuthLoading: isAuthLoading,
   })),
-  on(setProfile, (state, { email, login, userId }) => ({
+  on(setProfile, (state, { email, login, userId, deviceId }) => ({
     ...state,
-    user: { email, login, userId },
+    user: { email, login, userId, deviceId },
   })),
   on(addAuthAlert, (state, { severity, message }) => ({
     ...state,

@@ -15,4 +15,5 @@ export interface AuthMe {
   email: string
   login: string
   userId: string
+  deviceId: string
 }

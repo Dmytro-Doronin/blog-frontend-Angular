@@ -79,7 +79,7 @@ export class AuthEffects {
             mergeMap(user => {
               return [
                 setIsAuthenticated({ isAuthenticated: true }),
-                setProfile({ email: user.email, login: user.login, userId: user.userId }),
+                setProfile({ email: user.email, login: user.login, userId: user.userId, deviceId: user.deviceId }),
                 setAppLoading({ loading: false }),
               ]
             }),
@@ -281,7 +281,7 @@ export class AuthEffects {
               localStorage.removeItem('accessToken')
               return [
                 setIsAuthenticated({ isAuthenticated: false }),
-                setProfile({ email: '', login: '', userId: '' }),
+                setProfile({ email: '', login: '', userId: '', deviceId: '' }),
                 setAppLoading({ loading: false }),
                 setLikeStatusAsNoneForPostsInBlogAction({ status: 'None' }),
                 setLikeStatusAsNoneForPostsAction({ status: 'None' }),
