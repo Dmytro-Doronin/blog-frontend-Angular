@@ -1,0 +1,19 @@
+.responsive-svg {
+  width: 18px;
+  height: 18px;
+}
+
+@media (max-width: 1280px) {
+  .responsive-svg {
+    width: 14px;
+    height: 14px;
+  }
+
+}
+
+@media (max-width: 1140px) {
+  .responsive-svg {
+    width: 12px;
+    height: 12px;
+  }
+}

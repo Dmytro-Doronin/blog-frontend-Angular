@@ -54,3 +54,8 @@
   border-radius: 2px 0 0 0;
   border: 1px solid var(--color-light-700);
 }
+@media (max-width: 568px) {
+  .input {
+    font-size: 12px;
+  }
+}

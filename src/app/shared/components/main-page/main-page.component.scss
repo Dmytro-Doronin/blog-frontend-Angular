@@ -5,3 +5,30 @@
   //overflow-y: hidden;
   padding: 20px 20px 20px 0;
 }
+
+@media (max-width: 1280px) {
+  .main-page {
+    margin-left: 150px;
+    width: 728px;
+  }
+}
+
+@media (max-width: 1140px) {
+  .main-page {
+    margin-left: 0;
+    width: 728px;
+  }
+}
+
+@media (max-width: 768px) {
+  .main-page {
+    margin-left: 0;
+    width: 528px;
+  }
+}
+@media (max-width: 568px) {
+  .main-page {
+    margin-left: 0;
+    width: 328px;
+  }
+}

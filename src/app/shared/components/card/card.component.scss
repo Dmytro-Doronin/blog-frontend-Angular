@@ -4,3 +4,21 @@
   border-radius: 2px;
   background-color: var(--color-light-100);
 }
+
+@media (max-width: 1023px) {
+  .card {
+    width: 600px;
+  }
+}
+
+@media (max-width: 600px) {
+  .card {
+    width: 400px;
+  }
+}
+
+@media (max-width: 400px) {
+  .card {
+    width: 300px;
+  }
+}

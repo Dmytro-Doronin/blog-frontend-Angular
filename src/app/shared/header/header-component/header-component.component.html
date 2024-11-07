@@ -2,7 +2,9 @@
   <div class="container">
     <div class="header-inner">
       <blog-modal *ngIf="isModal" (closeModal)="onClose()" [title]="'login out'">
-        <p class="modal-text">Do you really want to log out of your account: {{userLogin$ | async}}</p>
+        <p class="modal-text">
+          Do you really want to log out of your account: {{ userLogin$ | async }}
+        </p>
         <div class="button-modal-group">
           <blog-button (click)="onClose()" [variant]="'Primary'" [content]="'No'"></blog-button>
           <blog-button (click)="logOut()" [variant]="'Secondary'" [content]="'Yes'"></blog-button>
@@ -12,7 +14,10 @@
       <div class="header-items">
         <blog-loader *ngIf="headerLoading$ | async; else loadingBlock"></blog-loader>
         <ng-template #loadingBlock>
-          <blog-login-menu [isAuthenticated]="isAuthenticated$ | async" [userLogin]="userLogin$ | async"></blog-login-menu>
+          <blog-login-menu
+            [isAuthenticated]="isAuthenticated$ | async"
+            [userLogin]="userLogin$ | async"
+          ></blog-login-menu>
         </ng-template>
 
         <div

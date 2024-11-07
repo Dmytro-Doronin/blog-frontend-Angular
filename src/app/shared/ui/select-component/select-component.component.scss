@@ -56,3 +56,15 @@
   vertical-align: middle;
   color: #666;
 }
+
+@media (max-width: 768px) {
+  .ng-select {
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 568px) {
+  .ng-select {
+    font-size: 12px;
+  }
+}

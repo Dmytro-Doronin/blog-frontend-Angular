@@ -73,3 +73,10 @@
 .blog-item-content-header-link:hover {
   color: #0000FF;
 }
+
+@media (max-width: 768px) {
+
+  .blog-item {
+    font-size: 12px;
+  }
+}
