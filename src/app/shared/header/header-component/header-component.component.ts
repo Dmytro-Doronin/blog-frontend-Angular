@@ -24,6 +24,8 @@ export class HeaderComponentComponent implements OnInit {
   userLogin$?: Observable<string>
   headerLoading$?: Observable<boolean>
   isModal: boolean = false
+  isMenuOpen = false;
+
 
   constructor(private store: Store, private elementRef: ElementRef) {}
 
@@ -34,7 +36,9 @@ export class HeaderComponentComponent implements OnInit {
       this.userLogin$ = this.store.select(selectUserLogin)
     }
   }
-
+  toggleMenu() {
+    this.isMenuOpen = !this.isMenuOpen;
+  }
   loader() {
     this.headerLoading$ = this.store.select(selectAppLoading)
   }

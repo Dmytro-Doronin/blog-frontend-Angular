@@ -1,3 +1,8 @@
 .points {
   cursor: pointer;
 }
+@media (max-width: 768px) {
+  .points {
+    height: 12px;
+  }
+}

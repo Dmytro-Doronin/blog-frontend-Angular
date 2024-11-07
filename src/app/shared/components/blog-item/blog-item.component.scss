@@ -75,8 +75,21 @@
 }
 
 @media (max-width: 768px) {
-
   .blog-item {
     font-size: 12px;
   }
+  .blog-item-content-header-website {
+    font-size: 12px;
+  }
+  .blog-item-content-header-url {
+    font-size: 12px;
+  }
+  .blog-item-content-text {
+    font-size: 12px;
+  }
+
+  .author {
+    font-size: 12px;
+  }
+
 }

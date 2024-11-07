@@ -116,3 +116,21 @@
 .arrow {
   margin-right: 12px;
 }
+@media (max-width: 768px) {
+  .button {
+    padding: 8px 5px 8px 5px;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 15px;
+  }
+
+}
+@media (max-width: 568px) {
+  .button {
+    width: 100px;
+    padding: 5px 3px 5px 3px;
+    font-size: 12px;
+    font-weight: 100;
+    line-height: 15px;
+  }
+}

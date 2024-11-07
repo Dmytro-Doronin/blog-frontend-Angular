@@ -89,3 +89,8 @@
   font-weight: 600;
   line-height: 20px;
 }
+@media (max-width: 768px) {
+  .blog-description {
+    font-size: 14px;
+  }
+}

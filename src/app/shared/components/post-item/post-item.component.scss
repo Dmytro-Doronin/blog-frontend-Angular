@@ -98,3 +98,17 @@
 .post-item-likes-item {
   margin-right: 24px;
 }
+@media (max-width: 768px) {
+  .post-item-content-header {
+    margin-bottom: 10px;
+  }
+  .post-item-content-header-block {
+    margin-bottom: 10px;
+  }
+}
+@media (max-width: 568px) {
+  .post-item-content-header-block {
+    flex-direction: column;
+    align-items: start;
+  }
+}

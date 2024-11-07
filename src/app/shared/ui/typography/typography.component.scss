@@ -69,3 +69,13 @@
   text-align: left;
   margin-bottom: 7px;
 }
+@media (max-width: 568px) {
+  .h2 {
+    font-size: 20px;
+  }
+
+  .h4 {
+    font-size: 14px;
+  }
+
+}

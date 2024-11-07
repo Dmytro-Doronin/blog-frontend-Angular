@@ -27,6 +27,7 @@ import { commentsReducer } from './store/reducers/comments.reducer'
 import { CommentsEffects } from './store/effects/comments.effect'
 import {devicesReducer} from "./store/reducers/devices.reducer";
 import {DeviceEffects} from "./store/effects/device.effect";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 @NgModule({
   declarations: [AppComponent],
@@ -43,6 +44,7 @@ import {DeviceEffects} from "./store/effects/device.effect";
     MainModule,
     NgSelectModule,
     FormsModule,
+    BrowserAnimationsModule,
     RouterModule.forRoot(routes),
     StoreModule.forRoot({
       app: appReducer,

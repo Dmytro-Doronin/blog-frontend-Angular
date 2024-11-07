@@ -57,14 +57,26 @@
   color: #666;
 }
 
+
 @media (max-width: 768px) {
   .ng-select {
+    width: 256px;
+    height: 36px;
     margin-left: 0;
+    font-size: 12px;
+  }
+
+  .ng-select .ng-select-container {
+    padding: 5px 0 10px 5px;
   }
 }
 
 @media (max-width: 568px) {
   .ng-select {
     font-size: 12px;
+  }
+
+  .arrow {
+    font-size: 10px;
   }
 }
