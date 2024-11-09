@@ -1,0 +1,51 @@
+<div>
+  <div (click)="toggleMenu()" class="header-burger">
+    <blog-burger></blog-burger>
+  </div>
+  <div [@slideInOut]="menuState" class="sidebar">
+    <nav>
+      <ul>
+        <li (click)="closeMenu()" class="list-item">
+          <a routerLink="/main/blogs-page" routerLinkActive="selected" class="list-link">
+            <blog-burger></blog-burger>
+            <p class="list-item-name">Blogs</p>
+          </a>
+        </li>
+        <li (click)="closeMenu()" class="list-item">
+          <a routerLink="/main/posts-page" routerLinkActive="selected" class="list-link">
+            <blog-post-link-icon></blog-post-link-icon>
+            <p class="list-item-name">Posts</p>
+          </a>
+        </li>
+      </ul>
+    </nav>
+    <div class="header-items">
+      <blog-loader *ngIf="headerLoading$ | async; else loadingBlock"></blog-loader>
+      <ng-template #loadingBlock>
+        <blog-login-menu
+          [isAuthenticated]="isAuthenticated$ | async"
+          [userLogin]="userLogin$ | async"
+        ></blog-login-menu>
+      </ng-template>
+      <div
+        (click)="onOpen()"
+        *ngIf="isAuthenticated$ | async; else elseBlock"
+        class="header-items-button"
+      >
+        <div class="header-icon">
+          <blog-icon-sign-out></blog-icon-sign-out>
+        </div>
+        <div class="header-action">Login out</div>
+      </div>
+
+      <ng-template #elseBlock>
+        <div routerLink="/auth/login" class="header-items-button header-ml">
+          <div class="header-icon">
+            <blog-icon-sign-in></blog-icon-sign-in>
+          </div>
+          <div class="header-action">Log in</div>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+</div>

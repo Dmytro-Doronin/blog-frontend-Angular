@@ -48,6 +48,7 @@ import { LoginMenuComponent } from './components/login-menu/login-menu.component
 import { ItemSimpleComponent } from './components/item-simple/item-simple.component'
 import { ChromeIconComponent } from './components/icons/chrome-icon/chrome-icon.component'
 import { DeviceItemComponent } from './components/device-item/device-item.component'
+import { BurgerMenuComponent } from './components/burger-menu/burger-menu.component'
 
 @NgModule({
   declarations: [
@@ -97,6 +98,7 @@ import { DeviceItemComponent } from './components/device-item/device-item.compon
     ItemSimpleComponent,
     ChromeIconComponent,
     DeviceItemComponent,
+    BurgerMenuComponent,
   ],
   imports: [
     CommonModule,
@@ -154,6 +156,7 @@ import { DeviceItemComponent } from './components/device-item/device-item.compon
     ItemSimpleComponent,
     ChromeIconComponent,
     DeviceItemComponent,
+    BurgerMenuComponent,
   ],
 })
 export class SharedModule {}

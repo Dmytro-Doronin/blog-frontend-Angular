@@ -1,34 +1,40 @@
 <header class="header">
   <div class="container">
-    <div (click)="toggleMenu()" class="header-burger">
-      <blog-burger></blog-burger>
-    </div>
-    <nav class="sidebar" *ngIf="isMenuOpen">
-      <ul>
-        <li class="list-item">
-          <a routerLink="/main/blogs-page" routerLinkActive="selected" class="list-link">
-            <blog-burger></blog-burger>
-            <p class="list-item-name">Blogs</p>
-          </a>
-        </li>
-        <li class="list-item">
-          <a routerLink="/main/posts-page" routerLinkActive="selected" class="list-link">
-            <blog-post-link-icon></blog-post-link-icon>
-            <p class="list-item-name">Posts</p>
-          </a>
-        </li>
-      </ul>
-    </nav>
+    <blog-modal *ngIf="isModal" (closeModal)="onClose()" [title]="'login out'">
+      <p class="modal-text">
+        Do you really want to log out of your account: {{ userLogin$ | async }}
+      </p>
+      <div class="button-modal-group">
+        <blog-button (click)="onClose()" [variant]="'Primary'" [content]="'No'"></blog-button>
+        <blog-button (click)="logOut()" [variant]="'Secondary'" [content]="'Yes'"></blog-button>
+      </div>
+    </blog-modal>
+    <!--    <div (click)="toggleMenu()" class="header-burger">-->
+    <!--      <blog-burger></blog-burger>-->
+    <!--    </div>-->
+    <blog-burger-menu
+      (menuToggleSubmitted)="toggleMenu()"
+      [isOpen]="isMenuOpen"
+      (menuCloseSubmitted)="closeMenu()"
+    ></blog-burger-menu>
+    <!--    <nav [@slideInOut]="menuState" class="sidebar">-->
+    <!--      <ul>-->
+    <!--        <li (click)="toggleMenu()" class="list-item">-->
+    <!--          <a routerLink="/main/blogs-page" routerLinkActive="selected" class="list-link">-->
+    <!--            <blog-burger></blog-burger>-->
+    <!--            <p class="list-item-name">Blogs</p>-->
+    <!--          </a>-->
+    <!--        </li>-->
+    <!--        <li (click)="toggleMenu()" class="list-item">-->
+    <!--          <a routerLink="/main/posts-page" routerLinkActive="selected" class="list-link">-->
+    <!--            <blog-post-link-icon></blog-post-link-icon>-->
+    <!--            <p class="list-item-name">Posts</p>-->
+    <!--          </a>-->
+    <!--        </li>-->
+    <!--      </ul>-->
+    <!--    </nav>-->
+
     <div class="header-inner">
-      <blog-modal *ngIf="isModal" (closeModal)="onClose()" [title]="'login out'">
-        <p class="modal-text">
-          Do you really want to log out of your account: {{ userLogin$ | async }}
-        </p>
-        <div class="button-modal-group">
-          <blog-button (click)="onClose()" [variant]="'Primary'" [content]="'No'"></blog-button>
-          <blog-button (click)="logOut()" [variant]="'Secondary'" [content]="'Yes'"></blog-button>
-        </div>
-      </blog-modal>
       <p class="logo" routerLink="/main/blogs-page">Blogger platform</p>
       <div class="header-items">
         <blog-loader *ngIf="headerLoading$ | async; else loadingBlock"></blog-loader>
@@ -38,7 +44,6 @@
             [userLogin]="userLogin$ | async"
           ></blog-login-menu>
         </ng-template>
-
         <div
           (click)="onOpen()"
           *ngIf="isAuthenticated$ | async; else elseBlock"

@@ -25,9 +25,9 @@ import { PostsEffects } from './store/effects/posts.effect'
 import { postsReducer } from './store/reducers/posts.reduser'
 import { commentsReducer } from './store/reducers/comments.reducer'
 import { CommentsEffects } from './store/effects/comments.effect'
-import {devicesReducer} from "./store/reducers/devices.reducer";
-import {DeviceEffects} from "./store/effects/device.effect";
-import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import { devicesReducer } from './store/reducers/devices.reducer'
+import { DeviceEffects } from './store/effects/device.effect'
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
 @NgModule({
   declarations: [AppComponent],
@@ -52,9 +52,15 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
       blogs: blogsReducer,
       posts: postsReducer,
       comments: commentsReducer,
-      devices: devicesReducer
+      devices: devicesReducer,
     }),
-    EffectsModule.forRoot([AuthEffects, BlogsEffects, PostsEffects, CommentsEffects, DeviceEffects]),
+    EffectsModule.forRoot([
+      AuthEffects,
+      BlogsEffects,
+      PostsEffects,
+      CommentsEffects,
+      DeviceEffects,
+    ]),
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true }],
   bootstrap: [AppComponent],

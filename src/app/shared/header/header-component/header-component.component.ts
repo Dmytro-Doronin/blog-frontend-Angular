@@ -6,7 +6,7 @@ import {
   OnDestroy,
   OnInit,
   Renderer2,
-  ViewChild
+  ViewChild,
 } from '@angular/core'
 import { Observable } from 'rxjs'
 import { Store } from '@ngrx/store'
@@ -24,25 +24,28 @@ export class HeaderComponentComponent implements OnInit {
   userLogin$?: Observable<string>
   headerLoading$?: Observable<boolean>
   isModal: boolean = false
-  isMenuOpen = false;
+  isMenuOpen = false
 
-
-  constructor(private store: Store, private elementRef: ElementRef) {}
+  constructor(
+    private store: Store,
+    private elementRef: ElementRef
+  ) {}
 
   ngOnInit(): void {
-    this.loader()
     this.isAuthenticated$ = this.store.select(selectIsAuthenticated)
     if (this.isAuthenticated$) {
       this.userLogin$ = this.store.select(selectUserLogin)
     }
   }
   toggleMenu() {
-    this.isMenuOpen = !this.isMenuOpen;
+    this.isMenuOpen = !this.isMenuOpen
   }
   loader() {
     this.headerLoading$ = this.store.select(selectAppLoading)
   }
-
+  closeMenu() {
+    this.isMenuOpen = false
+  }
   onClose() {
     this.isModal = false
   }
@@ -51,10 +54,8 @@ export class HeaderComponentComponent implements OnInit {
     this.isModal = true
   }
 
-
   logOut() {
     this.store.dispatch(logOut())
     this.onClose()
   }
-
 }
