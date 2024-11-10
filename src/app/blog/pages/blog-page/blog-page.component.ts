@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core'
-import { Observable, Subscription } from 'rxjs'
+import { distinctUntilChanged, Observable, Subscription } from 'rxjs'
 import { selectIsAuthenticated, selectUserId } from '../../../store/selectors/auth.selector'
 import { Store } from '@ngrx/store'
 import { ActivatedRoute } from '@angular/router'
@@ -124,9 +124,12 @@ export class BlogPageComponent implements OnInit, OnDestroy {
   }
 
   getBlog() {
-    this.getBlogSubscription = this.store.select(selectCurrentBlog).subscribe(blog => {
-      this.blog = blog
-    })
+    this.store
+      .select(selectCurrentBlog)
+      .pipe(distinctUntilChanged())
+      .subscribe(blog => {
+        this.blog = blog
+      })
   }
 
   loadMorePosts() {
@@ -166,4 +169,6 @@ export class BlogPageComponent implements OnInit, OnDestroy {
     this.getBlogSubscription.unsubscribe()
     this.getCurrentUserIdSubscription.unsubscribe()
   }
+
+  protected readonly selectCurrentBlog = selectCurrentBlog
 }

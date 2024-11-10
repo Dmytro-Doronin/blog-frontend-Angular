@@ -1,17 +1,47 @@
 <ng-container class="typoContainer" [ngSwitch]="variant">
   <div *ngSwitchCase="'round'" class="round-picture">
-    <blog-empty-picture></blog-empty-picture>
+    <ng-container *ngIf="image; else emptyTemplate">
+      <img class="img" [src]="image" alt="Image description" />
+    </ng-container>
+
+    <ng-template #emptyTemplate>
+      <blog-empty-picture></blog-empty-picture>
+    </ng-template>
   </div>
   <div *ngSwitchCase="'big-picture'" class="big-picture">
-    <blog-empty-picture></blog-empty-picture>
+    <ng-container *ngIf="image; else emptyTemplate">
+      <img class="img-big" [src]="image" alt="Image description" />
+    </ng-container>
+
+    <ng-template #emptyTemplate>
+      <blog-empty-picture></blog-empty-picture>
+    </ng-template>
   </div>
   <div *ngSwitchCase="'post-picture'" class="post-picture">
-    <blog-empty-picture></blog-empty-picture>
+    <ng-container *ngIf="image; else emptyTemplate">
+      <img class="img" [src]="image" alt="Image description" />
+    </ng-container>
+
+    <ng-template #emptyTemplate>
+      <blog-empty-picture></blog-empty-picture>
+    </ng-template>
   </div>
   <div *ngSwitchCase="'small-round'" class="small-round">
-    <blog-empty-picture [variant]="'small'"></blog-empty-picture>
+    <ng-container *ngIf="image; else emptyTemplate">
+      <img class="img" [src]="image" alt="Image description" />
+    </ng-container>
+
+    <ng-template #emptyTemplate>
+      <blog-empty-picture></blog-empty-picture>
+    </ng-template>
   </div>
   <div *ngSwitchCase="'small-round-comment'" class="small-round-comment">
-    <blog-empty-picture [variant]="'small'"></blog-empty-picture>
+    <ng-container *ngIf="image; else emptyTemplate">
+      <img class="img" [src]="image" alt="Image description" />
+    </ng-container>
+
+    <ng-template #emptyTemplate>
+      <blog-empty-picture></blog-empty-picture>
+    </ng-template>
   </div>
 </ng-container>

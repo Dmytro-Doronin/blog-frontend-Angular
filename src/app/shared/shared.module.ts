@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core'
 import { ButtonComponent } from './ui/button/button.component'
 import { TypographyComponent } from './ui/typography/typography.component'
-import { CommonModule } from '@angular/common'
+import { CommonModule, NgOptimizedImage } from '@angular/common'
 import { ErrorPageComponent } from './components/404/404.component'
 import { AlertComponent } from './components/alert/alert.component'
 import { AppLoaderComponent } from './components/app-loader/app-loader.component'
@@ -49,6 +49,7 @@ import { ItemSimpleComponent } from './components/item-simple/item-simple.compon
 import { ChromeIconComponent } from './components/icons/chrome-icon/chrome-icon.component'
 import { DeviceItemComponent } from './components/device-item/device-item.component'
 import { BurgerMenuComponent } from './components/burger-menu/burger-menu.component'
+import { PhoneIconComponent } from './components/icons/phone-icon/phone-icon.component'
 
 @NgModule({
   declarations: [
@@ -99,6 +100,7 @@ import { BurgerMenuComponent } from './components/burger-menu/burger-menu.compon
     ChromeIconComponent,
     DeviceItemComponent,
     BurgerMenuComponent,
+    PhoneIconComponent,
   ],
   imports: [
     CommonModule,
@@ -107,6 +109,7 @@ import { BurgerMenuComponent } from './components/burger-menu/burger-menu.compon
     NgSelectModule,
     FormsModule,
     ReactiveFormsModule,
+    NgOptimizedImage,
   ],
   exports: [
     ErrorPageComponent,
@@ -157,6 +160,7 @@ import { BurgerMenuComponent } from './components/burger-menu/burger-menu.compon
     ChromeIconComponent,
     DeviceItemComponent,
     BurgerMenuComponent,
+    PhoneIconComponent,
   ],
 })
 export class SharedModule {}

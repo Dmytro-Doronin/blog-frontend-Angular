@@ -1,4 +1,4 @@
-<div>
+<div class="burger-menu">
   <div (click)="toggleMenu()" class="header-burger">
     <blog-burger></blog-burger>
   </div>
@@ -17,21 +17,25 @@
             <p class="list-item-name">Posts</p>
           </a>
         </li>
+        <li (click)="closeMenu()" class="list-item">
+          <a routerLink="/main/device-page" routerLinkActive="selected" class="list-link">
+            <blog-phone-icon></blog-phone-icon>
+            <p class="list-item-name">Devices</p>
+          </a>
+        </li>
       </ul>
     </nav>
+    <hr class="line" />
     <div class="header-items">
-      <blog-loader *ngIf="headerLoading$ | async; else loadingBlock"></blog-loader>
+      <blog-loader *ngIf="headerLoading; else loadingBlock"></blog-loader>
       <ng-template #loadingBlock>
         <blog-login-menu
-          [isAuthenticated]="isAuthenticated$ | async"
-          [userLogin]="userLogin$ | async"
+          [menuActive]="false"
+          [isAuthenticated]="isAuth"
+          [userLogin]="userLogin"
         ></blog-login-menu>
       </ng-template>
-      <div
-        (click)="onOpen()"
-        *ngIf="isAuthenticated$ | async; else elseBlock"
-        class="header-items-button"
-      >
+      <div (click)="modalOpen()" *ngIf="isAuth; else elseBlock" class="header-items-button">
         <div class="header-icon">
           <blog-icon-sign-out></blog-icon-sign-out>
         </div>
@@ -39,7 +43,7 @@
       </div>
 
       <ng-template #elseBlock>
-        <div routerLink="/auth/login" class="header-items-button header-ml">
+        <div (click)="closeMenu()" routerLink="/auth/login" class="header-items-button header-ml">
           <div class="header-icon">
             <blog-icon-sign-in></blog-icon-sign-in>
           </div>

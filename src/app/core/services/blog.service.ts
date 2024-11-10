@@ -62,16 +62,21 @@ export class BlogService {
     })
   }
 
-  postBlog({ name, description, websiteUrl }: PostBlogModel) {
-    return this.http.post<IBlog>(
-      'http://localhost:3000/blogs',
-      {
-        name,
-        description,
-        websiteUrl,
-      },
-      { withCredentials: true }
-    )
+  postBlog({ name, description, websiteUrl, file }: PostBlogModel) {
+    const formData = new FormData()
+    formData.append('name', name)
+    formData.append('description', description)
+    formData.append('websiteUrl', websiteUrl)
+    if (file) {
+      formData.append('image', file)
+    }
+
+    console.log(formData.get('name'))
+    console.log(formData.get('description'))
+    console.log(formData.get('websiteUrl'))
+    console.log(formData.get('file'))
+
+    return this.http.post<IBlog>('http://localhost:3000/blogs', formData, { withCredentials: true })
   }
 
   editBlog({ name, description, websiteUrl, blogId }: EditBlogModel) {

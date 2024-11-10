@@ -17,8 +17,12 @@ import { Store } from '@ngrx/store'
 })
 export class BurgerMenuComponent {
   @Input() isOpen?: boolean
+  @Input() headerLoading?: boolean | null
+  @Input() isAuth?: boolean | null
+  @Input() userLogin?: string | null
   @Output() menuCloseSubmitted = new EventEmitter<void>()
   @Output() menuToggleSubmitted = new EventEmitter<void>()
+  @Output() modalOpenSubmitted = new EventEmitter<void>()
   constructor(
     private store: Store,
     private elementRef: ElementRef
@@ -34,6 +38,10 @@ export class BurgerMenuComponent {
 
   toggleMenu() {
     this.menuToggleSubmitted.emit()
+  }
+
+  modalOpen() {
+    this.modalOpenSubmitted.emit()
   }
 
   @HostListener('document:click', ['$event'])

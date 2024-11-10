@@ -1,11 +1,12 @@
 .header-user-name {
+  display: inline-block;
   position: relative;
   margin-right: 60px;
   font-family: Inter;
   font-size: 16px;
   font-weight: 600;
   line-height: 24px;
-  text-align: right;
+  text-align: left;
   border-bottom: 1px dashed black;
   cursor: pointer;
 }
@@ -19,7 +20,6 @@
 
 .item-text {
   display: block;
-  width: 100%;
   text-align: left;
 }
 .item-container:hover {

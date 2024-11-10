@@ -42,7 +42,10 @@
           </p>
         </div>
         <div class="blog-picture-container">
-          <blog-content-picture [variant]="'big-picture'"></blog-content-picture>
+          <blog-content-picture
+            [image]="blog?.imageUrl"
+            [variant]="'big-picture'"
+          ></blog-content-picture>
         </div>
         <div class="blog-description">
           {{ blog?.description }}

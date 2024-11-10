@@ -66,6 +66,7 @@ export class BlogsEffects {
               name: action.name,
               description: action.description,
               websiteUrl: action.websiteUrl,
+              file: action.file,
             })
             .pipe(
               mergeMap((response: any) => {
@@ -105,6 +106,7 @@ export class BlogsEffects {
                   userName: response.userName,
                   createdAt: response.createdAt,
                   isMembership: response.isMembership,
+                  imageUrl: response.imageUrl,
                 }),
                 // addAuthAlert({ severity: 'success', message: 'Blog has been added!' }),
                 setBlogsLoadingAction({ loading: false }),

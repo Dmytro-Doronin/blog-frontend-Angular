@@ -26,12 +26,13 @@ export class BlogAddPageComponent implements OnInit {
     this.loading$ = this.store.select(selectBlogsLoading)
   }
 
-  onFormSubmit(data: { name: string; description: string; websiteUrl: string }) {
+  onFormSubmit(data: { name: string; description: string; websiteUrl: string; file: File }) {
     this.store.dispatch(
       addBlogsAction({
         name: data.name,
         description: data.description,
         websiteUrl: data.websiteUrl,
+        file: data.file,
       })
     )
   }

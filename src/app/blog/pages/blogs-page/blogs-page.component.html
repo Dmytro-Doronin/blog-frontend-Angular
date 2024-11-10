@@ -2,11 +2,12 @@
   <blog-modal *ngIf="openDeleteModal$ | async" (closeModal)="onCloseModal()" [title]="'Delete'">
     <p class="blog-modal-text">Are you sure about this?</p>
     <div class="blog-modal-btn-group">
-      <blog-button (click)="deleteBlog()" [className]="'mr20'" [content]="'Ok'"></blog-button>
+      <blog-button (click)="deleteBlog()" [className]="'width100'" [content]="'Ok'"></blog-button>
       <blog-button
         (click)="onCloseModal()"
         [variant]="'Secondary'"
         [content]="'Cancel'"
+        [className]="'width100'"
       ></blog-button>
     </div>
   </blog-modal>

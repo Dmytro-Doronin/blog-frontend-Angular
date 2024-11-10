@@ -1,14 +1,14 @@
-import {Component, ElementRef, EventEmitter, HostListener, Input, Output} from '@angular/core';
+import { Component, ElementRef, EventEmitter, HostListener, Input, Output } from '@angular/core'
 
 @Component({
   selector: 'blog-login-menu',
   templateUrl: './login-menu.component.html',
-  styleUrl: './login-menu.component.scss'
+  styleUrl: './login-menu.component.scss',
 })
 export class LoginMenuComponent {
-
-  @Input()isAuthenticated?: boolean | null
-  @Input()userLogin?: string | null
+  @Input() isAuthenticated?: boolean | null
+  @Input() userLogin?: string | null
+  @Input() menuActive?: boolean | null = true
   @Output() menuSubmitted = new EventEmitter<void>()
   isOpen: boolean = false
   constructor(private elementRef: ElementRef) {}

@@ -1,5 +1,6 @@
-<p *ngIf="isAuthenticated" (click)="onOpenCloseMenu()" class="header-user-name">{{ userLogin }}
-  <blog-control-menu [isOpen]="isOpen">
+<p *ngIf="isAuthenticated" (click)="onOpenCloseMenu()" class="header-user-name">
+  {{ userLogin }}
+  <blog-control-menu *ngIf="menuActive" [isOpen]="isOpen">
     <div class="item-container">
       <!--    routerLink="/main/posts-page/edit-post"-->
       <div routerLink="/main/device-page" class="item-text">Devices</div>

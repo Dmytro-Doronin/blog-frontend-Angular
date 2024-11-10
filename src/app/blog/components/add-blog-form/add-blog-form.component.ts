@@ -14,7 +14,9 @@ export class AddBlogFormComponent implements OnChanges {
     name: string
     description: string
     websiteUrl: string
+    file: File
   }>()
+  selectedFile: File | null = null
   constructor(private formBuilder: FormBuilder) {}
 
   addBlogUpForm = this.formBuilder.group({
@@ -42,14 +44,22 @@ export class AddBlogFormComponent implements OnChanges {
     return this.addBlogUpForm.get('websiteUrl')
   }
 
+  onFileSelect(event: Event) {
+    const input = event.target as HTMLInputElement
+    if (input.files?.length) {
+      this.selectedFile = input.files[0]
+    }
+  }
+
   onSubmit() {
     if (this.addBlogUpForm.valid) {
       console.log('form valid')
-
+      console.log()
       this.formSubmitted.emit({
         name: this.addBlogUpForm.value.name!,
         description: this.addBlogUpForm.value.description!,
         websiteUrl: this.addBlogUpForm.value.websiteUrl!,
+        file: this.selectedFile!,
       })
     }
   }

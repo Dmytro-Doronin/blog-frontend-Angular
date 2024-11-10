@@ -5,8 +5,18 @@
         Do you really want to log out of your account: {{ userLogin$ | async }}
       </p>
       <div class="button-modal-group">
-        <blog-button (click)="onClose()" [variant]="'Primary'" [content]="'No'"></blog-button>
-        <blog-button (click)="logOut()" [variant]="'Secondary'" [content]="'Yes'"></blog-button>
+        <blog-button
+          [className]="'width100'"
+          (click)="onClose()"
+          [variant]="'Primary'"
+          [content]="'No'"
+        ></blog-button>
+        <blog-button
+          [className]="'width100'"
+          (click)="logOut()"
+          [variant]="'Secondary'"
+          [content]="'Yes'"
+        ></blog-button>
       </div>
     </blog-modal>
     <!--    <div (click)="toggleMenu()" class="header-burger">-->
@@ -16,6 +26,10 @@
       (menuToggleSubmitted)="toggleMenu()"
       [isOpen]="isMenuOpen"
       (menuCloseSubmitted)="closeMenu()"
+      [isAuth]="isAuthenticated$ | async"
+      [userLogin]="userLogin$ | async"
+      [headerLoading]="headerLoading$ | async"
+      (modalOpenSubmitted)="onOpen()"
     ></blog-burger-menu>
     <!--    <nav [@slideInOut]="menuState" class="sidebar">-->
     <!--      <ul>-->

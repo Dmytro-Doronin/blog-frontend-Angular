@@ -204,9 +204,22 @@ export const blogsReducer = createReducer(
 
   on(
     setBlogByIdAction,
-    (state, { id, name, description, websiteUrl, createdAt, isMembership, userName, userId }) => ({
+    (
+      state,
+      { id, name, description, websiteUrl, createdAt, isMembership, userName, userId, imageUrl }
+    ) => ({
       ...state,
-      blog: { id, name, description, websiteUrl, createdAt, isMembership, userId, userName },
+      blog: {
+        id,
+        name,
+        description,
+        websiteUrl,
+        createdAt,
+        isMembership,
+        userId,
+        userName,
+        imageUrl,
+      },
     })
   ),
 

@@ -18,6 +18,7 @@
   width: 378px;
   background-color: var(--color-light-300);
   z-index: 10000;
+
 }
 
 .modalHeader {
@@ -32,6 +33,7 @@
 
 .modalBody {
   display: flex;
+  max-width: 100%;
   flex-direction: column;
   padding: 30px 21px 36px 24px;
 }

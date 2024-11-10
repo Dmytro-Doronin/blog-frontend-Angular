@@ -15,6 +15,7 @@ export interface IBlog {
   isMembership: boolean
   userName: string
   userId: string
+  imageUrl?: string
 }
 
 export interface BlogResponse {
@@ -29,6 +30,7 @@ export interface PostBlogModel {
   name: string
   description: string
   websiteUrl: string
+  file: File
 }
 
 export interface EditBlogModel {
