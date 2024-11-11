@@ -15,12 +15,14 @@ export class EditBlogFormComponent implements OnInit, OnChanges, OnDestroy {
   @Input() loading?: boolean | null = false
   @Input() authSeverity?: SeverityType | undefined | null
   @Input() currentBlogId: string | null = ''
+  selectedFile: File | null = null
   private blogIdSubscription: Subscription = new Subscription()
 
   @Output() formSubmitted = new EventEmitter<{
     name: string
     description: string
     websiteUrl: string
+    file: File | null
   }>()
   constructor(
     private formBuilder: FormBuilder,
@@ -44,6 +46,10 @@ export class EditBlogFormComponent implements OnInit, OnChanges, OnDestroy {
     this.getDataFromBlog()
   }
 
+  onFileSelect(data: { file: File }) {
+    this.selectedFile = data.file
+  }
+
   get name() {
     return this.editBlogUpForm.get('name')
   }
@@ -57,23 +63,27 @@ export class EditBlogFormComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   getDataFromBlog() {
-    this.store.select(selectBlogById(this.currentBlogId)).subscribe(blog => {
-      if (blog) {
-        this.editBlogUpForm.patchValue({
-          name: blog.name,
-          description: blog.description,
-          websiteUrl: blog.websiteUrl,
-        })
-      }
-    })
+    this.blogIdSubscription = this.store
+      .select(selectBlogById(this.currentBlogId))
+      .subscribe(blog => {
+        if (blog) {
+          this.editBlogUpForm.patchValue({
+            name: blog.name,
+            description: blog.description,
+            websiteUrl: blog.websiteUrl,
+          })
+        }
+      })
   }
 
   onSubmit() {
     if (this.editBlogUpForm.valid) {
+      console.log(this.selectedFile)
       this.formSubmitted.emit({
         name: this.editBlogUpForm.value.name!,
         description: this.editBlogUpForm.value.description!,
         websiteUrl: this.editBlogUpForm.value.websiteUrl!,
+        file: this.selectedFile,
       })
     }
   }

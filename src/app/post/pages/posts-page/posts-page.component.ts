@@ -85,6 +85,7 @@ export class PostsPageComponent implements OnInit, OnDestroy {
 
   getPosts() {
     this.posts$ = this.store.select(selectPosts)
+    this.posts$.subscribe(item => console.log(item))
   }
 
   getCurrentUser() {

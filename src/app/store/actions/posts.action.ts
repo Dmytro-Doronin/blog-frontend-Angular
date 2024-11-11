@@ -8,7 +8,13 @@ export const deletePost = createAction('[Post] delete post', props<{ postId: str
 export const loadPosts = createAction('[Posts] get all posts', props<{ params: PostQueryParams }>())
 export const addNewPostAction = createAction(
   '[Posts] add new post 1',
-  props<{ tittle: string; shortDescription: string; content: string; blogId: string }>()
+  props<{
+    tittle: string
+    shortDescription: string
+    content: string
+    blogId: string
+    file: File | null
+  }>()
 )
 
 export const setAllPostsToState = createAction(
@@ -98,6 +104,7 @@ export const updatePost = createAction(
     content: string
     postId: string
     blogId: string
+    file: File | null
   }>()
 )
 

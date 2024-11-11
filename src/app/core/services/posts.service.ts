@@ -36,17 +36,17 @@ export class PostsService {
     })
   }
 
-  addNewPost({ title, shortDescription, content, blogId }: PostAddToBlogModel) {
-    return this.http.post<IPost>(
-      'http://localhost:3000/posts',
-      {
-        title,
-        shortDescription,
-        content,
-        blogId,
-      },
-      { withCredentials: true }
-    )
+  addNewPost({ title, shortDescription, content, blogId, file }: PostAddToBlogModel) {
+    const formData = new FormData()
+    formData.append('title', title)
+    formData.append('shortDescription', shortDescription)
+    formData.append('content', content)
+    formData.append('blogId', blogId)
+    if (file) {
+      formData.append('image', file)
+    }
+
+    return this.http.post<IPost>('http://localhost:3000/posts', formData, { withCredentials: true })
   }
 
   setLikeOrDislike(status: 'Like' | 'Dislike' | 'None', postId: string) {
@@ -67,16 +67,18 @@ export class PostsService {
     return this.http.get<IPost>(`http://localhost:3000/posts/${postId}`, { withCredentials: true })
   }
 
-  editPost({ title, shortDescription, content, postId, blogId }: EditPostModel) {
-    return this.http.put(
-      `http://localhost:3000/posts/${postId}`,
-      {
-        title,
-        shortDescription,
-        content,
-        blogId,
-      },
-      { withCredentials: true }
-    )
+  editPost({ title, shortDescription, content, postId, blogId, file }: EditPostModel) {
+    const formData = new FormData()
+    formData.append('title', title)
+    formData.append('shortDescription', shortDescription)
+    formData.append('content', content)
+    formData.append('blogId', blogId)
+    if (file) {
+      formData.append('image', file)
+    }
+
+    return this.http.put(`http://localhost:3000/posts/${postId}`, formData, {
+      withCredentials: true,
+    })
   }
 }

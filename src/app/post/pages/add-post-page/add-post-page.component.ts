@@ -72,6 +72,7 @@ export class AddPostPageComponent implements OnInit, OnDestroy {
         shortDescription: data.shortDescription,
         content: data.content,
         blogId: data.blogId,
+        file: data.file,
       })
     )
   }

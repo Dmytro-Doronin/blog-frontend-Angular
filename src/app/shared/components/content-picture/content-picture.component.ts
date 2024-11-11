@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core'
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core'
 
 @Component({
   selector: 'blog-content-picture',
@@ -6,7 +6,7 @@ import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core
   styleUrl: './content-picture.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ContentPictureComponent implements OnInit {
+export class ContentPictureComponent {
   @Input() variant:
     | 'round'
     | 'big-picture'
@@ -14,8 +14,4 @@ export class ContentPictureComponent implements OnInit {
     | 'small-round'
     | 'small-round-comment' = 'round'
   @Input() image?: string
-
-  ngOnInit(): void {
-    console.log(this.image)
-  }
 }

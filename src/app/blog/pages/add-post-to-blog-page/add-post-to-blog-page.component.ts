@@ -30,7 +30,7 @@ export class AddPostToBlogPageComponent implements OnInit {
     this.loading$ = this.store.select(selectBlogsLoading)
   }
 
-  onFormSubmit(data: { title: string; shortDescription: string; content: string }) {
+  onFormSubmit(data: { title: string; shortDescription: string; content: string; file: File }) {
     console.log(data.title)
     this.store.dispatch(
       addPostForBlogAction({
@@ -38,6 +38,7 @@ export class AddPostToBlogPageComponent implements OnInit {
         shortDescription: data.shortDescription,
         content: data.content,
         blogId: this.blogId!,
+        file: data.file,
       })
     )
   }

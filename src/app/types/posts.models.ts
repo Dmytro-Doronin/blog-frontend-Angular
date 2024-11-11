@@ -17,6 +17,7 @@ export interface IPost {
   createdAt: string
   userId: string
   userName: string
+  imageUrl: string
   extendedLikesInfo: IExtendedLikesInfo
 }
 export interface PostResponse {
@@ -32,6 +33,7 @@ export interface PostAddToBlogModel {
   shortDescription: string
   content: string
   blogId: string
+  file: File | null
 }
 
 export interface EditPostModel {
@@ -40,4 +42,5 @@ export interface EditPostModel {
   content: string
   postId: string
   blogId: string
+  file: File | null
 }

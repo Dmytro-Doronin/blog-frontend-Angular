@@ -38,4 +38,5 @@ export interface EditBlogModel {
   description: string
   websiteUrl: string
   blogId: string
+  file: File | null
 }

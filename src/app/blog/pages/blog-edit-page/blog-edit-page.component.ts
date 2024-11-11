@@ -4,7 +4,7 @@ import { SeverityType } from '../../../types/notification.models'
 import { Store } from '@ngrx/store'
 import { selectAuthAlertSeverity } from '../../../store/selectors/auth.selector'
 import { selectBlogsLoading, selectCurrentBlogId } from '../../../store/selectors/blogs.selector'
-import { addBlogsAction, updateBlog } from '../../../store/actions/blogs.actions'
+import { updateBlog } from '../../../store/actions/blogs.actions'
 
 @Component({
   selector: 'blog-blog-edit-page',
@@ -24,7 +24,6 @@ export class BlogEditPageComponent implements OnInit, OnDestroy {
     this.getBlogId()
     console.log('page work')
   }
-
   loading() {
     this.authSeverity$ = this.store.select(selectAuthAlertSeverity)
     this.loading$ = this.store.select(selectBlogsLoading)
@@ -36,13 +35,14 @@ export class BlogEditPageComponent implements OnInit, OnDestroy {
     })
   }
 
-  onFormSubmit(data: { name: string; description: string; websiteUrl: string }) {
+  onFormSubmit(data: { name: string; description: string; websiteUrl: string; file: File | null }) {
     this.store.dispatch(
       updateBlog({
         blogId: this.currentBlogId,
         name: data.name,
         description: data.description,
         websiteUrl: data.websiteUrl,
+        file: data.file,
       })
     )
   }

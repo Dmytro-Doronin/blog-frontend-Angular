@@ -20,6 +20,7 @@ export const updateBlog = createAction(
     name: string
     description: string
     websiteUrl: string
+    file: File | null
   }>()
 )
 

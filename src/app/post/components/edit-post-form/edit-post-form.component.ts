@@ -24,7 +24,9 @@ export class EditPostFormComponent implements OnInit, OnDestroy, OnChanges {
     title: string
     shortDescription: string
     content: string
+    file: File | null
   }>()
+  selectedFile: File | null = null
   private formDataSubscribe: Subscription = new Subscription()
   constructor(
     private formBuilder: FormBuilder,
@@ -57,7 +59,6 @@ export class EditPostFormComponent implements OnInit, OnDestroy, OnChanges {
     this.formDataSubscribe = this.store
       .select(selectPostById(this.currentPostId))
       .subscribe(post => {
-        console.log(post)
         if (post) {
           this.editPostForm.patchValue({
             title: post.title,
@@ -68,6 +69,10 @@ export class EditPostFormComponent implements OnInit, OnDestroy, OnChanges {
       })
   }
 
+  onFileSelect(data: { file: File }) {
+    this.selectedFile = data.file
+  }
+
   onSubmit() {
     if (this.editPostForm.valid) {
       console.log('form valid')
@@ -76,6 +81,7 @@ export class EditPostFormComponent implements OnInit, OnDestroy, OnChanges {
         title: this.editPostForm.value.title!,
         shortDescription: this.editPostForm.value.shortDescription!,
         content: this.editPostForm.value.content!,
+        file: this.selectedFile,
       })
     }
   }

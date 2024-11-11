@@ -48,7 +48,12 @@ export class EditPostPageComponent implements OnInit, OnDestroy {
     })
   }
 
-  onFormSubmit(data: { title: string; shortDescription: string; content: string }) {
+  onFormSubmit(data: {
+    title: string
+    shortDescription: string
+    content: string
+    file: File | null
+  }) {
     this.store.dispatch(
       updatePost({
         postId: this.currentPosId,
@@ -56,6 +61,7 @@ export class EditPostPageComponent implements OnInit, OnDestroy {
         shortDescription: data.shortDescription,
         content: data.content,
         blogId: this.currentBlogId,
+        file: data.file,
       })
     )
   }

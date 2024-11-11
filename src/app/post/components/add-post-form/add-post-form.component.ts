@@ -17,7 +17,9 @@ export class AddPostFormComponent {
     shortDescription: string
     content: string
     blogId: string
+    file: File
   }>()
+  selectedFile: File | null = null
   constructor(private formBuilder: FormBuilder) {}
 
   addPostForm = this.formBuilder.group({
@@ -48,9 +50,14 @@ export class AddPostFormComponent {
         shortDescription: this.addPostForm.value.shortDescription!,
         content: this.addPostForm.value.content!,
         blogId: this.addPostForm.value.blogId!,
+        file: this.selectedFile!,
       })
     }
   }
+  onFileSelect(data: { file: File }) {
+    this.selectedFile = data.file
+  }
+
   onSortChge(item: { itemId: string }) {
     this.addPostForm.patchValue({
       blogId: item.itemId,

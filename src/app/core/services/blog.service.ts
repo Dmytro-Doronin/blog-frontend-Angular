@@ -71,24 +71,20 @@ export class BlogService {
       formData.append('image', file)
     }
 
-    console.log(formData.get('name'))
-    console.log(formData.get('description'))
-    console.log(formData.get('websiteUrl'))
-    console.log(formData.get('file'))
-
     return this.http.post<IBlog>('http://localhost:3000/blogs', formData, { withCredentials: true })
   }
 
-  editBlog({ name, description, websiteUrl, blogId }: EditBlogModel) {
-    return this.http.put(
-      `http://localhost:3000/blogs/${blogId}`,
-      {
-        name,
-        description,
-        websiteUrl,
-      },
-      { withCredentials: true }
-    )
+  editBlog({ name, description, websiteUrl, blogId, file }: EditBlogModel) {
+    const formData = new FormData()
+    formData.append('name', name)
+    formData.append('description', description)
+    formData.append('websiteUrl', websiteUrl)
+    if (file) {
+      formData.append('image', file)
+    }
+    return this.http.put(`http://localhost:3000/blogs/${blogId}`, formData, {
+      withCredentials: true,
+    })
   }
 
   getBlogById(blogId: string) {
@@ -122,15 +118,18 @@ export class BlogService {
     })
   }
 
-  addPostToBlog({ title, shortDescription, content, blogId }: PostAddToBlogModel) {
-    return this.http.post<IBlog>(
-      `http://localhost:3000/blogs/${blogId}/posts`,
-      {
-        title,
-        shortDescription,
-        content,
-      },
-      { withCredentials: true }
-    )
+  addPostToBlog({ title, shortDescription, content, blogId, file }: PostAddToBlogModel) {
+    const formData = new FormData()
+    formData.append('title', title)
+    formData.append('shortDescription', shortDescription)
+    formData.append('content', content)
+    formData.append('blogId', blogId)
+    if (file) {
+      formData.append('image', file)
+    }
+
+    return this.http.post<IBlog>(`http://localhost:3000/blogs/${blogId}/posts`, formData, {
+      withCredentials: true,
+    })
   }
 }

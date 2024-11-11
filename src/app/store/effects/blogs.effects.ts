@@ -137,6 +137,7 @@ export class BlogsEffects {
               description: action.description,
               websiteUrl: action.websiteUrl,
               blogId: action.blogId,
+              file: action.file,
             })
             .pipe(
               switchMap(() =>
@@ -395,6 +396,7 @@ export class BlogsEffects {
               shortDescription: action.shortDescription,
               content: action.content,
               blogId: action.blogId,
+              file: action.file,
             })
             .pipe(
               mergeMap((response: any) => {

@@ -123,6 +123,7 @@ export class BlogsPageComponent implements OnInit, OnDestroy {
 
   getBlog() {
     this.blogs$ = this.store.select(selectBlogs)
+    this.blogs$.subscribe(item => console.log(item))
   }
 
   getCurrentBlogId() {

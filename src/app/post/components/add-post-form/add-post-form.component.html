@@ -65,6 +65,7 @@
   <!--    <div *ngIf="loading" class="loader">-->
   <!--      <blog-loader></blog-loader>-->
   <!--    </div>-->
+  <blog-download-img (addFileSubmitted)="onFileSelect($event)"></blog-download-img>
   <div class="loader-block" *ngIf="loading; else button1">
     <blog-loader></blog-loader>
   </div>

@@ -50,6 +50,7 @@ import { ChromeIconComponent } from './components/icons/chrome-icon/chrome-icon.
 import { DeviceItemComponent } from './components/device-item/device-item.component'
 import { BurgerMenuComponent } from './components/burger-menu/burger-menu.component'
 import { PhoneIconComponent } from './components/icons/phone-icon/phone-icon.component'
+import { DownloadImgComponent } from './components/download-img/download-img.component'
 
 @NgModule({
   declarations: [
@@ -101,6 +102,7 @@ import { PhoneIconComponent } from './components/icons/phone-icon/phone-icon.com
     DeviceItemComponent,
     BurgerMenuComponent,
     PhoneIconComponent,
+    DownloadImgComponent,
   ],
   imports: [
     CommonModule,
@@ -161,6 +163,7 @@ import { PhoneIconComponent } from './components/icons/phone-icon/phone-icon.com
     DeviceItemComponent,
     BurgerMenuComponent,
     PhoneIconComponent,
+    DownloadImgComponent,
   ],
 })
 export class SharedModule {}

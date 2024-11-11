@@ -104,6 +104,7 @@ export class PostsEffects {
               shortDescription: action.shortDescription,
               content: action.content,
               blogId: action.blogId,
+              file: action.file,
             })
             .pipe(
               mergeMap((response: any) => {
@@ -132,7 +133,7 @@ export class PostsEffects {
         concat(
           of(setPostsLoadingAction({ loading: true })),
           this.postService.deletePostById(action.postId).pipe(
-            mergeMap((response: any) => {
+            mergeMap(() => {
               return [
                 successDeletePost({ postId: action.postId }),
                 addAuthAlert({ severity: 'success', message: 'Post has been deleted!' }),
@@ -165,6 +166,7 @@ export class PostsEffects {
               content: action.content,
               postId: action.postId,
               blogId: action.blogId,
+              file: action.file,
             })
             .pipe(
               switchMap(() =>
@@ -384,7 +386,7 @@ export class PostsEffects {
         concat(
           // of(setBlogsLoadingAction({ loading: true })),
           this.postService.setLikeOrDislike(action.status, action.postId).pipe(
-            mergeMap((response: any) => {
+            mergeMap(() => {
               return [
                 changeLikeStatusForPostInBlogAction({
                   postId: action.postId,

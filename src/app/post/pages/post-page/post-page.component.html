@@ -15,7 +15,10 @@
     <ng-template #mainContent>
       <div class="blog-info">
         <div class="picture-container">
-          <blog-content-picture [variant]="'small-round'"></blog-content-picture>
+          <blog-content-picture
+            [image]="(blog$ | async)?.imageUrl"
+            [variant]="'small-round'"
+          ></blog-content-picture>
         </div>
         <span class="blog-name">{{ (blog$ | async)?.name }}</span>
       </div>
@@ -40,7 +43,10 @@
       </div>
 
       <div class="blog-picture-container">
-        <blog-content-picture [variant]="'big-picture'"></blog-content-picture>
+        <blog-content-picture
+          [image]="post?.imageUrl"
+          [variant]="'big-picture'"
+        ></blog-content-picture>
       </div>
 
       <div class="post-description">

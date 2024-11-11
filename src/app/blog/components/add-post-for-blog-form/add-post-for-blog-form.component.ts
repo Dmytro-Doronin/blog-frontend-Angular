@@ -18,7 +18,9 @@ export class AddPostForBlogFormComponent {
     title: string
     shortDescription: string
     content: string
+    file: File
   }>()
+  selectedFile: File | null = null
   constructor(private formBuilder: FormBuilder) {}
 
   addPostForBlogUpForm = this.formBuilder.group({
@@ -47,10 +49,13 @@ export class AddPostForBlogFormComponent {
         title: this.addPostForBlogUpForm.value.title!,
         shortDescription: this.addPostForBlogUpForm.value.shortDescription!,
         content: this.addPostForBlogUpForm.value.content!,
+        file: this.selectedFile!,
       })
     }
   }
-
+  onFileSelect(data: { file: File }) {
+    this.selectedFile = data.file
+  }
   ngOnChanges() {
     if (this.authSeverity === 'success') {
       this.addPostForBlogUpForm.reset()
