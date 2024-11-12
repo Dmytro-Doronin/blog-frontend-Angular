@@ -61,6 +61,4 @@ export class AddPostForBlogFormComponent {
       this.addPostForBlogUpForm.reset()
     }
   }
-
-  protected readonly postsOptions = postsOptions
 }

@@ -16,10 +16,6 @@ import {
 } from '../actions/posts.action'
 import {
   changeLikeStatusForPostInBlogAction,
-  setSortByAlphabetForBlog,
-  setSortByDateForBlog,
-  successDeleteBlog,
-  successUpdateDetailsBlog,
 } from '../actions/blogs.actions'
 import { updatePostLikesStatus } from '../../utils/post.utils'
 

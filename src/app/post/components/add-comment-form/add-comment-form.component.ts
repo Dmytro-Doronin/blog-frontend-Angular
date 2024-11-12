@@ -1,15 +1,12 @@
 import {
-  AfterViewInit,
   Component,
   EventEmitter,
   Input,
   OnChanges,
   Output,
-  ViewChild,
 } from '@angular/core'
 import { SeverityType } from '../../../types/notification.models'
 import { FormBuilder, Validators } from '@angular/forms'
-import { InputComponent } from '../../../shared/ui/input/input.component'
 
 @Component({
   selector: 'blog-add-comment-form',

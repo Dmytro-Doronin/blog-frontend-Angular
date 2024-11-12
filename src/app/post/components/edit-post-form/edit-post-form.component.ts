@@ -2,10 +2,6 @@ import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output } 
 import { SeverityType } from '../../../types/notification.models'
 import { IOptions } from '../../../types/options.models'
 import { FormBuilder, Validators } from '@angular/forms'
-import {
-  selectBlogById,
-  selectPostByIdForCurrentBlog,
-} from '../../../store/selectors/blogs.selector'
 import { Store } from '@ngrx/store'
 import { selectPostById } from '../../../store/selectors/posts.selector'
 import { Subscription } from 'rxjs'

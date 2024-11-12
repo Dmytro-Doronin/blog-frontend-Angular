@@ -26,15 +26,24 @@ export class NewPasswordPageComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+    this.getParams()
+
+    this.loader()
+    this.severity()
+  }
+
+  getParams() {
     this.authQuerySubscription = this.route.queryParamMap.subscribe(params => {
       this.recoveryCode = params.get('recoveryCode') || ''
     })
-
-    this.loader()
   }
 
   loader() {
     this.newPasswordLoading$ = this.store.select(selectIsAuthLoading)
+
+  }
+
+  severity() {
     this.authSeverity$ = this.store.select(selectAuthAlertSeverity)
   }
 

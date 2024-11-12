@@ -22,13 +22,16 @@ export class RecoveryPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.loader()
+    this.severity()
   }
 
   loader() {
     this.recoverPasswordLoading$ = this.store.select(selectIsAuthLoading)
-    this.authSeverity$ = this.store.select(selectAuthAlertSeverity)
   }
 
+  severity() {
+    this.authSeverity$ = this.store.select(selectAuthAlertSeverity)
+  }
   onFormSubmit(data: { email: string }) {
     this.store.dispatch(passwordRecovery({ email: data.email }))
   }

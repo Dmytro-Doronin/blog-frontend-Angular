@@ -47,12 +47,6 @@ export class AddBlogFormComponent implements OnChanges {
   onFileSelect(data: { file: File }) {
     this.selectedFile = data.file
   }
-  // onFileSelect(event: Event) {
-  //   const input = event.target as HTMLInputElement
-  //   if (input.files?.length) {
-  //     this.selectedFile = input.files[0]
-  //   }
-  // }
 
   onSubmit() {
     if (this.addBlogUpForm.valid) {

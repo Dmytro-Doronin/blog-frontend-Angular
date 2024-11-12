@@ -1,5 +1,11 @@
 <div class="custom-file-upload" (click)="fileInput.click()">
-  <img src="../../../../assets/images/download-image.png" alt="Upload Image" />
-  <span *ngIf="fileName" class="file-name">{{ fileName }}</span>
+
+  <div class="content">
+    <span class="img-title">Download image!</span>
+    <img src="../../../../assets/images/download-image.png" alt="Upload Image" />
+  </div>
+
+    <span *ngIf="fileName" class="file-name">{{ fileName }}</span>
+
   <input #fileInput type="file" (change)="onFileSelect($event)" hidden />
 </div>

@@ -27,7 +27,6 @@ export class EditPostPageComponent implements OnInit, OnDestroy {
     this.loading()
     this.getPostId()
     this.getCurrentBlogId()
-    console.log('page work')
   }
 
   loading() {

@@ -18,7 +18,6 @@ export class NewPasswordFormComponent implements OnChanges {
 
   constructor(
     private formBuilder: FormBuilder,
-    private store: Store
   ) {}
 
   newPasswordForm = this.formBuilder.group({

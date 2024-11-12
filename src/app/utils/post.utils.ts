@@ -20,11 +20,6 @@ export const updatePostLikesStatus = (
     dislikesCount--
   }
 
-  // if (status === 'Like') {
-  //   likesCount++
-  // } else if (status === 'Dislike') {
-  //   dislikesCount++
-  // }
 
   if (status === 'Like') {
     likesCount++

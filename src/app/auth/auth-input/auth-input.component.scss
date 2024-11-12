@@ -4,7 +4,6 @@
 
 .adTextBox > :is(input:focus, input.hasValue) ~ label {
   translate: 0 -30px;
-  //scale: 0.875;
   color: var(--secondary-color);
 }
 
@@ -31,11 +30,8 @@
 }
 
 .adTextBox > input {
-  //styleName: regular_text / Neutral Dark-60;
   font-size: 16px;
   font-weight: 400;
-  //line-height: 24px;
-  //letter-spacing: 0;
   text-align: left;
 
 
@@ -72,7 +68,6 @@
 .adTextBox > span,
 .adTextBox > label {
 
-  //styleName: small_text/Neutral Dark+60;
   font-weight: 400;
   line-height: 24px;
   letter-spacing: 0em;
@@ -81,7 +76,6 @@
   position: absolute;
   font-size: 16px;
   pointer-events: none;
-  //translate: 0 -50%;
   color: rgba(0,0,0, 0.5);
   transition: 0.35s;
 }
@@ -101,6 +95,4 @@
   bottom: 5px;
   cursor: pointer;
 }
-.eye {
 
-}

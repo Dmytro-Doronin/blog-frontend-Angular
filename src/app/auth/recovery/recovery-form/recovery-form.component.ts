@@ -11,9 +11,9 @@ import { SeverityType } from '../../../types/notification.models'
   styleUrl: './recovery-form.component.scss',
 })
 export class RecoveryFormComponent implements OnChanges {
-  @Output() formSubmitted = new EventEmitter<{ email: string }>()
   @Input() authSeverity?: SeverityType | undefined | null
   @Input() loading?: boolean | null
+  @Output() formSubmitted = new EventEmitter<{ email: string }>()
   constructor(private formBuilder: FormBuilder) {}
 
   recoveryForm = this.formBuilder.group({

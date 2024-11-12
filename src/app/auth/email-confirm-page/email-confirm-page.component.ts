@@ -1,4 +1,4 @@
-import { Component } from '@angular/core'
+import {Component, OnDestroy, OnInit} from '@angular/core'
 import { Observable, Subscription } from 'rxjs'
 import { ConfirmationEmailTypes } from '../../types/auth.models'
 import { ActivatedRoute } from '@angular/router'
@@ -11,7 +11,7 @@ import { selectConfirmationStatus } from '../../store/selectors/auth.selector'
   templateUrl: './email-confirm-page.component.html',
   styleUrl: './email-confirm-page.component.scss',
 })
-export class EmailConfirmPageComponent {
+export class EmailConfirmPageComponent implements OnInit, OnDestroy{
   private authQuerySubscription: Subscription = new Subscription()
   getStatusSubscription$?: Observable<ConfirmationEmailTypes>
   code!: string
@@ -21,17 +21,24 @@ export class EmailConfirmPageComponent {
     private store: Store
   ) {}
 
-  ngOnInit(): void {
+  ngOnInit() {
+    this.getParam()
+    this.getStatus()
+  }
+
+  getParam() {
     this.authQuerySubscription = this.route.queryParamMap.subscribe(params => {
       this.code = params.get('code') || ''
     })
 
     this.store.dispatch(confirmEmail({ confirmationCode: this.code }))
-
-    this.getStatus()
   }
 
   getStatus() {
     this.getStatusSubscription$ = this.store.select(selectConfirmationStatus)
+  }
+
+  ngOnDestroy() {
+    this.authQuerySubscription.unsubscribe()
   }
 }

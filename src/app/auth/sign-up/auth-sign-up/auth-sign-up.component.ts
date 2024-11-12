@@ -24,16 +24,20 @@ export class AuthSignUpComponent implements OnInit, OnDestroy {
   constructor(private store: Store) {}
   ngOnInit(): void {
     this.loader()
-    this.emailRegistration$ = this.store.select(selectRegistrationEmail)
-    this.emailSubscription = this.emailRegistration$.subscribe(item => {
-      this.content = this.content = `We have sent a link to confirm your email to ${item}`
-      this.isModalOpen = !!item
-    })
+    this.email()
     // this.emailSubscription =  this.emailRegistration$.subscribe(item => ((this.isModalOpen = !!item)))
   }
   loader() {
     this.signUpLoading$ = this.store.select(selectIsAuthLoading)
     this.authSeverity$ = this.store.select(selectAuthAlertSeverity)
+  }
+
+  email() {
+    this.emailRegistration$ = this.store.select(selectRegistrationEmail)
+    this.emailSubscription = this.emailRegistration$.subscribe(item => {
+      this.content = this.content = `We have sent a link to confirm your email to ${item}`
+      this.isModalOpen = !!item
+    })
   }
 
   closeModal(): void {

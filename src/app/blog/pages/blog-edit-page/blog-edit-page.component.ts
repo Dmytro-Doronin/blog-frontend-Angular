@@ -22,7 +22,6 @@ export class BlogEditPageComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.loading()
     this.getBlogId()
-    console.log('page work')
   }
   loading() {
     this.authSeverity$ = this.store.select(selectAuthAlertSeverity)
