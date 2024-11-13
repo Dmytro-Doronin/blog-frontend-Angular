@@ -1,0 +1,35 @@
+.profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  border: 1px solid var(--color-light-700);
+  width: 400px;
+  height: 300px;
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  position: relative;
+}
+
+.image-container {
+  position: relative;
+  margin-bottom: 15px;
+  border-radius: 50%;
+}
+
+
+.name {
+  font-family: 'Inter', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 28px;
+  text-align: center;
+  color: #333;
+  border-bottom: 2px dashed #F8346B;
+  padding-bottom: 5px;
+  margin-top: 10px;
+}
+

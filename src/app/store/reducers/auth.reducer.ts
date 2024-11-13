@@ -38,7 +38,7 @@ export const initialState: AuthState = {
     email: '',
     login: '',
     userId: '',
-    deviceId: ''
+    deviceId: '',
   },
 }
 

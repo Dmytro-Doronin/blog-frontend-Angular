@@ -1,4 +1,4 @@
-.header-user-name {
+.header-user-info {
   display: inline-block;
   position: relative;
   margin-right: 60px;
@@ -8,11 +8,15 @@
   line-height: 24px;
   text-align: left;
   border-bottom: 1px dashed black;
+}
+
+.user-name {
   cursor: pointer;
 }
 
 .item-container {
   display: flex;
+  flex-direction: column;
   align-items: center;
   cursor: pointer;
   //padding: 16px 10px 12px 12px;
@@ -23,8 +27,14 @@
   text-align: left;
   width: 100%;
   padding: 16px 10px 12px 12px;
+  cursor: pointer;
 }
-.item-container:hover {
+
+.item-text:not(:last-child) {
+  border-bottom: 1px solid var(--color-light-900);
+}
+
+.item-text:hover {
   background-color: var(--color-light-500);
 }
 
