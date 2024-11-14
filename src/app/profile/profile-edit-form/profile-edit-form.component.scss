@@ -1,0 +1,19 @@
+.image-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.download-img-button {
+  position: absolute;
+  bottom: 0;
+  right: 45px;
+}
+
+.loader-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

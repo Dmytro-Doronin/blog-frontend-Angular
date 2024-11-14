@@ -21,6 +21,9 @@ import {
   emailResending,
   setRegistrationEmail,
   setIsAuthLoading,
+  changeUserData,
+  setUserLoading,
+  successChangeUserData,
 } from '../actions/auth.actions'
 import { Router } from '@angular/router'
 import { AuthService } from '../../core/services/auth.service'
@@ -84,6 +87,7 @@ export class AuthEffects {
                   login: user.login,
                   userId: user.userId,
                   deviceId: user.deviceId,
+                  imageUrl: user.imageUrl,
                 }),
                 setAppLoading({ loading: false }),
               ]
@@ -245,6 +249,34 @@ export class AuthEffects {
     )
   )
 
+  changeUserData$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(changeUserData),
+      concatMap(action =>
+        concat(
+          of(setUserLoading({ userLoading: true })),
+          this.authService.changeUserData(action.login, action.file).pipe(
+            mergeMap((response: { login: string; imageUrl: string }) => [
+              setUserLoading({ userLoading: false }),
+              addAuthAlert({
+                severity: 'success',
+                message: 'User data was changed!',
+              }),
+              successChangeUserData({ login: response.login, imageUrl: response.imageUrl }),
+            ]),
+            catchError(error => {
+              const message = error.error.errorsMessages[0].message
+              return of(
+                setConfirmationEmailStatus({ confirmationStatus: 'error' }),
+                addAuthAlert({ severity: 'error', message: message })
+              )
+            })
+          )
+        )
+      )
+    )
+  )
+
   newPassword$ = createEffect(() =>
     this.actions$.pipe(
       ofType(newPasswordAction),
@@ -286,7 +318,7 @@ export class AuthEffects {
               this.router.navigate(['/main/blogs-page'])
               return [
                 setIsAuthenticated({ isAuthenticated: false }),
-                setProfile({ email: '', login: '', userId: '', deviceId: '' }),
+                setProfile({ email: '', login: '', userId: '', deviceId: '', imageUrl: '' }),
                 setAppLoading({ loading: false }),
                 setLikeStatusAsNoneForPostsInBlogAction({ status: 'None' }),
                 setLikeStatusAsNoneForPostsAction({ status: 'None' }),

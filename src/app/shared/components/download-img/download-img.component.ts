@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core'
+import { Component, EventEmitter, Input, Output } from '@angular/core'
 
 @Component({
   selector: 'blog-download-img',
@@ -6,7 +6,8 @@ import { Component, EventEmitter, Output } from '@angular/core'
   styleUrl: './download-img.component.scss',
 })
 export class DownloadImgComponent {
-  @Output() addFileSubmitted = new EventEmitter<{ file: File }>()
+  @Input() description: boolean = true
+  @Output() addFileSubmitted = new EventEmitter<{ file: File; imageUrl?: string }>()
   fileName: string | null = null
   onFileSelect(event: Event) {
     const input = event.target as HTMLInputElement
@@ -17,7 +18,8 @@ export class DownloadImgComponent {
       const firstPart = file.name.slice(0, 5)
       const extension = file.name.slice(firstDotIndex)
       this.fileName = `${firstPart}...${extension}`
-      this.addFileSubmitted.emit({ file })
+      const imageUrl = URL.createObjectURL(file)
+      this.addFileSubmitted.emit({ file, imageUrl })
     }
   }
 }

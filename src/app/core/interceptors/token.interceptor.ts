@@ -121,13 +121,15 @@ export class TokenInterceptor implements HttpInterceptor {
   private isPostToBlogOrPostPut(req: HttpRequest<any>): boolean {
     const blogUrlPattern = /^http:\/\/localhost:3000\/blogs\/[a-zA-Z0-9-]+$/
     const postUrls = ['http://localhost:3000/posts']
+    const usersUrls = ['http://localhost:3000/users']
 
     const isPutToBlog = blogUrlPattern.test(req.url) && req.method === 'PUT'
     const isDeleteToBlog = blogUrlPattern.test(req.url) && req.method === 'DELETE'
     const isPostToOtherUrls = postUrls.includes(req.url) && req.method === 'POST'
     const isPostToOtherUrlsGet = postUrls.includes(req.url) && req.method === 'GET'
+    const pusUser = usersUrls.includes(req.url) && req.method === 'PUT'
 
-    return isPutToBlog || isPostToOtherUrls || isDeleteToBlog || isPostToOtherUrlsGet
+    return isPutToBlog || isPostToOtherUrls || isDeleteToBlog || isPostToOtherUrlsGet || pusUser
   }
 
   private isDevices(req: HttpRequest<any>): boolean {

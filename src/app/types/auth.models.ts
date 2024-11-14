@@ -16,4 +16,5 @@ export interface AuthMe {
   login: string
   userId: string
   deviceId: string
+  imageUrl: string
 }

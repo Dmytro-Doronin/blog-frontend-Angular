@@ -38,8 +38,17 @@ export const selectUserLogin = createSelector(
   selectAuthState,
   (state: AuthState) => state.user.login
 )
+export const selectUserImage = createSelector(
+  selectAuthState,
+  (state: AuthState) => state.user.imageUrl
+)
 
+export const selectUserData = createSelector(selectAuthState, (state: AuthState) => state.user)
 export const selectUserId = createSelector(selectAuthState, (state: AuthState) => state.user.userId)
+export const selectUserLoading = createSelector(
+  selectAuthState,
+  (state: AuthState) => state.userLoading
+)
 export const selectDeviceId = createSelector(
   selectAuthState,
   (state: AuthState) => state.user.deviceId

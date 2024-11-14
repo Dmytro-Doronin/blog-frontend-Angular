@@ -13,5 +13,5 @@ export class ContentPictureComponent {
     | 'post-picture'
     | 'small-round'
     | 'small-round-comment' = 'round'
-  @Input() image?: string
+  @Input() image?: string | undefined | null
 }

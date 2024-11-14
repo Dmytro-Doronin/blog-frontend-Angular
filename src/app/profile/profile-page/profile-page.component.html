@@ -1,13 +1,27 @@
 <blog-main-page>
   <section class="profile">
     <img
+      (click)="toggleIsEdit()"
       class="profile-change-icon"
       src="./assets/images/change-profile.png"
       alt="change profile"
     />
-    <div class="image-container">
-      <blog-content-picture [variant]="'round'"></blog-content-picture>
-    </div>
-    <span class="name">Dima</span>
+    <ng-container *ngIf="isEdit; else block">
+      <blog-profile-edit-form
+        [userLoading]="userLoading$ | async"
+        (formSubmitted)="onFormSubmit($event)"
+        (closeEditSubmitted)="closeEdit()"
+      ></blog-profile-edit-form>
+    </ng-container>
+
+    <ng-template #block>
+      <div class="image-container">
+        <blog-content-picture
+          [image]="profileImage$ | async"
+          [variant]="'round'"
+        ></blog-content-picture>
+      </div>
+      <span class="name">{{ profileName$ | async }}</span>
+    </ng-template>
   </section>
 </blog-main-page>

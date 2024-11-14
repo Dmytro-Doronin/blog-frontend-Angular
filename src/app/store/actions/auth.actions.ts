@@ -6,6 +6,7 @@ import {
   ConfirmationEmailTypes,
 } from '../../types/auth.models'
 import { Notify } from '../../types/notification.models'
+import { successUpdateDetailsBlog } from './blogs.actions'
 
 export const loginUser = createAction('[Auth] Login User', props<AuthLogin>())
 export const registerUser = createAction('[Auth] Register User', props<AuthRegistration>())
@@ -56,7 +57,25 @@ export const newPasswordAction = createAction(
   '[Password] New password',
   props<{ newPassword: string; recoveryCode: string }>()
 )
+
 export const setIsAuthenticated = createAction(
   '[isAuthenticated] Set isAuthenticated',
   props<{ isAuthenticated: boolean }>()
+)
+
+//USER
+
+export const setUserLoading = createAction(
+  '[User] set user loading',
+  props<{ userLoading: boolean }>()
+)
+
+export const changeUserData = createAction(
+  '[User] change user data',
+  props<{ login: string; file: File | null }>()
+)
+
+export const successChangeUserData = createAction(
+  '[User] success change user data',
+  props<{ login: string; imageUrl: string }>()
 )

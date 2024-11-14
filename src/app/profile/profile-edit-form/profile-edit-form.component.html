@@ -1,1 +1,42 @@
-<p>profile-edit-form works!</p>
+<form [formGroup]="editProfileUpForm" (ngSubmit)="onSubmit()">
+  <!--Name-->
+  <div class="image-container">
+    <blog-content-picture
+      [image]="temporaryUserImage ? temporaryUserImage : userImage"
+      [variant]="'round'"
+    ></blog-content-picture>
+    <div class="download-img-button">
+      <blog-download-img (addFileSubmitted)="onFileSelect($event)"></blog-download-img>
+    </div>
+  </div>
+
+  <blog-input
+    [control]="editProfileUpForm.controls.name"
+    [id]="'name'"
+    [placeholder]="'Name'"
+    [isControl]="true"
+  ></blog-input>
+
+  <div *ngIf="name && !name!.valid && (name?.dirty || name?.touched)" class="error">
+    <div *ngIf="name.errors?.['required']">Name is required</div>
+    <div *ngIf="name.errors?.['minlength']">The Name must not be less than 3 or more then 10.</div>
+  </div>
+
+  <ng-container *ngIf="userLoading; else button">
+    <div class="loader-container">
+      <blog-loader></blog-loader>
+    </div>
+  </ng-container>
+
+  <ng-template #button>
+    <blog-button
+      [tag]="'button'"
+      [type]="'submit'"
+      [content]="'Ok'"
+      variant="Primary"
+      [className]="'withoutMargin'"
+      [fullWidth]="true"
+    >
+    </blog-button>
+  </ng-template>
+</form>

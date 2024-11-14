@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core'
 import { HttpClient } from '@angular/common/http'
 import { AuthMe } from '../../types/auth.models'
+import { IBlog } from '../../types/blogs.models'
 
 @Injectable({
   providedIn: 'root',
@@ -52,6 +53,22 @@ export class AuthService {
       newPassword,
       recoveryCode,
     })
+  }
+
+  changeUserData(login: string, file: File | null) {
+    const formData = new FormData()
+    formData.append('login', login)
+    if (file) {
+      formData.append('image', file)
+    }
+
+    return this.http.put<{ login: string; imageUrl: string }>(
+      'http://localhost:3000/users',
+      formData,
+      {
+        withCredentials: true,
+      }
+    )
   }
 
   sendRefreshToken() {
