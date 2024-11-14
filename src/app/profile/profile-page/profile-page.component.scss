@@ -14,11 +14,11 @@
   position: relative;
 }
 
-.image-container {
-  position: relative;
-  margin-bottom: 15px;
-  border-radius: 50%;
-}
+//.image-container {
+//  position: relative;
+//  margin-bottom: 15px;
+//  border-radius: 50%;
+//}
 
 
 .name {
@@ -33,3 +33,12 @@
   margin-top: 10px;
 }
 
+.profile-change-icon {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
