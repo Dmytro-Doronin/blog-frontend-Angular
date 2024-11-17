@@ -316,6 +316,7 @@ export class AuthEffects {
           this.authService.logOut().pipe(
             mergeMap(user => {
               this.router.navigate(['/main/blogs-page'])
+              localStorage.removeItem('accessToken')
               return [
                 setIsAuthenticated({ isAuthenticated: false }),
                 setProfile({ email: '', login: '', userId: '', deviceId: '', imageUrl: '' }),

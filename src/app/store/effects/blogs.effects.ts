@@ -31,6 +31,7 @@ import {
   setBlogsForSearchLoadingAction,
   setBlogsLoadingAction,
   setBlogsSearchAction,
+  setMoreBlogsLoadingAction,
   setPostsForBlogLoadingAction,
   successDeleteBlog,
   successUpdateDetailsBlog,
@@ -201,42 +202,26 @@ export class BlogsEffects {
     )
   )
 
-  getAllBlogs$ = createEffect(() =>
+  loadInitialBlogs$ = createEffect(() =>
     this.actions$.pipe(
       ofType(loadBlogs),
+      filter(action => action.params.pageNumber === 1),
       concatMap(action =>
         concat(
           of(setBlogsLoadingAction({ loading: true })),
           this.blogService.getBlogs(action.params).pipe(
-            mergeMap((response: BlogResponse) => {
-              if (action.params.pageNumber === 1) {
-                return [
-                  setAllBlogsToState({
-                    pagesCount: response.pagesCount,
-                    page: response.page,
-                    pageSize: response.pageSize,
-                    totalCount: response.totalCount,
-                    blogs: response.items,
-                    hasMoreBlogs:
-                      response.totalCount > action.params.pageSize! * action.params.pageNumber,
-                  }),
-                  setBlogsLoadingAction({ loading: false }),
-                ]
-              } else {
-                return [
-                  addBlogsToStateAction({
-                    pagesCount: response.pagesCount,
-                    page: response.page,
-                    pageSize: response.pageSize,
-                    totalCount: response.totalCount,
-                    blogs: response.items,
-                    hasMoreBlogs:
-                      response.totalCount > action.params.pageSize! * action.params.pageNumber!,
-                  }),
-                  setBlogsLoadingAction({ loading: false }),
-                ]
-              }
-            }),
+            mergeMap((response: BlogResponse) => [
+              setAllBlogsToState({
+                pagesCount: response.pagesCount,
+                page: response.page,
+                pageSize: response.pageSize,
+                totalCount: response.totalCount,
+                blogs: response.items,
+                hasMoreBlogs:
+                  response.totalCount > action.params.pageSize! * action.params.pageNumber!,
+              }),
+              setBlogsLoadingAction({ loading: false }),
+            ]),
             catchError(error => {
               const message = error?.error?.errorsMessages?.[0]?.message || 'Failed to load blogs'
               return of(
@@ -249,6 +234,88 @@ export class BlogsEffects {
       )
     )
   )
+
+  loadMoreBlogs$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(loadBlogs),
+      filter(action => action.params.pageNumber !== undefined && action.params.pageNumber > 1),
+      concatMap(action =>
+        concat(
+          of(setMoreBlogsLoadingAction({ moreBlogsLoading: true })),
+          this.blogService.getBlogs(action.params).pipe(
+            mergeMap((response: BlogResponse) => [
+              addBlogsToStateAction({
+                pagesCount: response.pagesCount,
+                page: response.page,
+                pageSize: response.pageSize,
+                totalCount: response.totalCount,
+                blogs: response.items,
+                hasMoreBlogs:
+                  response.totalCount > action.params.pageSize! * action.params.pageNumber!,
+              }),
+              setMoreBlogsLoadingAction({ moreBlogsLoading: false }),
+            ]),
+            catchError(error => {
+              const message = error?.error?.errorsMessages?.[0]?.message || 'Failed to load blogs'
+              return of(
+                setMoreBlogsLoadingAction({ moreBlogsLoading: false }),
+                addAuthAlert({ severity: 'error', message: message })
+              )
+            })
+          )
+        )
+      )
+    )
+  )
+
+  // getAllBlogs$ = createEffect(() =>
+  //   this.actions$.pipe(
+  //     ofType(loadBlogs),
+  //     concatMap(action =>
+  //       concat(
+  //         of(setBlogsLoadingAction({ loading: true })),
+  //         this.blogService.getBlogs(action.params).pipe(
+  //           mergeMap((response: BlogResponse) => {
+  //             if (action.params.pageNumber === 1) {
+  //               return [
+  //                 setAllBlogsToState({
+  //                   pagesCount: response.pagesCount,
+  //                   page: response.page,
+  //                   pageSize: response.pageSize,
+  //                   totalCount: response.totalCount,
+  //                   blogs: response.items,
+  //                   hasMoreBlogs:
+  //                     response.totalCount > action.params.pageSize! * action.params.pageNumber,
+  //                 }),
+  //                 setBlogsLoadingAction({ loading: false }),
+  //               ]
+  //             } else {
+  //               return [
+  //                 addBlogsToStateAction({
+  //                   pagesCount: response.pagesCount,
+  //                   page: response.page,
+  //                   pageSize: response.pageSize,
+  //                   totalCount: response.totalCount,
+  //                   blogs: response.items,
+  //                   hasMoreBlogs:
+  //                     response.totalCount > action.params.pageSize! * action.params.pageNumber!,
+  //                 }),
+  //                 setBlogsLoadingAction({ loading: false }),
+  //               ]
+  //             }
+  //           }),
+  //           catchError(error => {
+  //             const message = error?.error?.errorsMessages?.[0]?.message || 'Failed to load blogs'
+  //             return of(
+  //               setBlogsLoadingAction({ loading: false }),
+  //               addAuthAlert({ severity: 'error', message: message })
+  //             )
+  //           })
+  //         )
+  //       )
+  //     )
+  //   )
+  // )
 
   getAllBlogsForCurrentUser$ = createEffect(() =>
     this.actions$.pipe(
@@ -312,69 +379,62 @@ export class BlogsEffects {
     )
   )
 
-  getPostsForBlog$ = createEffect(() =>
+  initialLoadPostsForBlog$ = createEffect(() =>
     this.actions$.pipe(
       ofType(loadPostsForBlogs),
+      filter(action => action.params.pageNumber === 1),
       concatMap(action =>
         concat(
           of(setPostsForBlogLoadingAction({ postsForBlogLoading: true })),
           this.blogService.getPostsForBlogs(action.params, action.id).pipe(
-            mergeMap((response: PostResponse) => {
-              // if (action.params.pageNumber === 1) {
-              //   return [
-              //     setAllPostsForBlogToState({
-              //       pagesCount: response.pagesCount,
-              //       page: response.page,
-              //       pageSize: response.pageSize,
-              //       totalCount: response.totalCount,
-              //       postsForBlogs: response.items,
-              //       hasMorePostsForBlogs: response.items.length === action.params.pageSize,
-              //     }),
-              //     setPostsForBlogLoadingAction({ postsForBlogLoading: false }),
-              //   ]
-              // } else {
-              //   return [
-              //     addPostsForBlogsToStateAction({
-              //       pagesCount: response.pagesCount,
-              //       page: response.page,
-              //       pageSize: response.pageSize,
-              //       totalCount: response.totalCount,
-              //       postsForBlogs: response.items,
-              //       hasMorePostsForBlogs: response.items.length === action.params.pageSize,
-              //     }),
-              //     setPostsForBlogLoadingAction({ postsForBlogLoading: false }),
-              //   ]
-              // }
-              if (action.params.pageNumber === 1) {
-                return [
-                  setAllPostsToState({
-                    pagesCount: response.pagesCount,
-                    page: response.page,
-                    pageSize: response.pageSize,
-                    totalCount: response.totalCount,
-                    posts: response.items,
-                    hasMorePosts: response.items.length === action.params.pageSize,
-                  }),
-                  setPostsLoadingAction({ loading: false }),
-                ]
-              } else {
-                return [
-                  addPostsToStateAction({
-                    pagesCount: response.pagesCount,
-                    page: response.page,
-                    pageSize: response.pageSize,
-                    totalCount: response.totalCount,
-                    posts: response.items,
-                    hasMorePosts: response.items.length === action.params.pageSize,
-                  }),
-                  setPostsLoadingAction({ loading: false }),
-                ]
-              }
-            }),
+            mergeMap((response: PostResponse) => [
+              setAllPostsToState({
+                pagesCount: response.pagesCount,
+                page: response.page,
+                pageSize: response.pageSize,
+                totalCount: response.totalCount,
+                posts: response.items,
+                hasMorePosts: response.items.length === action.params.pageSize,
+              }),
+              setPostsForBlogLoadingAction({ postsForBlogLoading: false }),
+            ]),
             catchError(error => {
               const message = error?.error?.errorsMessages?.[0]?.message || 'Failed to load blogs'
               return of(
                 setPostsForBlogLoadingAction({ postsForBlogLoading: false }),
+                addAuthAlert({ severity: 'error', message: message })
+              )
+            })
+          )
+        )
+      )
+    )
+  )
+
+  loadMorePostsForBlog$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(loadPostsForBlogs),
+      filter(action => action.params.pageNumber !== undefined && action.params.pageNumber > 1),
+      concatMap(action =>
+        concat(
+          of(setPostsLoadingAction({ loading: true })),
+          this.blogService.getPostsForBlogs(action.params, action.id).pipe(
+            mergeMap((response: PostResponse) => [
+              addPostsToStateAction({
+                pagesCount: response.pagesCount,
+                page: response.page,
+                pageSize: response.pageSize,
+                totalCount: response.totalCount,
+                posts: response.items,
+                hasMorePosts: response.items.length === action.params.pageSize,
+              }),
+              setPostsLoadingAction({ loading: false }),
+            ]),
+            catchError(error => {
+              const message =
+                error?.error?.errorsMessages?.[0]?.message || 'Failed to load more blogs'
+              return of(
+                setPostsLoadingAction({ loading: false }),
                 addAuthAlert({ severity: 'error', message: message })
               )
             })

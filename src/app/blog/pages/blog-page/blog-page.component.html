@@ -53,17 +53,25 @@
       </ng-template>
     </div>
 
-    <div *ngIf="(posts$ | async)?.length; else emptyBlock" class="posts-list">
-      <blog-post-item
-        [currentUserId]="currentUserId"
-        (itemEditSubmitted)="onEditPostInBlog($event)"
-        (itemDeleteSubmitted)="onDeletePostInBlog($event)"
-        (likePost)="onLikePost($event)"
-        (dislikePost)="onDislikePost($event)"
-        *ngFor="let post of posts$ | async"
-        [post]="post"
-      ></blog-post-item>
-    </div>
+    <ng-container *ngIf="loadingForGetAllPostsInBlog$ | async; else items">
+      <div class="post-loader-container">
+        <blog-loader></blog-loader>
+      </div>
+    </ng-container>
+
+    <ng-template #items>
+      <div *ngIf="(posts$ | async)?.length; else emptyBlock" class="posts-list">
+        <blog-post-item
+          [currentUserId]="currentUserId"
+          (itemEditSubmitted)="onEditPostInBlog($event)"
+          (itemDeleteSubmitted)="onDeletePostInBlog($event)"
+          (likePost)="onLikePost($event)"
+          (dislikePost)="onDislikePost($event)"
+          *ngFor="let post of posts$ | async"
+          [post]="post"
+        ></blog-post-item>
+      </div>
+    </ng-template>
 
     <div *ngIf="loadingForPosts$ | async; else btnBlock" class="post-loader-container">
       <blog-loader></blog-loader>

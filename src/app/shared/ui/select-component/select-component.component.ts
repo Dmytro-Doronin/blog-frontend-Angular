@@ -26,7 +26,6 @@ export class SelectComponentComponent implements OnInit, OnChanges {
     if (this.options.length > 0) {
       this.selectedOptions = this.options[0].id
     }
-    console.log(this.selectedOptions)
   }
 
   onOpen() {
@@ -47,6 +46,5 @@ export class SelectComponentComponent implements OnInit, OnChanges {
       this.selectedOptions = this.options[0].id
       this.selectedItem.emit({ itemId: this.options[0].id })
     }
-    console.log(this.selectedOptions)
   }
 }

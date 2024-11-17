@@ -9,6 +9,7 @@ import {
   selectAuthAlertSeverity,
   selectIsAuthenticated,
   selectUserId,
+  selectUserImage,
   selectUserLogin,
 } from '../../../store/selectors/auth.selector'
 import { selectCurrentBlog } from '../../../store/selectors/blogs.selector'
@@ -27,6 +28,7 @@ import {
   selectEditCommentIdComment,
   selectEditCommentLoading,
   selectHasMoComment,
+  selectMoreCommentsLoading,
   selectTotalCountComments,
 } from '../../../store/selectors/comments.selectoe'
 import { IComment } from '../../../types/comments.model'
@@ -40,9 +42,11 @@ import { SeverityType } from '../../../types/notification.models'
 export class PostPageComponent implements OnInit, OnDestroy {
   isAuthenticated$?: Observable<boolean>
   loading$?: Observable<boolean>
+  moreCommentsLoading$?: Observable<boolean>
   commentsLoading$?: Observable<boolean>
   editCommentsLoading$?: Observable<boolean>
   editCommentId?: string | undefined
+  userImageUrl?: string | undefined
   totalCountComments$?: Observable<number>
   comments$?: Observable<IComment[]>
   blog$?: Observable<IBlog>
@@ -59,6 +63,7 @@ export class PostPageComponent implements OnInit, OnDestroy {
   private getCurrentUserSubscription: Subscription = new Subscription()
   private getCurrentUserIdSubscription: Subscription = new Subscription()
   private getEditCommentIdSubscription: Subscription = new Subscription()
+  private getImageUserUrlSubscription: Subscription = new Subscription()
 
   constructor(
     private store: Store,
@@ -68,6 +73,7 @@ export class PostPageComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.isAuthenticated$ = this.store.select(selectIsAuthenticated)
     this.postId = this.route.snapshot.paramMap.get('id') ?? ''
+    this.getUserImageUrl()
     this.getCurrentUser()
     this.getCurrentUserId()
     this.addCurrentPost()
@@ -76,15 +82,13 @@ export class PostPageComponent implements OnInit, OnDestroy {
     this.loadComments()
     this.getComments()
     this.getLoading()
+    this.getMoreCommentsLoading()
     this.getCommentsLoading()
     this.getTotalCountComments()
     this.getHasMoreComments()
     this.getAuthSeverity()
     this.getEditCommentId()
     this.getEditCommentLoading()
-    // this.store.select(selectPost).subscribe(post => {
-    //   console.log(post)
-    // })
   }
 
   getEditCommentId() {
@@ -102,11 +106,19 @@ export class PostPageComponent implements OnInit, OnDestroy {
   getAuthSeverity() {
     this.authSeverity$ = this.store.select(selectAuthAlertSeverity)
   }
+
+  getUserImageUrl() {
+    this.getImageUserUrlSubscription = this.store.select(selectUserImage).subscribe(imageUrl => {
+      this.userImageUrl = imageUrl
+    })
+  }
+
   getComments() {
     this.comments$ = this.store.select(selectComments)
   }
   getHasMoreComments() {
     this.hasMoreCommentForPost$ = this.store.select(selectHasMoComment)
+    // this.hasMoreCommentForPost$.subscribe(item => console.log(item))
   }
   getTotalCountComments() {
     this.totalCountComments$ = this.store.select(selectTotalCountComments)
@@ -118,6 +130,10 @@ export class PostPageComponent implements OnInit, OnDestroy {
 
   getLoading() {
     this.loading$ = this.store.select(selectPostsLoading)
+  }
+
+  getMoreCommentsLoading() {
+    this.moreCommentsLoading$ = this.store.select(selectMoreCommentsLoading)
   }
 
   getEditCommentLoading() {
@@ -173,7 +189,6 @@ export class PostPageComponent implements OnInit, OnDestroy {
     this.getPostSubscription = this.store.select(selectPost).subscribe(post => {
       this.post = post
     })
-    console.log(this.post)
   }
 
   onLikePost() {
@@ -195,7 +210,13 @@ export class PostPageComponent implements OnInit, OnDestroy {
   }
 
   onAddCommentFormSubmit(data: { content: string }) {
-    this.store.dispatch(sendCommentsAction({ postId: this.postId, content: data.content }))
+    this.store.dispatch(
+      sendCommentsAction({
+        postId: this.postId,
+        content: data.content,
+        imageUrl: this.userImageUrl!,
+      })
+    )
   }
 
   onDeletePostInBlog(data: { commentId: string }) {
@@ -220,5 +241,9 @@ export class PostPageComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.getPostSubscription.unsubscribe()
+    this.getImageUserUrlSubscription.unsubscribe()
+    this.getCurrentUserIdSubscription.unsubscribe()
+    this.getCurrentUserSubscription.unsubscribe()
+    this.getEditCommentIdSubscription.unsubscribe()
   }
 }

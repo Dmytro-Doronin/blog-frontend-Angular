@@ -35,28 +35,36 @@
       [options]="blogOptions"
     ></blog-select-component>
   </div>
-  <div *ngIf="(blogs$ | async)?.length; else noBlogs" class="blog-item-container">
-    <blog-blog-item
-      *ngFor="let blog of blogs$ | async"
-      [currentUserId]="currentUserId$ | async"
-      [currentUserLogin]="currentUserName$ | async"
-      [blog]="blog"
-    ></blog-blog-item>
-  </div>
 
-  <div class="center-container">
-    <blog-loader *ngIf="loading$ | async; else loadButton"></blog-loader>
-  </div>
+  <ng-container *ngIf="loading$ | async; else itemsBlock">
+    <div class="center-container">
+      <blog-loader></blog-loader>
+    </div>
+  </ng-container>
 
-  <ng-template #loadButton>
-    <blog-button
-      (click)="loadMore()"
-      *ngIf="hasMoreBlogs$ | async"
-      [content]="'Load more'"
-    ></blog-button>
-  </ng-template>
+  <ng-template #itemsBlock>
+    <div *ngIf="(blogs$ | async)?.length; else noBlogs" class="blog-item-container">
+      <blog-blog-item
+        *ngFor="let blog of blogs$ | async"
+        [currentUserId]="currentUserId$ | async"
+        [currentUserLogin]="currentUserName$ | async"
+        [blog]="blog"
+      ></blog-blog-item>
+    </div>
+    <div class="center-container">
+      <blog-loader *ngIf="loadingMoreBlogs$ | async; else loadButton"></blog-loader>
+    </div>
 
-  <ng-template #loadButton #noBlogs>
-    <div class="no-blog">No blogs available.</div>
+    <ng-template #loadButton>
+      <blog-button
+        (click)="loadMore()"
+        *ngIf="hasMoreBlogs$ | async"
+        [content]="'Load more'"
+      ></blog-button>
+    </ng-template>
+
+    <ng-template #loadButton #noBlogs>
+      <div class="no-blog">No blogs available.</div>
+    </ng-template>
   </ng-template>
 </blog-main-page>

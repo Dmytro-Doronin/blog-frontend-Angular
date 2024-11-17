@@ -6,6 +6,7 @@ import {
   IComment,
   SendCommentsModel,
 } from '../../types/comments.model'
+import { baseVercelUrl } from './services-variable'
 
 @Injectable({
   providedIn: 'root',
@@ -15,7 +16,7 @@ export class CommentsService {
 
   postComment({ content, postId }: SendCommentsModel) {
     return this.http.post<IComment>(
-      `http://localhost:3000/posts/${postId}/comments`,
+      `${baseVercelUrl}/posts/${postId}/comments`,
       {
         content,
       },
@@ -38,7 +39,7 @@ export class CommentsService {
     if (params.pageSize !== undefined) {
       httpCommentsParams = httpCommentsParams.set('pageSize', params.pageSize.toString())
     }
-    return this.http.get<CommentResponse>(`http://localhost:3000/posts/${postId}/comments`, {
+    return this.http.get<CommentResponse>(`${baseVercelUrl}/posts/${postId}/comments`, {
       params: httpCommentsParams,
       withCredentials: true,
     })
@@ -46,7 +47,7 @@ export class CommentsService {
 
   setLikeOrDislikeForComment(status: 'Like' | 'Dislike' | 'None', commentId: string) {
     return this.http.put(
-      `http://localhost:3000/comments/${commentId}/like-status`,
+      `${baseVercelUrl}/comments/${commentId}/like-status`,
       {
         likeStatus: status,
       },
@@ -56,7 +57,7 @@ export class CommentsService {
 
   changeComment(content: string, commentId: string) {
     return this.http.put(
-      `http://localhost:3000/comments/${commentId}`,
+      `${baseVercelUrl}/comments/${commentId}`,
       {
         content,
       },
@@ -65,13 +66,13 @@ export class CommentsService {
   }
 
   deleteCommentById(commentId: string) {
-    return this.http.delete(`http://localhost:3000/comments/${commentId}`, {
+    return this.http.delete(`${baseVercelUrl}/comments/${commentId}`, {
       withCredentials: true,
     })
   }
 
   getCommentById(commentId: string) {
-    return this.http.get<IComment>(`http://localhost:3000/comments/${commentId}`, {
+    return this.http.get<IComment>(`${baseVercelUrl}/comments/${commentId}`, {
       withCredentials: true,
     })
   }

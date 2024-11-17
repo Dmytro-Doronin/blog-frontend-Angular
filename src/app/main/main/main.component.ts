@@ -5,8 +5,4 @@ import { Component, OnInit } from '@angular/core'
   templateUrl: './main.component.html',
   styleUrl: './main.component.scss',
 })
-export class MainComponent implements OnInit {
-  ngOnInit(): void {
-    console.log('main ready')
-  }
-}
+export class MainComponent {}

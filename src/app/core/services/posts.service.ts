@@ -7,6 +7,7 @@ import {
   PostQueryParams,
   PostResponse,
 } from '../../types/posts.models'
+import { baseVercelUrl } from './services-variable'
 
 @Injectable({
   providedIn: 'root',
@@ -30,7 +31,7 @@ export class PostsService {
       httpParams = httpParams.set('pageSize', params.pageSize.toString())
     }
 
-    return this.http.get<PostResponse>('http://localhost:3000/posts', {
+    return this.http.get<PostResponse>(`${baseVercelUrl}/posts`, {
       params: httpParams,
       withCredentials: true,
     })
@@ -46,12 +47,12 @@ export class PostsService {
       formData.append('image', file)
     }
 
-    return this.http.post<IPost>('http://localhost:3000/posts', formData, { withCredentials: true })
+    return this.http.post<IPost>(`${baseVercelUrl}/posts`, formData, { withCredentials: true })
   }
 
   setLikeOrDislike(status: 'Like' | 'Dislike' | 'None', postId: string) {
     return this.http.put(
-      `http://localhost:3000/posts/${postId}/like-status`,
+      `${baseVercelUrl}/posts/${postId}/like-status`,
       {
         likeStatus: status,
       },
@@ -60,11 +61,11 @@ export class PostsService {
   }
 
   deletePostById(postId: string) {
-    return this.http.delete(`http://localhost:3000/posts/${postId}`, { withCredentials: true })
+    return this.http.delete(`${baseVercelUrl}/posts/${postId}`, { withCredentials: true })
   }
 
   getPostById(postId: string) {
-    return this.http.get<IPost>(`http://localhost:3000/posts/${postId}`, { withCredentials: true })
+    return this.http.get<IPost>(`${baseVercelUrl}/posts/${postId}`, { withCredentials: true })
   }
 
   editPost({ title, shortDescription, content, postId, blogId, file }: EditPostModel) {
@@ -77,7 +78,7 @@ export class PostsService {
       formData.append('image', file)
     }
 
-    return this.http.put(`http://localhost:3000/posts/${postId}`, formData, {
+    return this.http.put(`${baseVercelUrl}/posts/${postId}`, formData, {
       withCredentials: true,
     })
   }

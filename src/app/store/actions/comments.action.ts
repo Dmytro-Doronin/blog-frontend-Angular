@@ -3,7 +3,7 @@ import { CommentsQueryParams, IComment } from '../../types/comments.model'
 
 export const sendCommentsAction = createAction(
   '[Comments] send comment',
-  props<{ postId: string; content: string }>()
+  props<{ postId: string; content: string; imageUrl: string }>()
 )
 export const deleteCommentAction = createAction(
   '[Comments] delete comment',
@@ -17,6 +17,11 @@ export const successDeleteCommentAction = createAction(
 export const setLoadingForCommentsAction = createAction(
   '[Comments] set loading',
   props<{ loading: boolean }>()
+)
+
+export const setLoadingMoreCommentsAction = createAction(
+  '[Comments] set mo comment loading',
+  props<{ loadingMoreComments: boolean }>()
 )
 export const setEditLoadingForCommentsAction = createAction(
   '[Comments] set loading',

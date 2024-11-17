@@ -78,6 +78,10 @@ export const setBlogsLoadingAction = createAction(
   '[Blog] set blog loading',
   props<{ loading: boolean }>()
 )
+export const setMoreBlogsLoadingAction = createAction(
+  '[Blog] set more blog loading',
+  props<{ moreBlogsLoading: boolean }>()
+)
 
 export const setBlogsForSearchLoadingAction = createAction(
   '[Blog] set blog for search loading',

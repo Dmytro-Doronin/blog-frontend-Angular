@@ -16,6 +16,7 @@ import {
   selectCurrentPostId,
   selectDeletePostModal,
   selectHasMorePosts,
+  selectMorePostsLoading,
   selectPosts,
   selectPostsLoading,
   selectSortParamsForPosts,
@@ -33,6 +34,7 @@ export class PostsPageComponent implements OnInit, OnDestroy {
   isAuthenticated$?: Observable<boolean>
   hasMorePosts$?: Observable<boolean>
   loading$?: Observable<boolean>
+  morePostsLoading$?: Observable<boolean>
   currentUserId$?: Observable<string>
   openDeleteModal$?: Observable<boolean>
   postToDeleteId: string = ''
@@ -52,6 +54,7 @@ export class PostsPageComponent implements OnInit, OnDestroy {
     this.loadPosts()
     this.getPosts()
     this.getLoading()
+    this.getMorePostLoading()
     this.getHasMorePosts()
     this.getIsAuthenticated()
     this.getOpenDeleteModal()
@@ -81,6 +84,9 @@ export class PostsPageComponent implements OnInit, OnDestroy {
   }
   getIsAuthenticated() {
     this.isAuthenticated$ = this.store.select(selectIsAuthenticated)
+  }
+  getMorePostLoading() {
+    this.morePostsLoading$ = this.store.select(selectMorePostsLoading)
   }
 
   getPosts() {

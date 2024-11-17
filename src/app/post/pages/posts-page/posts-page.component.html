@@ -29,30 +29,39 @@
     ></blog-select-component>
   </div>
 
-  <div *ngIf="(posts$ | async)?.length; else noPosts" class="post-item-container">
-    <blog-post-item
-      (likePost)="onLikePost($event)"
-      (dislikePost)="onDislikePost($event)"
-      (itemDeleteSubmitted)="onDeletePost($event)"
-      (itemEditSubmitted)="onEditPost($event)"
-      [currentUserId]="currentUserId$ | async"
-      *ngFor="let post of posts$ | async"
-      [post]="post"
-    ></blog-post-item>
-  </div>
-  <div class="center-container">
-    <blog-loader *ngIf="loading$ | async; else loadButton"></blog-loader>
-  </div>
+  <ng-container *ngIf="loading$ | async; else itemsBlock">
+    <div class="center-container">
+      <blog-loader></blog-loader>
+    </div>
+  </ng-container>
 
-  <ng-template #loadButton>
-    <blog-button
-      (click)="loadMorePosts()"
-      *ngIf="hasMorePosts$ | async"
-      [content]="'Load more'"
-    ></blog-button>
-  </ng-template>
+  <ng-template #itemsBlock>
+    <div *ngIf="(posts$ | async)?.length; else noPosts" class="post-item-container">
+      <blog-post-item
+        (likePost)="onLikePost($event)"
+        (dislikePost)="onDislikePost($event)"
+        (itemDeleteSubmitted)="onDeletePost($event)"
+        (itemEditSubmitted)="onEditPost($event)"
+        [currentUserId]="currentUserId$ | async"
+        *ngFor="let post of posts$ | async"
+        [post]="post"
+      ></blog-post-item>
+    </div>
 
-  <ng-template #loadButton #noPosts>
-    <div class="no-posts">No posts available.</div>
+    <div class="center-container">
+      <blog-loader *ngIf="morePostsLoading$ | async; else loadButton"></blog-loader>
+    </div>
+
+    <ng-template #loadButton>
+      <blog-button
+        (click)="loadMorePosts()"
+        *ngIf="hasMorePosts$ | async"
+        [content]="'Load more'"
+      ></blog-button>
+    </ng-template>
+
+    <ng-template #loadButton #noPosts>
+      <div class="no-posts">No posts available.</div>
+    </ng-template>
   </ng-template>
 </blog-main-page>

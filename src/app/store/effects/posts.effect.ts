@@ -9,7 +9,7 @@ import {
   setBlogByIdAction,
   setBlogsLoadingAction,
 } from '../actions/blogs.actions'
-import { catchError, concatMap, mergeMap, switchMap } from 'rxjs/operators'
+import { catchError, concatMap, filter, mergeMap, switchMap } from 'rxjs/operators'
 import { concat, of } from 'rxjs'
 import { addAuthAlert } from '../actions/auth.actions'
 import {
@@ -21,6 +21,7 @@ import {
   loadPosts,
   setAllPostsToState,
   setLikeOrDislikeAction,
+  setLoadMorePostsLoadingAction,
   setPostByIdAction,
   setPostsLoadingAction,
   successDeletePost,
@@ -30,8 +31,6 @@ import {
 import { PostsService } from '../../core/services/posts.service'
 import { PostResponse } from '../../types/posts.models'
 import { CommentsService } from '../../core/services/comments.service'
-import { CommentResponse } from '../../types/comments.model'
-import { addCommentsToStateAction, setAllCommentsToState } from '../actions/comments.action'
 import { IBlog } from '../../types/blogs.models'
 
 @Injectable()
@@ -45,44 +44,108 @@ export class PostsEffects {
     private router: Router
   ) {}
 
-  getAllPosts$ = createEffect(() =>
+  // getAllPosts$ = createEffect(() =>
+  //   this.actions$.pipe(
+  //     ofType(loadPosts),
+  //     concatMap(action =>
+  //       concat(
+  //         of(setPostsLoadingAction({ loading: true })),
+  //         this.postService.getPosts(action.params).pipe(
+  //           mergeMap((response: PostResponse) => {
+  //             if (action.params.pageNumber === 1) {
+  //               return [
+  //                 setAllPostsToState({
+  //                   pagesCount: response.pagesCount,
+  //                   page: response.page,
+  //                   pageSize: response.pageSize,
+  //                   totalCount: response.totalCount,
+  //                   posts: response.items,
+  //                   hasMorePosts: response.items.length === action.params.pageSize,
+  //                 }),
+  //                 setPostsLoadingAction({ loading: false }),
+  //               ]
+  //             } else {
+  //               return [
+  //                 addPostsToStateAction({
+  //                   pagesCount: response.pagesCount,
+  //                   page: response.page,
+  //                   pageSize: response.pageSize,
+  //                   totalCount: response.totalCount,
+  //                   posts: response.items,
+  //                   hasMorePosts: response.items.length === action.params.pageSize,
+  //                 }),
+  //                 setPostsLoadingAction({ loading: false }),
+  //               ]
+  //             }
+  //           }),
+  //           catchError(error => {
+  //             const message = error?.error?.errorsMessages?.[0]?.message || 'Failed to load posts'
+  //             return of(
+  //               setPostsLoadingAction({ loading: false }),
+  //               addAuthAlert({ severity: 'error', message: message })
+  //             )
+  //           })
+  //         )
+  //       )
+  //     )
+  //   )
+  // )
+
+  loadInitialPosts$ = createEffect(() =>
     this.actions$.pipe(
       ofType(loadPosts),
+      filter(action => action.params.pageNumber === 1), // Только для первой страницы
       concatMap(action =>
         concat(
           of(setPostsLoadingAction({ loading: true })),
           this.postService.getPosts(action.params).pipe(
-            mergeMap((response: PostResponse) => {
-              if (action.params.pageNumber === 1) {
-                return [
-                  setAllPostsToState({
-                    pagesCount: response.pagesCount,
-                    page: response.page,
-                    pageSize: response.pageSize,
-                    totalCount: response.totalCount,
-                    posts: response.items,
-                    hasMorePosts: response.items.length === action.params.pageSize,
-                  }),
-                  setPostsLoadingAction({ loading: false }),
-                ]
-              } else {
-                return [
-                  addPostsToStateAction({
-                    pagesCount: response.pagesCount,
-                    page: response.page,
-                    pageSize: response.pageSize,
-                    totalCount: response.totalCount,
-                    posts: response.items,
-                    hasMorePosts: response.items.length === action.params.pageSize,
-                  }),
-                  setPostsLoadingAction({ loading: false }),
-                ]
-              }
-            }),
+            mergeMap((response: PostResponse) => [
+              setAllPostsToState({
+                pagesCount: response.pagesCount,
+                page: response.page,
+                pageSize: response.pageSize,
+                totalCount: response.totalCount,
+                posts: response.items,
+                hasMorePosts: response.items.length === action.params.pageSize,
+              }),
+              setPostsLoadingAction({ loading: false }),
+            ]),
             catchError(error => {
               const message = error?.error?.errorsMessages?.[0]?.message || 'Failed to load posts'
               return of(
                 setPostsLoadingAction({ loading: false }),
+                addAuthAlert({ severity: 'error', message: message })
+              )
+            })
+          )
+        )
+      )
+    )
+  )
+
+  loadMorePosts$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(loadPosts),
+      filter(action => action.params.pageNumber !== undefined && action.params.pageNumber > 1),
+      concatMap(action =>
+        concat(
+          of(setLoadMorePostsLoadingAction({ loadMorePostsLoading: true })),
+          this.postService.getPosts(action.params).pipe(
+            mergeMap((response: PostResponse) => [
+              addPostsToStateAction({
+                pagesCount: response.pagesCount,
+                page: response.page,
+                pageSize: response.pageSize,
+                totalCount: response.totalCount,
+                posts: response.items,
+                hasMorePosts: response.items.length === action.params.pageSize,
+              }),
+              setLoadMorePostsLoadingAction({ loadMorePostsLoading: false }),
+            ]),
+            catchError(error => {
+              const message = error?.error?.errorsMessages?.[0]?.message || 'Failed to load posts'
+              return of(
+                setLoadMorePostsLoadingAction({ loadMorePostsLoading: false }),
                 addAuthAlert({ severity: 'error', message: message })
               )
             })

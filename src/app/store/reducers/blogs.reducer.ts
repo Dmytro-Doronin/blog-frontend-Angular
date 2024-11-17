@@ -15,6 +15,7 @@ import {
   setBlogsSearchTermAction,
   setCurrentBlogId,
   setLikeStatusAsNoneForPostsInBlogAction,
+  setMoreBlogsLoadingAction,
   setPostsForBlogLoadingAction,
   setSortByAlphabetForBlog,
   setSortByDateForBlog,
@@ -45,6 +46,7 @@ export interface BlogsState {
   blogsForSearchLoading: boolean
   searchTerm: string
   loading: boolean
+  moreBlogsLoading: boolean
   hasMoreBlogs: boolean
   deleteBlogModal: boolean
   currentBlogId: string
@@ -81,6 +83,7 @@ export const initialState: BlogsState = {
   },
   blogsForSearchLoading: false,
   loading: false,
+  moreBlogsLoading: false,
   hasMoreBlogs: false,
   deleteBlogModal: false,
   currentBlogId: '',
@@ -93,6 +96,10 @@ export const initialState: BlogsState = {
 export const blogsReducer = createReducer(
   initialState,
   on(setBlogsLoadingAction, (state, { loading }) => ({ ...state, loading: loading })),
+  on(setMoreBlogsLoadingAction, (state, { moreBlogsLoading }) => ({
+    ...state,
+    moreBlogsLoading: moreBlogsLoading,
+  })),
   on(setPostsForBlogLoadingAction, (state, { postsForBlogLoading }) => ({
     ...state,
     postsForBlogLoading: postsForBlogLoading,

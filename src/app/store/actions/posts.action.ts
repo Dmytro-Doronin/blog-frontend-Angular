@@ -45,6 +45,10 @@ export const setPostsLoadingAction = createAction(
   '[Posts] set post loading',
   props<{ loading: boolean }>()
 )
+export const setLoadMorePostsLoadingAction = createAction(
+  '[Posts] set loadMorePostsLoading loading',
+  props<{ loadMorePostsLoading: boolean }>()
+)
 
 export const setLikeOrDislikeAction = createAction(
   '[Posts] set like or dislike',

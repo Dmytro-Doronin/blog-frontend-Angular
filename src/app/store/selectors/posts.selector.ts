@@ -1,6 +1,5 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store'
 import { PostsState } from '../reducers/posts.reduser'
-import { selectBlogs } from './blogs.selector'
 
 export const selectPostsState = createFeatureSelector<PostsState>('posts')
 export const selectPosts = createSelector(selectPostsState, (state: PostsState) => state.posts)
@@ -8,6 +7,10 @@ export const selectPost = createSelector(selectPostsState, (state: PostsState) =
 export const selectPostsLoading = createSelector(
   selectPostsState,
   (state: PostsState) => state.loading
+)
+export const selectMorePostsLoading = createSelector(
+  selectPostsState,
+  (state: PostsState) => state.loadMorePostsLoading
 )
 export const selectHasMorePosts = createSelector(
   selectPostsState,

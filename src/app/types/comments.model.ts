@@ -13,6 +13,7 @@ export interface IComment {
   commentatorInfo: {
     userId: string
     userLogin: string
+    userImageUrl: string
   }
   createdAt: string
   likesInfo: {
@@ -33,4 +34,5 @@ export interface CommentResponse {
 export interface SendCommentsModel {
   postId: string
   content: string
+  imageUrl: string
 }

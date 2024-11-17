@@ -80,7 +80,7 @@
       ></blog-comment-item>
     </div>
 
-    <div *ngIf="commentsLoading$ | async; else btnBlock" class="comment-loader-container">
+    <div *ngIf="moreCommentsLoading$ | async; else btnBlock" class="comment-loader-container">
       <blog-loader></blog-loader>
     </div>
     <ng-template #btnBlock>

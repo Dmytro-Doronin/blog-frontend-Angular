@@ -8,6 +8,7 @@ import {
   PostBlogModel,
 } from '../../types/blogs.models'
 import { PostAddToBlogModel, PostQueryParams, PostResponse } from '../../types/posts.models'
+import { baseVercelUrl } from './services-variable'
 //https://localhost.com
 @Injectable({
   providedIn: 'root',
@@ -34,7 +35,7 @@ export class BlogService {
       httpParams = httpParams.set('pageSize', params.pageSize.toString())
     }
 
-    return this.http.get<BlogResponse>('http://localhost:3000/blogs', { params: httpParams })
+    return this.http.get<BlogResponse>(`${baseVercelUrl}/blogs`, { params: httpParams })
   }
 
   getBlogsForUser(params: BlogQueryParams) {
@@ -56,7 +57,7 @@ export class BlogService {
       httpParams = httpParams.set('pageSize', params.pageSize.toString())
     }
 
-    return this.http.get<BlogResponse>('http://localhost:3000/blogs/user-blogs', {
+    return this.http.get<BlogResponse>(`${baseVercelUrl}/blogs/user-blogs`, {
       params: httpParams,
       withCredentials: true,
     })
@@ -71,7 +72,7 @@ export class BlogService {
       formData.append('image', file)
     }
 
-    return this.http.post<IBlog>('http://localhost:3000/blogs', formData, { withCredentials: true })
+    return this.http.post<IBlog>(`${baseVercelUrl}/blogs`, formData, { withCredentials: true })
   }
 
   editBlog({ name, description, websiteUrl, blogId, file }: EditBlogModel) {
@@ -82,17 +83,17 @@ export class BlogService {
     if (file) {
       formData.append('image', file)
     }
-    return this.http.put(`http://localhost:3000/blogs/${blogId}`, formData, {
+    return this.http.put(`${baseVercelUrl}/blogs/${blogId}`, formData, {
       withCredentials: true,
     })
   }
 
   getBlogById(blogId: string) {
-    return this.http.get<IBlog>(`http://localhost:3000/blogs/${blogId}`)
+    return this.http.get<IBlog>(`${baseVercelUrl}/blogs/${blogId}`)
   }
 
   deleteBlogById(blogId: string) {
-    return this.http.delete(`http://localhost:3000/blogs/${blogId}`, { withCredentials: true })
+    return this.http.delete(`${baseVercelUrl}/blogs/${blogId}`, { withCredentials: true })
   }
 
   //posts
@@ -112,7 +113,7 @@ export class BlogService {
       httpParams = httpParams.set('pageSize', postParams.pageSize.toString())
     }
 
-    return this.http.get<PostResponse>(`http://localhost:3000/blogs/${id}/posts`, {
+    return this.http.get<PostResponse>(`${baseVercelUrl}/blogs/${id}/posts`, {
       params: httpParams,
       withCredentials: true,
     })
@@ -128,7 +129,7 @@ export class BlogService {
       formData.append('image', file)
     }
 
-    return this.http.post<IBlog>(`http://localhost:3000/blogs/${blogId}/posts`, formData, {
+    return this.http.post<IBlog>(`${baseVercelUrl}/blogs/${blogId}/posts`, formData, {
       withCredentials: true,
     })
   }

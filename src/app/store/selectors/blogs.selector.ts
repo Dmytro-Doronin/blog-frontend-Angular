@@ -7,6 +7,11 @@ export const selectBlogsLoading = createSelector(
   selectBlogsState,
   (state: BlogsState) => state.loading
 )
+
+export const selectMoreBlogsLoading = createSelector(
+  selectBlogsState,
+  (state: BlogsState) => state.moreBlogsLoading
+)
 export const selectPostsForBlogLoading = createSelector(
   selectBlogsState,
   (state: BlogsState) => state.postsForBlogLoading

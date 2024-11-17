@@ -1,11 +1,14 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store'
 import { CommentsState } from '../reducers/comments.reducer'
-import { selectPosts } from './posts.selector'
 
 export const selectCommentsState = createFeatureSelector<CommentsState>('comments')
 export const selectCommentsLoading = createSelector(
   selectCommentsState,
   (state: CommentsState) => state.loading
+)
+export const selectMoreCommentsLoading = createSelector(
+  selectCommentsState,
+  (state: CommentsState) => state.loadingMoreComments
 )
 export const selectTotalCountComments = createSelector(
   selectCommentsState,

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core'
 import { HttpClient } from '@angular/common/http'
 import { AuthMe } from '../../types/auth.models'
 import { IBlog } from '../../types/blogs.models'
+import { baseVercelUrl } from './services-variable'
 
 @Injectable({
   providedIn: 'root',
@@ -14,7 +15,7 @@ export class AuthService {
 
   userLogin(loginOrEmail: string, password: string) {
     return this.http.post(
-      'http://localhost:3000/auth/login',
+      `${baseVercelUrl}/auth/login`,
       {
         loginOrEmail,
         password,
@@ -23,7 +24,7 @@ export class AuthService {
     )
   }
   userRegistration(login: string, password: string, email: string) {
-    return this.http.post('http://localhost:3000/auth/registration', {
+    return this.http.post(`${baseVercelUrl}/auth/registration`, {
       login,
       password,
       email,
@@ -31,25 +32,25 @@ export class AuthService {
   }
 
   passwordConfirmation(code: string) {
-    return this.http.post('http://localhost:3000/auth/registration-confirmation', {
+    return this.http.post(`${baseVercelUrl}/auth/registration-confirmation`, {
       code,
     })
   }
 
   sendPasswordRecovery(email: string) {
-    return this.http.post('http://localhost:3000/auth/password-recovery', {
+    return this.http.post(`${baseVercelUrl}/auth/password-recovery`, {
       email,
     })
   }
 
   emailResending(email: string) {
-    return this.http.post('http://localhost:3000/auth/registration-email-resending', {
+    return this.http.post(`${baseVercelUrl}/auth/registration-email-resending`, {
       email,
     })
   }
 
   newPassword(newPassword: string, recoveryCode: string) {
-    return this.http.post('http://localhost:3000/auth/new-password', {
+    return this.http.post(`${baseVercelUrl}/auth/new-password`, {
       newPassword,
       recoveryCode,
     })
@@ -62,24 +63,20 @@ export class AuthService {
       formData.append('image', file)
     }
 
-    return this.http.put<{ login: string; imageUrl: string }>(
-      'http://localhost:3000/users',
-      formData,
-      {
-        withCredentials: true,
-      }
-    )
+    return this.http.put<{ login: string; imageUrl: string }>(`${baseVercelUrl}/users`, formData, {
+      withCredentials: true,
+    })
   }
 
   sendRefreshToken() {
-    return this.http.post('http://localhost:3000/auth/refresh-token', {}, { withCredentials: true })
+    return this.http.post(`${baseVercelUrl}/auth/refresh-token`, {}, { withCredentials: true })
   }
 
   me() {
-    return this.http.get<AuthMe>('http://localhost:3000/auth/me')
+    return this.http.get<AuthMe>(`${baseVercelUrl}/auth/me`)
   }
 
   logOut() {
-    return this.http.post('http://localhost:3000/auth/logout', {}, { withCredentials: true })
+    return this.http.post(`${baseVercelUrl}/auth/logout`, {}, { withCredentials: true })
   }
 }

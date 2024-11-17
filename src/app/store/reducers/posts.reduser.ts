@@ -7,6 +7,7 @@ import {
   setAllPostsToState,
   setCurrentPostId,
   setLikeStatusAsNoneForPostsAction,
+  setLoadMorePostsLoadingAction,
   setPostByIdAction,
   setPostsLoadingAction,
   setSortByAlphabetForPost,
@@ -14,9 +15,7 @@ import {
   successDeletePost,
   successUpdateDetailsPost,
 } from '../actions/posts.action'
-import {
-  changeLikeStatusForPostInBlogAction,
-} from '../actions/blogs.actions'
+import { changeLikeStatusForPostInBlogAction } from '../actions/blogs.actions'
 import { updatePostLikesStatus } from '../../utils/post.utils'
 
 export interface PostsState {
@@ -27,6 +26,7 @@ export interface PostsState {
   posts: IPost[]
   post: IPost | null
   loading: boolean
+  loadMorePostsLoading: boolean
   hasMorePosts: boolean
   sortBy: string
   sortDirection: 'asc' | 'desc'
@@ -42,6 +42,7 @@ export const initialState: PostsState = {
   posts: [],
   post: null,
   loading: false,
+  loadMorePostsLoading: false,
   hasMorePosts: false,
   sortBy: 'createdAt',
   sortDirection: 'desc',
@@ -88,6 +89,11 @@ export const postsReducer = createReducer(
   on(setPostsLoadingAction, (state, { loading }) => ({
     ...state,
     loading: loading,
+  })),
+
+  on(setLoadMorePostsLoadingAction, (state, { loadMorePostsLoading }) => ({
+    ...state,
+    loadMorePostsLoading: loadMorePostsLoading,
   })),
   on(setCurrentPostId, (state, { currentPostId }) => ({
     ...state,

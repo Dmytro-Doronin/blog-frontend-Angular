@@ -6,7 +6,6 @@ import {
   ConfirmationEmailTypes,
 } from '../../types/auth.models'
 import { Notify } from '../../types/notification.models'
-import { successUpdateDetailsBlog } from './blogs.actions'
 
 export const loginUser = createAction('[Auth] Login User', props<AuthLogin>())
 export const registerUser = createAction('[Auth] Register User', props<AuthRegistration>())

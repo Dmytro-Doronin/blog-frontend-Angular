@@ -41,6 +41,7 @@ export class BlogPageComponent implements OnInit, OnDestroy {
   isAuthenticated$?: Observable<boolean>
   loading$?: Observable<boolean>
   loadingForPosts$?: Observable<boolean>
+  loadingForGetAllPostsInBlog$?: Observable<boolean>
   posts$?: Observable<IPost[]>
   openDeleteModal$?: Observable<boolean>
 
@@ -68,7 +69,8 @@ export class BlogPageComponent implements OnInit, OnDestroy {
     this.getCurrentUserId()
     this.getBlog()
     this.getLoading()
-    this.getLoadingForPost()
+    this.getLoadingForPosts()
+    this.getLoadingForAllPosts()
     this.downloadPostsForBlog()
     this.getPostsForBlog()
     this.getHasMorePostsForBlog()
@@ -101,8 +103,12 @@ export class BlogPageComponent implements OnInit, OnDestroy {
     this.loading$.subscribe()
   }
 
-  getLoadingForPost() {
+  getLoadingForPosts() {
     this.loadingForPosts$ = this.store.select(selectPostsLoading)
+  }
+
+  getLoadingForAllPosts() {
+    this.loadingForGetAllPostsInBlog$ = this.store.select(selectPostsForBlogLoading)
   }
 
   addCurrentBlog() {

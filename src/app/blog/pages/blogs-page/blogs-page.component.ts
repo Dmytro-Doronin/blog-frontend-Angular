@@ -22,6 +22,7 @@ import {
   selectCurrentBlogId,
   selectDeleteBlogModal,
   selectHasMoreBlogs,
+  selectMoreBlogsLoading,
   selectSearchBlogs,
   selectSortParams,
 } from '../../../store/selectors/blogs.selector'
@@ -39,6 +40,7 @@ export class BlogsPageComponent implements OnInit, OnDestroy {
   blogsForSearch$?: Observable<IBlog[]>
   isAuthenticated$?: Observable<boolean>
   loading$?: Observable<boolean>
+  loadingMoreBlogs$?: Observable<boolean>
   currentUserId$?: Observable<string>
   currentUserName$?: Observable<string>
   hasMoreBlogs$?: Observable<boolean>
@@ -56,6 +58,7 @@ export class BlogsPageComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.loading()
+    this.getMoreBlogsLoading()
     this.loadBlogs()
     this.getCurrentUser()
     this.getBlog()
@@ -123,7 +126,6 @@ export class BlogsPageComponent implements OnInit, OnDestroy {
 
   getBlog() {
     this.blogs$ = this.store.select(selectBlogs)
-    this.blogs$.subscribe(item => console.log(item))
   }
 
   getCurrentBlogId() {
@@ -144,6 +146,10 @@ export class BlogsPageComponent implements OnInit, OnDestroy {
 
   loading() {
     this.loading$ = this.store.select(selectBlogsLoading)
+  }
+
+  getMoreBlogsLoading() {
+    this.loadingMoreBlogs$ = this.store.select(selectMoreBlogsLoading)
   }
 
   getOpenDeleteModal() {

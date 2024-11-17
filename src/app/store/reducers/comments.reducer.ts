@@ -9,11 +9,11 @@ import {
   setEditCommentAction,
   setEditLoadingForCommentsAction,
   setLoadingForCommentsAction,
+  setLoadingMoreCommentsAction,
   successDeleteCommentAction,
   successUpdateCommentAction,
 } from '../actions/comments.action'
 import { updatePostLikesStatusForComment } from '../../utils/comments.utils'
-import { successDeletePost, successUpdateDetailsPost } from '../actions/posts.action'
 
 export interface CommentsState {
   pagesCount: number
@@ -23,6 +23,7 @@ export interface CommentsState {
   hasMoreComments: boolean
   editCommentId: string
   loading: boolean
+  loadingMoreComments: boolean
   editLoading: boolean
   comments: IComment[]
 }
@@ -34,6 +35,7 @@ export const initialState: CommentsState = {
   totalCount: 0,
   hasMoreComments: false,
   loading: false,
+  loadingMoreComments: false,
   editLoading: false,
   editCommentId: '',
   comments: [],
@@ -68,6 +70,10 @@ export const commentsReducer = createReducer(
   on(setLoadingForCommentsAction, (state, { loading }) => ({
     ...state,
     loading: loading,
+  })),
+  on(setLoadingMoreCommentsAction, (state, { loadingMoreComments }) => ({
+    ...state,
+    loadingMoreComments: loadingMoreComments,
   })),
   on(setEditLoadingForCommentsAction, (state, { editLoading }) => ({
     ...state,
