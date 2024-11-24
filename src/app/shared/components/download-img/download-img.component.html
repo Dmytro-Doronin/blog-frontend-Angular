@@ -1,10 +1,10 @@
 <div class="custom-file-upload" (click)="fileInput.click()">
   <div class="content">
-    <span *ngIf="!description" class="img-title">Download image!</span>
+    <span *ngIf="description" class="img-title">Download image!</span>
     <img src="../../../../assets/images/download-image.png" alt="Upload Image" />
   </div>
 
-  <ng-container *ngIf="!description">
+  <ng-container *ngIf="description">
     <span *ngIf="fileName" class="file-name">{{ fileName }}</span>
   </ng-container>
 

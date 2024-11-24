@@ -45,7 +45,7 @@ export class TokenInterceptor implements HttpInterceptor {
                 this.store.dispatch(setAutoLogOut({ autoLogOut: true }))
                 localStorage.removeItem('accessToken')
               } else {
-                this.store.dispatch(addAuthAlert({ severity: 'error', message }))
+                // this.store.dispatch(addAuthAlert({ severity: 'error', message }))
               }
               return throwError(() => refreshError)
             })

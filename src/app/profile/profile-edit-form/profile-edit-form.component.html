@@ -6,7 +6,10 @@
       [variant]="'round'"
     ></blog-content-picture>
     <div class="download-img-button">
-      <blog-download-img (addFileSubmitted)="onFileSelect($event)"></blog-download-img>
+      <blog-download-img
+        [description]="false"
+        (addFileSubmitted)="onFileSelect($event)"
+      ></blog-download-img>
     </div>
   </div>
 
