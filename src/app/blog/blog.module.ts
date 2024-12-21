@@ -10,8 +10,8 @@ import { AuthGuard } from '../core/guards/auth-guard.guard'
 import { BlogEditPageComponent } from './pages/blog-edit-page/blog-edit-page.component'
 import { EditBlogFormComponent } from './components/edit-blog-form/edit-blog-form.component'
 import { BlogPageComponent } from './pages/blog-page/blog-page.component'
-import {AddPostForBlogFormComponent} from "./components/add-post-for-blog-form/add-post-for-blog-form.component";
-import {AddPostToBlogPageComponent} from "./pages/add-post-to-blog-page/add-post-to-blog-page.component";
+import { AddPostForBlogFormComponent } from './components/add-post-for-blog-form/add-post-for-blog-form.component'
+import { AddPostToBlogPageComponent } from './pages/add-post-to-blog-page/add-post-to-blog-page.component'
 
 @NgModule({
   providers: [AuthGuard],
@@ -23,7 +23,7 @@ import {AddPostToBlogPageComponent} from "./pages/add-post-to-blog-page/add-post
     EditBlogFormComponent,
     BlogPageComponent,
     AddPostForBlogFormComponent,
-    AddPostToBlogPageComponent
+    AddPostToBlogPageComponent,
   ],
   imports: [CommonModule, BlogRoutingModule, SharedModule, ReactiveFormsModule],
   exports: [
@@ -33,7 +33,7 @@ import {AddPostToBlogPageComponent} from "./pages/add-post-to-blog-page/add-post
     BlogsPageComponent,
     BlogPageComponent,
     AddPostForBlogFormComponent,
-    AddPostToBlogPageComponent
+    AddPostToBlogPageComponent,
   ],
 })
 export class BlogModule {}

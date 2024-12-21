@@ -13,11 +13,9 @@ import { NgSelectModule } from '@ng-select/ng-select'
 
 import { AppRouterModule, routes } from './app-router.module'
 import { TokenInterceptor } from './core/interceptors/token.interceptor'
-import { BlogModule } from './blog/blog.module'
 import { AuthModule } from './auth/auth.module'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { CommonModule } from '@angular/common'
-import { SharedModule } from './shared/shared.module'
 import { MainModule } from './main/main.module'
 import { blogsReducer } from './store/reducers/blogs.reducer'
 import { BlogsEffects } from './store/effects/blogs.effects'
@@ -36,7 +34,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
     HttpClientModule,
     AuthModule,
     ReactiveFormsModule,
-    SharedModule,
     BrowserModule,
     HttpClientModule,
     AppRouterModule,
