@@ -5,24 +5,32 @@
   <div [@slideInOut]="menuState" class="sidebar">
     <nav>
       <ul>
-        <li (click)="closeMenu()" class="list-item">
-          <a routerLink="/main/blogs-page" routerLinkActive="selected" class="list-link">
-            <blog-burger></blog-burger>
-            <p class="list-item-name">Blogs</p>
+        <li *ngFor="let link of burgerMenuLinks" (click)="closeMenu()" class="list-item">
+          <a [routerLink]="link.routerLink" routerLinkActive="selected" class="list-link">
+            <ng-container *ngIf="link.icon">
+              <ng-container *ngComponentOutlet="link.icon"></ng-container>
+            </ng-container>
+            <p class="list-item-name">{{link.label}}</p>
           </a>
         </li>
-        <li (click)="closeMenu()" class="list-item">
-          <a routerLink="/main/posts-page" routerLinkActive="selected" class="list-link">
-            <blog-post-link-icon></blog-post-link-icon>
-            <p class="list-item-name">Posts</p>
-          </a>
-        </li>
-        <li (click)="closeMenu()" class="list-item">
-          <a routerLink="/main/device-page" routerLinkActive="selected" class="list-link">
-            <blog-phone-icon></blog-phone-icon>
-            <p class="list-item-name">Devices</p>
-          </a>
-        </li>
+<!--        <li (click)="closeMenu()" class="list-item">-->
+<!--          <a routerLink="/main/blogs-page" routerLinkActive="selected" class="list-link">-->
+<!--            <blog-burger></blog-burger>-->
+<!--            <p class="list-item-name">Blogs</p>-->
+<!--          </a>-->
+<!--        </li>-->
+<!--        <li (click)="closeMenu()" class="list-item">-->
+<!--          <a routerLink="/main/posts-page" routerLinkActive="selected" class="list-link">-->
+<!--            <blog-post-link-icon></blog-post-link-icon>-->
+<!--            <p class="list-item-name">Posts</p>-->
+<!--          </a>-->
+<!--        </li>-->
+<!--        <li (click)="closeMenu()" class="list-item">-->
+<!--          <a routerLink="/main/device-page" routerLinkActive="selected" class="list-link">-->
+<!--            <blog-phone-icon></blog-phone-icon>-->
+<!--            <p class="list-item-name">Devices</p>-->
+<!--          </a>-->
+<!--        </li>-->
       </ul>
     </nav>
     <hr class="line" />

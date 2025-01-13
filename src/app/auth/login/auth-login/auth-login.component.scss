@@ -1,3 +1,6 @@
+@use '../../../styles/helpers' as *;
+
+
 .loginPage {
   height: calc(100vh - 60px);
   display: flex;
@@ -5,8 +8,8 @@
   justify-content: center;
 }
 
-@media (max-width: 1023px) {
-  .login-img {
+.login-img {
+  @include tablet {
     display: none;
   }
 }

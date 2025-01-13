@@ -1,3 +1,5 @@
+@use 'helpers' as *;
+
 html {
   box-sizing: border-box;
   font-size: 100%;
@@ -26,6 +28,10 @@ option {
   font-style: inherit;
 }
 
+::placeholder {
+  font-size: fluid(16, 14);
+}
+
 a {
   text-decoration: none;
 }
@@ -37,6 +43,7 @@ a:visited {
 
 
 body {
+  @include fluid-text(18, 14);
   margin: 0;
   padding: 0;
   font-family: "Inter", sans-serif;
@@ -45,5 +52,18 @@ body {
 }
 
 .container {
-  max-width: 1200px;
+  max-width: calc(var(--container-width) + var(--container-padding-x) * 2);
+  margin: 0 auto;
+  padding-inline: var(--container-padding-x);
+}
+
+.error {
+  font-size: rem(14);
+  font-weight: 400;
+  line-height: rem(24);
+  letter-spacing: 0;
+  text-align: left;
+
+  margin-bottom: rem(20);
+  color: var(--color-danger-500);
 }

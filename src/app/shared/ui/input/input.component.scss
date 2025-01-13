@@ -1,23 +1,24 @@
+@use '../../../styles/helpers' as *;
 
 .input-container {
   display: flex;
   align-items: center;
   width: 100%;
-  height: 36px;
-  border-radius: 2px 0 0 0;
-  border: 1px solid var(--color-light-700);
+  height: rem(36);
+  border-radius: rem(2) 0 0 0;
+  border: rem(1) solid var(--color-light-700);
 
   &-padding {
-    padding-left: 5px;
+    padding-left: rem(5);
   }
 }
 
 .input-container:focus-within {
-  box-shadow: 0 0 1px 0
+  box-shadow: 0 0 rem(1) 0
 }
 
 .with-margin {
-  margin-bottom: 20px;
+  margin-bottom: rem(20);
 }
 
 .input {
@@ -29,46 +30,46 @@
 
   //styleName: regular_text / Neutral Dark-60;
   font-family: Inter;
-  font-size: 16px;
+  font-size: rem(16);
   font-weight: 400;
-  line-height: 24px;
+  line-height: rem(24);
   text-align: left;
   color: var(--color-dark-900);
 }
 
 .textareaContainer {
-  margin-bottom: 25px;
+  margin-bottom: rem(25);
 }
 
 .textarea {
-  height: 300px;
+  height: rem(300);
   resize: none;
-  padding: 5px;
-  border-radius: 2px 0 0 0;
-  border: 1px solid var(--color-light-700);
+  padding: rem(5);
+  border-radius: rem(2) 0 0 0;
+  border: rem(1) solid var(--color-light-700);
 }
 .textarea-comment {
-  height: 84px;
+  height: rem(84);
   resize: none;
-  padding: 5px;
-  border-radius: 2px 0 0 0;
-  border: 1px solid var(--color-light-700);
+  padding: rem(5);
+  border-radius: rem(2) 0 0 0;
+  border: rem(1) solid var(--color-light-700);
 }
-@media (max-width: 768px) {
-  .input-container {
-    height: 30px;
-  }
-  .input {
-    font-size: 12px;
-  }
-  .input::placeholder {
-    font-size: 12px;
-  }
-
-}
-
-@media (max-width: 568px) {
-  .input {
-    font-size: 12px;
-  }
-}
+//@media (max-width: 768px) {
+//  .input-container {
+//    height: 30px;
+//  }
+//  .input {
+//    font-size: 12px;
+//  }
+//  .input::placeholder {
+//    font-size: 12px;
+//  }
+//
+//}
+//
+//@media (max-width: 568px) {
+//  .input {
+//    font-size: 12px;
+//  }
+//}

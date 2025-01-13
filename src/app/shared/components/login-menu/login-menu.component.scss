@@ -1,11 +1,13 @@
+@use '../../../styles/helpers' as *;
+
 .header-user-info {
   display: inline-block;
   position: relative;
-  margin-right: 60px;
+  margin-right: rem(60);
   font-family: Inter;
-  font-size: 16px;
+  font-size: rem(16);
   font-weight: 600;
-  line-height: 24px;
+  line-height: rem(24);
   text-align: left;
   border-bottom: 1px dashed black;
 }
@@ -26,12 +28,12 @@
   display: block;
   text-align: left;
   width: 100%;
-  padding: 16px 10px 12px 12px;
+  padding: rem(16) rem(10) rem(12) rem(12);
   cursor: pointer;
 }
 
 .item-text:not(:last-child) {
-  border-bottom: 1px solid var(--color-light-900);
+  border-bottom: rem(1) solid var(--color-light-900);
 }
 
 .item-text:hover {
@@ -39,5 +41,5 @@
 }
 
 .item-container:not(:last-child) {
-  padding-bottom: 12px;
+  padding-bottom: rem(12);
 }

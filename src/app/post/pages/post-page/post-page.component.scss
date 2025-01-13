@@ -1,3 +1,5 @@
+@use '../../../styles/helpers' as *;
+
 .post-page {
   width: 100%;
 }
@@ -5,18 +7,18 @@
 .blog-info {
   display: flex;
   align-items: center;
-  margin-bottom: 28px;
+  margin-bottom: rem(28);
 }
 
 .picture-container {
-  margin-right: 12px;
+  margin-right: rem(12);
 }
 
 .blog-name {
   font-family: Inter;
-  font-size: 16px;
+  font-size: rem(16);
   font-weight: 600;
-  line-height: 24px;
+  line-height: rem(24);
   text-align: left;
   color: var(--color-dark-700);
 }
@@ -24,33 +26,33 @@
 
 .date-time-block {
   font-family: Inter;
-  font-size: 12px;
+  font-size: rem(14);
   font-weight: 400;
-  line-height: 16px;
+  line-height: rem(16);
   letter-spacing: 0.02em;
   text-align: left;
   color: var(--color-dark-500);
-  margin-top: 8px;
+  margin-top: rem(8);
 }
 .post-header {
-  margin-bottom: 20px;
+  margin-bottom: rem(20);
 }
 
 .like-dislike-container {
-  margin-bottom: 12px;
+  margin-bottom: rem(12);
 }
 
 .blog-picture-container {
-  margin-bottom: 30px;
+  margin-bottom: rem(30);
 }
 .post-description {
   font-family: Inter;
-  font-size: 16px;
+  font-size: rem(16);
   font-weight: 400;
-  line-height: 24px;
+  line-height: rem(24);
   text-align: justify;
   color: var(--color-dark-700);
-  margin-bottom: 47px;
+  margin-bottom: rem(47);
 }
 .btn-block {
   text-align: center;
@@ -64,10 +66,10 @@
 
 .no-comments {
   text-align: center;
-  margin-top: 150px;
-  font-size: 18px;
+  margin-top: rem(150);
+  font-size: rem(18);
   font-weight: 600;
-  line-height: 20px;
+  line-height: rem(20);
 }
 .loader-block {
   display: flex;

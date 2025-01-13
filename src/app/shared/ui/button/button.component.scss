@@ -1,15 +1,17 @@
+@use '../../../styles/helpers' as *;
+
 .button {
-  font-size: 14px;
+  font-size: rem(14);
   font-weight: 600;
-  line-height: 20px;
+  line-height: rem(20);
   letter-spacing: 0;
   text-align: center;
   color: var(--color-light-100);
   border: none;
   cursor: pointer;
 
-  padding: 8px 36px 8px 36px;
-  border-radius: 2px;
+  padding: rem(8) rem(36) rem(8) rem(36);
+  border-radius: rem(2);
   //gap: 10px;
 
   transition: all 0.3s ease-in-out;
@@ -21,7 +23,7 @@
 }
 
 .width100 {
-  width: 100px;
+  width: rem(100);
 }
 
 .link {
@@ -29,11 +31,11 @@
 }
 
 .mb {
-  margin-bottom: 72px;
+  margin-bottom: rem(72);
 }
 
 .mr20 {
-  margin-right: 20px;
+  margin-right: rem(20);
 }
 
 
@@ -42,19 +44,19 @@
 }
 
 .button:hover {
-  box-shadow: 0 4px 18px 0 #F8346B59;
+  box-shadow: 0 rem(4) rem(18) 0 #F8346B59;
 }
 
 .primary {
   @extend .button;
   background-color: var(--color-danger-300);
-  box-shadow: 0 1px 0 0 #FFFFFF4D inset;
+  box-shadow: 0 rem(1) 0 0 #FFFFFF4D inset;
 }
 
 .secondary {
   @extend .button;
-  border: 1px solid var(--color-danger-300);
-  padding: 7px 34px 7px 34px;
+  border: rem(1) solid var(--color-danger-300);
+  padding: rem(7) rem(34);
   color: var(--color-danger-300);
   background-color: transparent;
 }
@@ -72,8 +74,6 @@
 
 }
 
-
-
 .back {
   display: flex;
   padding-left: 0;
@@ -83,9 +83,9 @@
 
   //styleName: small_text/Neutral Dark-60;
   font-family: Inter;
-  font-size: 14px;
+  font-size: rem(14);
   font-weight: 400;
-  line-height: 24px;
+  line-height: rem(24);
   text-align: left;
 
 
@@ -98,8 +98,8 @@
 }
 
 .formButton {
-  margin-top: 55px;
-  margin-bottom: 18px;
+  margin-top: rem(55);
+  margin-bottom: rem(18);
 }
 
 .formLink {
@@ -110,31 +110,30 @@
 
 .disabled {
   background: #FB85A6;
-  box-shadow: 0px 4px 18px 0px #F8346B59;
-  box-shadow: 0px 1px 0px 0px #FFFFFF4D inset;
+  box-shadow: 0 rem(1) 0 0 #FFFFFF4D inset;
 }
 
 .disabled:hover {
   box-shadow: none;
 }
 .arrow {
-  margin-right: 12px;
+  margin-right: rem(12);
 }
-@media (max-width: 768px) {
-  .button {
-    padding: 8px 5px 8px 5px;
-    font-size: 12px;
-    font-weight: 500;
-    line-height: 15px;
-  }
-
-}
-@media (max-width: 568px) {
-  .button {
-    width: 100px;
-    padding: 5px 3px 5px 3px;
-    font-size: 12px;
-    font-weight: 100;
-    line-height: 15px;
-  }
-}
+//@media (max-width: 768px) {
+//  .button {
+//    padding: 8px 5px 8px 5px;
+//    font-size: 12px;
+//    font-weight: 500;
+//    line-height: 15px;
+//  }
+//
+//}
+//@media (max-width: 568px) {
+//  .button {
+//    width: 100px;
+//    padding: 5px 3px 5px 3px;
+//    font-size: 12px;
+//    font-weight: 100;
+//    line-height: 15px;
+//  }
+//}

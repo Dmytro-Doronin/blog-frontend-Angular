@@ -1,3 +1,7 @@
+@use 'helpers' as *;
+
 :root {
-  --header-height: 60px;
+  --header-height: #{rem(60)};
+  --container-width: #{rem(1280)};
+  --container-padding-x: #{rem(10)};
 }

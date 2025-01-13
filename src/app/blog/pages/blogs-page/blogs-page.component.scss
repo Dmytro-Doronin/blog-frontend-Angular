@@ -1,8 +1,16 @@
+@use '../../../styles/helpers' as *;
+
+
+:host {
+  min-width: 100%;
+}
+
 .blogs-page {
-  margin-left: 252px;
+  //margin-left: 252px;
+  min-width: 100%;
   height: 100%;
   overflow-y: auto;
-  padding: 20px;
+  padding: rem(20);
   z-index: 999;
 }
 
@@ -10,14 +18,23 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 10px;
+  margin-bottom: rem(10);
 }
 
 .search-panel {
-  display: flex;
+  display: grid;
+  column-gap: rem(20);
+  grid-template-columns: 1fr auto;
   align-items: center;
-  margin-bottom: 24px;
+  margin-bottom: rem(24);
   width: 100%;
+
+  @include mobile {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    row-gap: rem(10);
+  }
 }
 
 .search-field {
@@ -28,35 +45,35 @@
   border-top: 0;
   border-left: 0;
   border-right: 0;
-  border-bottom: 1px solid #DEDBDC;
-  margin-bottom: 24px;
+  border-bottom: rem(1) solid #DEDBDC;
+  margin-bottom: rem(24);
 }
 
 .blog-item-container {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: rem(20);
 }
 
 .no-blog {
   text-align: center;
-  margin-top: 150px;
-  font-size: 18px;
+  margin-top: rem(150);
+  font-size: fluid(18, 16);
   font-weight: 600;
-  line-height: 20px;
+  line-height: rem(20);
 }
 
 .center-container {
   display: flex;
   justify-content: center;
-  margin-top: 23px;
+  margin-top: rem(23);
 }
 
 .blog-modal-text {
   font-family: Inter;
-  font-size: 18px;
+  font-size: rem(18);
   font-weight: 400;
-  margin-bottom: 15px;
+  margin-bottom: rem(15);
 }
 
 .blog-modal-btn-group {
@@ -65,21 +82,21 @@
 }
 
 
-@media (max-width: 1280px) {
-  .main-page {
-    margin-left: 150px;
-    width: 828px;
-  }
-}
-
-@media (max-width: 1140px) {
-  .main-page {
-    margin-left: 0;
-  }
-}
-@media (max-width: 768px) {
-  .search-panel {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-}
+//@media (max-width: 1280px) {
+//  .main-page {
+//    margin-left: 150px;
+//    width: 828px;
+//  }
+//}
+//
+//@media (max-width: 1140px) {
+//  .main-page {
+//    margin-left: 0;
+//  }
+//}
+//@media (max-width: 768px) {
+//  .search-panel {
+//    flex-direction: column;
+//    align-items: flex-start;
+//  }
+//}

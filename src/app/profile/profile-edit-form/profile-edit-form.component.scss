@@ -1,15 +1,17 @@
+@use '../../styles/helpers' as *;
+
 .image-container {
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 10px;
+  margin-bottom: rem(10);
 }
 
 .download-img-button {
   position: absolute;
   bottom: 0;
-  right: 45px;
+  right: rem(45);
 }
 
 .loader-container {

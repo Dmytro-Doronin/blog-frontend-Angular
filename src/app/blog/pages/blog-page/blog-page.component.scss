@@ -1,17 +1,24 @@
+@use '../../../styles/helpers' as *;
+
+
 .blog-content {
-  min-height: 566px;
-  margin-bottom: 47px;
+  min-height: rem(566);
+  margin-bottom: rem(47);
+
+  @include mobile {
+    min-height: auto;
+  }
 }
 .loader-container {
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: 566px
+  height: rem(566)
 
 }
 .blog-header {
-  margin-bottom: 20px;
+  margin-bottom: rem(20);
 }
 .blog-header-panel {
   display: flex;
@@ -20,48 +27,47 @@
 }
 .date {
   font-family: Inter;
-  font-size: 12px;
+  font-size: rem(14);
   font-weight: 400;
-  line-height: 16px;
+  line-height: rem(16);
   letter-spacing: 0.02em;
   text-align: left;
 }
 .blog-picture-container {
-  margin-bottom: 30px;
+  margin-bottom: rem(30);
 }
 .blog-description {
   font-family: Inter;
-  font-size: 16px;
+  font-size: rem(16);
   font-weight: 400;
-  line-height: 24px;
+  line-height: rem(24);
   text-align: justify;
   color: var(--color-dark-700);
 }
 
 .blog-content-info {
   font-family: Inter;
-  font-size: 14px;
+  font-size: rem(14);
   font-weight: 400;
-  line-height: 24px;
+  line-height: rem(24);
   text-align: left;
-
 }
 
 .blog-website {
   margin-top: 5px;
   font-family: Inter;
-  font-size: 14px;
+  font-size: rem(14);
   font-weight: 400;
-  line-height: 24px;
+  line-height: rem(24);
   text-align: left;
   color: var(--color-dark-500);
 }
 
 .blog-link {
   font-family: Inter;
-  font-size: 14px;
+  font-size: rem(14);
   font-weight: 400;
-  line-height: 24px;
+  line-height: rem(24);
   text-align: left;
 }
 
@@ -69,10 +75,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 20px;
+  margin-bottom: rem(20);
 }
 .posts-list {
-  margin-bottom: 36px;
+  margin-bottom: rem(36);
 }
 
 .btn-block {
@@ -80,13 +86,13 @@
 }
 .no-posts {
   text-align: center;
-  margin-top: 150px;
-  font-size: 18px;
+  margin-top: rem(150);
+  font-size: fluid(18, 16);
   font-weight: 600;
-  line-height: 20px;
+  line-height: rem(20);
 }
-@media (max-width: 768px) {
-  .blog-description {
-    font-size: 14px;
-  }
-}
+//@media (max-width: 768px) {
+//  .blog-description {
+//    font-size: 14px;
+//  }
+//}

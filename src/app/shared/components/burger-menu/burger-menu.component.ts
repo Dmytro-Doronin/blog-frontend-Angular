@@ -1,6 +1,7 @@
 import { Component, ElementRef, EventEmitter, HostListener, Input, Output } from '@angular/core'
 import { animate, state, style, transition, trigger } from '@angular/animations'
 import { Store } from '@ngrx/store'
+import {BurgerMenuLink, burgerMenuLinks} from "../../../data/burger-menu-links";
 
 @Component({
   selector: 'blog-burger-menu',
@@ -9,7 +10,7 @@ import { Store } from '@ngrx/store'
   animations: [
     trigger('slideInOut', [
       state('in', style({ transform: 'translateX(0)' })),
-      state('out', style({ transform: 'translateX(-100%)' })),
+      state('out', style({ transform: 'translateX(-100%)', visibility: 'hidden' })),
       transition('out => in', [animate('0.3s ease-in-out')]),
       transition('in => out', [animate('0.3s ease-in-out')]),
     ]),
@@ -23,6 +24,8 @@ export class BurgerMenuComponent {
   @Output() menuCloseSubmitted = new EventEmitter<void>()
   @Output() menuToggleSubmitted = new EventEmitter<void>()
   @Output() modalOpenSubmitted = new EventEmitter<void>()
+  burgerMenuLinks: BurgerMenuLink[] = burgerMenuLinks;
+
   constructor(
     private store: Store,
     private elementRef: ElementRef

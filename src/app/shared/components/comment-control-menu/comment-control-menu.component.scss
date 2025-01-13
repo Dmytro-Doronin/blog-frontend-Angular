@@ -1,8 +1,10 @@
+@use '../../../styles/helpers' as *;
+
 .item-container {
   display: flex;
   align-items: center;
   cursor: pointer;
-  padding: 16px 10px 12px 12px;
+  padding: rem(16) rem(10) rem(12) rem(12);
 
 
 }
@@ -11,8 +13,8 @@
 }
 
 .item-container:not(:last-child) {
-  padding-bottom: 12px;
+  padding-bottom: rem(12);
 }
 .item-icon {
-  margin-right: 12px;
+  margin-right: rem(12);
 }

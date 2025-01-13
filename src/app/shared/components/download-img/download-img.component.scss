@@ -1,15 +1,18 @@
+@use '../../../styles/helpers' as *;
+
+
 .custom-file-upload {
   display: flex;
   cursor: pointer;
   align-items: center;
 }
 .custom-file-upload img {
-  width: 30px;
-  height: 30px;
+  width: rem(30);
+  height: rem(30);
 }
 .file-name {
-  margin-left: 10px;
-  font-size: 14px;
+  margin-left: rem(10);
+  font-size: rem(14);
   color: #333;
 }
 
@@ -27,6 +30,6 @@
   font-family: Inter;
   font-size: 14px;
   font-weight: 400;
-  line-height: 24px;
-  margin-right: 10px;
+  line-height: rem(24);
+  margin-right: rem(10);
 }

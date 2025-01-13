@@ -1,8 +1,10 @@
+@use '../../../styles/helpers' as *;
+
 .loader {
-  width: 50px;
+  width: rem(50);
   aspect-ratio: 1;
   border-radius: 50%;
-  border: 8px solid;
+  border: rem(8) solid;
   border-color: #F8346B transparent;
   animation: l1 1s infinite;
 }

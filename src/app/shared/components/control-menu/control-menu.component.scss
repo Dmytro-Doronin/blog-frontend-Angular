@@ -1,17 +1,18 @@
+@use '../../../styles/helpers' as *;
 
 
 .control-menu {
   position: absolute;
-  top: 40px;
+  top: rem(40);
   right: 0;
   display: flex;
   flex-direction: column;
-  width: 149px;
+  width: rem(149);
   opacity: 0;
   visibility: hidden;
   background-color: var(--color-light-300);
-  border-radius: 2px 0 0 0;
-  border: 1px solid var(--color-light-700);
+  border-radius: rem(2) 0 0 0;
+  border: rem(1) solid var(--color-light-700);
   transition: opacity 0.3s ease, visibility 0.3s ease;
 }
 
@@ -23,20 +24,20 @@
 .control-menu::before {
   content: '';
   position: absolute;
-  top: -10px;
-  right: 10px;
-  border-left: 10px solid transparent;
-  border-right: 10px solid transparent;
-  border-bottom: 10px solid var(--color-light-700);
+  top: rem(-10);
+  right: rem(10);
+  border-left: rem(10) solid transparent;
+  border-right: rem(10) solid transparent;
+  border-bottom: rem(10) solid var(--color-light-700);
 }
 
 .control-menu::after {
   content: '';
   position: absolute;
-  top: -9px;
-  right: 11px;
-  border-left: 9px solid transparent;
-  border-right: 9px solid transparent;
-  border-bottom: 9px solid var(--color-light-300);
+  top: rem(-9);
+  right: rem(11);
+  border-left: rem(9) solid transparent;
+  border-right: rem(9) solid transparent;
+  border-bottom: rem(9) solid var(--color-light-300);
 }
 

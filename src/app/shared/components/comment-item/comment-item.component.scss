@@ -1,7 +1,8 @@
+@use '../../../styles/helpers' as *;
 
 .picture {
   flex-shrink: 0;
-  margin-right: 12px;
+  margin-right: rem(12);
 }
 
 .info {
@@ -16,28 +17,28 @@
 .item-header {
   display: flex;
   align-items: center;
-  margin-bottom: 14px;
+  margin-bottom: rem(14);
 }
 
 .date {
   font-family: Inter;
-  font-size: 12px;
+  font-size: rem(14);
   font-weight: 400;
-  line-height: 16px;
+  line-height: rem(16);
   letter-spacing: 0.02em;
   text-align: left;
   color: var(--color-dark-500);
-  margin-left: 16px;
+  margin-left: rem(16);
 }
 
 .item-content {
   font-family: Inter;
-  font-size: 14px;
+  font-size: rem(14);
   font-weight: 400;
-  line-height: 24px;
+  line-height: rem(24);
   text-align: left;
   color: var(--color-dark-700);
-  margin-bottom: 8px;
+  margin-bottom: rem(8);
   overflow: hidden;
   text-overflow: ellipsis;
   word-wrap: break-word;

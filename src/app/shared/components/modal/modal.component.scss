@@ -1,3 +1,5 @@
+@use '../../../styles/helpers' as *;
+
 .modalOverlay {
   position: fixed;
 
@@ -15,7 +17,7 @@
 }
 
 .modal {
-  width: 378px;
+  width: rem(378);
   background-color: var(--color-light-300);
   z-index: 10000;
 
@@ -27,22 +29,22 @@
   align-items: center;
   justify-content: space-between;
   text-align: center;
-  padding: 17px 24px 18px 24px;
-  border-bottom: 1px solid var(--color-light-700);
+  padding: rem(17) rem(24) rem(18) rem(24);
+  border-bottom: rem(1) solid var(--color-light-700);
 }
 
 .modalBody {
   display: flex;
   max-width: 100%;
   flex-direction: column;
-  padding: 30px 21px 36px 24px;
+  padding: rem(30) rem(21) rem(36) rem(24);
 }
 
 .closButton {
-  font-size: 20px;
+  font-size: rem(20);
   position: absolute;
   transform: translateY(-50%);
   top: 50%;
-  right: 29px;
+  right: rem(29);
   cursor: pointer;
 }

@@ -1,30 +1,35 @@
-.ng-select {
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  width: 256px;
-  height: 36px;
+@use '../../../styles/helpers' as *;
 
-  margin-left: 12px;
+
+.ng-select {
+  border: rem(1) solid #ccc;
+  border-radius: rem(4);
+  width: rem(256);
+  height: rem(36);
 
   font-family: Inter;
-  font-size: 14px;
+  font-size: rem(14);
   font-weight: 400;
-  line-height: 24px;
+  line-height: rem(24);
   text-align: left;
+
+  @include mobile {
+    margin-left: 0;
+  }
 }
 .selected-label {
-  margin-left: 100px;
+  margin-left: rem(100);
 }
 
 
 .ng-select .ng-select-container {
-  padding: 6px 0 12px 6px;
+  padding: rem(6) 0 rem(12) rem(6);
   background-color: transparent;
   cursor: pointer !important;
 }
 
 .ng-select .ng-option {
-  padding: 10px;
+  padding: rem(10);
   cursor: pointer;
 }
 
@@ -38,7 +43,7 @@
 
 .ng-select .ng-dropdown-panel {
   background-color: var(--color-light-300);
-  border: 1px solid #ccc;
+  border: rem(1) solid #ccc;
   cursor: pointer;
   //z-index: 1000;
 
@@ -51,31 +56,31 @@
 }
 
 .arrow {
-  font-size: 12px;
+  font-size: rem(14);
   vertical-align: middle;
   color: #666;
 }
 
 
-@media (max-width: 768px) {
-  .ng-select {
-    width: 256px;
-    height: 36px;
-    margin-left: 0;
-    font-size: 12px;
-  }
-
-  .ng-select .ng-select-container {
-    padding: 5px 0 10px 5px;
-  }
-}
-
-@media (max-width: 568px) {
-  .ng-select {
-    font-size: 12px;
-  }
-
-  .arrow {
-    font-size: 10px;
-  }
-}
+//@media (max-width: 768px) {
+//  .ng-select {
+//    width: 256px;
+//    height: 36px;
+//    margin-left: 0;
+//    font-size: 12px;
+//  }
+//
+//  .ng-select .ng-select-container {
+//    padding: 5px 0 10px 5px;
+//  }
+//}
+//
+//@media (max-width: 568px) {
+//  .ng-select {
+//    font-size: 12px;
+//  }
+//
+//  .arrow {
+//    font-size: 10px;
+//  }
+//}

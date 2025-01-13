@@ -1,3 +1,5 @@
+@use '../../styles/helpers' as *;
+
 .profile {
   display: flex;
   flex-direction: column;
@@ -5,13 +7,21 @@
   justify-content: center;
   margin: 0 auto;
   border: 1px solid var(--color-light-700);
-  width: 400px;
-  height: 300px;
+  width: rem(400);
+  height: auto;
   background: white;
-  border-radius: 20px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  padding: 20px;
+  border-radius: rem(20);
+  box-shadow: 0 rem(4) rem(8) rgba(0, 0, 0, 0.1);
+  padding: rem(20);
   position: relative;
+
+  @include mobile {
+    width: rem(300);
+  }
+
+  @include mobile-s {
+    width: rem(250);
+  }
 }
 
 //.image-container {
@@ -23,22 +33,22 @@
 
 .name {
   font-family: 'Inter', sans-serif;
-  font-size: 20px;
+  font-size: fluid(20, 16);
   font-weight: 700;
-  line-height: 28px;
+  line-height: rem(28);
   text-align: center;
   color: #333;
-  border-bottom: 2px dashed #F8346B;
-  padding-bottom: 5px;
-  margin-top: 10px;
+  border-bottom: rem(2) dashed #F8346B;
+  padding-bottom: rem(5);
+  margin-top: rem(10);
 }
 
 .profile-change-icon {
   position: absolute;
-  top: 20px;
-  right: 20px;
+  top: rem(20);
+  right: rem(20);
 
-  width: 20px;
-  height: 20px;
+  width: rem(20);
+  height: rem(20);
   cursor: pointer;
 }

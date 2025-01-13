@@ -1,3 +1,4 @@
+@use '../../../styles/helpers' as *;
 
 .disabled {
   pointer-events: none;
@@ -12,36 +13,32 @@
   display: flex;
   align-items: center;
   text-align: center;
-  margin-right: 20px;
+  margin-right: rem(20);
   cursor: pointer;
 }
 
 .count {
-  //styleName: tiny_text / Neutral Dark-60;
   font-family: Inter;
-  font-size: 12px;
+  font-size: rem(14);
   font-weight: 400;
-  line-height: 16px;
+  line-height: rem(16);
   letter-spacing: 0.02em;
   text-align: left;
   color: var(--color-dark-500);
-  margin-left: 10px;
+  margin-left: rem(10);
 }
 
 .newest-likes {
   font-family: Inter;
-  font-size: 12px;
+  font-size: rem(14);
   font-weight: 600;
-  line-height: 16px;
+  line-height: rem(16);
   letter-spacing: 0.02em;
   text-align: left;
   color: var(--color-dark-700);
 }
 
 .name-container {
-  margin-right: 40px;
+  margin-right: rem(40);
 }
 
-.name {
-
-}

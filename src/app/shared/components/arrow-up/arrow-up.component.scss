@@ -1,4 +1,6 @@
+@use '../../../styles/helpers' as *;
+
 .arrow-up {
-  width: 12px;
-  height: 7.41px;
+  width: rem(12);
+  height: rem(8);
 }

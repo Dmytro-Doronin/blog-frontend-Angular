@@ -1,10 +1,12 @@
+@use '../../../styles/helpers' as *;
+
 .blog-item {
   display: flex;
   position: relative;
   //width: 928px;
   width: 100%;
-  padding: 11px 0 11px 0;
-  border-bottom: 1px solid var(--color-light-700);
+  padding-block: rem(11);
+  border-bottom: rem(1) solid var(--color-light-700);
   transition: border-color 0.3s ease-in-out;
   cursor: pointer;
   //z-index: 10;
@@ -14,19 +16,19 @@
     justify-content: center;
 
     &-header-website {
-      margin-top: 5px;
+      margin-top: rem(5);
       font-family: Inter;
-      font-size: 14px;
+      font-size: rem(14);
       font-weight: 400;
-      line-height: 24px;
+      line-height: rem(24);
       text-align: left;
       color: var(--color-dark-500);
     }
     &-url {
       font-family: Inter;
-      font-size: 14px;
+      font-size: rem(14);
       font-weight: 400;
-      line-height: 24px;
+      line-height: rem(24);
       text-align: left;
     }
 
@@ -39,30 +41,30 @@
       text-overflow: ellipsis;
 
       font-family: Inter;
-      font-size: 14px;
+      font-size: rem(14);
       font-weight: 400;
-      line-height: 24px;
+      line-height: rem(24);
     }
 
   }
 
   &-picture {
-    margin-right: 12px;
+    margin-right: rem(12);
   }
 
   &-content-header {
-    margin-bottom: 24px;
+    margin-bottom: rem(24);
   }
 
   &:hover {
-    border-bottom: 1px solid var(--color-danger-300) ;
+    border-bottom: rem(1) solid var(--color-danger-300) ;
   }
 }
 .author {
   font-family: Inter;
-  font-size: 14px;
+  font-size: rem(14);
   font-weight: 400;
-  line-height: 24px;
+  line-height: rem(24);
   text-align: left;
 }
 
@@ -74,22 +76,22 @@
   color: #0000FF;
 }
 
-@media (max-width: 768px) {
-  .blog-item {
-    font-size: 12px;
-  }
-  .blog-item-content-header-website {
-    font-size: 12px;
-  }
-  .blog-item-content-header-url {
-    font-size: 12px;
-  }
-  .blog-item-content-text {
-    font-size: 12px;
-  }
-
-  .author {
-    font-size: 12px;
-  }
-
-}
+//@media (max-width: 768px) {
+//  .blog-item {
+//    font-size: 12px;
+//  }
+//  .blog-item-content-header-website {
+//    font-size: 12px;
+//  }
+//  .blog-item-content-header-url {
+//    font-size: 12px;
+//  }
+//  .blog-item-content-text {
+//    font-size: 12px;
+//  }
+//
+//  .author {
+//    font-size: 12px;
+//  }
+//
+//}

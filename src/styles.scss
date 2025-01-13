@@ -1,16 +1,21 @@
-/* You can add global styles to this file, and also import other style files */
 @forward "app/styles/_colors.scss";
 @forward "app/styles/_typography.scss";
 @forward "app/styles/_variables.scss";
 @forward "app/styles/_boilerplate.scss";
 @forward "app/styles/_mixins.scss";
 
-.container {
-  max-width: 1280px;
-  margin: 0 auto;
-  height: 100%;
-  padding: 0 10px;
-}
+
+@use "app/styles/functions";
+@use "app/styles/variables";
+
+//.container {
+//  max-width: 1280px;
+//  margin: 0 auto;
+//  height: 100%;
+//  padding: 0 10px;
+//}
+
+
 ::-webkit-scrollbar {
   width: 5px;
 }

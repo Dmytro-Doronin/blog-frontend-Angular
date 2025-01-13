@@ -1,24 +1,30 @@
+@use '../../../styles/helpers' as *;
+
 .card {
-  width: 378px;
-  padding: 29px 24px 26px;
-  border-radius: 2px;
+  width: rem(378);
+  padding: rem(29) rem(24) rem(26);
+  border-radius: rem(2);
   background-color: var(--color-light-100);
-}
 
-@media (max-width: 1023px) {
-  .card {
-    width: 600px;
+  @include mobile-s {
+    width: rem(320);
   }
 }
 
-@media (max-width: 600px) {
-  .card {
-    width: 400px;
-  }
-}
-
-@media (max-width: 400px) {
-  .card {
-    width: 300px;
-  }
-}
+//@media (max-width: 1023px) {
+//  .card {
+//    width: 600px;
+//  }
+//}
+//
+//@media (max-width: 600px) {
+//  .card {
+//    width: 400px;
+//  }
+//}
+//
+//@media (max-width: 400px) {
+//  .card {
+//    width: 300px;
+//  }
+//}
