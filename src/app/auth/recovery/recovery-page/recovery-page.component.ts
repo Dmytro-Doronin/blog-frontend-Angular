@@ -15,23 +15,13 @@ import {
   templateUrl: './recovery-page.component.html',
   styleUrl: './recovery-page.component.scss',
 })
-export class RecoveryPageComponent implements OnInit {
-  authSeverity$?: Observable<SeverityType | undefined>
-  recoverPasswordLoading$?: Observable<boolean>
+export class RecoveryPageComponent {
+
+  authSeverity$?: Observable<SeverityType | undefined> = this.store.select(selectAuthAlertSeverity)
+  recoverPasswordLoading$?: Observable<boolean> = this.store.select(selectIsAuthLoading)
+
   constructor(private store: Store) {}
 
-  ngOnInit(): void {
-    this.loader()
-    this.severity()
-  }
-
-  loader() {
-    this.recoverPasswordLoading$ = this.store.select(selectIsAuthLoading)
-  }
-
-  severity() {
-    this.authSeverity$ = this.store.select(selectAuthAlertSeverity)
-  }
   onFormSubmit(data: { email: string }) {
     this.store.dispatch(passwordRecovery({ email: data.email }))
   }

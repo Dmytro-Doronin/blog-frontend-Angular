@@ -10,17 +10,10 @@ import { selectIsAuthLoading } from '../../../store/selectors/auth.selector'
   templateUrl: './auth-login.component.html',
   styleUrl: './auth-login.component.scss',
 })
-export class AuthLoginComponent implements OnInit {
-  loginLoading$?: Observable<boolean>
+export class AuthLoginComponent {
+  loginLoading$?: Observable<boolean> = this.store.select(selectIsAuthLoading)
 
   constructor(private store: Store) {}
-
-  ngOnInit(): void {
-    this.loader()
-  }
-  loader() {
-    this.loginLoading$ = this.store.select(selectIsAuthLoading)
-  }
 
   onFormSubmit(data: { usernameOrEmail: string; password: string }) {
     this.store.dispatch(loginUser({ loginOrEmail: data.usernameOrEmail, password: data.password }))

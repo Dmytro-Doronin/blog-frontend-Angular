@@ -15,22 +15,19 @@ import { SeverityType } from '../../../types/notification.models'
   styleUrl: './auth-sign-up.component.scss',
 })
 export class AuthSignUpComponent implements OnInit, OnDestroy {
-  authSeverity$?: Observable<SeverityType | undefined>
-  signUpLoading$?: Observable<boolean>
+  authSeverity$?: Observable<SeverityType | undefined> = this.store.select(selectAuthAlertSeverity)
+  signUpLoading$?: Observable<boolean> = this.store.select(selectIsAuthLoading)
   emailRegistration$?: Observable<string>
   isModalOpen = false
   content: string = ``
   private emailSubscription: Subscription = new Subscription()
+
   constructor(private store: Store) {}
+
   ngOnInit(): void {
-    this.loader()
     this.email()
-    // this.emailSubscription =  this.emailRegistration$.subscribe(item => ((this.isModalOpen = !!item)))
   }
-  loader() {
-    this.signUpLoading$ = this.store.select(selectIsAuthLoading)
-    this.authSeverity$ = this.store.select(selectAuthAlertSeverity)
-  }
+
 
   email() {
     this.emailRegistration$ = this.store.select(selectRegistrationEmail)

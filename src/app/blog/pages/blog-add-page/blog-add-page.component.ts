@@ -11,20 +11,13 @@ import { selectAuthAlertSeverity } from '../../../store/selectors/auth.selector'
   templateUrl: './blog-add-page.component.html',
   styleUrl: './blog-add-page.component.scss',
 })
-export class BlogAddPageComponent implements OnInit {
-  authSeverity$?: Observable<SeverityType | undefined>
-  loading$?: Observable<boolean>
+export class BlogAddPageComponent {
+  authSeverity$?: Observable<SeverityType | undefined> = this.store.select(selectAuthAlertSeverity)
+  loading$?: Observable<boolean> = this.store.select(selectBlogsLoading)
 
   constructor(private store: Store) {}
 
-  ngOnInit() {
-    this.loading()
-  }
 
-  loading() {
-    this.authSeverity$ = this.store.select(selectAuthAlertSeverity)
-    this.loading$ = this.store.select(selectBlogsLoading)
-  }
 
   onFormSubmit(data: { name: string; description: string; websiteUrl: string; file: File }) {
     this.store.dispatch(

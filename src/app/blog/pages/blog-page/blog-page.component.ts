@@ -38,7 +38,7 @@ import {
   styleUrl: './blog-page.component.scss',
 })
 export class BlogPageComponent implements OnInit, OnDestroy {
-  isAuthenticated$?: Observable<boolean>
+  isAuthenticated$?: Observable<boolean> = this.store.select(selectIsAuthenticated)
   loading$?: Observable<boolean>
   loadingForPosts$?: Observable<boolean>
   loadingForGetAllPostsInBlog$?: Observable<boolean>
@@ -63,7 +63,6 @@ export class BlogPageComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    this.isAuthenticated$ = this.store.select(selectIsAuthenticated)
     this.blogId = this.route.snapshot.paramMap.get('id') ?? ''
     this.addCurrentBlog()
     this.getCurrentUserId()

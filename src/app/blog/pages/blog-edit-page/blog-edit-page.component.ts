@@ -12,20 +12,15 @@ import { updateBlog } from '../../../store/actions/blogs.actions'
   styleUrl: './blog-edit-page.component.scss',
 })
 export class BlogEditPageComponent implements OnInit, OnDestroy {
-  authSeverity$?: Observable<SeverityType | undefined>
-  loading$?: Observable<boolean>
+  authSeverity$?: Observable<SeverityType | undefined> = this.store.select(selectAuthAlertSeverity)
+  loading$?: Observable<boolean> = this.store.select(selectBlogsLoading)
   currentBlogId: string = ''
   private currentBlogSubscription: Subscription = new Subscription()
 
   constructor(private store: Store) {}
 
   ngOnInit() {
-    this.loading()
     this.getBlogId()
-  }
-  loading() {
-    this.authSeverity$ = this.store.select(selectAuthAlertSeverity)
-    this.loading$ = this.store.select(selectBlogsLoading)
   }
 
   getBlogId() {

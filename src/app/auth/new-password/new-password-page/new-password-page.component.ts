@@ -16,8 +16,8 @@ import { SeverityType } from '../../../types/notification.models'
 })
 export class NewPasswordPageComponent implements OnInit, OnDestroy {
   recoveryCode!: string
-  authSeverity$?: Observable<SeverityType | undefined>
-  newPasswordLoading$?: Observable<boolean>
+  authSeverity$?: Observable<SeverityType | undefined> = this.store.select(selectAuthAlertSeverity)
+  newPasswordLoading$?: Observable<boolean> = this.store.select(selectIsAuthLoading)
   private authQuerySubscription: Subscription = new Subscription()
 
   constructor(
@@ -27,9 +27,6 @@ export class NewPasswordPageComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.getParams()
-
-    this.loader()
-    this.severity()
   }
 
   getParams() {
@@ -38,14 +35,6 @@ export class NewPasswordPageComponent implements OnInit, OnDestroy {
     })
   }
 
-  loader() {
-    this.newPasswordLoading$ = this.store.select(selectIsAuthLoading)
-
-  }
-
-  severity() {
-    this.authSeverity$ = this.store.select(selectAuthAlertSeverity)
-  }
 
   onFormSubmit(data: { newPassword: string }) {
     this.store.dispatch(
