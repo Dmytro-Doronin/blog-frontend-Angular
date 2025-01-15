@@ -61,6 +61,7 @@ export class AuthEffects {
             }),
             catchError(error => {
               const message = error.error.errorsMessages[0].message
+              console.log(message)
               return of(
                 setIsAuthLoading({ isAuthLoading: false }),
                 addAuthAlert({ severity: 'error', message: message })

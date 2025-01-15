@@ -53,6 +53,10 @@
         {{ post?.shortDescription }}
       </div>
 
+      <div class="post-description">
+        {{ post?.content }}
+      </div>
+
       <blog-add-comment-form
         (formSubmitted)="onAddCommentFormSubmit($event)"
         [isAuthenticated]="isAuthenticated$ | async"

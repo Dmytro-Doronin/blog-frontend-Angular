@@ -3,7 +3,7 @@
 :host {
   //grid-area: aside;
   width: rem(252);
-  min-height: calc(100vh);
+  min-height: calc(100vh - #{rem(60)});
   background-color: var(--color-light-100);
   padding: rem(43) 0 0 0;
   z-index: 5;

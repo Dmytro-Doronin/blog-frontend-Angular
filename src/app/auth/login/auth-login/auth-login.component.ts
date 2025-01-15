@@ -15,6 +15,7 @@ export class AuthLoginComponent {
 
   constructor(private store: Store) {}
 
+
   onFormSubmit(data: { usernameOrEmail: string; password: string }) {
     this.store.dispatch(loginUser({ loginOrEmail: data.usernameOrEmail, password: data.password }))
   }
