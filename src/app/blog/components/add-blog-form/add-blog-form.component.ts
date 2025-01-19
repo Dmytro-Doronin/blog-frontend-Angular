@@ -20,8 +20,8 @@ export class AddBlogFormComponent implements OnChanges {
   constructor(private formBuilder: FormBuilder) {}
 
   addBlogUpForm = this.formBuilder.group({
-    name: ['', [Validators.required, Validators.maxLength(15)]],
-    description: ['', [Validators.required, Validators.maxLength(500)]], // Validators.minLength(3)
+    name: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(15)]],
+    description: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(500)]], // Validators.minLength(3)
     websiteUrl: [
       '',
       [

@@ -7,8 +7,6 @@ import { IBlog } from '../../../types/blogs.models'
 import {
   selectBlogsLoading,
   selectCurrentBlog,
-  selectHasMorePostsForBlog,
-  selectPostsForBlogBlogModal,
   selectPostsForBlogLoading,
 } from '../../../store/selectors/blogs.selector'
 import {
@@ -27,7 +25,6 @@ import {
   selectCurrentPostId,
   selectDeletePostModal,
   selectHasMorePosts,
-  selectPost,
   selectPosts,
   selectPostsLoading,
 } from '../../../store/selectors/posts.selector'
@@ -49,7 +46,6 @@ export class BlogPageComponent implements OnInit, OnDestroy {
   blog?: IBlog
   blogId: string = ''
   postToDeleteId: string = ''
-  // editPostLink = '/main/posts-page/edit-post'
   pageNumber = 1
   pageSize = 5
   hasMorePostForBlog$?: Observable<boolean>

@@ -30,9 +30,12 @@ export class EditPostFormComponent implements OnInit, OnDestroy, OnChanges {
   ) {}
 
   editPostForm = this.formBuilder.group({
-    title: ['', [Validators.required, Validators.maxLength(30)]],
-    shortDescription: ['', [Validators.required, Validators.maxLength(100)]],
-    content: ['', [Validators.required, Validators.maxLength(1000)]],
+    title: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(30)]],
+    shortDescription: [
+      '',
+      [Validators.required, Validators.minLength(2), Validators.maxLength(100)],
+    ],
+    content: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(1000)]],
   })
 
   ngOnInit() {

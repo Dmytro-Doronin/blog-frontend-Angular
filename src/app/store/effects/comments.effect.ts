@@ -43,7 +43,6 @@ export class CommentsEffects {
             })
             .pipe(
               mergeMap((response: IComment) => {
-                console.log('Response from server:', response)
                 return [
                   addSingleCommentToStateAction({ comment: response }),
                   addAuthAlert({ severity: 'success', message: 'Comment has been added!' }),

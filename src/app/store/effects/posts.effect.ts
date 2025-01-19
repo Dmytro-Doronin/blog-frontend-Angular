@@ -3,12 +3,7 @@ import { Actions, createEffect, ofType } from '@ngrx/effects'
 import { AuthService } from '../../core/services/auth.service'
 import { BlogService } from '../../core/services/blog.service'
 import { Router } from '@angular/router'
-import {
-  changeLikeStatusForPostInBlogAction,
-  getBlogByIdAction,
-  setBlogByIdAction,
-  setBlogsLoadingAction,
-} from '../actions/blogs.actions'
+import { changeLikeStatusForPostInBlogAction, setBlogByIdAction } from '../actions/blogs.actions'
 import { catchError, concatMap, filter, mergeMap, switchMap } from 'rxjs/operators'
 import { concat, of } from 'rxjs'
 import { addAuthAlert } from '../actions/auth.actions'
@@ -43,53 +38,6 @@ export class PostsEffects {
     private commentService: CommentsService,
     private router: Router
   ) {}
-
-  // getAllPosts$ = createEffect(() =>
-  //   this.actions$.pipe(
-  //     ofType(loadPosts),
-  //     concatMap(action =>
-  //       concat(
-  //         of(setPostsLoadingAction({ loading: true })),
-  //         this.postService.getPosts(action.params).pipe(
-  //           mergeMap((response: PostResponse) => {
-  //             if (action.params.pageNumber === 1) {
-  //               return [
-  //                 setAllPostsToState({
-  //                   pagesCount: response.pagesCount,
-  //                   page: response.page,
-  //                   pageSize: response.pageSize,
-  //                   totalCount: response.totalCount,
-  //                   posts: response.items,
-  //                   hasMorePosts: response.items.length === action.params.pageSize,
-  //                 }),
-  //                 setPostsLoadingAction({ loading: false }),
-  //               ]
-  //             } else {
-  //               return [
-  //                 addPostsToStateAction({
-  //                   pagesCount: response.pagesCount,
-  //                   page: response.page,
-  //                   pageSize: response.pageSize,
-  //                   totalCount: response.totalCount,
-  //                   posts: response.items,
-  //                   hasMorePosts: response.items.length === action.params.pageSize,
-  //                 }),
-  //                 setPostsLoadingAction({ loading: false }),
-  //               ]
-  //             }
-  //           }),
-  //           catchError(error => {
-  //             const message = error?.error?.errorsMessages?.[0]?.message || 'Failed to load posts'
-  //             return of(
-  //               setPostsLoadingAction({ loading: false }),
-  //               addAuthAlert({ severity: 'error', message: message })
-  //             )
-  //           })
-  //         )
-  //       )
-  //     )
-  //   )
-  // )
 
   loadInitialPosts$ = createEffect(() =>
     this.actions$.pipe(
@@ -177,7 +125,10 @@ export class PostsEffects {
                 ]
               }),
               catchError(error => {
-                const message = error.error.errorsMessages[0].message
+                const message =
+                  error.error.errorsMessages[0].message ||
+                  error.error.errorsMessages[0] ||
+                  'Failed to add post'
                 return of(
                   setPostsLoadingAction({ loading: false }),
                   addAuthAlert({ severity: 'error', message: message })
@@ -244,7 +195,9 @@ export class PostsEffects {
                   }),
                   catchError(error => {
                     const message =
-                      error?.error?.errorsMessages?.[0]?.message || 'Failed to load updated blog'
+                      error?.error?.errorsMessages?.[0]?.message ||
+                      error.error.errorsMessages[0] ||
+                      'Failed to load post'
                     return of(
                       setPostsLoadingAction({ loading: false }),
                       addAuthAlert({ severity: 'error', message: message })
@@ -254,7 +207,9 @@ export class PostsEffects {
               ),
               catchError(error => {
                 const message =
-                  error?.error?.errorsMessages?.[0]?.message || 'Failed to update post'
+                  error?.error?.errorsMessages?.[0]?.message ||
+                  error.error.errorsMessages[0] ||
+                  'Failed to edit post'
                 return of(
                   setPostsLoadingAction({ loading: false }),
                   addAuthAlert({ severity: 'error', message: message })
@@ -308,140 +263,6 @@ export class PostsEffects {
     )
   )
 
-  // getPostById$ = createEffect(() =>
-  //   this.actions$.pipe(
-  //     ofType(getPostByIdAction),
-  //     concatMap(action =>
-  //       concat(
-  //         of(setPostsLoadingAction({ loading: true })),
-  //         this.postService.getPostById(action.postId).pipe(
-  //           switchMap((response: any) =>
-  //             concat(
-  //               of(
-  //                 setPostByIdAction({
-  //                   ...response,
-  //                   extendedLikesInfo: response.extendedLikesInfo,
-  //                 })
-  //               ),
-  //               this.blogService.getBlogById(response.blogId).pipe(
-  //                 mergeMap((blog: any) => {
-  //                   return [
-  //                     setBlogByIdAction({ ...blog }),
-  //                     // addAuthAlert({ severity: 'success', message: 'Post was changed' }),
-  //                     setPostsLoadingAction({ loading: false }),
-  //                   ]
-  //                 }),
-  //                 catchError(error => {
-  //                   const message =
-  //                     error?.error?.errorsMessages?.[0]?.message || 'Failed to load blog'
-  //                   return of(
-  //                     setPostsLoadingAction({ loading: false }),
-  //                     addAuthAlert({ severity: 'error', message: message })
-  //                   )
-  //                 })
-  //               ),
-  //               this.commentService.getAllComment(response.id).pipe(
-  //                 mergeMap((response: CommentResponse) => {
-  //                   return [
-  //                     setBlogByIdAction({ ...blog }),
-  //                     // addAuthAlert({ severity: 'success', message: 'Post was changed' }),
-  //                     setPostsLoadingAction({ loading: false }),
-  //                   ]
-  //                 }),
-  //                 catchError(error => {
-  //                   const message =
-  //                     error?.error?.errorsMessages?.[0]?.message || 'Failed to load blog'
-  //                   return of(
-  //                     setPostsLoadingAction({ loading: false }),
-  //                     addAuthAlert({ severity: 'error', message: message })
-  //                   )
-  //                 })
-  //               )
-  //             )
-  //           ),
-  //           catchError(error => {
-  //             const message = error?.error?.errorsMessages?.[0]?.message || 'Failed to get post'
-  //             return of(
-  //               setPostsLoadingAction({ loading: false }),
-  //               addAuthAlert({ severity: 'error', message: message })
-  //             )
-  //           })
-  //         )
-  //       )
-  //     )
-  //   )
-  // )
-  // getPostById$ = createEffect(() =>
-  //   this.actions$.pipe(
-  //     ofType(getPostByIdAction),
-  //     concatMap(action =>
-  //       concat(
-  //         of(setPostsLoadingAction({ loading: true })),
-  //         this.postService.getPostById(action.postId).pipe(
-  //           switchMap((response: any) =>
-  //             this.blogService.getBlogById(response.blogId).pipe(
-  //               mergeMap((blog: any) => {
-  //                 console.log('get post by id success')
-  //                 return [
-  //                   setBlogByIdAction({ ...blog }),
-  //                   // addAuthAlert({ severity: 'success', message: 'Post was changed' }),
-  //                   setPostsLoadingAction({ loading: false }),
-  //                 ]
-  //               }),
-  //               catchError(error => {
-  //                 const message =
-  //                   error?.error?.errorsMessages?.[0]?.message || 'Failed to load blog'
-  //                 return of(
-  //                   setPostsLoadingAction({ loading: false }),
-  //                   addAuthAlert({ severity: 'error', message: message })
-  //                 )
-  //               })
-  //             )
-  //           ),
-  //           catchError(error => {
-  //             const message = error?.error?.errorsMessages?.[0]?.message || 'Failed to get post'
-  //             return of(
-  //               setPostsLoadingAction({ loading: false }),
-  //               addAuthAlert({ severity: 'error', message: message })
-  //             )
-  //           })
-  //         )
-  //       )
-  //     )
-  //   )
-  // )
-
-  // getPostById$ = createEffect(() =>
-  //   this.actions$.pipe(
-  //     ofType(getPostByIdAction),
-  //     concatMap(action =>
-  //       concat(
-  //         of(setPostsLoadingAction({ loading: true })),
-  //         this.postService.getPostById(action.postId).pipe(
-  //           mergeMap((response: any) => {
-  //             // console.log(response)
-  //             return [
-  //               setPostByIdAction({
-  //                 ...response,
-  //                 extendedLikesInfo: response.extendedLikesInfo,
-  //               }),
-  //               // addAuthAlert({ severity: 'success', message: 'Blog has been added!' }),
-  //               setPostsLoadingAction({ loading: false }),
-  //             ]
-  //           }),
-  //           catchError(error => {
-  //             const message = error.error.errorsMessages[0].message
-  //             return of(
-  //               setPostsLoadingAction({ loading: false }),
-  //               addAuthAlert({ severity: 'error', message: message })
-  //             )
-  //           })
-  //         )
-  //       )
-  //     )
-  //   )
-  // )
-
   likesPost$ = createEffect(() =>
     this.actions$.pipe(
       ofType(setLikeOrDislikeAction),
@@ -461,16 +282,11 @@ export class PostsEffects {
                   authorName: action.authorName,
                   userId: action.userId,
                 }),
-                // addAuthAlert({ severity: 'success', message: 'Blog has been added!' }),
-                // setBlogsLoadingAction({ loading: false }),
               ]
             }),
             catchError(error => {
               const message = error.error.errorsMessages[0].message
-              return of(
-                // setBlogsLoadingAction({ loading: false }),
-                addAuthAlert({ severity: 'error', message: message })
-              )
+              return of(addAuthAlert({ severity: 'error', message: message }))
             })
           )
         )

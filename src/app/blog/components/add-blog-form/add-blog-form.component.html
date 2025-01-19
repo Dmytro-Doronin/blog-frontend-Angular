@@ -10,7 +10,8 @@
 
   <div *ngIf="name && !name!.valid && (name?.dirty || name?.touched)" class="error">
     <div *ngIf="name.errors?.['required']">Login is required</div>
-    <div *ngIf="name.errors?.['minlength']">The Name must not be less than 3 or more then 15.</div>
+    <div *ngIf="name.errors?.['minlength']">The Name must not be less than 2 or more then 15.</div>
+    <div *ngIf="name.errors?.['maxlength']">The Name must not be less than 2 or more then 15.</div>
   </div>
 
   <!--Description-->
@@ -28,8 +29,11 @@
     class="error"
   >
     <div *ngIf="description.errors?.['required']">Description is required</div>
+    <div *ngIf="description.errors?.['minlength']">
+      The description must not be less than 2 characters and more than 500.
+    </div>
     <div *ngIf="description.errors?.['maxlength']">
-      The description must not be less than 1 characters and more than 500.
+      The description must not be less than 2 characters and more than 500.
     </div>
   </div>
 
@@ -50,10 +54,6 @@
     <div *ngIf="websiteUrl.errors?.['pattern']">The Website url must be https://example.com.</div>
   </div>
 
-  <!--    <div *ngIf="loading" class="loader">-->
-  <!--      <blog-loader></blog-loader>-->
-  <!--    </div>-->
-  <!--  <input type="file" (change)="onFileSelect($event)" />-->
   <blog-download-img (addFileSubmitted)="onFileSelect($event)"></blog-download-img>
   <div class="loader-block" *ngIf="loading; else button1">
     <blog-loader></blog-loader>

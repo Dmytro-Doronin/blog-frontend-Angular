@@ -10,7 +10,8 @@
 
   <div *ngIf="title && !title!.valid && (title?.dirty || title?.touched)" class="error">
     <div *ngIf="title.errors?.['required']">Title is required</div>
-    <div *ngIf="title.errors?.['minlength']">The Name must not be less than 3 or more then 15.</div>
+    <div *ngIf="title.errors?.['minlength']">The Name must not be less than 2 or more then 30.</div>
+    <div *ngIf="title.errors?.['maxlength']">The Name must not be less than 2 or more then 30.</div>
   </div>
 
   <!--Short description-->
@@ -31,8 +32,11 @@
     class="error"
   >
     <div *ngIf="shortDescription.errors?.['required']">Short description is required</div>
+    <div *ngIf="shortDescription.errors?.['minlength']">
+      The Short description must not be less than 2 characters and more than 100.
+    </div>
     <div *ngIf="shortDescription.errors?.['maxlength']">
-      The Short description must not be less than 1 characters and more than 500.
+      The Short description must not be less than 2 characters and more than 100.
     </div>
   </div>
 
@@ -50,8 +54,10 @@
     *ngIf="content && !editPostForm!.valid && (editPostForm?.dirty || editPostForm?.touched)"
     class="error"
   >
-    <div *ngIf="editPostForm.errors?.['required']">Website url is required</div>
-    <div *ngIf="editPostForm.errors?.['pattern']">The Website url must be https://example.com.</div>
+    <div *ngIf="editPostForm.errors?.['required']">Content url is required</div>
+    <div *ngIf="editPostForm.errors?.['pattern']">
+      The content must not be less than 2 characters and more than 1000
+    </div>
   </div>
 
   <!--    <div *ngIf="loading" class="loader">-->

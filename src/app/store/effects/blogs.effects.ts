@@ -77,7 +77,10 @@ export class BlogsEffects {
                 ]
               }),
               catchError(error => {
-                const message = error.error.errorsMessages[0].message
+                const message =
+                  error.error.errorsMessages[0].message ||
+                  error.error.errorsMessages[0] ||
+                  'Failed to add blog'
                 return of(
                   setBlogsLoadingAction({ loading: false }),
                   addAuthAlert({ severity: 'error', message: message })
@@ -153,7 +156,9 @@ export class BlogsEffects {
                   }),
                   catchError(error => {
                     const message =
-                      error?.error?.errorsMessages?.[0]?.message || 'Failed to load updated blog'
+                      error?.error?.errorsMessages?.[0]?.message ||
+                      error.errorsMessages[0] ||
+                      'Failed to load updated blog'
                     return of(
                       setBlogsLoadingAction({ loading: false }),
                       addAuthAlert({ severity: 'error', message: message })
@@ -163,7 +168,9 @@ export class BlogsEffects {
               ),
               catchError(error => {
                 const message =
-                  error?.error?.errorsMessages?.[0]?.message || 'Failed to update blog'
+                  error?.error?.errorsMessages?.[0]?.message ||
+                  error.error.errorsMessages[0] ||
+                  'Failed to update blog'
                 return of(
                   setBlogsLoadingAction({ loading: false }),
                   addAuthAlert({ severity: 'error', message: message })
