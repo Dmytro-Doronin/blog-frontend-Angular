@@ -1,27 +1,62 @@
-# Blog
+# 📝 Blog App — Angular Frontend
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.2.1.
+**Blog Frontend** is the client-side of a fullstack blogging platform, built with **Angular 17**, **NgRx Store**, and **Module**. It provides a user-friendly interface for reading, creating, editing, and managing blog posts with full state management and API integration.
 
-## Development server
+---
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+### 🔗 Live Demo
 
-## Code scaffolding
+Check out the deployed version:  
+👉 [**Blog App — Live Site**](https://blog-frontend-angular-eight.vercel.app)
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
-## Build
+---
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## 📸 Screenshots
 
-## Running unit tests
+### 🏠 Blog Homepage
+![Homepage](./screenshots/home.png)
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+### 📝 Editor & Post View
+![Editor](./screenshots/edit.png)
 
-## Running end-to-end tests
+### 🔐 Auth (Login/Register)
+![Auth](./screenshots/login.png)
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
 
-## Further help
+---
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+## 🚀 Technologies Used
+
+- **Angular 17** (Modules)
+- **NgRx** – Store, Effects, Entity
+- **RxJS** – Observables and reactive data flow
+- **SCSS** – Styling
+- **Angular Router** – Routing & lazy loading
+- **REST API** – Integrated backend (NestJS)
+
+---
+
+## 📦 Features
+
+- ✅ View blog posts by all users
+- ✅ View post details
+- ✅ Register and login users
+- ✅ Create / Edit / Delete your own posts
+- ✅ Like posts and comments
+- ✅ Responsive UI for mobile and desktop
+- ✅ State management with NgRx (Store, Effects, Selectors)
+
+---
+
+## 🧑‍💻 Getting Started
+
+### 1. Clone the repository
+
+```bash
+git clone https://github.com/Dmytro-Doronin/blog-frontend-Angular.git
+cd blog-frontend-Angular
+
+### 2. Install dependencies
+
+npm install
