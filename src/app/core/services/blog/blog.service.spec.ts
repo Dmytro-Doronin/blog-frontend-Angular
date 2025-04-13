@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing'
 import { BlogService } from './blog.service'
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing'
-import { baseVercelUrl } from './services-variable'
+import { baseVercelUrl } from '../services-variable'
 
 describe('BlogService', () => {
   let service: BlogService

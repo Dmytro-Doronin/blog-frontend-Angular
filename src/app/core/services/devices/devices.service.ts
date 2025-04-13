@@ -1,8 +1,7 @@
 import { HttpClient } from '@angular/common/http'
-import { PostResponse } from '../../types/posts.models'
-import { IDevice } from '../../types/devices.model'
+import { IDevice } from '../../../types/devices.model'
 import { Injectable } from '@angular/core'
-import { baseVercelUrl } from './services-variable'
+import { baseVercelUrl } from '../services-variable'
 
 @Injectable({
   providedIn: 'root',

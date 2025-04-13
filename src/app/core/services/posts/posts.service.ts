@@ -6,8 +6,8 @@ import {
   PostAddToBlogModel,
   PostQueryParams,
   PostResponse,
-} from '../../types/posts.models'
-import { baseVercelUrl } from './services-variable'
+} from '../../../types/posts.models'
+import { baseVercelUrl } from '../services-variable'
 
 @Injectable({
   providedIn: 'root',

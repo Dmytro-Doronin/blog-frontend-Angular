@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store'
 import { Observable, throwError } from 'rxjs'
 import { catchError, switchMap } from 'rxjs/operators'
 import { addAuthAlert, setAccessToken } from '../../store/actions/auth.actions'
-import { AuthService } from '../services/auth.service'
+import { AuthService } from '../services/auth/auth.service'
 import { setAutoLogOut } from '../../store/actions/app.actions'
 
 @Injectable()

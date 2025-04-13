@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core'
 import { HttpClient } from '@angular/common/http'
-import { AuthMe } from '../../types/auth.models'
-import { baseVercelUrl } from './services-variable'
+import { AuthMe } from '../../../types/auth.models'
+import { baseVercelUrl } from '../services-variable'
 
 @Injectable({
   providedIn: 'root',

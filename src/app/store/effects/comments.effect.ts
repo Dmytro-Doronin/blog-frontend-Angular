@@ -3,7 +3,7 @@ import { Actions, createEffect, ofType } from '@ngrx/effects'
 import { catchError, concatMap, filter, mergeMap, switchMap } from 'rxjs/operators'
 import { concat, of } from 'rxjs'
 import { addAuthAlert } from '../actions/auth.actions'
-import { CommentsService } from '../../core/services/comments.service'
+import { CommentsService } from '../../core/services/comments/comments.service'
 import {
   addCommentsToStateAction,
   addSingleCommentToStateAction,

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core'
 import { Actions, createEffect, ofType } from '@ngrx/effects'
-import { catchError, concatMap, delay, finalize, map, mergeMap, switchMap } from 'rxjs/operators'
+import { catchError, concatMap, delay, map, mergeMap } from 'rxjs/operators'
 import { concat, of } from 'rxjs'
 
 import {
@@ -26,7 +26,7 @@ import {
   successChangeUserData,
 } from '../actions/auth.actions'
 import { Router } from '@angular/router'
-import { AuthService } from '../../core/services/auth.service'
+import { AuthService } from '../../core/services/auth/auth.service'
 import { setAppLoading } from '../actions/app.actions'
 import { setLikeStatusAsNoneForPostsInBlogAction } from '../actions/blogs.actions'
 import { setLikeStatusAsNoneForPostsAction } from '../actions/posts.action'
@@ -76,7 +76,7 @@ export class AuthEffects {
   me$ = createEffect(() =>
     this.actions$.pipe(
       ofType(authMe),
-      concatMap(action =>
+      concatMap(() =>
         concat(
           of(setAppLoading({ loading: true })),
           this.authService.me().pipe(
@@ -109,7 +109,7 @@ export class AuthEffects {
   refreshToken$ = createEffect(() =>
     this.actions$.pipe(
       ofType(refreshToken),
-      concatMap(action =>
+      concatMap(() =>
         concat(
           this.authService.sendRefreshToken().pipe(
             mergeMap((response: any) => [
@@ -232,17 +232,13 @@ export class AuthEffects {
           this.authService.passwordConfirmation(action.confirmationCode).pipe(
             mergeMap(() => [
               setConfirmationEmailStatus({ confirmationStatus: 'success' }),
-              // addAuthAlert({
-              //   severity: 'success',
-              //   message: 'An email has been sent to you with instructions!',
-              // }),
+              addAuthAlert({
+                severity: 'success',
+                message: 'An email has been sent to you with instructions!',
+              }),
             ]),
-            catchError(error => {
-              // const message = error.error.errorsMessages[0].message
-              return of(
-                setConfirmationEmailStatus({ confirmationStatus: 'error' })
-                // addAuthAlert({ severity: 'error', message: message })
-              )
+            catchError(() => {
+              return of(setConfirmationEmailStatus({ confirmationStatus: 'error' }))
             })
           )
         )
@@ -311,11 +307,11 @@ export class AuthEffects {
   logOut$ = createEffect(() =>
     this.actions$.pipe(
       ofType(logOut),
-      concatMap(action =>
+      concatMap(() =>
         concat(
           of(setAppLoading({ loading: true })),
           this.authService.logOut().pipe(
-            mergeMap(user => {
+            mergeMap(() => {
               this.router.navigate(['/main/blogs-page'])
               localStorage.removeItem('accessToken')
               return [

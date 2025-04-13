@@ -5,8 +5,8 @@ import {
   CommentsQueryParams,
   IComment,
   SendCommentsModel,
-} from '../../types/comments.model'
-import { baseVercelUrl } from './services-variable'
+} from '../../../types/comments.model'
+import { baseVercelUrl } from '../services-variable'
 
 @Injectable({
   providedIn: 'root',

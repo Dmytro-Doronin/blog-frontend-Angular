@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core'
 import { Actions, createEffect, ofType } from '@ngrx/effects'
-import { AuthService } from '../../core/services/auth.service'
+import { AuthService } from '../../core/services/auth/auth.service'
 import { Router } from '@angular/router'
 import { addBlogsAction, setBlogsLoadingAction } from '../actions/blogs.actions'
 import { catchError, concatMap, mergeMap } from 'rxjs/operators'
 import { concat, of } from 'rxjs'
 import { addAuthAlert } from '../actions/auth.actions'
-import { DevicesService } from '../../core/services/devices.service'
+import { DevicesService } from '../../core/services/devices/devices.service'
 import {
   deleteAllDevices,
   deleteDeviceById,

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core'
 import { Actions, createEffect, ofType } from '@ngrx/effects'
-import { AuthService } from '../../core/services/auth.service'
+import { AuthService } from '../../core/services/auth/auth.service'
 import { Router } from '@angular/router'
 import {
   catchError,
@@ -37,7 +37,7 @@ import {
   successUpdateDetailsBlog,
   updateBlog,
 } from '../actions/blogs.actions'
-import { BlogService } from '../../core/services/blog.service'
+import { BlogService } from '../../core/services/blog/blog.service'
 import { addAuthAlert, deleteAuthAlert } from '../actions/auth.actions'
 import { BlogResponse } from '../../types/blogs.models'
 import { PostResponse } from '../../types/posts.models'

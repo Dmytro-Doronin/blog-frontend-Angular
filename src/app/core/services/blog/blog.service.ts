@@ -6,9 +6,9 @@ import {
   EditBlogModel,
   IBlog,
   PostBlogModel,
-} from '../../types/blogs.models'
-import { PostAddToBlogModel, PostQueryParams, PostResponse } from '../../types/posts.models'
-import { baseVercelUrl } from './services-variable'
+} from '../../../types/blogs.models'
+import { PostAddToBlogModel, PostQueryParams, PostResponse } from '../../../types/posts.models'
+import { baseVercelUrl } from '../services-variable'
 @Injectable({
   providedIn: 'root',
 })

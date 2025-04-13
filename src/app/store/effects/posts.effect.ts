@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core'
 import { Actions, createEffect, ofType } from '@ngrx/effects'
-import { AuthService } from '../../core/services/auth.service'
-import { BlogService } from '../../core/services/blog.service'
+import { AuthService } from '../../core/services/auth/auth.service'
+import { BlogService } from '../../core/services/blog/blog.service'
 import { Router } from '@angular/router'
 import { changeLikeStatusForPostInBlogAction, setBlogByIdAction } from '../actions/blogs.actions'
 import { catchError, concatMap, filter, mergeMap, switchMap } from 'rxjs/operators'
@@ -23,9 +23,9 @@ import {
   successUpdateDetailsPost,
   updatePost,
 } from '../actions/posts.action'
-import { PostsService } from '../../core/services/posts.service'
+import { PostsService } from '../../core/services/posts/posts.service'
 import { PostResponse } from '../../types/posts.models'
-import { CommentsService } from '../../core/services/comments.service'
+import { CommentsService } from '../../core/services/comments/comments.service'
 import { IBlog } from '../../types/blogs.models'
 
 @Injectable()
