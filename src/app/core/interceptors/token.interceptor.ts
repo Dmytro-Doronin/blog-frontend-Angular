@@ -3,7 +3,7 @@ import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent } from '@angular/c
 import { Store } from '@ngrx/store'
 import { Observable, throwError } from 'rxjs'
 import { catchError, switchMap } from 'rxjs/operators'
-import { addAuthAlert, logOut, setAccessToken } from '../../store/actions/auth.actions'
+import { addAuthAlert, setAccessToken } from '../../store/actions/auth.actions'
 import { AuthService } from '../services/auth.service'
 import { setAutoLogOut } from '../../store/actions/app.actions'
 
@@ -15,7 +15,6 @@ export class TokenInterceptor implements HttpInterceptor {
   ) {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-
     if (req.url.includes('/login') || req.url.includes('/refresh-token')) {
       return next.handle(req)
     }

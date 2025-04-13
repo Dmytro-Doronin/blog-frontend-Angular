@@ -9,7 +9,6 @@ import {
 } from '../../types/blogs.models'
 import { PostAddToBlogModel, PostQueryParams, PostResponse } from '../../types/posts.models'
 import { baseVercelUrl } from './services-variable'
-//https://localhost.com
 @Injectable({
   providedIn: 'root',
 })
